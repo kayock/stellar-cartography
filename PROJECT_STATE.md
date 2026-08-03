@@ -1,49 +1,43 @@
-# Project state — FOXAI Stellar Cartography R0.4.0
+# Project state — FOXAI Stellar Cartography R0.5.0 (development)
 
-**As of:** 2026-07-31  
-**Release:** R0.4.0 — Archive Lights, Watchlist, Apophis Tracker (final, live-validated)  
-**Baseline:** R0.3.0 — Planetary Image Pilot (promoted, protected)
+**As of:** 2026-08-03  
+**Release:** R0.5.0 — **in development** (Slice 1 landed; not packaged)  
+**Baseline:** R0.4.0 — preserved under `receipts/baseline_r0.4.0/` (immutable)
 
-## Prior release (unchanged)
+## Baseline receipt quarantine
 
-**R0.3.0 release:** `FOXAI_StellarCartography_R0.3.0_20260731.zip`  
-SHA-256: `b2a635ba6ef5e9b16d9aae5b8d01dc030a6e90bad50d3439942b4e2b5669c665`  
-Validation at freeze: Python 121/121, Node 78/78
+R0.4.0 `BUILD_RECEIPT` / `SHA256SUMS` were moved byte-for-byte to:
 
-## R0.4.0 scope delivered
+- `receipts/baseline_r0.4.0/BUILD_RECEIPT_R0.4.0.json`
+- `receipts/baseline_r0.4.0/SHA256SUMS_R0.4.0.txt`
+
+Those checksum paths are historical evidence of the R0.4.0 archive layout —
+**not** a current manifest for this working tree. There is no R0.5.0 release
+receipt yet (`receipts/WORK_IN_PROGRESS.md`).
+
+## Slice 1 delivered
 
 | Requirement | Status |
 |-------------|--------|
-| MAST archive-availability lights (Hubble, JWST NIRCam, JWST MIRI) | Done |
-| 0.01° MAST search radius; truthful accessible states | Done |
-| Local Tracked Objects watchlist (portable JSON, atomic writes, backup recovery) | Done |
-| Notes, favorites, unified Tracked Object Details | Done |
-| Apophis 2029 featured tracker (JPL SBDB + Horizons) | Done |
-| April 2029 encounter selection; Horizons $$SOE/$$EOE parsing | Done |
-| Apophis does not navigate sky on placeholder 0,0; explicit Use Ephemeris Position | Done |
-| Watchlist load-failure protections; write blocking until successful load | Done |
-| Apophis 60-second refresh rate limit honored | Done |
-| Preserve R0.3 planetary pilot + R0.2 Solar System + R0.1.4 ESASky queue | Done |
-| Automated tests | Done (161 Python, 134 Node) |
-| Documentation | Done (`docs/ARCHIVE_AVAILABILITY.md`, `docs/TRACKED_OBJECTS.md`, `docs/APOPHIS_TRACKER.md`) |
-| Release packaging | **Complete** |
+| Discovery contracts (`items` vs `query_outcomes`) | Done |
+| Orchestrator + provider failure isolation | Done |
+| Honest MAST multi-strategy discovery | Done |
+| Dedup with merged provenance + match_basis | Done |
+| Discovery panel skeleton | Done |
+| Badge compatibility (conservative mapping) | Done |
+| Single `/api/discovery` request (no duplicate archive-availability) | Done |
+| Moving-object historical coverage not evaluated | Done |
+| Automated tests | Done (Python 180, Node 141 at Slice 1 landing) |
 
-## Explicit exclusions (R0.4)
+## Explicit exclusions (still)
 
-- Starlink tracking
-- General artificial-satellite tracking
-- MAST browser UI or FITS download
-- Continuous background monitoring
-- Planetary imagery beyond Moon/Jupiter/Saturn
+- IRSA / HEASARC adapters
+- Historical moving-object archive matching
+- Final R0.5.0 packaging / release receipt
+- Starlink / general satellite tracking
+- New third-party runtime dependencies
 
-## Validation at freeze
+## Validation at Slice 1 landing
 
-- Python: **161/161**
-- Node: **134/134**
-- Python compilation: pass
-- JavaScript syntax checks: pass
-- ResourceWarning-as-error Python run: pass
-
-## User data
-
-Personal watchlist files (`runtime_data/tracked_objects.json` and `.bak`) are **not** shipped in the release ZIP. Back up before upgrading; restore into `runtime_data\` of an extracted copy for personal use.
+- Python: **180/180**
+- Node: **141/141**
