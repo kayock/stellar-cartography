@@ -28,6 +28,7 @@ from . import coords
 from . import mast_archive
 from . import planetary_image
 from . import watchlist_store
+from .discovery import service as discovery_service
 from .stellarium_client import StellariumClient, SelectionResult
 
 APP_ROOT = watchlist_store.resolve_app_root()
@@ -70,11 +71,12 @@ def make_handler(
     stellarium_client: StellariumClient,
     planetary_fetcher=None,
     archive_fetcher=None,
+    discovery_fetcher=None,
     apophis_fetcher=None,
     watchlist_root: str | None = None,
 ):
     class Handler(BaseHTTPRequestHandler):
-        server_version = "FOXAIStellarCartography/0.4.0"
+        server_version = "FOXAIStellarCartography/0.5.0-dev"
 
         def log_message(self, fmt, *args):  # quieter default logging
             logger.debug("%s - %s", self.address_string(), fmt % args)
@@ -173,6 +175,9 @@ def make_handler(
                 return
 
             if path == "/api/archive-availability":
+                # R0.4 compatibility endpoint (single-strategy facade).
+                # The R0.5 UI should use /api/discovery instead and must not
+                # also call this endpoint for the same target selection.
                 qs = parse_qs(parsed.query)
                 mission = (qs.get("mission") or [""])[0]
                 ra_text = (qs.get("ra") or [""])[0]
@@ -199,6 +204,53 @@ def make_handler(
                     fetcher=archive_fetcher,
                 )
                 self._send_json(200, result)
+                return
+
+            if path == "/api/discovery":
+                qs = parse_qs(parsed.query)
+                ra_text = (qs.get("ra") or [""])[0]
+                dec_text = (qs.get("dec") or [""])[0]
+                name = (qs.get("name") or [""])[0] or None
+                alt_name = (qs.get("alt_name") or [""])[0] or None
+                category = (qs.get("target_category") or [""])[0] or None
+                moving = (qs.get("moving_target") or ["0"])[0] in ("1", "true", "yes")
+                missions_raw = (qs.get("missions") or [""])[0]
+                missions = [m.strip() for m in missions_raw.split(",") if m.strip()] or None
+                ra = dec = None
+                if ra_text and dec_text:
+                    try:
+                        ra = float(ra_text)
+                        dec = float(dec_text)
+                    except ValueError:
+                        self._send_json(
+                            200,
+                            {
+                                "ok": False,
+                                "error": "Invalid coordinates.",
+                                "bundle": {
+                                    "items": [],
+                                    "query_outcomes": [],
+                                    "warnings": [],
+                                    "capability_notes": [],
+                                },
+                                "badges": {},
+                            },
+                        )
+                        return
+                # Prefer an explicit discovery_fetcher; fall back to archive_fetcher
+                # so existing test harnesses keep working.
+                fetch = discovery_fetcher if discovery_fetcher is not None else archive_fetcher
+                payload = discovery_service.run_mast_discovery(
+                    ra_deg=ra,
+                    dec_deg=dec,
+                    target_name=name,
+                    alt_name=alt_name,
+                    target_category=category,
+                    missions=missions,
+                    moving_target=moving,
+                    fetcher=fetch,
+                )
+                self._send_json(200, payload)
                 return
 
             if path == "/api/watchlist":
@@ -326,6 +378,7 @@ def run_server(
     stellarium_base_url: str = "http://127.0.0.1:8090",
     planetary_fetcher=None,
     archive_fetcher=None,
+    discovery_fetcher=None,
     apophis_fetcher=None,
     watchlist_root: str | None = None,
 ):
@@ -334,6 +387,7 @@ def run_server(
         client,
         planetary_fetcher=planetary_fetcher,
         archive_fetcher=archive_fetcher,
+        discovery_fetcher=discovery_fetcher,
         apophis_fetcher=apophis_fetcher,
         watchlist_root=watchlist_root,
     )

@@ -1,8 +1,14 @@
 """
 mast_archive.py
 
-Server-side MAST CAOM archive-availability lookups for Hubble and JWST
-(HST / JWST NIRCam / JWST MIRI only).
+Compatibility facade for R0.4-style MAST CAOM archive-availability lookups
+(Hubble / JWST NIRCam / JWST MIRI).
+
+R0.5.0 Slice 1 multi-strategy discovery lives in
+``app.discovery.providers.mast`` and is exposed via ``GET /api/discovery``.
+This module keeps the original single-strategy helpers and
+``lookup_archive_availability`` API stable for existing callers and tests.
+It is not a destructive rewrite of the R0.4 path.
 
 Uses the official MAST Portal API v0 (https://mast.stsci.edu/api/v0/) with
 ``Mast.Caom.Filtered.Position`` for cone search plus mission/instrument filters.

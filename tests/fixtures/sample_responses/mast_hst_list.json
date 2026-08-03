@@ -1,0 +1,23 @@
+{
+  "status": "COMPLETE",
+  "data": [
+    {
+      "obs_id": "hst_obs_001",
+      "obs_collection": "HST",
+      "instrument_name": "ACS/WFC",
+      "cal_start_time": "2019-01-01",
+      "dataproduct_type": "image",
+      "intentType": "science",
+      "target_name": "M42"
+    },
+    {
+      "obs_id": "hst_obs_002",
+      "obs_collection": "HST",
+      "instrument_name": "WFC3/UVIS",
+      "cal_start_time": "2020-02-02",
+      "dataproduct_type": "image",
+      "intentType": "science",
+      "target_name": "M42"
+    }
+  ]
+}

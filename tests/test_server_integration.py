@@ -353,6 +353,48 @@ class TestR040Endpoints(ServerTestBase):
         self.assertEqual(data["status"], "confirmed")
         self.assertEqual(data["count"], 14)
 
+    def test_discovery_endpoint_returns_bundle_and_badges(self):
+        # Use a discovery-aware fetcher that returns list/name fixtures.
+        fixtures = self.FIXTURES
+
+        def discovery_fetch(request_obj, _timeout):
+            service = request_obj.get("service")
+            if service == "Mast.Name.Lookup":
+                return json.loads((fixtures / "mast_name_lookup_m42.json").read_text(encoding="utf-8"))
+            if service in ("Mast.Caom.Filtered", "Mast.Caom.Filtered.Position"):
+                return json.loads((fixtures / "mast_hst_list.json").read_text(encoding="utf-8"))
+            return json.loads((fixtures / "mast_empty_list.json").read_text(encoding="utf-8"))
+
+        self.httpd.shutdown()
+        self.httpd.server_close()
+        self.thread.join(timeout=2)
+        self.httpd = run_server(
+            host="127.0.0.1",
+            port=0,
+            archive_fetcher=self._fixture_fetch("mast_hst_count.json"),
+            discovery_fetcher=discovery_fetch,
+            apophis_fetcher=self._sbdb_fetch,
+            watchlist_root=self.tmp.name,
+        )
+        import threading
+
+        self.thread = threading.Thread(target=self.httpd.serve_forever, daemon=True)
+        self.thread.start()
+        self.port = self.httpd.server_address[1]
+        self.base = f"http://127.0.0.1:{self.port}"
+
+        status, data = _get(
+            f"{self.base}/api/discovery?ra=83.8&dec=-5.4&name=M42&missions=hst"
+        )
+        self.assertEqual(status, 200)
+        self.assertTrue(data["ok"])
+        self.assertIn("items", data["bundle"])
+        self.assertIn("query_outcomes", data["bundle"])
+        self.assertIn("hst", data["badges"])
+        self.assertEqual(data["badges"]["hst"]["status"], "confirmed")
+        for item in data["bundle"]["items"]:
+            self.assertIsNotNone(item.get("result_type"))
+
     def test_watchlist_get_put(self):
         status, data = _get(f"{self.base}/api/watchlist")
         self.assertEqual(status, 200)
