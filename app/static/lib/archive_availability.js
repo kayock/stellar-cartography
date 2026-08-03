@@ -173,6 +173,30 @@
     state.inFlight = {};
   }
 
+  function buildDiscoveryApiUrl(target, missions) {
+    var ra = target && target.ra_deg;
+    var dec = target && target.dec_deg;
+    var url =
+      "/api/discovery?ra=" +
+      encodeURIComponent(String(ra)) +
+      "&dec=" +
+      encodeURIComponent(String(dec));
+    if (target && target.name) url += "&name=" + encodeURIComponent(String(target.name));
+    if (target && target.alt_name) url += "&alt_name=" + encodeURIComponent(String(target.alt_name));
+    if (target && target.object_category) {
+      url += "&target_category=" + encodeURIComponent(String(target.object_category));
+    }
+    if (target && target.moving_target) url += "&moving_target=1";
+    var list = missions || ARCHIVE_MISSIONS;
+    url += "&missions=" + encodeURIComponent(list.join(","));
+    return url;
+  }
+
+  function mapBadgePayloadToLight(badgePayload, mission, activeButtonId) {
+    // badgePayload is the R0.4-shaped object from /api/discovery badges map.
+    return mapApiToLight(badgePayload, mission, activeButtonId);
+  }
+
   return {
     ARCHIVE_MISSIONS: ARCHIVE_MISSIONS,
     STATE: STATE,
@@ -190,9 +214,11 @@
     clearInFlight: clearInFlight,
     storeCache: storeCache,
     buildApiUrl: buildApiUrl,
+    buildDiscoveryApiUrl: buildDiscoveryApiUrl,
     missionLabel: missionLabel,
     accessibleText: accessibleText,
     mapApiToLight: mapApiToLight,
+    mapBadgePayloadToLight: mapBadgePayloadToLight,
     resetForOffline: resetForOffline,
     resetForTargetChange: resetForTargetChange,
   };

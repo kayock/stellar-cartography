@@ -474,6 +474,40 @@ code {
   margin-bottom: 8px;
 }
 
+.discovery-panel {
+  margin-top: 14px;
+  padding: 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  background: var(--bg-2);
+}
+.discovery-intro,
+.discovery-empty,
+.discovery-capability-note,
+.discovery-warning,
+.discovery-item-meta,
+.discovery-outcome-message {
+  font-size: 0.85rem;
+  color: var(--text-1);
+  margin: 6px 0;
+}
+.discovery-capability-note { color: var(--amber); }
+.discovery-warning { color: var(--amber); }
+.discovery-domain,
+.discovery-outcomes {
+  margin-top: 10px;
+  border-top: 1px solid var(--border-soft);
+  padding-top: 8px;
+}
+.discovery-item {
+  margin: 8px 0;
+  padding: 8px;
+  background: var(--bg-1);
+  border-radius: 8px;
+}
+.discovery-item-summary { color: var(--text-0); font-size: 0.9rem; }
+.discovery-outcome-title { font-weight: 600; font-size: 0.86rem; color: var(--text-0); }
+
 .watchlist-status {
   margin: 8px 0 4px 0;
   padding: 8px 10px;

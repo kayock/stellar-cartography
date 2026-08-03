@@ -36,6 +36,8 @@ const state = {
   planetaryImageRequest: PlanetaryImage.createRequestState(),
   archiveAvailability: ArchiveAvailability.createState(),
   archiveLights: {},
+  discoveryBundle: null,
+  discoveryInFlightKey: null,
   watchlistDocument: { schema_version: 1, entries: [] },
   watchlistLoadStatus: { status: "loading", entryCount: 0, storagePathRelative: "runtime_data/tracked_objects.json", error: null },
   watchlistNoteDrafts: {},
@@ -70,6 +72,8 @@ const el = {
   imageryGrid: document.getElementById("imagery-grid"),
   imageryStatus: document.getElementById("imagery-status"),
   archiveObservationPanel: document.getElementById("archive-observation-panel"),
+  discoveryPanel: document.getElementById("discovery-panel"),
+  discoveryPanelBody: document.getElementById("discovery-panel-body"),
   wavelengthExplainer: document.getElementById("wavelength-explainer"),
   watchlistExplainer: document.getElementById("watchlist-explainer"),
   watchlistStatus: document.getElementById("watchlist-status"),
@@ -691,8 +695,12 @@ function imageryIdForMission(mission) {
 
 function resetArchiveAvailabilityLights() {
   state.archiveLights = {};
+  state.discoveryBundle = null;
+  state.discoveryInFlightKey = null;
   el.archiveObservationPanel.hidden = true;
   el.archiveObservationPanel.textContent = "";
+  if (el.discoveryPanel) el.discoveryPanel.hidden = true;
+  if (el.discoveryPanelBody) el.discoveryPanelBody.textContent = "";
   ArchiveAvailability.ARCHIVE_MISSIONS.forEach((mission) => {
     updateArchiveBadge(mission, {
       state: ArchiveAvailability.STATE.NOT_CHECKED,
@@ -700,6 +708,232 @@ function resetArchiveAvailabilityLights() {
       observations: [],
     });
   });
+}
+
+function renderDiscoveryPanel(bundle) {
+  if (!el.discoveryPanel || !el.discoveryPanelBody) return;
+  el.discoveryPanelBody.textContent = "";
+  if (!bundle) {
+    el.discoveryPanel.hidden = true;
+    return;
+  }
+  el.discoveryPanel.hidden = false;
+  const view = DiscoveryPanel.buildPanelViewModel(bundle);
+
+  const title = document.createElement("h3");
+  title.textContent = "Multi-domain discovery";
+  el.discoveryPanelBody.appendChild(title);
+
+  const intro = document.createElement("p");
+  intro.className = "discovery-intro";
+  intro.textContent =
+    "Scientific items and provider query outcomes are listed separately. " +
+    "A zero result from one provider is not a claim that no scientific information exists.";
+  el.discoveryPanelBody.appendChild(intro);
+
+  (view.capabilityNotes || []).forEach((note) => {
+    const p = document.createElement("p");
+    p.className = "discovery-capability-note";
+    p.textContent = note;
+    el.discoveryPanelBody.appendChild(p);
+  });
+
+  (view.warnings || []).forEach((w) => {
+    const p = document.createElement("p");
+    p.className = "discovery-warning";
+    p.textContent = w;
+    el.discoveryPanelBody.appendChild(p);
+  });
+
+  if (view.emptyMessage) {
+    const empty = document.createElement("p");
+    empty.className = "discovery-empty";
+    empty.textContent = view.emptyMessage;
+    el.discoveryPanelBody.appendChild(empty);
+  }
+
+  view.domains.forEach((domain) => {
+    const section = document.createElement("details");
+    section.className = "discovery-domain";
+    section.open = true;
+    const summary = document.createElement("summary");
+    summary.textContent = domain.label + " (" + domain.items.length + ")";
+    section.appendChild(summary);
+    domain.items.forEach((item) => {
+      const row = document.createElement("div");
+      row.className = "discovery-item";
+      const text = document.createElement("div");
+      text.className = "discovery-item-summary";
+      text.textContent = DiscoveryPanel.summarizeItem(item);
+      row.appendChild(text);
+      const meta = document.createElement("div");
+      meta.className = "discovery-item-meta";
+      meta.textContent =
+        "Type: " +
+        (item.result_type || "") +
+        " · Provider: " +
+        (item.provider || "") +
+        (item.match_basis ? " · " + DiscoveryPanel.matchBasisLabel(item.match_basis) : "");
+      row.appendChild(meta);
+      if (item.provenance_url && String(item.provenance_url).indexOf("https://") === 0) {
+        const link = document.createElement("a");
+        link.href = item.provenance_url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = "Source";
+        row.appendChild(link);
+      }
+      section.appendChild(row);
+    });
+    el.discoveryPanelBody.appendChild(section);
+  });
+
+  if (view.statusOutcomes && view.statusOutcomes.length) {
+    const outcomesWrap = document.createElement("details");
+    outcomesWrap.className = "discovery-outcomes";
+    const osum = document.createElement("summary");
+    osum.textContent = "Provider query outcomes (" + view.statusOutcomes.length + ")";
+    outcomesWrap.appendChild(osum);
+    view.statusOutcomes.forEach((outcome) => {
+      const row = document.createElement("div");
+      row.className = "discovery-outcome discovery-outcome-" + (outcome.query_status || "unknown");
+      const head = document.createElement("div");
+      head.className = "discovery-outcome-title";
+      head.textContent =
+        DiscoveryPanel.outcomeSectionTitle(outcome.query_status) +
+        " — " +
+        (outcome.provider || "provider") +
+        (outcome.mission ? " / " + outcome.mission : "");
+      row.appendChild(head);
+      if (outcome.message && DiscoveryPanel.assertHonestText(outcome.message)) {
+        const msg = document.createElement("div");
+        msg.className = "discovery-outcome-message";
+        msg.textContent = outcome.message;
+        row.appendChild(msg);
+      } else if (outcome.message) {
+        const msg = document.createElement("div");
+        msg.className = "discovery-outcome-message";
+        msg.textContent =
+          "No matching observations were returned by this provider for this position and search radius.";
+        row.appendChild(msg);
+      }
+      outcomesWrap.appendChild(row);
+    });
+    el.discoveryPanelBody.appendChild(outcomesWrap);
+  }
+}
+
+function applyDiscoveryBadges(badges, activeImageryButtonId) {
+  ArchiveAvailability.ARCHIVE_MISSIONS.forEach((mission) => {
+    const payload = badges && badges[mission];
+    const imageryId = imageryIdForMission(mission);
+    const activeMission = imageryId && imageryId === activeImageryButtonId ? mission : null;
+    const light = ArchiveAvailability.mapBadgePayloadToLight(payload, mission, activeMission);
+    updateArchiveBadge(mission, light);
+  });
+}
+
+async function syncArchiveAvailabilityChecks(target) {
+  if (!state.onlineMode || !target) {
+    resetArchiveAvailabilityLights();
+    return;
+  }
+  ArchiveAvailability.resetForTargetChange(state.archiveAvailability, target.ra_deg, target.dec_deg);
+  const generation = state.archiveAvailability.generation;
+  const nowMs = Date.now();
+
+  // Mark Solar System / moving targets so the server skips historical archive claims.
+  const moving = typeof SolarSystem !== "undefined" && SolarSystem.isSolarSystemTarget(target);
+  const requestTarget = Object.assign({}, target, { moving_target: !!moving });
+
+  const discoveryKey =
+    ArchiveAvailability.normalizeCoordKey(target.ra_deg, target.dec_deg) +
+    "|discovery|" +
+    (target.name || "");
+
+  if (ArchiveAvailability.shouldUseCache(state.archiveAvailability, discoveryKey, nowMs)) {
+    const cached = state.archiveAvailability.cache[discoveryKey].payload;
+    state.discoveryBundle = cached.bundle || null;
+    renderDiscoveryPanel(state.discoveryBundle);
+    applyDiscoveryBadges(cached.badges || {}, state.activeImageryButtonId);
+    return;
+  }
+
+  if (ArchiveAvailability.shouldRateLimit(state.archiveAvailability, discoveryKey, nowMs)) {
+    return;
+  }
+  if (ArchiveAvailability.shouldSkipInFlight(state.archiveAvailability, discoveryKey)) {
+    return;
+  }
+
+  ArchiveAvailability.markInFlight(state.archiveAvailability, discoveryKey);
+  state.archiveAvailability.lastRequestAt[discoveryKey] = nowMs;
+  state.discoveryInFlightKey = discoveryKey;
+
+  ArchiveAvailability.ARCHIVE_MISSIONS.forEach((mission) => {
+    updateArchiveBadge(mission, {
+      state: ArchiveAvailability.STATE.CHECKING,
+      accessibleText: ArchiveAvailability.accessibleText(ArchiveAvailability.STATE.CHECKING, mission),
+      observations: [],
+    });
+  });
+
+  try {
+    // Single request feeds both the discovery panel and badge compatibility adapter.
+    // Do not also call /api/archive-availability for the same target selection.
+    const resp = await fetch(ArchiveAvailability.buildDiscoveryApiUrl(requestTarget), {
+      cache: "no-store",
+    });
+    const data = await resp.json();
+    if (ArchiveAvailability.isStale(state.archiveAvailability, generation)) {
+      return;
+    }
+    ArchiveAvailability.clearInFlight(state.archiveAvailability, discoveryKey);
+    ArchiveAvailability.storeCache(state.archiveAvailability, discoveryKey, data, Date.now());
+    state.discoveryBundle = (data && data.bundle) || null;
+    renderDiscoveryPanel(state.discoveryBundle);
+    applyDiscoveryBadges((data && data.badges) || {}, state.activeImageryButtonId);
+  } catch (_err) {
+    if (ArchiveAvailability.isStale(state.archiveAvailability, generation)) return;
+    ArchiveAvailability.clearInFlight(state.archiveAvailability, discoveryKey);
+    state.discoveryBundle = null;
+    renderDiscoveryPanel(null);
+    ArchiveAvailability.ARCHIVE_MISSIONS.forEach((mission) => {
+      updateArchiveBadge(mission, {
+        state: ArchiveAvailability.STATE.UNAVAILABLE,
+        accessibleText: ArchiveAvailability.accessibleText(ArchiveAvailability.STATE.UNAVAILABLE, mission),
+        observations: [],
+      });
+    });
+  }
+}
+
+async function fetchArchiveMission(target, mission, key, generation, includeObservations) {
+  // Legacy per-mission path retained for tests/exports but unused by sync when
+  // /api/discovery is available. Prefer syncArchiveAvailabilityChecks.
+  try {
+    const resp = await fetch(
+      ArchiveAvailability.buildApiUrl(target.ra_deg, target.dec_deg, mission, includeObservations),
+      { cache: "no-store" }
+    );
+    const data = await resp.json();
+    if (ArchiveAvailability.isStale(state.archiveAvailability, generation)) {
+      return;
+    }
+    ArchiveAvailability.clearInFlight(state.archiveAvailability, key);
+    ArchiveAvailability.storeCache(state.archiveAvailability, key, data, Date.now());
+    const imageryId = imageryIdForMission(mission);
+    const activeMission = imageryId && imageryId === state.activeImageryButtonId ? mission : null;
+    updateArchiveBadge(mission, ArchiveAvailability.mapApiToLight(data, mission, activeMission));
+  } catch (_err) {
+    if (ArchiveAvailability.isStale(state.archiveAvailability, generation)) return;
+    ArchiveAvailability.clearInFlight(state.archiveAvailability, key);
+    updateArchiveBadge(mission, {
+      state: ArchiveAvailability.STATE.UNAVAILABLE,
+      accessibleText: ArchiveAvailability.accessibleText(ArchiveAvailability.STATE.UNAVAILABLE, mission),
+      observations: [],
+    });
+  }
 }
 
 function updateArchiveBadge(mission, light) {
@@ -777,73 +1011,21 @@ function renderArchiveObservationPanel(mission, light) {
   });
 }
 
-async function syncArchiveAvailabilityChecks(target) {
-  if (!state.onlineMode || !target) {
-    resetArchiveAvailabilityLights();
+function refreshSelectedArchiveLayerBadge() {
+  // Prefer badges from the last discovery response when cached.
+  const discoveryKey =
+    state.archiveAvailability.coordKey &&
+    state.archiveAvailability.coordKey +
+      "|discovery|" +
+      ((state.currentTarget && state.currentTarget.name) || "");
+  const discoveryCached =
+    discoveryKey && state.archiveAvailability.cache[discoveryKey]
+      ? state.archiveAvailability.cache[discoveryKey].payload
+      : null;
+  if (discoveryCached && discoveryCached.badges) {
+    applyDiscoveryBadges(discoveryCached.badges, state.activeImageryButtonId);
     return;
   }
-  ArchiveAvailability.resetForTargetChange(state.archiveAvailability, target.ra_deg, target.dec_deg);
-  const generation = state.archiveAvailability.generation;
-  const nowMs = Date.now();
-
-  for (const mission of ArchiveAvailability.ARCHIVE_MISSIONS) {
-    const key = ArchiveAvailability.cacheKey(target.ra_deg, target.dec_deg, mission);
-    if (!key) continue;
-
-    if (ArchiveAvailability.shouldUseCache(state.archiveAvailability, key, nowMs)) {
-      const cached = state.archiveAvailability.cache[key].payload;
-      const imageryId = imageryIdForMission(mission);
-      const light = ArchiveAvailability.mapApiToLight(cached, mission, imageryId === state.activeImageryButtonId ? mission : null);
-      updateArchiveBadge(mission, light);
-      continue;
-    }
-
-    if (ArchiveAvailability.shouldRateLimit(state.archiveAvailability, key, nowMs)) {
-      continue;
-    }
-    if (ArchiveAvailability.shouldSkipInFlight(state.archiveAvailability, key)) {
-      continue;
-    }
-
-    ArchiveAvailability.markInFlight(state.archiveAvailability, key);
-    state.archiveAvailability.lastRequestAt[key] = nowMs;
-    updateArchiveBadge(mission, {
-      state: ArchiveAvailability.STATE.CHECKING,
-      accessibleText: ArchiveAvailability.accessibleText(ArchiveAvailability.STATE.CHECKING, mission),
-      observations: [],
-    });
-
-    fetchArchiveMission(target, mission, key, generation, true);
-  }
-}
-
-async function fetchArchiveMission(target, mission, key, generation, includeObservations) {
-  try {
-    const resp = await fetch(
-      ArchiveAvailability.buildApiUrl(target.ra_deg, target.dec_deg, mission, includeObservations),
-      { cache: "no-store" }
-    );
-    const data = await resp.json();
-    if (ArchiveAvailability.isStale(state.archiveAvailability, generation)) {
-      return;
-    }
-    ArchiveAvailability.clearInFlight(state.archiveAvailability, key);
-    ArchiveAvailability.storeCache(state.archiveAvailability, key, data, Date.now());
-    const imageryId = imageryIdForMission(mission);
-    const activeMission = imageryId && imageryId === state.activeImageryButtonId ? mission : null;
-    updateArchiveBadge(mission, ArchiveAvailability.mapApiToLight(data, mission, activeMission));
-  } catch (_err) {
-    if (ArchiveAvailability.isStale(state.archiveAvailability, generation)) return;
-    ArchiveAvailability.clearInFlight(state.archiveAvailability, key);
-    updateArchiveBadge(mission, {
-      state: ArchiveAvailability.STATE.UNAVAILABLE,
-      accessibleText: ArchiveAvailability.accessibleText(ArchiveAvailability.STATE.UNAVAILABLE, mission),
-      observations: [],
-    });
-  }
-}
-
-function refreshSelectedArchiveLayerBadge() {
   ArchiveAvailability.ARCHIVE_MISSIONS.forEach((mission) => {
     const imageryId = imageryIdForMission(mission);
     const existing = state.archiveLights[mission];

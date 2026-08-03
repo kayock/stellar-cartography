@@ -39,6 +39,8 @@ const ELEMENT_IDS = [
   "imagery-grid",
   "imagery-status",
   "archive-observation-panel",
+  "discovery-panel",
+  "discovery-panel-body",
   "wavelength-explainer",
   "watchlist-explainer",
   "watchlist-status",

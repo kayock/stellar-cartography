@@ -46,6 +46,15 @@ test("map api states", () => {
   assert.equal(none.state, ArchiveAvailability.STATE.NO_COVERAGE);
 });
 
+test("discovery badge mapping remains compatible", () => {
+  const light = ArchiveAvailability.mapBadgePayloadToLight(
+    { status: "confirmed", count: 3 },
+    "hst",
+    null
+  );
+  assert.equal(light.state, ArchiveAvailability.STATE.CONFIRMED);
+});
+
 test("online mode off makes zero requests at app layer", () => {
   const state = ArchiveAvailability.createState();
   ArchiveAvailability.resetForOffline(state);
