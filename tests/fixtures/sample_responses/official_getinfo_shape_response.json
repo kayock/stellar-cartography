@@ -1,0 +1,14 @@
+{
+  "name": "M 31",
+  "localized-name": "Andromeda Galaxy",
+  "type": "Nebula",
+  "object-type": "galaxy",
+  "raJ2000": 10.68470,
+  "decJ2000": 41.26875,
+  "iauConstellation": "And",
+  "vmag": 3.44,
+  "size-dd": 3.167,
+  "altitude": 35.2,
+  "azimuth": 122.8,
+  "above-horizon": true
+}

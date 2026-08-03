@@ -1,0 +1,26 @@
+{
+  "object": {
+    "des": "99942",
+    "name": "Apophis",
+    "fullname": "99942 Apophis (2004 MN4)",
+    "spkid": "2099942"
+  },
+  "ca_data": [
+    {
+      "body": "Earth",
+      "cd": "1905-Dec-26 05:03",
+      "dist": 0.276205741255978
+    },
+    {
+      "body": "Earth",
+      "cd": "2029-Apr-13 00:00",
+      "dist": 0.0002541,
+      "v_rel": 5.87
+    },
+    {
+      "body": "Earth",
+      "cd": "2051-Mar-12 00:00",
+      "dist": 0.08
+    }
+  ]
+}

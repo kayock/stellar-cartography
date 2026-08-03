@@ -1,0 +1,7 @@
+{
+  "name": "Faint Test Object",
+  "object-type": "star",
+  "vmag": 99.99,
+  "raJ2000deg": 100.0,
+  "decJ2000deg": 20.0
+}

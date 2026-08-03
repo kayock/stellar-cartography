@@ -1,0 +1,27 @@
+{
+  "collection": {
+    "items": [
+      {
+        "data": [
+          {
+            "center": "JPL",
+            "date_created": "1999-03-13T14:54:19Z",
+            "description": "Jupiter Plume",
+            "keywords": ["Jupiter", "Galileo"],
+            "media_type": "image",
+            "nasa_id": "PIA01518",
+            "secondary_creator": "NASA/JPL",
+            "title": "Jupiter Plume"
+          }
+        ],
+        "links": [
+          {
+            "href": "https://images-assets.nasa.gov/image/PIA01518/PIA01518~thumb.jpg",
+            "rel": "preview",
+            "render": "image"
+          }
+        ]
+      }
+    ]
+  }
+}

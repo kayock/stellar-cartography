@@ -1,0 +1,95 @@
+{
+    "project": "FOXAI Stellar Cartography",
+    "version": "R0.4.0",
+    "release_label": "final release (live-validated)",
+    "build_date_utc": "2026-07-31",
+    "python_version_used_for_build": "Python 3.14.6",
+    "node_version_used_for_build_time_validation": "Node v24.18.0",
+    "runtime_dependencies": "none (Python standard library only; browser HTML/CSS/JS)",
+    "prior_release": {
+        "version": "R0.3.0",
+        "filename": "FOXAI_StellarCartography_R0.3.0_20260731.zip",
+        "sha256": "b2a635ba6ef5e9b16d9aae5b8d01dc030a6e90bad50d3439942b4e2b5669c665",
+        "note": "Promoted Planetary Image Pilot release. Not modified by this R0.4.0 build."
+    },
+    "lineage": [
+        "R0.1.4 \u2014 zombie ESASky queue lifecycle fix, product rename",
+        "R0.2.0 \u2014 Solar System Awareness",
+        "R0.3.0 \u2014 Planetary Image Pilot (Moon/Jupiter/Saturn NASA archive images)",
+        "R0.4.0 \u2014 MAST archive lights, Tracked Objects watchlist, Apophis 2029 tracker"
+    ],
+    "scope": {
+        "description": "R0.4.0 adds MAST archive-availability lights, portable Tracked Objects watchlist with unified details, and featured Apophis tracker on R0.3.0 baseline. Preserves planetary pilot, Solar System notice, ESASky queue, and Online Archive Mode gating.",
+        "mast_archive_lights": true,
+        "tracked_objects_watchlist": true,
+        "apophis_tracker": true,
+        "planetary_pilot_preserved": true,
+        "starlink_tracking": false,
+        "satellite_tracking": false
+    },
+    "r040_rules": {
+        "mast_search_radius_deg": 0.01,
+        "mast_missions": "hst, jwst_nircam, jwst_miri",
+        "watchlist_storage": "runtime_data/tracked_objects.json with atomic write and .bak recovery",
+        "watchlist_load_failure": "load_failed state; no empty-list masquerade; writes blocked until successful load",
+        "apophis_encounter": "April 2029 Earth close approach from SBDB ca_data (not first row)",
+        "apophis_horizons": "JSON result parsed via $$SOE/$$EOE ephemeris section",
+        "apophis_sky_navigation": "No automatic 0,0 target; explicit Use Ephemeris Position only",
+        "apophis_refresh_interval_sec": 60,
+        "planetary_pilot_targets": "Moon, Jupiter, Saturn only",
+        "user_data_in_release": false
+    },
+    "user_data_backup": {
+        "location": "C:\\Users\\kayoc\\Downloads\\FOXAI_StellarCartography_R0.4.0_USER_DATA_BACKUP_20260731",
+        "files": [
+            "tracked_objects.json",
+            "tracked_objects.json.bak"
+        ],
+        "restore_instructions": "Copy backed-up files into runtime_data\\ of an extracted personal-use copy after clean release validation. Not included in release ZIP."
+    },
+    "steps": [
+        {
+            "step": "pre_build_python_tests",
+            "command": "python -m unittest discover -s tests -v",
+            "result": "PASS",
+            "tests_run": 161
+        },
+        {
+            "step": "pre_build_node_tests",
+            "command": "node --test tests/frontend/*.test.js",
+            "result": "PASS",
+            "tests_run": 134
+        },
+        {
+            "step": "pre_build_resource_warning",
+            "command": "PYTHONWARNINGS=error python -m unittest discover -s tests",
+            "result": "PASS",
+            "tests_run": 161
+        },
+        {
+            "step": "live_validation",
+            "result": "PASS",
+            "validator": "Eric",
+            "date_utc": "2026-07-31"
+        }
+    ],
+    "package": {
+        "filename": "FOXAI_StellarCartography_R0.4.0_20260731.zip",
+        "archive_root_folder": "FOXAI_StellarCartography_R0.4.0",
+        "archive_sha256": null,
+        "archive_sha256_authoritative_location": "detached sidecar adjacent to ZIP (not inside archive)",
+        "archive_sha256_sidecar_filename": "FOXAI_StellarCartography_R0.4.0_20260731.zip.sha256.txt",
+        "archive_sha256_note": "The authoritative SHA-256 of the release ZIP is recorded only in the detached sidecar file. It is intentionally not stored as an authoritative value in this receipt. SHA256SUMS.txt covers every shipped project file except itself.",
+        "file_count": 92,
+        "manifest_entry_count": 91
+    },
+    "boundaries_confirmed": [
+        "Does not modify the FOXAI Observation Deck.",
+        "Does not track Starlink or general satellites.",
+        "Does not ship personal runtime_data watchlist files in release ZIP.",
+        "Planetary pilot limited to Moon/Jupiter/Saturn.",
+        "ESASky zombie-queue and Solar System behavior preserved.",
+        "No secrets or API keys embedded."
+    ],
+    "release_status_note": "R0.4.0 final release. Live-validated archive lights, watchlist, and Apophis tracker. Detached ZIP hash sidecar is authoritative; SHA256SUMS.txt generated after final staged metadata."
+}

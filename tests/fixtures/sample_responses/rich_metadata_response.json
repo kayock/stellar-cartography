@@ -1,0 +1,11 @@
+{
+  "name": "M 31",
+  "localized-name": "Andromeda Galaxy",
+  "object-type": "galaxy",
+  "morpho-type": "SA(s)b",
+  "catalog-descriptions": "NGC 224, UGC 454, PGC 2557",
+  "constellation": "Andromeda",
+  "vmag": 3.44,
+  "raJ2000deg": 10.6847,
+  "decJ2000deg": 41.26875
+}

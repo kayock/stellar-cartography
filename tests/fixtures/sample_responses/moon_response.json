@@ -1,0 +1,13 @@
+{
+  "name": "Moon",
+  "localized-name": "Moon",
+  "type": "Planet",
+  "object-type": "moon",
+  "raJ2000": 120.5,
+  "decJ2000": 18.2,
+  "vmag": -12.6,
+  "size-dd": 0.518,
+  "altitude": 45.0,
+  "azimuth": 180.0,
+  "above-horizon": true
+}

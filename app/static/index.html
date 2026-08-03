@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOXAI Stellar Cartography R0.4.0</title>
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">FOXAI</div>
+    <div class="brand-sub">Stellar Cartography <span class="version-pill">R0.4.0</span></div>
+  </div>
+
+  <div class="status-cluster">
+    <div id="stellarium-indicator" class="status-pill status-unknown">
+      <span class="dot"></span>
+      <span class="status-text">Checking Stellarium…</span>
+    </div>
+    <div id="archive-mode-indicator" class="status-pill status-off">
+      <span class="dot"></span>
+      <span class="status-text">Online Archive Mode: Off</span>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- LEFT COLUMN: target acquisition -->
+  <section class="panel left-panel">
+
+    <div class="card">
+      <h2>Selected Target</h2>
+      <p class="hint">Pulls the current selection from Stellarium's local Remote Control API
+        (<code>localhost:8090</code>). Nothing is sent anywhere online by this step.</p>
+
+      <div class="button-row">
+        <button id="btn-refresh-selection" class="btn btn-primary">Use Stellarium Selection</button>
+      </div>
+
+      <div id="target-card" class="target-card target-card-empty">
+        <div class="target-empty-msg">No target loaded yet. Select an object in Stellarium, then press
+          "Use Stellarium Selection" — or enter a target manually below.</div>
+      </div>
+    </div>
+
+    <div class="card" id="about-object-card" hidden>
+      <h2>About This Object</h2>
+      <p class="hint">Only fields Stellarium actually reported are shown here — nothing is invented or
+        left as a blank placeholder.</p>
+      <div id="about-object-body" class="about-object-body"></div>
+    </div>
+
+    <div class="card solar-system-notice-card" id="solar-system-notice-card" hidden>
+      <h2>Solar System object — ESASky viewer note</h2>
+      <p class="hint">Honest guidance when Stellarium reports a Moon, planet, or other Solar System body.</p>
+      <div id="solar-system-notice-body" class="solar-system-notice-body"></div>
+    </div>
+
+    <div class="card planetary-image-card" id="planetary-image-card" hidden>
+      <h2>Planetary Archive Image</h2>
+      <p class="hint">
+        Separate from the ESASky survey viewer above. When Online Archive Mode is enabled, this panel
+        searches NASA's official image archive for a pilot target (Moon, Jupiter, or Saturn). This is
+        archival outreach imagery — not live, not from Stellarium, and not from ESASky.
+      </p>
+      <div id="planetary-image-body" class="planetary-image-body"></div>
+    </div>
+
+    <div class="card watchlist-card" id="watchlist-card">
+      <h2>Tracked Objects</h2>
+      <p class="hint" id="watchlist-explainer"></p>
+      <div id="watchlist-status" class="watchlist-status" role="status" aria-live="polite"></div>
+      <div class="button-row watchlist-actions">
+        <button id="btn-watchlist-add" class="btn btn-secondary" type="button">Add Current Target</button>
+        <button id="btn-apophis-add" class="btn btn-secondary" type="button">Add Apophis Tracker</button>
+        <button id="btn-watchlist-refresh" class="btn btn-secondary" type="button">Refresh Selected</button>
+      </div>
+      <div id="watchlist-list" class="watchlist-list"></div>
+      <div id="tracked-object-details-card" class="tracked-object-details-card" hidden>
+        <h3 id="tracked-object-details-heading" class="tracked-object-details-heading" tabindex="-1">Tracked Object Details</h3>
+        <div id="tracked-object-details-body" class="tracked-object-details-body"></div>
+      </div>
+      <div id="apophis-tracker-body" class="apophis-tracker-body" hidden></div>
+    </div>
+
+    <div class="card">
+      <h2>Manual Target Entry</h2>
+      <p class="hint">Works even when Stellarium is closed. Enter a name (for reference only) and
+        coordinates in either decimal degrees or sexagesimal format.</p>
+
+      <form id="manual-form" class="manual-form">
+        <label>
+          Object name <span class="optional">(optional, for your reference)</span>
+          <input type="text" id="manual-name" placeholder="e.g. Andromeda Galaxy">
+        </label>
+        <div class="coord-row">
+          <label>
+            RA
+            <input type="text" id="manual-ra" placeholder="10.68470 or 0h42m44.3s" required>
+          </label>
+          <label>
+            Dec
+            <input type="text" id="manual-dec" placeholder="41.26875 or +41d16m09s" required>
+          </label>
+        </div>
+        <div class="button-row">
+          <button type="submit" class="btn btn-secondary">Use Manual Coordinates</button>
+        </div>
+        <div id="manual-form-error" class="form-error" hidden></div>
+      </form>
+    </div>
+
+  </section>
+
+  <!-- RIGHT COLUMN: archive viewer -->
+  <section class="panel right-panel">
+
+    <div class="card">
+      <div class="card-header-row">
+        <h2>Archive Viewer</h2>
+        <label class="online-toggle">
+          <input type="checkbox" id="online-mode-toggle">
+          <span>Enable Online Archive Mode</span>
+        </label>
+      </div>
+      <p class="hint">
+        When enabled, your browser talks <strong>directly</strong> to ESASky (sky.esa.int) — this app's
+        local server is not involved and never sees that traffic. This app itself deliberately sends only
+        the target name (when needed), RA, Dec, and field of view — no FOXAI workspace data, local file
+        paths, Observation Deck records, or machine identity are ever included. Note that, like any
+        website your browser visits, ordinary browser/network metadata (e.g. your IP address, user agent)
+        may still accompany requests to ESASky regardless of what this app sends.
+      </p>
+
+      <div class="button-row">
+        <button id="btn-open-esasky" class="btn btn-primary" disabled>Open in ESASky</button>
+        <span id="viewer-status" class="viewer-status"></span>
+      </div>
+
+      <div id="esasky-frame-wrap" class="esasky-frame-wrap" hidden>
+        <iframe id="esasky-frame" title="ESASky viewer" allow="fullscreen"></iframe>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Imagery</h2>
+      <p class="hint">
+        Each button asks ESASky's own catalogue of all-sky imagery (HiPS) whether it has a layer
+        matching that telescope or wavelength — nothing is assumed. If ESASky reports no matching
+        layer, this app tells you plainly rather than guessing.
+      </p>
+      <div id="imagery-grid" class="imagery-grid"></div>
+      <div id="imagery-status" class="imagery-status"></div>
+      <div id="archive-observation-panel" class="archive-observation-panel" hidden></div>
+
+      <details class="explainer">
+        <summary>What's the difference between these views?</summary>
+        <ul class="explainer-list" id="wavelength-explainer"></ul>
+        <p class="explainer-note">
+          <strong>Archive visualization layer</strong> vs. <strong>individual telescope photograph</strong>:
+          most buttons above load a stitched, all-sky mosaic (a "HiPS" layer) assembled from many
+          observations over time — useful for browsing, but not a single photo. ESASky confirming that a
+          layer exists does not by itself prove the selected coordinates have image coverage in it; a
+          blank area in the viewer means that layer has no imagery there. A handful of famous targets also
+          have individually-released Hubble/JWST outreach photographs; Hubble and JWST buttons also show
+          MAST archive-availability lights (metadata only) when Online Archive Mode is on.
+        </p>
+      </details>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="footer">
+  <span>FOXAI Stellar Cartography R0.4.0 — standalone proof-of-concept sidecar. Does not modify the
+    Observation Deck, Stellarium, or ESASky. R0.4 excludes Starlink and general satellite tracking.</span>
+</footer>
+
+<script src="/static/lib/solar_system.js"></script>
+<script src="/static/lib/planetary_image.js"></script>
+<script src="/static/lib/archive_availability.js"></script>
+<script src="/static/lib/watchlist.js"></script>
+<script src="/static/lib/apophis_tracker.js"></script>
+<script src="/static/lib/imagery_matching.js"></script>
+<script src="/static/lib/esasky_queue.js"></script>
+<script src="/static/lib/changehips.js"></script>
+<script src="/static/lib/target_model.js"></script>
+<script src="/static/lib/online_mode.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

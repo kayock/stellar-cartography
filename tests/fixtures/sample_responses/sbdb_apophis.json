@@ -1,0 +1,16 @@
+{
+  "object": {
+    "des": "99942",
+    "name": "Apophis",
+    "fullname": "99942 Apophis (2004 MN4)",
+    "spkid": "2099942"
+  },
+  "ca_data": [
+    {
+      "body": "Earth",
+      "cd": "2029-Apr-13 00:00",
+      "dist": 0.0002541,
+      "v_rel": 5.87
+    }
+  ]
+}

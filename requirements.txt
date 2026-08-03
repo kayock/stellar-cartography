@@ -1,0 +1,27 @@
+# FOXAI Stellar Cartography R0.4.0
+#
+# Runtime dependencies: NONE. The application uses only the Python standard
+# library (http.server, urllib, json, webbrowser, argparse, dataclasses).
+#
+# This file is intentionally kept minimal per the "prefer the standard
+# library" requirement. It is pinned to a Python interpreter floor rather
+# than to any package, since there are no packages to pin.
+#
+# Required interpreter: Python >= 3.9 (developed and tested on 3.12.3)
+#
+# --- Optional, for running the test suite -----------------------------
+# The Python test suite itself also uses only the standard library
+# (unittest), so no test-only packages are required either. If you prefer
+# pytest as a runner instead of `python -m unittest discover`, install it
+# separately; it is NOT required:
+#
+#   pytest==8.3.3
+#
+# --- Build-time only, for the frontend contract tests -------------------
+# tests/frontend/*.test.js exercise the pure JS modules in app/static/lib/
+# (imagery alias matching, the ESASky readiness queue, etc.) using Node's
+# built-in test runner (`node --test`, Node >= 18). Node is NOT a runtime
+# dependency of the shipped application -- it is only used, at build/CI
+# time, to validate app/static/lib/*.js before packaging. No npm packages
+# are required; `node --test tests/frontend/*.test.js` uses only Node's
+# standard library (node:test, node:assert/strict).

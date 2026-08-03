@@ -1,0 +1,13 @@
+{
+  "name": "Saturn",
+  "localized-name": "Saturn",
+  "type": "Planet",
+  "object-type": "planet",
+  "raJ2000": 45.2,
+  "decJ2000": 15.8,
+  "vmag": 0.7,
+  "size-dd": 0.037,
+  "altitude": 30.0,
+  "azimuth": 210.0,
+  "above-horizon": true
+}
