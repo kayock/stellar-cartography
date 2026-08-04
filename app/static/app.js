@@ -293,7 +293,7 @@ async function syncCosmicSignalDeck(target) {
   }
   // A new target always stops and detaches prior media before the next lookup.
   resetCosmicSignalDeck();
-  const targetKey = `${target.name || ""}|${target.alt_name || ""}`;
+  const targetKey = `${target.name || ""}|${target.alt_name || ""}|${target.catalogue_designations || ""}`;
   const generation = CosmicSignalDeck.beginRequest(state.cosmicSignalRequest, targetKey);
   state.cosmicSignalRequestGeneration = generation;
   const loading = CosmicSignalDeck.buildLoadingView(target);
@@ -305,7 +305,15 @@ async function syncCosmicSignalDeck(target) {
     await ensureCosmicSignalHosts();
     if (CosmicSignalDeck.isStaleResponse(state.cosmicSignalRequest, generation) || !state.onlineMode) return;
     const allowFeatured = CosmicSignalDeck.getAllowFeatured();
-    const resp = await fetch(CosmicSignalDeck.buildMatchUrl(target.name, target.alt_name, allowFeatured), { cache: "no-store" });
+    const resp = await fetch(
+      CosmicSignalDeck.buildMatchUrl(
+        target.name,
+        target.alt_name,
+        allowFeatured,
+        target.catalogue_designations
+      ),
+      { cache: "no-store" }
+    );
     const data = await resp.json();
     if (CosmicSignalDeck.isStaleResponse(state.cosmicSignalRequest, generation) || !state.onlineMode) return;
     if (!data || !data.ok) throw new Error("Match unavailable");

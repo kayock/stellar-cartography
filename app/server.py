@@ -188,12 +188,17 @@ def make_handler(
                 qs = parse_qs(parsed.query)
                 name = (qs.get("name") or [""])[0]
                 alt_name = (qs.get("alt_name") or [""])[0]
+                catalogue_designations = (qs.get("catalogue_designations") or [""])[0]
                 allow_featured = (qs.get("allow_featured") or ["1"])[0] not in (
                     "0",
                     "false",
                     "no",
                 )
-                target = {"name": name or None, "alt_name": alt_name or None}
+                target = {
+                    "name": name or None,
+                    "alt_name": alt_name or None,
+                    "catalogue_designations": catalogue_designations or None,
+                }
                 try:
                     result = cosmic_signal_registry.match_signals_for_target(
                         target,

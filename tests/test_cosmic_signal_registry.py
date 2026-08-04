@@ -217,6 +217,70 @@ class TestMediaSemantics(unittest.TestCase):
             self.assertNotIn("general_featured", entry["relevance_capabilities"], entry["id"])
 
 
+class TestM87StellariumIdentityHandoff(unittest.TestCase):
+    """Live Stellarium emits name 'Virgo Galaxy' with designations M 87 / NGC 4486."""
+
+    STELLARIUM_M87_SELECTION = {
+        "name": "Virgo Galaxy",
+        "alt_name": "Virgo Galaxy",
+        "catalogue_designations": "M 87 - NGC 4486 - PGC 41361 - UGC 7654 - Arp 152",
+    }
+
+    def test_name_only_virgo_galaxy_does_not_false_match_without_designations(self):
+        self.assertIsNone(csr.resolve_canonical_target_id("Virgo Galaxy"))
+        self.assertIsNone(csr.resolve_canonical_target_id("Virgo"))
+        result = csr.match_signals_for_target(
+            {"name": "Virgo Galaxy", "alt_name": "Virgo Galaxy"},
+            allow_featured=True,
+        )
+        self.assertEqual(result["relevance"], "general_featured")
+        self.assertEqual(result["primary"]["id"], "voyager1_interstellar_plasma_pia17045")
+
+    def test_stellarium_m87_designations_resolve_exact_target(self):
+        ids = csr.resolve_target_ids_from_selection(self.STELLARIUM_M87_SELECTION)
+        self.assertEqual(ids, ["m87"])
+        result = csr.match_signals_for_target(self.STELLARIUM_M87_SELECTION)
+        self.assertEqual(result["relevance"], "exact_target")
+        self.assertEqual(result["primary"]["id"], "m87_chandra_vla_sonification")
+        self.assertEqual(result["primary"]["media_type"], "data_sonification")
+        self.assertIn("radar", (result["primary"].get("mapping_explanation") or "").lower())
+
+    def test_m87_representations_and_catalog_forms(self):
+        for name in (
+            "M87",
+            "M 87",
+            "M 087",
+            "m087",
+            "Messier 87",
+            "NGC 4486",
+            "NGC4486",
+            "Virgo A",
+        ):
+            self.assertEqual(csr.resolve_canonical_target_id(name), "m87", name)
+            result = csr.match_signals_for_target({"name": name})
+            self.assertEqual(result["relevance"], "exact_target", name)
+            self.assertEqual(result["primary"]["id"], "m87_chandra_vla_sonification", name)
+
+    def test_m87_false_matches_rejected(self):
+        for name in ("87", "M", "Virgo", "Virgo Cluster", "near M87", "M87 jet study"):
+            self.assertIsNone(csr.resolve_canonical_target_id(name), name)
+            result = csr.match_signals_for_target({"name": name}, allow_featured=False)
+            self.assertIsNone(result["primary"], name)
+
+    def test_catalog_token_split_is_whole_value(self):
+        tokens = csr.catalog_designation_tokens(
+            "M 87 - NGC 4486 - PGC 41361 - UGC 7654 - Arp 152"
+        )
+        self.assertEqual(
+            tokens,
+            ["M 87", "NGC 4486", "PGC 41361", "UGC 7654", "Arp 152"],
+        )
+        self.assertNotIn("87", tokens)
+
+    def test_fifteen_enabled_entries_intact(self):
+        self.assertEqual(len(csr.enabled_entries()), 15)
+
+
 class TestUrlValidation(unittest.TestCase):
     def test_allows_https_official_hosts(self):
         hosts = set(csr.load_registry()["allowed_media_hosts"])

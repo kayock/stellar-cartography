@@ -324,6 +324,19 @@ test("URL helper rejects unsafe schemes and documents no redirect enforcement", 
   assert.match(notice, /initial HTTPS/i);
 });
 
+test("match URL forwards catalogue designations for M87 handoff", () => {
+  const url = CosmicSignalDeck.buildMatchUrl(
+    "Virgo Galaxy",
+    "Virgo Galaxy",
+    true,
+    "M 87 - NGC 4486 - PGC 41361 - UGC 7654 - Arp 152"
+  );
+  assert.match(url, /name=Virgo\+Galaxy/);
+  assert.match(url, /catalogue_designations=M\+87/);
+  assert.match(url, /NGC\+4486/);
+  assert.match(url, /allow_featured=1/);
+});
+
 test("Play button is keyboard-activatable semantic control", () => {
   const { exports: app } = loadApp(async () => ({ ok: true, json: async () => ({}) }));
   assert.equal(app.el.cosmicSignalPlay.tagName, "BUTTON");

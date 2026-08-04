@@ -209,6 +209,63 @@ def _normalize_name(value: str | None) -> str:
     return " ".join(value.strip().lower().split())
 
 
+# Stellarium catalogue strings often look like:
+# "M 87 - NGC 4486 - PGC 41361 - UGC 7654 - Arp 152"
+_CATALOG_DESIGNATION_SPLIT_RE = re.compile(r"\s*(?:-|–|—|;|,|/|\|)\s*")
+_MESSIER_DESIGNATION_RE = re.compile(r"^m\s*0*([1-9]\d{0,2})$")
+_NGC_DESIGNATION_RE = re.compile(r"^ngc\s*0*([1-9]\d*)$")
+
+
+def catalog_designation_tokens(raw: str | None) -> list[str]:
+    """Split a Stellarium catalogue-designations string into whole tokens."""
+    if not raw or not isinstance(raw, str):
+        return []
+    tokens: list[str] = []
+    for part in _CATALOG_DESIGNATION_SPLIT_RE.split(raw.strip()):
+        token = part.strip()
+        if token:
+            tokens.append(token)
+    return tokens
+
+
+def _catalog_identity_keys(raw_name: str | None) -> list[str]:
+    """Normalized exact-match keys, including safe Messier/NGC reformats."""
+    key = _normalize_name(raw_name)
+    if not key:
+        return []
+    keys = [key]
+    messier = _MESSIER_DESIGNATION_RE.fullmatch(key)
+    if messier:
+        num = messier.group(1)
+        for form in (f"m{num}", f"m {num}"):
+            if form not in keys:
+                keys.append(form)
+    ngc = _NGC_DESIGNATION_RE.fullmatch(key)
+    if ngc:
+        num = ngc.group(1)
+        for form in (f"ngc{num}", f"ngc {num}"):
+            if form not in keys:
+                keys.append(form)
+    return keys
+
+
+def selection_identity_strings(target: dict[str, Any] | None) -> list[str]:
+    """Bounded identity strings used for Cosmic Signal exact matching."""
+    if not target or not isinstance(target, dict):
+        return []
+    values: list[str] = []
+    for field in ("name", "alt_name"):
+        raw = target.get(field)
+        if isinstance(raw, str) and raw.strip():
+            values.append(raw.strip())
+    designations = target.get("catalogue_designations")
+    if isinstance(designations, str) and designations.strip():
+        for token in catalog_designation_tokens(designations):
+            if token not in values:
+                values.append(token)
+    return values
+
+
 def deep_space_targets_by_id() -> dict[str, dict[str, Any]]:
     return {
         t["id"]: t
@@ -223,24 +280,28 @@ def resolve_canonical_target_id(raw_name: str | None) -> str | None:
     Prefer Solar System media registry IDs, then Cosmic Signal deep-space targets.
     Exact id or exact alias only — never substring matching.
     """
-    key = _normalize_name(raw_name)
-    if not key:
+    keys = _catalog_identity_keys(raw_name)
+    if not keys:
         return None
 
-    ss_id = ss_registry.normalize_media_target_id(key)
-    if ss_id:
-        return ss_id
+    for key in keys:
+        ss_id = ss_registry.normalize_media_target_id(key)
+        if ss_id:
+            return ss_id
 
     deep = deep_space_targets_by_id()
-    if key in deep:
-        return key
+    for key in keys:
+        if key in deep:
+            return key
 
     candidates: list[tuple[int, str]] = []
     for entry_id, entry in deep.items():
         for alias in entry.get("aliases") or []:
-            alias_key = _normalize_name(alias)
-            if alias_key == key:
-                candidates.append((-len(alias_key), entry_id))
+            alias_keys = set(_catalog_identity_keys(alias))
+            for key in keys:
+                if key in alias_keys:
+                    candidates.append((-len(key), entry_id))
+                    break
     if not candidates:
         return None
     candidates.sort()
@@ -251,8 +312,8 @@ def resolve_target_ids_from_selection(target: dict[str, Any] | None) -> list[str
     if not target or not isinstance(target, dict):
         return []
     found: list[str] = []
-    for raw in (target.get("name"), target.get("alt_name")):
-        resolved = resolve_canonical_target_id(raw if isinstance(raw, str) else None)
+    for raw in selection_identity_strings(target):
+        resolved = resolve_canonical_target_id(raw)
         if resolved and resolved not in found:
             found.append(resolved)
     return found
@@ -278,11 +339,11 @@ def match_signals_for_target(
     """Return structured match result for the Cosmic Signal Deck."""
     reg = load_registry()
     target_ids = resolve_target_ids_from_selection(target)
-    names = [
-        _normalize_name(target.get("name") if target else None),
-        _normalize_name(target.get("alt_name") if target else None),
-    ]
-    names = [n for n in names if n]
+    names: list[str] = []
+    for raw in selection_identity_strings(target):
+        for key in _catalog_identity_keys(raw):
+            if key and key not in names:
+                names.append(key)
 
     exact: list[dict[str, Any]] = []
     related_body: list[dict[str, Any]] = []

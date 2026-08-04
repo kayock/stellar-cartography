@@ -54,10 +54,11 @@
     }
   }
 
-  function buildMatchUrl(name, altName, allowFeatured) {
+  function buildMatchUrl(name, altName, allowFeatured, catalogueDesignations) {
     const params = new URLSearchParams({
       name: name || "",
       alt_name: altName || "",
+      catalogue_designations: catalogueDesignations || "",
       allow_featured: allowFeatured ? "1" : "0",
     });
     return "/api/cosmic-signal-match?" + params.toString();
