@@ -1,7 +1,7 @@
 # Project state — FOXAI Stellar Cartography R0.5.0 (development)
 
-**As of:** 2026-08-03  
-**Release:** R0.5.0 — **in development** (Slice 1 + Solar System Media Expansion landed; not packaged)  
+**As of:** 2026-08-04  
+**Release:** R0.5.0 — **in development** (Slice 1 + Solar System Media Expansion + Cosmic Signal Deck Slice 2 landed; not packaged)  
 **Baseline:** R0.4.0 — preserved under `receipts/baseline_r0.4.0/` (immutable)
 
 ## Baseline receipt quarantine
@@ -53,8 +53,8 @@ receipt yet (`receipts/WORK_IN_PROGRESS.md`).
 
 ## Validation (current worktree)
 
-- Python: **229/229** (`PYTHONWARNINGS=error`)
-- Node: **188/188**
+- Python: **237/237** (`PYTHONWARNINGS=error`)
+- Node: **189/189**
 
 ## Cosmic Signal Deck Slice 1
 
@@ -67,3 +67,18 @@ receipt yet (`receipts/WORK_IN_PROGRESS.md`).
 | Five verified enabled entries | Done |
 | Featured fallback + preference | Done |
 | Independence from MAST / ESASky / NASA media | Done |
+
+## Cosmic Signal Deck Slice 2
+
+| Requirement | Status |
+|-------------|--------|
+| Curated catalog expansion (ten verified additions) | Done |
+| Exact aliases + false-match guards | Done |
+| One primary composite per target | Done |
+| Slice 1 five entries unchanged | Done |
+| No player / layout redesign / proxy | Done |
+| Docs + matching/provenance tests | Done |
+
+Enabled total: **15** (`data_audification` Voyager + 14 `data_sonification` Chandra composites).
+
+Deferred: per-wavelength alternate tracks; bare `andromeda` alias; informal “Hand of God” as match key. Saturn sound-page HTML mislabels Uranus — provenance uses Chandra `photo/2026/sonify11/` album instead.
