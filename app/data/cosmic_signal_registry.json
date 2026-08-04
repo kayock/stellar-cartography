@@ -2,7 +2,7 @@
   "version": 1,
   "deck_title": "Cosmic Signal Deck",
   "deck_subtitle": "Listen to the data. See how we know.",
-  "redirect_limitation_notice": "Slice 1 validates the initial HTTPS media URL host only. The browser may follow redirects; full redirect-chain enforcement requires a later server media proxy.",
+  "redirect_limitation_notice": "The Cosmic Signal Deck validates the initial HTTPS media URL host only. The browser may follow redirects; full redirect-chain enforcement requires a later server media proxy.",
   "allowed_media_hosts": [
     "www.chandra.si.edu",
     "chandra.si.edu",
@@ -40,17 +40,34 @@
     {
       "id": "vela_pulsar",
       "display_name": "Vela Pulsar",
-      "aliases": ["vela pulsar", "vela", "psr b0833-45", "psr j0835-4510"]
+      "aliases": [
+        "vela pulsar",
+        "vela",
+        "psr b0833-45",
+        "psr j0835-4510"
+      ]
     },
     {
       "id": "crab_nebula",
       "display_name": "Crab Nebula",
-      "aliases": ["crab nebula", "crab", "m1", "m 1", "ngc 1952", "messier 1"]
+      "aliases": [
+        "crab nebula",
+        "crab",
+        "m1",
+        "m 1",
+        "ngc 1952",
+        "messier 1"
+      ]
     },
     {
       "id": "cassiopeia_a",
       "display_name": "Cassiopeia A",
-      "aliases": ["cassiopeia a", "cas a", "casa", "cassiopeia-a"]
+      "aliases": [
+        "cassiopeia a",
+        "cas a",
+        "casa",
+        "cassiopeia-a"
+      ]
     },
     {
       "id": "sagittarius_a",
@@ -63,6 +80,81 @@
         "galactic center",
         "milky way center"
       ]
+    },
+    {
+      "id": "msh_15_52",
+      "display_name": "MSH 15-52 / PSR B1509-58",
+      "aliases": [
+        "msh 15-52",
+        "msh15-52",
+        "psr b1509-58",
+        "b1509-58",
+        "snr g320.4-01.2",
+        "g320.4-01.2"
+      ]
+    },
+    {
+      "id": "m74",
+      "display_name": "M74 / Phantom Galaxy",
+      "aliases": [
+        "m74",
+        "m 74",
+        "messier 74",
+        "ngc 628",
+        "phantom galaxy"
+      ]
+    },
+    {
+      "id": "sn_1987a",
+      "display_name": "Supernova 1987A",
+      "aliases": [
+        "sn 1987a",
+        "supernova 1987a",
+        "sn1987a",
+        "sn87a",
+        "sn 87a"
+      ]
+    },
+    {
+      "id": "m87",
+      "display_name": "M87",
+      "aliases": [
+        "m87",
+        "m 87",
+        "messier 87",
+        "ngc 4486",
+        "virgo a"
+      ]
+    },
+    {
+      "id": "m31",
+      "display_name": "Andromeda Galaxy / M31",
+      "aliases": [
+        "m31",
+        "m 31",
+        "messier 31",
+        "andromeda galaxy",
+        "ngc 224"
+      ]
+    },
+    {
+      "id": "southern_ring_nebula",
+      "display_name": "Southern Ring Nebula",
+      "aliases": [
+        "southern ring nebula",
+        "ngc 3132"
+      ]
+    },
+    {
+      "id": "stephans_quintet",
+      "display_name": "Stephan's Quintet",
+      "aliases": [
+        "stephan's quintet",
+        "stephans quintet",
+        "stephan’s quintet",
+        "hcg 92",
+        "hickson compact group 92"
+      ]
     }
   ],
   "entries": [
@@ -72,16 +164,33 @@
       "enabled": true,
       "target_ids": [],
       "target_aliases": [],
-      "related_body_ids": ["sun"],
-      "related_missions": ["voyager", "voyager_1", "voyager1"],
-      "relevance_capabilities": ["related_mission", "related_body", "general_featured"],
+      "related_body_ids": [
+        "sun"
+      ],
+      "related_missions": [
+        "voyager",
+        "voyager_1",
+        "voyager1"
+      ],
+      "relevance_capabilities": [
+        "related_mission",
+        "related_body",
+        "general_featured"
+      ],
       "media_type": "data_audification",
       "conversion_method": "Plasma-wave electric-field oscillations measured by Voyager 1 were amplified into an audible soundtrack that preserves the measured amplitude and frequency content already within human hearing range.",
       "processing_notes": "Not a musical sonification mapping of an image. JPL describes the waves as amplified instrument antenna signals.",
       "observatories": [],
-      "spacecraft": ["Voyager 1"],
-      "instruments": ["Plasma Wave Subsystem (PWS)"],
-      "data_domains": ["plasma waves", "heliophysics"],
+      "spacecraft": [
+        "Voyager 1"
+      ],
+      "instruments": [
+        "Plasma Wave Subsystem (PWS)"
+      ],
+      "data_domains": [
+        "plasma waves",
+        "heliophysics"
+      ],
       "short_explanation": "Instrument-derived plasma-wave signals from Voyager 1 in interstellar space, amplified into audible form.",
       "mapping_explanation": "The soundtrack reproduces the amplitude and frequency of plasma waves detected by Voyager 1's plasma wave instrument. The waves can be amplified and played through a speaker because those frequencies already fall in the human hearing range.",
       "what_it_does_not_prove": "This is not a microphone recording of sound traveling through vacuum, and it is not an exact target recording for most Solar System moons or planets.",
@@ -107,18 +216,37 @@
       "id": "vela_pulsar_chandra_sonification",
       "title": "Vela Pulsar Sonification",
       "enabled": true,
-      "target_ids": ["vela_pulsar"],
-      "target_aliases": ["vela pulsar", "vela"],
+      "target_ids": [
+        "vela_pulsar"
+      ],
+      "target_aliases": [
+        "vela pulsar",
+        "vela"
+      ],
       "related_body_ids": [],
       "related_missions": [],
-      "relevance_capabilities": ["exact_target"],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
       "media_type": "data_sonification",
       "conversion_method": "Radar-like clockwise image scan; brightness to volume; distance from center to pitch; Chandra X-ray and Hubble optical layers mapped to distinct synthesized timbres.",
       "processing_notes": "Chandra bright inner region uses a low synth with ~11 Hz oscillations matching the pulsar period; outer X-ray/jet use wind-like sound; Hubble stars use plucked-synth notes.",
-      "observatories": ["Chandra X-ray Observatory", "Hubble Space Telescope"],
-      "spacecraft": ["Chandra", "Hubble"],
-      "instruments": ["Chandra X-ray", "Hubble optical"],
-      "data_domains": ["x-ray", "optical"],
+      "observatories": [
+        "Chandra X-ray Observatory",
+        "Hubble Space Telescope"
+      ],
+      "spacecraft": [
+        "Chandra",
+        "Hubble"
+      ],
+      "instruments": [
+        "Chandra X-ray",
+        "Hubble optical"
+      ],
+      "data_domains": [
+        "x-ray",
+        "optical"
+      ],
       "short_explanation": "A data sonification of the Vela Pulsar region from Chandra and Hubble observations.",
       "mapping_explanation": "Listen to a radar-like scan, clockwise from 12:00 of the image. Brightness is mapped to volume. Distance from the center is mapped to pitch (farther away is higher pitch). Chandra X-ray and Hubble optical data use different synthesized sounds.",
       "what_it_does_not_prove": "This is not a microphone recording from space. Pitch and volume come from an intentional mapping of image brightness and position.",
@@ -144,18 +272,43 @@
       "id": "crab_nebula_chandra_sonification",
       "title": "Crab Nebula Sonification",
       "enabled": true,
-      "target_ids": ["crab_nebula"],
-      "target_aliases": ["crab nebula", "crab", "m1", "m 1"],
+      "target_ids": [
+        "crab_nebula"
+      ],
+      "target_aliases": [
+        "crab nebula",
+        "crab",
+        "m1",
+        "m 1"
+      ],
       "related_body_ids": [],
       "related_missions": [],
-      "relevance_capabilities": ["exact_target"],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
       "media_type": "data_sonification",
       "conversion_method": "Left-to-right image scan; each wavelength family maps to a different instrument family; vertical position to pitch; brightness to loudness.",
       "processing_notes": "Chandra X-ray → brass; Hubble optical → strings; Spitzer infrared → woodwinds.",
-      "observatories": ["Chandra X-ray Observatory", "Hubble Space Telescope", "Spitzer Space Telescope"],
-      "spacecraft": ["Chandra", "Hubble", "Spitzer"],
-      "instruments": ["Chandra X-ray", "Hubble optical", "Spitzer infrared"],
-      "data_domains": ["x-ray", "optical", "infrared"],
+      "observatories": [
+        "Chandra X-ray Observatory",
+        "Hubble Space Telescope",
+        "Spitzer Space Telescope"
+      ],
+      "spacecraft": [
+        "Chandra",
+        "Hubble",
+        "Spitzer"
+      ],
+      "instruments": [
+        "Chandra X-ray",
+        "Hubble optical",
+        "Spitzer infrared"
+      ],
+      "data_domains": [
+        "x-ray",
+        "optical",
+        "infrared"
+      ],
       "short_explanation": "A data sonification of the Crab Nebula combining Chandra, Hubble, and Spitzer data.",
       "mapping_explanation": "The translation pans left to right. Each wavelength of light is paired with a different family of instruments. Light toward the top of the image is higher pitched; brighter light is louder.",
       "what_it_does_not_prove": "This is a data sonification, not a microphone recording from the nebula.",
@@ -181,18 +334,34 @@
       "id": "cassiopeia_a_chandra_sonification",
       "title": "Cassiopeia A Sonification",
       "enabled": true,
-      "target_ids": ["cassiopeia_a"],
-      "target_aliases": ["cassiopeia a", "cas a", "casa"],
+      "target_ids": [
+        "cassiopeia_a"
+      ],
+      "target_aliases": [
+        "cassiopeia a",
+        "cas a",
+        "casa"
+      ],
       "related_body_ids": [],
       "related_missions": [],
-      "relevance_capabilities": ["exact_target"],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
       "media_type": "data_sonification",
       "conversion_method": "Element distributions and high-energy structures are scanned outward from the center along multiple paths; intensity controls volume.",
       "processing_notes": "Silicon, sulfur, calcium, and iron paths plus a jet path are mapped to distinct audio tracks.",
-      "observatories": ["Chandra X-ray Observatory"],
-      "spacecraft": ["Chandra"],
-      "instruments": ["Chandra X-ray"],
-      "data_domains": ["x-ray"],
+      "observatories": [
+        "Chandra X-ray Observatory"
+      ],
+      "spacecraft": [
+        "Chandra"
+      ],
+      "instruments": [
+        "Chandra X-ray"
+      ],
+      "data_domains": [
+        "x-ray"
+      ],
       "short_explanation": "A data sonification of Cassiopeia A supernova remnant element maps from Chandra.",
       "mapping_explanation": "Sounds are mapped to four elements in the debris as well as other high-energy data, moving outward from the center, with intensity controlling volume. A fifth path follows the upper-left jet.",
       "what_it_does_not_prove": "This is not literal sound from the remnant; it is a sonification of X-ray data products.",
@@ -218,18 +387,43 @@
       "id": "galactic_center_chandra_sonification",
       "title": "Galactic Center / Sagittarius A* Sonification",
       "enabled": true,
-      "target_ids": ["sagittarius_a"],
-      "target_aliases": ["galactic center", "sagittarius a*", "sgr a*", "sagittarius a"],
+      "target_ids": [
+        "sagittarius_a"
+      ],
+      "target_aliases": [
+        "galactic center",
+        "sagittarius a*",
+        "sgr a*",
+        "sagittarius a"
+      ],
       "related_body_ids": [],
       "related_missions": [],
-      "relevance_capabilities": ["exact_target"],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
       "media_type": "data_sonification",
       "conversion_method": "Left-to-right scan of a Chandra/Hubble/Spitzer composite; vertical position to pitch; brightness to volume; compact sources as notes and extended clouds as evolving drone.",
       "processing_notes": "Ensemble mix assigns different telescope layers to different sonic roles; crescendo near Sagittarius A*.",
-      "observatories": ["Chandra X-ray Observatory", "Hubble Space Telescope", "Spitzer Space Telescope"],
-      "spacecraft": ["Chandra", "Hubble", "Spitzer"],
-      "instruments": ["Chandra X-ray", "Hubble optical", "Spitzer infrared"],
-      "data_domains": ["x-ray", "optical", "infrared"],
+      "observatories": [
+        "Chandra X-ray Observatory",
+        "Hubble Space Telescope",
+        "Spitzer Space Telescope"
+      ],
+      "spacecraft": [
+        "Chandra",
+        "Hubble",
+        "Spitzer"
+      ],
+      "instruments": [
+        "Chandra X-ray",
+        "Hubble optical",
+        "Spitzer infrared"
+      ],
+      "data_domains": [
+        "x-ray",
+        "optical",
+        "infrared"
+      ],
       "short_explanation": "A data sonification of the Milky Way's Galactic Center region, including Sagittarius A*.",
       "mapping_explanation": "The translation begins on the left and moves right. Higher image positions are higher pitches; brighter light is louder. Stars and compact sources become individual notes; extended gas and dust produce an evolving drone.",
       "what_it_does_not_prove": "This is not a recording of sound at the Galactic Center; it is a sonification of multiwavelength telescope data.",
@@ -250,6 +444,585 @@
       "verified_by": "manual official-page check",
       "verification_notes": "Official Chandra Universe of Sound Galactic Center page. Direct media returns video/mp4 on www.chandra.si.edu.",
       "final_resolved_media_host": "www.chandra.si.edu"
+    },
+    {
+      "enabled": true,
+      "target_aliases": [
+        "msh 15-52",
+        "psr b1509-58",
+        "b1509-58"
+      ],
+      "related_body_ids": [],
+      "related_missions": [],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
+      "media_type": "data_sonification",
+      "processing_notes": "Composite uses Chandra, IXPE, and Dark Energy Plane Survey 2 infrared. Alternate Chandra-only, IXPE-only, and sources-only tracks deferred. Informal 'Hand of God' nickname appears in some NASA outreach filenames; not used as a canonical id.",
+      "spacecraft": [
+        "Chandra",
+        "IXPE"
+      ],
+      "duration_sec": null,
+      "media_format": "video/mp4",
+      "media_kind": "video",
+      "transcript_text": null,
+      "captions_url": null,
+      "verified_date": "2026-08-04T05:50:00Z",
+      "verified_by": "manual official-page check",
+      "credits": "Chandra X-ray Center (CXC) with NASA's Universe of Learning; visualization scientist Dr. Kimberly Arcand (CXC); Dr. Matt Russo and Andrew Santaguida (SYSTEM Sounds).",
+      "attribution": "Chandra X-ray Center / Smithsonian Astrophysical Observatory / NASA",
+      "final_resolved_media_host": "www.chandra.si.edu",
+      "id": "msh_15_52_chandra_ixpe_sonification",
+      "title": "MSH 15-52 / PSR B1509-58 Sonification",
+      "target_ids": [
+        "msh_15_52"
+      ],
+      "conversion_method": "Bottom-to-top image scan of the pulsar-wind nebula. Chandra brightness maps to rough string-like sounds; the blast wave to firework-type pitches; IXPE X-ray polarization data to wind-like sounds; infrared survey data to synthesizer pitches. The pulsar light curve is heard as pulses almost 7 times per second, matching the measured pulse rate.",
+      "observatories": [
+        "Chandra X-ray Observatory",
+        "IXPE",
+        "Dark Energy Plane Survey 2"
+      ],
+      "instruments": [
+        "Chandra X-ray",
+        "IXPE X-ray polarimetry",
+        "DECaPS2 infrared"
+      ],
+      "data_domains": [
+        "x-ray",
+        "infrared",
+        "pulsar timing"
+      ],
+      "short_explanation": "A data sonification of the MSH 15-52 pulsar-wind nebula powered by PSR B1509-58, combining Chandra, IXPE, and infrared survey data.",
+      "mapping_explanation": "The scan goes from the bottom to the top. Chandra cloud brightness becomes rough string-like sounds; the blast wave uses firework-type pitches; IXPE data sound wind-like; infrared data map to synthesizer pitches. The collapsed core's brightness-over-time light curve is heard as pulses almost 7 times every second, as in the original timing data. This remains a data sonification, not a microphone recording.",
+      "what_it_does_not_prove": "This is not microphone audio from the nebula. Pitch, timbre, and pulsing come from intentional mappings of X-ray, infrared, and pulsar timing products.",
+      "recorded_or_created_date": "2024",
+      "media_url": "https://www.chandra.si.edu/photo/2024/sonify8/sonify8_hand.mp4",
+      "source_page_url": "https://www.chandra.si.edu/sound/msh1552.html",
+      "thumbnail_url": "https://www.chandra.si.edu/sound/images/msh1552_comp.jpg",
+      "poster_url": "https://www.chandra.si.edu/sound/images/msh1552_comp.jpg",
+      "accessibility_description": "Sonification video scanning MSH 15-52 from bottom to top with pulsed representation of PSR B1509-58.",
+      "verification_notes": "Official Chandra Universe of Sound page. Composite MP4 returns video/mp4 with ftyp on www.chandra.si.edu. Alternate tracks: sonify8_hand_chandra.mp4, sonify8_hand_ixpe.mp4, sonify8_hand_sources.mp4 deferred. Pulse rate documented as almost 7 Hz on the official page."
+    },
+    {
+      "enabled": true,
+      "target_aliases": [
+        "m74",
+        "messier 74",
+        "ngc 628",
+        "phantom galaxy"
+      ],
+      "related_body_ids": [],
+      "related_missions": [],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
+      "media_type": "data_sonification",
+      "processing_notes": "Alternate HST-only, JWST-only, and X-ray-only tracks deferred.",
+      "spacecraft": [
+        "Chandra",
+        "JWST",
+        "Hubble"
+      ],
+      "duration_sec": null,
+      "media_format": "video/mp4",
+      "media_kind": "video",
+      "transcript_text": null,
+      "captions_url": null,
+      "verified_date": "2026-08-04T05:50:00Z",
+      "verified_by": "manual official-page check",
+      "credits": "Chandra X-ray Center (CXC) with NASA's Universe of Learning; visualization scientist Dr. Kimberly Arcand (CXC); Dr. Matt Russo and Andrew Santaguida (SYSTEM Sounds).",
+      "attribution": "Chandra X-ray Center / Smithsonian Astrophysical Observatory / NASA",
+      "final_resolved_media_host": "www.chandra.si.edu",
+      "id": "m74_chandra_webb_hubble_sonification",
+      "title": "M74 (Phantom Galaxy) Sonification",
+      "target_ids": [
+        "m74"
+      ],
+      "conversion_method": "Clockwise radar-like scan from about 12 o'clock. Distance from center controls pitch (farther from center is higher). Chandra, JWST, and Hubble layers use distinct timbres.",
+      "observatories": [
+        "Chandra X-ray Observatory",
+        "James Webb Space Telescope",
+        "Hubble Space Telescope"
+      ],
+      "instruments": [
+        "Chandra X-ray",
+        "JWST infrared",
+        "Hubble optical"
+      ],
+      "data_domains": [
+        "x-ray",
+        "infrared",
+        "optical"
+      ],
+      "short_explanation": "A data sonification of face-on spiral galaxy M74 combining Chandra, JWST, and Hubble data.",
+      "mapping_explanation": "A clockwise radar-like scan starts around 12 o'clock. Distance from the center controls sound frequency, with light farther from the center heard at higher pitch. Chandra sources map to glassy ethereal and plucked sounds; Webb features use low/medium/high frequencies by structure size; Hubble optical data fill additional mapped layers in the composite.",
+      "what_it_does_not_prove": "This is not a recording of sound from M74. Pitch follows radial distance and brightness mappings chosen for the sonification.",
+      "recorded_or_created_date": "2024",
+      "media_url": "https://www.chandra.si.edu/photo/2024/sonify8/sonify8_m74.mp4",
+      "source_page_url": "https://www.chandra.si.edu/sound/m74.html",
+      "thumbnail_url": "https://www.chandra.si.edu/sound/images/m74_comp.jpg",
+      "poster_url": "https://www.chandra.si.edu/sound/images/m74_comp.jpg",
+      "accessibility_description": "Sonification video of M74 with clockwise radial pitch mapping.",
+      "verification_notes": "Official Chandra page. Composite MP4 verified video/mp4+ftyp. Alternates: sonify8_m74_hst.mp4, sonify8_m74_jwst.mp4, sonify8_m74_xray.mp4 deferred."
+    },
+    {
+      "enabled": true,
+      "target_aliases": [
+        "sn 1987a",
+        "supernova 1987a",
+        "sn87a",
+        "sn 87a"
+      ],
+      "related_body_ids": [],
+      "related_missions": [],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
+      "media_type": "data_sonification",
+      "processing_notes": "Interactive SN1987A tool and single-wavelength tracks deferred; composite time-lapse enabled.",
+      "spacecraft": [
+        "Chandra",
+        "Hubble"
+      ],
+      "duration_sec": null,
+      "media_format": "video/mp4",
+      "media_kind": "video",
+      "transcript_text": null,
+      "captions_url": null,
+      "verified_date": "2026-08-04T05:50:00Z",
+      "verified_by": "manual official-page check",
+      "credits": "Chandra X-ray Center (CXC) with NASA's Universe of Learning; visualization scientist Dr. Kimberly Arcand (CXC); Dr. Matt Russo and Andrew Santaguida (SYSTEM Sounds).",
+      "attribution": "Chandra X-ray Center / Smithsonian Astrophysical Observatory / NASA",
+      "final_resolved_media_host": "www.chandra.si.edu",
+      "id": "sn_1987a_chandra_hubble_sonification",
+      "title": "Supernova 1987A Sonification",
+      "target_ids": [
+        "sn_1987a"
+      ],
+      "conversion_method": "Time-lapse of Chandra and Hubble observations (1999-2013) sonified while focus sweeps the image; brighter light maps to higher and louder notes; optical uses a higher pitch range than X-ray.",
+      "observatories": [
+        "Chandra X-ray Observatory",
+        "Hubble Space Telescope"
+      ],
+      "instruments": [
+        "Chandra X-ray",
+        "Hubble optical"
+      ],
+      "data_domains": [
+        "x-ray",
+        "optical",
+        "time series"
+      ],
+      "short_explanation": "A data sonification of SN 1987A's glowing gas ring evolving between 1999 and 2013 in Chandra and Hubble data.",
+      "mapping_explanation": "A time lapse of Chandra (blue) and Hubble (orange/red) observations from 1999 to 2013 shows a pre-explosion gas ring brightening as the shockwave passes. As focus sweeps the image, data become crystal singing-bowl tones with brighter light higher and louder. Optical notes use a higher range than X-rays so both can be heard together.",
+      "what_it_does_not_prove": "This is not live audio from the supernova. It sonifies multiyear telescope imagery of the remnant.",
+      "recorded_or_created_date": "1999-2013",
+      "media_url": "https://www.chandra.si.edu/sound/sounds/sn87a_all.mp4",
+      "source_page_url": "https://www.chandra.si.edu/sound/sn87a.html",
+      "thumbnail_url": "https://www.chandra.si.edu/sound/images/sn87a_landscape.jpg",
+      "poster_url": "https://www.chandra.si.edu/sound/images/sn87a_landscape.jpg",
+      "accessibility_description": "Sonification of SN 1987A multiwavelength time-lapse imagery.",
+      "verification_notes": "Official Chandra SN87A page. Composite sn87a_all.mp4 verified. Alternates sn87a_opt/xray deferred."
+    },
+    {
+      "enabled": true,
+      "target_aliases": [
+        "m87",
+        "messier 87",
+        "ngc 4486",
+        "virgo a"
+      ],
+      "related_body_ids": [],
+      "related_missions": [],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
+      "media_type": "data_sonification",
+      "processing_notes": "Alternate X-ray-only and radio-only tracks deferred.",
+      "spacecraft": [
+        "Chandra"
+      ],
+      "duration_sec": null,
+      "media_format": "video/mp4",
+      "media_kind": "video",
+      "transcript_text": null,
+      "captions_url": null,
+      "verified_date": "2026-08-04T05:50:00Z",
+      "verified_by": "manual official-page check",
+      "credits": "Chandra X-ray Center (CXC) with NASA's Universe of Learning; visualization scientist Dr. Kimberly Arcand (CXC); Dr. Matt Russo and Andrew Santaguida (SYSTEM Sounds).",
+      "attribution": "Chandra X-ray Center / Smithsonian Astrophysical Observatory / NASA",
+      "final_resolved_media_host": "www.chandra.si.edu",
+      "id": "m87_chandra_vla_sonification",
+      "title": "M87 Sonification",
+      "target_ids": [
+        "m87"
+      ],
+      "conversion_method": "Radar-like clockwise scan from the 3 o'clock position. Distance from center maps to pitch; brightness to loudness; radio lower than X-ray; point sources as short plucked sounds.",
+      "observatories": [
+        "Chandra X-ray Observatory",
+        "Very Large Array"
+      ],
+      "instruments": [
+        "Chandra X-ray",
+        "VLA radio"
+      ],
+      "data_domains": [
+        "x-ray",
+        "radio"
+      ],
+      "short_explanation": "A data sonification of M87's black-hole jet environment using Chandra X-ray and VLA radio data.",
+      "mapping_explanation": "The image is scanned from the 3 o'clock position clockwise like a radar. Light farther from the center is higher pitched; brighter light is louder. Radio data are lower pitched than X-rays, reflecting their electromagnetic frequency ranges. Point-like X-ray sources play as short plucked sounds. This maps the jet and hot gas environment; it does not acoustically record the black hole itself.",
+      "what_it_does_not_prove": "The black hole was not recorded with a microphone. Sounds come from spatial and brightness mappings of X-ray and radio telescope products.",
+      "recorded_or_created_date": "2020",
+      "media_url": "https://www.chandra.si.edu/sound/sounds/m87_all.mp4",
+      "source_page_url": "https://www.chandra.si.edu/sound/m87.html",
+      "thumbnail_url": "https://www.chandra.si.edu/sound/images/m87_all.jpg",
+      "poster_url": "https://www.chandra.si.edu/sound/images/m87_all.jpg",
+      "accessibility_description": "Sonification of M87 Chandra X-ray and VLA radio composite.",
+      "verification_notes": "Official Chandra M87 page. m87_all.mp4 verified. Alternates m87_xray/radio deferred. Separate M87 Jet page deferred."
+    },
+    {
+      "enabled": true,
+      "target_aliases": [
+        "m31",
+        "messier 31",
+        "andromeda galaxy",
+        "ngc 224"
+      ],
+      "related_body_ids": [],
+      "related_missions": [],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
+      "media_type": "data_sonification",
+      "processing_notes": "Montage and single-band tracks deferred; composite enabled.",
+      "spacecraft": [
+        "Chandra",
+        "GALEX",
+        "Hubble",
+        "Spitzer"
+      ],
+      "duration_sec": null,
+      "media_format": "video/mp4",
+      "media_kind": "video",
+      "transcript_text": null,
+      "captions_url": null,
+      "verified_date": "2026-08-04T05:50:00Z",
+      "verified_by": "manual official-page check",
+      "credits": "Chandra X-ray Center (CXC) with NASA's Universe of Learning; visualization scientist Dr. Kimberly Arcand (CXC); Dr. Matt Russo and Andrew Santaguida (SYSTEM Sounds).",
+      "attribution": "Chandra X-ray Center / Smithsonian Astrophysical Observatory / NASA",
+      "final_resolved_media_host": "www.chandra.si.edu",
+      "id": "m31_multiwavelength_sonification",
+      "title": "Andromeda Galaxy (M31) Sonification",
+      "target_ids": [
+        "m31"
+      ],
+      "conversion_method": "Left-to-right scan across stacked wavelength layers (X-ray through radio). Brightness controls volume; vertical position controls pitch; each band uses a different note range.",
+      "observatories": [
+        "Chandra X-ray Observatory",
+        "GALEX",
+        "Hubble Space Telescope",
+        "Spitzer Space Telescope",
+        "VLA"
+      ],
+      "instruments": [
+        "multiwavelength composite"
+      ],
+      "data_domains": [
+        "x-ray",
+        "ultraviolet",
+        "optical",
+        "infrared",
+        "radio"
+      ],
+      "short_explanation": "A data sonification of the Andromeda Galaxy (M31) combining X-ray through radio telescope layers.",
+      "mapping_explanation": "Wavelength layers are stacked horizontally from X-rays at the top through ultraviolet, optical, infrared, and radio at the bottom. A left-to-right scan maps each band to a different note range from lower-energy radio up to high-energy X-rays. Source brightness controls volume and vertical location controls pitch.",
+      "what_it_does_not_prove": "This is not sound recorded in Andromeda. It sonifies multiwavelength image products of M31.",
+      "recorded_or_created_date": "2025",
+      "media_url": "https://www.chandra.si.edu/photo/2025/m31/m31.mp4",
+      "source_page_url": "https://www.chandra.si.edu/sound/andromeda.html",
+      "thumbnail_url": "https://www.chandra.si.edu/sound/images/m31_composite.jpg",
+      "poster_url": "https://www.chandra.si.edu/sound/images/m31_composite.jpg",
+      "accessibility_description": "Sonification of Andromeda Galaxy multiwavelength composite.",
+      "verification_notes": "Official Chandra Andromeda page. Composite m31.mp4 verified. Bare alias 'andromeda' omitted to avoid constellation false matches."
+    },
+    {
+      "enabled": true,
+      "target_aliases": [
+        "jupiter"
+      ],
+      "related_body_ids": [],
+      "related_missions": [],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
+      "media_type": "data_sonification",
+      "processing_notes": "Alternate infrared-only and X-ray-only tracks deferred.",
+      "spacecraft": [
+        "Chandra",
+        "Hubble"
+      ],
+      "duration_sec": null,
+      "media_format": "video/mp4",
+      "media_kind": "video",
+      "transcript_text": null,
+      "captions_url": null,
+      "verified_date": "2026-08-04T05:50:00Z",
+      "verified_by": "manual official-page check",
+      "credits": "Chandra X-ray Center (CXC) with NASA's Universe of Learning; visualization scientist Dr. Kimberly Arcand (CXC); Dr. Matt Russo and Andrew Santaguida (SYSTEM Sounds).",
+      "attribution": "Chandra X-ray Center / Smithsonian Astrophysical Observatory / NASA",
+      "final_resolved_media_host": "www.chandra.si.edu",
+      "id": "jupiter_chandra_hubble_sonification",
+      "title": "Jupiter Sonification",
+      "target_ids": [
+        "jupiter"
+      ],
+      "conversion_method": "Left-to-right scan. Chandra X-rays (including auroral regions and enhanced diffuse ring emission) map to woodwind-like sounds; Hubble infrared planet data add fuller instrumental textures; pitch descends across the bright equatorial band and Great Red Spot.",
+      "observatories": [
+        "Chandra X-ray Observatory",
+        "Hubble Space Telescope"
+      ],
+      "instruments": [
+        "Chandra X-ray",
+        "Hubble infrared"
+      ],
+      "data_domains": [
+        "x-ray",
+        "infrared"
+      ],
+      "short_explanation": "A data sonification of Jupiter combining Chandra X-ray and Hubble infrared imagery — not literal planetary microphone audio.",
+      "mapping_explanation": "As the scan moves left to right, Chandra X-rays flanking the planet play as woodwind sounds. Over the planet, Hubble infrared data make the texture fuller. Because Jupiter is tilted, pitch descends across the bright equatorial band and Great Red Spot. Additional Chandra X-ray emission at the end sounds gusty/wind-like. These are mapped telescope data, not sounds recorded in Jupiter's atmosphere.",
+      "what_it_does_not_prove": "This is not a microphone recording from Jupiter. It sonifies Chandra and Hubble image products.",
+      "recorded_or_created_date": "2026",
+      "media_url": "https://www.chandra.si.edu/photo/2026/sonify11/sonify11_jupiter.mp4",
+      "source_page_url": "https://www.chandra.si.edu/sound/jupiter.html",
+      "thumbnail_url": "https://www.chandra.si.edu/sound/images/jupiter_thm.jpg",
+      "poster_url": "https://www.chandra.si.edu/sound/images/jupiter_thm.jpg",
+      "accessibility_description": "Sonification of Jupiter Chandra X-ray and Hubble infrared composite.",
+      "verification_notes": "Official Chandra Jupiter sound page + photo/2026/sonify11 collection. Composite verified."
+    },
+    {
+      "enabled": true,
+      "target_aliases": [
+        "saturn"
+      ],
+      "related_body_ids": [],
+      "related_missions": [],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
+      "media_type": "data_sonification",
+      "processing_notes": "Mapping text taken from official Chandra photo album https://chandra.si.edu/photo/2026/sonify11/ and NASA article. The dedicated sound/saturn.html page currently mis-pastes Uranus prose; not used as the mapping source. Planet-only and rings-only alternates deferred.",
+      "spacecraft": [
+        "Chandra",
+        "Cassini"
+      ],
+      "duration_sec": null,
+      "media_format": "video/mp4",
+      "media_kind": "video",
+      "transcript_text": null,
+      "captions_url": null,
+      "verified_date": "2026-08-04T05:50:00Z",
+      "verified_by": "manual official-page check",
+      "credits": "Chandra X-ray Center (CXC) with NASA's Universe of Learning; visualization scientist Dr. Kimberly Arcand (CXC); Dr. Matt Russo and Andrew Santaguida (SYSTEM Sounds).",
+      "attribution": "Chandra X-ray Center / Smithsonian Astrophysical Observatory / NASA",
+      "final_resolved_media_host": "www.chandra.si.edu",
+      "id": "saturn_chandra_cassini_sonification",
+      "title": "Saturn Sonification",
+      "target_ids": [
+        "saturn"
+      ],
+      "conversion_method": "Right-to-left scan. Cassini optical rings map to a siren-like frequency following the ring arc; the planet body maps to lower dark synthetic bass; Chandra X-rays map to higher synthetic tones across planet, rings, and poles.",
+      "observatories": [
+        "Chandra X-ray Observatory",
+        "Cassini"
+      ],
+      "instruments": [
+        "Chandra X-ray",
+        "Cassini optical"
+      ],
+      "data_domains": [
+        "x-ray",
+        "optical"
+      ],
+      "short_explanation": "A data sonification of Saturn combining Chandra X-rays with Cassini optical imagery of the planet and rings.",
+      "mapping_explanation": "The scan begins on the right and moves left. Saturn's rings (Cassini optical) produce a siren effect whose frequency follows the ring arc. The planet itself becomes lower dark synthetic bass tones, distinguishing rings from the globe. Chandra X-rays are higher synthetic tones marking high-energy activity across the planet, rings, and poles. This is telescope-data sonification, not literal Saturn microphone audio.",
+      "what_it_does_not_prove": "This is not a recording of sound on Saturn. It sonifies Chandra and Cassini image products.",
+      "recorded_or_created_date": "2026",
+      "media_url": "https://www.chandra.si.edu/photo/2026/sonify11/sonify11_saturn.mp4",
+      "source_page_url": "https://chandra.si.edu/photo/2026/sonify11/",
+      "thumbnail_url": "https://www.chandra.si.edu/sound/images/saturn_thm.jpg",
+      "poster_url": "https://www.chandra.si.edu/sound/images/saturn_thm.jpg",
+      "accessibility_description": "Sonification of Saturn rings and planet with Chandra X-ray overlays.",
+      "verification_notes": "Media on www.chandra.si.edu verified video/mp4+ftyp. Mapping/credits from Chandra photo album sonify11 and NASA Planetary Parade article because sound/saturn.html body text incorrectly describes Uranus."
+    },
+    {
+      "enabled": true,
+      "target_aliases": [
+        "uranus"
+      ],
+      "related_body_ids": [],
+      "related_missions": [],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
+      "media_type": "data_sonification",
+      "processing_notes": "Alternate optical-only and X-ray-only tracks deferred.",
+      "spacecraft": [
+        "Chandra"
+      ],
+      "duration_sec": null,
+      "media_format": "video/mp4",
+      "media_kind": "video",
+      "transcript_text": null,
+      "captions_url": null,
+      "verified_date": "2026-08-04T05:50:00Z",
+      "verified_by": "manual official-page check",
+      "credits": "Chandra X-ray Center (CXC) with NASA's Universe of Learning; visualization scientist Dr. Kimberly Arcand (CXC); Dr. Matt Russo and Andrew Santaguida (SYSTEM Sounds).",
+      "attribution": "Chandra X-ray Center / Smithsonian Astrophysical Observatory / NASA",
+      "final_resolved_media_host": "www.chandra.si.edu",
+      "id": "uranus_chandra_keck_sonification",
+      "title": "Uranus Sonification",
+      "target_ids": [
+        "uranus"
+      ],
+      "conversion_method": "Left-to-right scan. A cello traces the ring arc; optical reflected light from Keck maps note changes; Chandra reflected solar X-rays map to higher frequencies over the planet.",
+      "observatories": [
+        "Chandra X-ray Observatory",
+        "W.M. Keck Observatory"
+      ],
+      "instruments": [
+        "Chandra X-ray",
+        "Keck optical"
+      ],
+      "data_domains": [
+        "x-ray",
+        "optical"
+      ],
+      "short_explanation": "A data sonification of Uranus combining Chandra X-ray and Keck optical data — not literal ice-giant microphone audio.",
+      "mapping_explanation": "Left to right, a cello traces Uranus's arcing ring. Notes then change with reflected optical light and position from Keck. Chandra X-rays (solar X-rays reflected from Uranus) are heard as higher frequencies over the pinkish planetary region. Apparent X-ray asymmetry may be an imaging/smoothing artifact per the official caption.",
+      "what_it_does_not_prove": "This is not a microphone recording from Uranus. It sonifies Chandra and Keck image products.",
+      "recorded_or_created_date": "2026",
+      "media_url": "https://www.chandra.si.edu/photo/2026/sonify11/sonify11_uranus.mp4",
+      "source_page_url": "https://www.chandra.si.edu/sound/uranus.html",
+      "thumbnail_url": "https://www.chandra.si.edu/sound/images/uranus_thm.jpg",
+      "poster_url": "https://www.chandra.si.edu/sound/images/uranus_thm.jpg",
+      "accessibility_description": "Sonification of Uranus Chandra X-ray and Keck optical composite.",
+      "verification_notes": "Official Chandra Uranus sound page. Composite verified video/mp4+ftyp."
+    },
+    {
+      "enabled": true,
+      "target_aliases": [
+        "southern ring nebula",
+        "ngc 3132"
+      ],
+      "related_body_ids": [],
+      "related_missions": [],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
+      "media_type": "data_sonification",
+      "processing_notes": "NIRCam-only and MIRI-only alternates deferred; NIRCam+MIRI composite enabled.",
+      "spacecraft": [
+        "JWST"
+      ],
+      "duration_sec": null,
+      "media_format": "video/mp4",
+      "media_kind": "video",
+      "transcript_text": null,
+      "captions_url": null,
+      "verified_date": "2026-08-04T05:50:00Z",
+      "verified_by": "manual official-page check",
+      "credits": "Chandra X-ray Center (CXC) with NASA's Universe of Learning; visualization scientist Dr. Kimberly Arcand (CXC); Dr. Matt Russo and Andrew Santaguida (SYSTEM Sounds).",
+      "attribution": "Chandra X-ray Center / Smithsonian Astrophysical Observatory / NASA",
+      "final_resolved_media_host": "www.chandra.si.edu",
+      "id": "southern_ring_nebula_jwst_sonification",
+      "title": "Southern Ring Nebula Sonification",
+      "target_ids": [
+        "southern_ring_nebula"
+      ],
+      "conversion_method": "JWST NIRCam then MIRI views with light-frequency-to-sound-frequency color mapping; central stars marked by distinct notes near 15s and 44s.",
+      "observatories": [
+        "James Webb Space Telescope"
+      ],
+      "instruments": [
+        "NIRCam",
+        "MIRI"
+      ],
+      "data_domains": [
+        "near-infrared",
+        "mid-infrared"
+      ],
+      "short_explanation": "A JWST data sonification contrasting near-infrared and mid-infrared views of the Southern Ring Nebula.",
+      "mapping_explanation": "Colors map to sound pitches by converting light frequencies toward sound frequencies. Near-infrared uses a higher pitch range first; mid-infrared notes are lower overall for longer wavelengths. Distinct notes near 15 and 44 seconds mark the image centers: NIRCam emphasizes one clear central star clang; MIRI presents a low then higher note for the two central stars. Official page states this does not represent sounds recorded in space.",
+      "what_it_does_not_prove": "This is not sound recorded at the nebula. Two musicians mapped JWST image data to composed sound.",
+      "recorded_or_created_date": "2022",
+      "media_url": "https://www.chandra.si.edu/sound/sounds/southern_ring_nircam_miri.mp4",
+      "source_page_url": "https://www.chandra.si.edu/sound/southern_ring.html",
+      "thumbnail_url": "https://www.chandra.si.edu/sound/images/southern_ring_nircam_miri.jpg",
+      "poster_url": "https://www.chandra.si.edu/sound/images/southern_ring_nircam_miri.jpg",
+      "accessibility_description": "Sonification contrasting JWST NIRCam and MIRI Southern Ring Nebula images.",
+      "verification_notes": "Official Chandra/Webb Universe of Sound page. Composite nircam_miri verified."
+    },
+    {
+      "enabled": true,
+      "target_aliases": [
+        "stephan's quintet",
+        "stephans quintet",
+        "hcg 92",
+        "hickson compact group 92"
+      ],
+      "related_body_ids": [],
+      "related_missions": [],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
+      "media_type": "data_sonification",
+      "processing_notes": "Infrared-only and X-ray-only alternates deferred.",
+      "spacecraft": [
+        "Chandra",
+        "JWST"
+      ],
+      "duration_sec": null,
+      "media_format": "video/mp4",
+      "media_kind": "video",
+      "transcript_text": null,
+      "captions_url": null,
+      "verified_date": "2026-08-04T05:50:00Z",
+      "verified_by": "manual official-page check",
+      "credits": "Chandra X-ray Center (CXC) with NASA's Universe of Learning; visualization scientist Dr. Kimberly Arcand (CXC); Dr. Matt Russo and Andrew Santaguida (SYSTEM Sounds).",
+      "attribution": "Chandra X-ray Center / Smithsonian Astrophysical Observatory / NASA",
+      "final_resolved_media_host": "www.chandra.si.edu",
+      "id": "stephans_quintet_chandra_webb_sonification",
+      "title": "Stephan's Quintet Sonification",
+      "target_ids": [
+        "stephans_quintet"
+      ],
+      "conversion_method": "Scan across Chandra+JWST data: background galaxies/stars as glass marimba; diffraction-spiked stars as crash cymbals; quintet galaxies as smoothly changing frequencies; Chandra shock X-rays as synthetic strings.",
+      "observatories": [
+        "Chandra X-ray Observatory",
+        "James Webb Space Telescope"
+      ],
+      "instruments": [
+        "Chandra X-ray",
+        "JWST infrared"
+      ],
+      "data_domains": [
+        "x-ray",
+        "infrared"
+      ],
+      "short_explanation": "A data sonification of Stephan's Quintet combining Chandra X-ray shock emission with JWST infrared galaxy structure.",
+      "mapping_explanation": "Pitch changes with brightness in different ways across layers. Webb background galaxies and foreground stars map to synthetic glass marimba notes; stars with diffraction spikes play as crash cymbals. The quintet galaxies themselves are smoothly changing frequencies as the scan passes. Chandra X-rays of a multi-million-degree shock wave are synthetic string sounds.",
+      "what_it_does_not_prove": "This is not microphone audio from the galaxy group. It sonifies Chandra and JWST image products.",
+      "recorded_or_created_date": "2022",
+      "media_url": "https://www.chandra.si.edu/sound/sounds/stephansquintet_all.mp4",
+      "source_page_url": "https://www.chandra.si.edu/sound/stephans.html",
+      "thumbnail_url": "https://www.chandra.si.edu/sound/images/stephansquintet_thm.jpg",
+      "poster_url": "https://www.chandra.si.edu/sound/images/stephansquintet_thm.jpg",
+      "accessibility_description": "Sonification of Stephan's Quintet Chandra and JWST composite.",
+      "verification_notes": "Official Chandra Stephan's Quintet page. stephansquintet_all.mp4 verified."
     }
   ]
 }
