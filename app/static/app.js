@@ -38,6 +38,12 @@ const state = {
   hipsLayer: HipsLayerControl.createState(),
   hipsNavTargetKey: null,
   planetaryImageRequest: PlanetaryImage.createRequestState(),
+  cosmicSignalRequest: CosmicSignalDeck.createRequestState(),
+  cosmicSignalHosts: null,
+  cosmicSignalRegistryPromise: null,
+  cosmicSignalMediaUrlAllowed: false,
+  cosmicSignalRequestGeneration: 0,
+  cosmicSignalUserRequestedPlayback: false,
   archiveAvailability: ArchiveAvailability.createState(),
   archiveLights: {},
   discoveryBundle: null,
@@ -63,6 +69,25 @@ const el = {
   solarSystemNoticeBody: document.getElementById("solar-system-notice-body"),
   planetaryImageCard: document.getElementById("planetary-image-card"),
   planetaryImageBody: document.getElementById("planetary-image-body"),
+  cosmicSignalDeckCard: document.getElementById("cosmic-signal-deck-card"),
+  cosmicSignalTitle: document.getElementById("cosmic-signal-title"),
+  cosmicSignalSubtitle: document.getElementById("cosmic-signal-subtitle"),
+  cosmicSignalBody: document.getElementById("cosmic-signal-body"),
+  cosmicSignalStatus: document.getElementById("cosmic-signal-status"),
+  cosmicSignalRelevance: document.getElementById("cosmic-signal-relevance"),
+  cosmicSignalMediaType: document.getElementById("cosmic-signal-media-type"),
+  cosmicSignalPlayerWrap: document.getElementById("cosmic-signal-player-wrap"),
+  cosmicSignalPoster: document.getElementById("cosmic-signal-poster"),
+  cosmicSignalVideo: document.getElementById("cosmic-signal-video"),
+  cosmicSignalAudio: document.getElementById("cosmic-signal-audio"),
+  cosmicSignalPlay: document.getElementById("cosmic-signal-play"),
+  cosmicSignalStop: document.getElementById("cosmic-signal-stop"),
+  cosmicSignalHearing: document.getElementById("cosmic-signal-hearing"),
+  cosmicSignalCredits: document.getElementById("cosmic-signal-credits"),
+  cosmicSignalSourceLink: document.getElementById("cosmic-signal-source-link"),
+  cosmicSignalFeaturedWrap: document.getElementById("cosmic-signal-featured-wrap"),
+  cosmicSignalFeaturedToggle: document.getElementById("cosmic-signal-featured-toggle"),
+  cosmicSignalLive: document.getElementById("cosmic-signal-live"),
   manualForm: document.getElementById("manual-form"),
   manualName: document.getElementById("manual-name"),
   manualRa: document.getElementById("manual-ra"),
@@ -119,6 +144,214 @@ function setStellariumIndicator(connected) {
   }
 }
 
+// -- Cosmic Signal Deck -------------------------------------------------
+
+function clearCosmicSignalMedia() {
+  CosmicSignalDeck.clearMediaElement(el.cosmicSignalVideo);
+  CosmicSignalDeck.clearMediaElement(el.cosmicSignalAudio);
+  el.cosmicSignalVideo.hidden = true;
+  el.cosmicSignalAudio.hidden = true;
+}
+
+function resetCosmicSignalDeck() {
+  CosmicSignalDeck.resetRequestState(state.cosmicSignalRequest);
+  state.cosmicSignalMediaUrlAllowed = false;
+  state.cosmicSignalRequestGeneration = state.cosmicSignalRequest.generation;
+  state.cosmicSignalUserRequestedPlayback = false;
+  clearCosmicSignalMedia();
+  el.cosmicSignalPoster.removeAttribute("src");
+  el.cosmicSignalPoster.hidden = true;
+  el.cosmicSignalTitle.textContent = "Cosmic Signal Deck";
+  el.cosmicSignalSubtitle.textContent = "Listen to the data. See how we know.";
+  el.cosmicSignalStatus.textContent = state.onlineMode
+    ? "Select a target to look for a curated signal."
+    : "Enable Online Archive Mode and select a target to look for a curated signal.";
+  el.cosmicSignalRelevance.hidden = true;
+  el.cosmicSignalMediaType.hidden = true;
+  el.cosmicSignalPlayerWrap.hidden = true;
+  el.cosmicSignalHearing.hidden = true;
+  el.cosmicSignalHearing.querySelector(".cosmic-signal-hearing-content").textContent = "";
+  el.cosmicSignalCredits.hidden = true;
+  el.cosmicSignalSourceLink.hidden = true;
+  el.cosmicSignalSourceLink.removeAttribute("href");
+  el.cosmicSignalBody.className = "cosmic-signal-body";
+  el.cosmicSignalFeaturedWrap.hidden = !state.onlineMode;
+  el.cosmicSignalFeaturedToggle.checked = CosmicSignalDeck.getAllowFeatured();
+}
+
+function cacheCosmicSignalHosts(registry) {
+  const toSet = (value) =>
+    new Set((Array.isArray(value) ? value : []).filter((host) => typeof host === "string").map((host) => host.toLowerCase()));
+  state.cosmicSignalHosts = {
+    media: toSet(registry && registry.allowed_media_hosts),
+    source: toSet(registry && registry.allowed_source_hosts),
+    poster: toSet(registry && registry.allowed_poster_hosts),
+  };
+  return state.cosmicSignalHosts;
+}
+
+async function ensureCosmicSignalHosts() {
+  if (state.cosmicSignalHosts) return state.cosmicSignalHosts;
+  if (!state.cosmicSignalRegistryPromise) {
+    state.cosmicSignalRegistryPromise = fetch("/api/cosmic-signal-registry", { cache: "no-store" })
+      .then((resp) => resp.json())
+      .then((data) => {
+        if (!data || !data.ok || !data.registry) throw new Error("Registry unavailable");
+        return cacheCosmicSignalHosts(data.registry);
+      })
+      .finally(() => {
+        state.cosmicSignalRegistryPromise = null;
+      });
+  }
+  return state.cosmicSignalRegistryPromise;
+}
+
+function appendCosmicSignalExplanation(entry) {
+  const content = el.cosmicSignalHearing.querySelector(".cosmic-signal-hearing-content");
+  content.textContent = "";
+  [
+    ["Media type", CosmicSignalDeck.mediaTypeLabel(entry.media_type)],
+    ["Observatory / spacecraft / instrument", [entry.observatories, entry.spacecraft, entry.instruments]
+      .flat()
+      .filter(Boolean)
+      .join("; ")],
+    ["Conversion method", entry.conversion_method],
+    ["How it was made", entry.mapping_explanation],
+    ["What it does not prove", entry.what_it_does_not_prove],
+  ].forEach(([label, value]) => {
+    if (!value) return;
+    const paragraph = document.createElement("p");
+    paragraph.textContent = label + ": " + String(value);
+    content.appendChild(paragraph);
+  });
+  el.cosmicSignalHearing.hidden = !content.textContent;
+}
+
+function renderCosmicSignalDeck(payload) {
+  const view = CosmicSignalDeck.buildMatchView(payload);
+  el.cosmicSignalTitle.textContent = view.title;
+  el.cosmicSignalSubtitle.textContent = view.subtitle;
+  el.cosmicSignalFeaturedWrap.hidden = false;
+  el.cosmicSignalFeaturedToggle.checked = CosmicSignalDeck.getAllowFeatured();
+
+  if (view.mode !== "match") {
+    state.cosmicSignalRequest.currentEntry = null;
+    state.cosmicSignalMediaUrlAllowed = false;
+    clearCosmicSignalMedia();
+    el.cosmicSignalPoster.removeAttribute("src");
+    el.cosmicSignalPoster.hidden = true;
+    el.cosmicSignalStatus.textContent = view.message;
+    el.cosmicSignalPlayerWrap.hidden = true;
+    el.cosmicSignalRelevance.hidden = true;
+    el.cosmicSignalMediaType.hidden = true;
+    el.cosmicSignalHearing.hidden = true;
+    el.cosmicSignalCredits.hidden = true;
+    el.cosmicSignalSourceLink.hidden = true;
+    el.cosmicSignalSourceLink.removeAttribute("href");
+    el.cosmicSignalBody.className = "cosmic-signal-body";
+    return;
+  }
+
+  const entry = view.entry;
+  state.cosmicSignalRequest.currentEntry = entry;
+  state.cosmicSignalMediaUrlAllowed = CosmicSignalDeck.isAllowedUrl(entry.media_url, state.cosmicSignalHosts.media);
+  el.cosmicSignalBody.className = "cosmic-signal-body" + (view.featured ? " is-featured" : "");
+  el.cosmicSignalStatus.textContent = view.featured
+    ? "Featured fallback — this signal is not an exact match for the selected target."
+    : entry.short_explanation || "Curated signal available.";
+  el.cosmicSignalRelevance.textContent = CosmicSignalDeck.relevanceLabel(view.relevance);
+  el.cosmicSignalRelevance.className = "cosmic-signal-relevance" + (view.featured ? " is-featured" : "");
+  el.cosmicSignalRelevance.hidden = false;
+  el.cosmicSignalMediaType.textContent = CosmicSignalDeck.mediaTypeLabel(entry.media_type);
+  el.cosmicSignalMediaType.hidden = false;
+  el.cosmicSignalPlayerWrap.hidden = !state.cosmicSignalMediaUrlAllowed;
+  if (!state.cosmicSignalMediaUrlAllowed) {
+    el.cosmicSignalStatus.textContent = "This curated signal's media URL could not be validated for safe playback.";
+  }
+  appendCosmicSignalExplanation(entry);
+  el.cosmicSignalCredits.textContent = entry.credits ? "Credits: " + entry.credits : "";
+  el.cosmicSignalCredits.hidden = !entry.credits;
+  const sourceAllowed = CosmicSignalDeck.isAllowedUrl(entry.source_page_url, state.cosmicSignalHosts.source);
+  el.cosmicSignalSourceLink.hidden = !sourceAllowed;
+  if (sourceAllowed) el.cosmicSignalSourceLink.href = entry.source_page_url;
+
+  const posterAllowed = CosmicSignalDeck.isAllowedUrl(entry.poster_url || entry.thumbnail_url, state.cosmicSignalHosts.poster);
+  if (posterAllowed) {
+    el.cosmicSignalPoster.src = entry.poster_url || entry.thumbnail_url;
+    el.cosmicSignalPoster.hidden = false;
+  } else {
+    el.cosmicSignalPoster.removeAttribute("src");
+    el.cosmicSignalPoster.hidden = true;
+  }
+  el.cosmicSignalLive.textContent = entry.title + " loaded. " + CosmicSignalDeck.relevanceLabel(view.relevance) + ".";
+}
+
+async function syncCosmicSignalDeck(target) {
+  if (!state.onlineMode || !target) {
+    resetCosmicSignalDeck();
+    return;
+  }
+  // A new target always stops and detaches prior media before the next lookup.
+  resetCosmicSignalDeck();
+  const targetKey = `${target.name || ""}|${target.alt_name || ""}`;
+  const generation = CosmicSignalDeck.beginRequest(state.cosmicSignalRequest, targetKey);
+  state.cosmicSignalRequestGeneration = generation;
+  const loading = CosmicSignalDeck.buildLoadingView(target);
+  el.cosmicSignalTitle.textContent = loading.title;
+  el.cosmicSignalSubtitle.textContent = loading.subtitle;
+  el.cosmicSignalStatus.textContent = "Looking up curated signals through the local server…";
+  el.cosmicSignalFeaturedWrap.hidden = false;
+  try {
+    await ensureCosmicSignalHosts();
+    if (CosmicSignalDeck.isStaleResponse(state.cosmicSignalRequest, generation) || !state.onlineMode) return;
+    const allowFeatured = CosmicSignalDeck.getAllowFeatured();
+    const resp = await fetch(CosmicSignalDeck.buildMatchUrl(target.name, target.alt_name, allowFeatured), { cache: "no-store" });
+    const data = await resp.json();
+    if (CosmicSignalDeck.isStaleResponse(state.cosmicSignalRequest, generation) || !state.onlineMode) return;
+    if (!data || !data.ok) throw new Error("Match unavailable");
+    renderCosmicSignalDeck(data);
+  } catch (_err) {
+    if (CosmicSignalDeck.isStaleResponse(state.cosmicSignalRequest, generation) || !state.onlineMode) return;
+    el.cosmicSignalStatus.textContent = "Could not reach the local server for a curated signal lookup.";
+  }
+}
+
+function playCosmicSignal() {
+  const entry = state.cosmicSignalRequest.currentEntry;
+  if (!entry) return;
+  state.cosmicSignalUserRequestedPlayback = true;
+  const assignState = {
+    onlineMode: state.onlineMode,
+    currentEntry: entry,
+    userRequestedPlayback: state.cosmicSignalUserRequestedPlayback,
+    mediaUrlAllowed: state.cosmicSignalMediaUrlAllowed,
+    requestGeneration: state.cosmicSignalRequestGeneration,
+    request: state.cosmicSignalRequest,
+  };
+  if (!CosmicSignalDeck.shouldAssignMediaSrc(assignState)) return;
+  const media = entry.media_kind === "audio" ? el.cosmicSignalAudio : el.cosmicSignalVideo;
+  const otherMedia = media === el.cosmicSignalAudio ? el.cosmicSignalVideo : el.cosmicSignalAudio;
+  CosmicSignalDeck.clearMediaElement(otherMedia);
+  otherMedia.hidden = true;
+  media.hidden = false;
+  media.src = entry.media_url;
+  el.cosmicSignalStatus.textContent = "Loading signal after your playback request…";
+  const result = media.play();
+  if (result && typeof result.catch === "function") {
+    result.catch(() => {
+      el.cosmicSignalStatus.textContent = "Playback could not start. Use the native player controls to try again.";
+    });
+  }
+}
+
+function stopCosmicSignal() {
+  clearCosmicSignalMedia();
+  state.cosmicSignalUserRequestedPlayback = false;
+  if (state.cosmicSignalRequest.currentEntry) {
+    el.cosmicSignalStatus.textContent = "Signal stopped. Press Play signal to load it again.";
+  }
+}
+
 // -- Selected-target card ----------------------------------------------
 
 function renderTargetCard() {
@@ -133,6 +366,7 @@ function renderTargetCard() {
     el.solarSystemNoticeCard.hidden = true;
     resetPlanetaryImagePanel();
     resetArchiveAvailabilityLights();
+    resetCosmicSignalDeck();
     return;
   }
 
@@ -177,6 +411,7 @@ function renderTargetCard() {
   renderSolarSystemNoticeCard(t);
   syncPlanetaryImagePanel(t);
   syncArchiveAvailabilityChecks(t);
+  syncCosmicSignalDeck(t);
 }
 
 function getViewerFovDeg(target) {
@@ -470,6 +705,7 @@ function clearStaleTargetAfterFailedSelection(message) {
   el.solarSystemNoticeCard.hidden = true;
   el.solarSystemNoticeBody.innerHTML = "";
   resetPlanetaryImagePanel();
+  resetCosmicSignalDeck();
 
   disableImageryButtons(false);
   setImageryStatus("", null);
@@ -519,6 +755,9 @@ function turnOnlineModeOn() {
   if (state.currentTarget) {
     syncPlanetaryImagePanel(state.currentTarget);
     syncArchiveAvailabilityChecks(state.currentTarget);
+    syncCosmicSignalDeck(state.currentTarget);
+  } else {
+    resetCosmicSignalDeck();
   }
 }
 
@@ -572,6 +811,7 @@ function turnOnlineModeOff() {
   el.archiveModeIndicator.querySelector(".status-text").textContent = "Online Archive Mode: Off";
   el.onlineModeToggle.checked = false;
   resetPlanetaryImagePanel();
+  resetCosmicSignalDeck();
   ArchiveAvailability.resetForOffline(state.archiveAvailability);
   resetArchiveAvailabilityLights();
   clearHipsPendingTimers();
@@ -582,6 +822,13 @@ function turnOnlineModeOff() {
   updateRestoreLayerControl();
   renderHipsDiagnostics();
 }
+
+el.cosmicSignalPlay.addEventListener("click", () => playCosmicSignal());
+el.cosmicSignalStop.addEventListener("click", () => stopCosmicSignal());
+el.cosmicSignalFeaturedToggle.addEventListener("change", () => {
+  CosmicSignalDeck.setAllowFeatured(!!el.cosmicSignalFeaturedToggle.checked);
+  if (state.onlineMode && state.currentTarget) syncCosmicSignalDeck(state.currentTarget);
+});
 
 // -- ESASky embed + control ----------------------------------------------
 
@@ -2100,6 +2347,11 @@ if (typeof module === "object" && module.exports) {
     syncPlanetaryImagePanel,
     renderPlanetaryImagePanel,
     resetPlanetaryImagePanel,
+    syncCosmicSignalDeck,
+    resetCosmicSignalDeck,
+    renderCosmicSignalDeck,
+    playCosmicSignal,
+    stopCosmicSignal,
     syncArchiveAvailabilityChecks,
     fetchArchiveMission,
     loadWatchlistFromServer,

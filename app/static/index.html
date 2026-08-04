@@ -119,6 +119,42 @@
   <!-- RIGHT COLUMN: archive viewer -->
   <section class="panel right-panel">
 
+    <div id="cosmic-signal-deck-card" class="card cosmic-signal-deck-card">
+      <div class="card-header-row">
+        <h2 id="cosmic-signal-title">Cosmic Signal Deck</h2>
+        <span id="cosmic-signal-relevance" class="cosmic-signal-relevance" hidden></span>
+      </div>
+      <p id="cosmic-signal-subtitle" class="hint">Listen to the data. See how we know.</p>
+      <div id="cosmic-signal-body" class="cosmic-signal-body">
+        <p id="cosmic-signal-status" class="cosmic-signal-status" role="status" aria-live="polite">
+          Enable Online Archive Mode and select a target to look for a curated signal.
+        </p>
+        <div id="cosmic-signal-player-wrap" class="cosmic-signal-player-wrap" hidden>
+          <img id="cosmic-signal-poster" class="cosmic-signal-poster" alt="" hidden>
+          <video id="cosmic-signal-video" controls preload="none" hidden></video>
+          <audio id="cosmic-signal-audio" controls preload="none" hidden></audio>
+          <div class="button-row">
+            <button id="cosmic-signal-play" class="btn btn-primary" type="button">Play signal</button>
+            <button id="cosmic-signal-stop" class="btn btn-secondary" type="button">Stop</button>
+          </div>
+        </div>
+        <p id="cosmic-signal-media-type" class="cosmic-signal-media-type" hidden></p>
+        <details id="cosmic-signal-hearing" class="cosmic-signal-hearing" hidden>
+          <summary>What Am I Hearing?</summary>
+          <div class="cosmic-signal-hearing-content"></div>
+        </details>
+        <p id="cosmic-signal-credits" class="cosmic-signal-credits" hidden></p>
+        <p><a id="cosmic-signal-source-link" hidden target="_blank" rel="noopener noreferrer">Open Official Source</a></p>
+      </div>
+      <div id="cosmic-signal-featured-wrap" class="cosmic-signal-featured-wrap" hidden>
+        <label class="cosmic-signal-featured-toggle">
+          <input id="cosmic-signal-featured-toggle" type="checkbox" checked>
+          <span>Allow featured signals when no target match exists</span>
+        </label>
+      </div>
+      <p id="cosmic-signal-live" class="sr-only" aria-live="polite"></p>
+    </div>
+
     <div class="card">
       <div class="card-header-row">
         <h2>Archive Viewer</h2>
@@ -193,6 +229,7 @@
 <script src="/static/lib/solar_system.js"></script>
 <script src="/static/lib/solar_system_media_registry.js"></script>
 <script src="/static/lib/planetary_image.js"></script>
+<script src="/static/lib/cosmic_signal_deck.js"></script>
 <script src="/static/lib/archive_availability.js"></script>
 <script src="/static/lib/discovery_panel.js"></script>
 <script src="/static/lib/hips_layer_control.js"></script>

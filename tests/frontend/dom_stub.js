@@ -26,6 +26,25 @@ const ELEMENT_IDS = [
   "solar-system-notice-body",
   "planetary-image-card",
   "planetary-image-body",
+  "cosmic-signal-deck-card",
+  "cosmic-signal-title",
+  "cosmic-signal-subtitle",
+  "cosmic-signal-body",
+  "cosmic-signal-status",
+  "cosmic-signal-relevance",
+  "cosmic-signal-media-type",
+  "cosmic-signal-player-wrap",
+  "cosmic-signal-poster",
+  "cosmic-signal-video",
+  "cosmic-signal-audio",
+  "cosmic-signal-play",
+  "cosmic-signal-stop",
+  "cosmic-signal-hearing",
+  "cosmic-signal-credits",
+  "cosmic-signal-source-link",
+  "cosmic-signal-featured-wrap",
+  "cosmic-signal-featured-toggle",
+  "cosmic-signal-live",
   "manual-form",
   "manual-name",
   "manual-ra",
@@ -88,6 +107,8 @@ function makeElement(tag) {
     hidden: false,
     disabled: false,
     checked: false,
+    controls: false,
+    preload: "",
     value: "",
     title: "",
     src: "",
@@ -100,6 +121,13 @@ function makeElement(tag) {
     // ESASky iframe glue expects a contentWindow.postMessage -- tests spy
     // on this to capture dispatched commands.
     contentWindow: { postMessage: () => {} },
+    pause() {},
+    play() { return Promise.resolve(); },
+    load() {},
+    removeAttribute(name) {
+      if (name === "src") el.src = "";
+      if (name === "href") el.href = "";
+    },
     addEventListener(type, handler) {
       listeners[type] = listeners[type] || [];
       if (!listeners[type].includes(handler)) listeners[type].push(handler);
@@ -190,9 +218,43 @@ function makeElement(tag) {
 /** Build a fresh `document`, `window`, and `el`-by-id map for one test. */
 function createDom() {
   const elementsById = {};
+  const tagById = {
+    "cosmic-signal-video": "video",
+    "cosmic-signal-audio": "audio",
+    "cosmic-signal-play": "button",
+    "cosmic-signal-stop": "button",
+    "cosmic-signal-featured-toggle": "input",
+    "cosmic-signal-poster": "img",
+    "cosmic-signal-source-link": "a",
+    "online-mode-toggle": "input",
+    "manual-form": "form",
+    "esasky-frame": "iframe",
+  };
   ELEMENT_IDS.forEach((id) => {
-    const e = makeElement("div");
+    const e = makeElement(tagById[id] || "div");
     e.id = id;
+    if (id === "cosmic-signal-video" || id === "cosmic-signal-audio") {
+      e.controls = true;
+      e.preload = "none";
+    }
+    if (id === "cosmic-signal-play" || id === "cosmic-signal-stop") {
+      e.type = "button";
+    }
+    if (id === "cosmic-signal-featured-toggle" || id === "online-mode-toggle") {
+      e.type = "checkbox";
+      e.checked = true;
+    }
+    if (id === "cosmic-signal-hearing") {
+      const content = makeElement("div");
+      content.className = "cosmic-signal-hearing-content";
+      e.appendChild(content);
+      // Prefer real child lookup for this class.
+      const originalQs = e.querySelector.bind(e);
+      e.querySelector = (sel) => {
+        if (String(sel).trim() === ".cosmic-signal-hearing-content") return content;
+        return originalQs(sel);
+      };
+    }
     elementsById[id] = e;
   });
 
