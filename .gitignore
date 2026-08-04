@@ -9,3 +9,5 @@ node_modules/
 .DS_Store
 Thumbs.db
 runtime_data/*.tmp
+runtime_data/tracked_objects.json
+runtime_data/tracked_objects.json.bak
