@@ -96,6 +96,36 @@ test("only one registry JSON source exists", () => {
   assert.equal(fs.existsSync(JS_MIRROR), false);
 });
 
+test("expanded registry keeps Slice 1 entries and fifteen enabled composites", () => {
+  const registry = JSON.parse(fs.readFileSync(REGISTRY_JSON, "utf8"));
+  const enabled = registry.entries.filter((e) => e.enabled);
+  assert.equal(enabled.length, 15);
+  const ids = new Set(enabled.map((e) => e.id));
+  for (const id of [
+    "voyager1_interstellar_plasma_pia17045",
+    "vela_pulsar_chandra_sonification",
+    "crab_nebula_chandra_sonification",
+    "cassiopeia_a_chandra_sonification",
+    "galactic_center_chandra_sonification",
+    "msh_15_52_chandra_ixpe_sonification",
+    "m74_chandra_webb_hubble_sonification",
+    "sn_1987a_chandra_hubble_sonification",
+    "m87_chandra_vla_sonification",
+    "m31_multiwavelength_sonification",
+    "jupiter_chandra_hubble_sonification",
+    "saturn_chandra_cassini_sonification",
+    "uranus_chandra_keck_sonification",
+    "southern_ring_nebula_jwst_sonification",
+    "stephans_quintet_chandra_webb_sonification",
+  ]) {
+    assert.equal(ids.has(id), true, id);
+  }
+  const voyager = enabled.find((e) => e.id === "voyager1_interstellar_plasma_pia17045");
+  assert.equal(voyager.media_type, "data_audification");
+  const mediaUrls = enabled.map((e) => e.media_url);
+  assert.equal(mediaUrls.length, new Set(mediaUrls).size);
+});
+
 test("media src absent before explicit playback and native controls remain", async () => {
   const calls = [];
   const fetchImpl = async (url) => {
