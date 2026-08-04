@@ -301,8 +301,16 @@ class TestPlanetaryImageEndpoint(ServerTestBase):
         self.assertEqual(data["target_id"], "moon")
         self.assertIn("images-assets.nasa.gov", data["image_url"])
 
-    def test_unsupported_target(self):
+    def test_mars_is_registry_supported(self):
         status, data = _get(f"{self.base}/api/planetary-image?target=mars")
+        self.assertEqual(status, 200)
+        # Fixture is Moon media; Mars is supported but irrelevant hits → unavailable.
+        self.assertNotEqual(data["status"], "unsupported")
+        self.assertEqual(data["status"], "unavailable")
+        self.assertIn("public-media", data.get("error") or "")
+
+    def test_unsupported_target(self):
+        status, data = _get(f"{self.base}/api/planetary-image?target=1P%2FHalley")
         self.assertEqual(status, 200)
         self.assertEqual(data["status"], "unsupported")
 

@@ -1,25 +1,27 @@
 /* planetary_image.js
  *
- * Pure, DOM-free helpers for the R0.3 Planetary Image Pilot:
- *   - resolve pilot target ids (Moon, Jupiter, Saturn only)
+ * Pure, DOM-free helpers for Solar System NASA public-media:
+ *   - resolve media target ids from the Solar System media registry
  *   - request deduplication and stale-response guards
  *   - safe metadata handling and HTTPS image URL validation
  *   - panel view-model construction for app.js
  */
 (function (root, factory) {
   if (typeof module === "object" && module.exports) {
-    module.exports = factory();
+    module.exports = factory(
+      typeof SolarSystemMediaRegistry !== "undefined"
+        ? SolarSystemMediaRegistry
+        : require("./solar_system_media_registry.js")
+    );
   } else {
-    root.PlanetaryImage = factory();
+    root.PlanetaryImage = factory(root.SolarSystemMediaRegistry);
   }
-})(typeof self !== "undefined" ? self : this, function () {
+})(typeof self !== "undefined" ? self : this, function (Registry) {
   "use strict";
 
-  var PILOT_TARGET_ALIASES = {
-    moon: ["moon", "luna"],
-    jupiter: ["jupiter"],
-    saturn: ["saturn"],
-  };
+  if (!Registry) {
+    throw new Error("SolarSystemMediaRegistry is required for PlanetaryImage.");
+  }
 
   var ALLOWED_IMAGE_HOSTS = {
     "images-assets.nasa.gov": true,
@@ -30,31 +32,29 @@
   };
 
   var ARCHIVE_NOTICE =
-    "This is an archived NASA outreach image, not a live view. " +
-    "It does not show the current date, phase, orientation, or appearance " +
-    "at the Stellarium coordinates. It was not produced by Stellarium or ESASky.";
+    "NASA public archive media — outreach imagery from NASA's Image and Video " +
+    "Library, not a calibrated science product and not proof of current " +
+    "appearance, phase, orientation, or position at the Stellarium coordinates. " +
+    "It was not produced by Stellarium or ESASky.";
+
+  var MEDIA_LABEL = Registry.mediaLabel();
+  var RESULT_TYPE = Registry.resultType();
+  var EMPTY_MEDIA_MESSAGE = Registry.emptyResultMessage();
 
   function normalizeName(value) {
     if (typeof value !== "string") return "";
     return value.trim().toLowerCase();
   }
 
-  /** Resolve a pilot id from Stellarium-reported names on a Solar System target. */
+  /** Resolve a registry media id from Stellarium-reported names. */
   function resolvePilotTargetId(target) {
     if (!target || typeof target !== "object") return null;
     var names = [target.name, target.alt_name].map(normalizeName).filter(Boolean);
-    var pilotId;
-    Object.keys(PILOT_TARGET_ALIASES).forEach(function (id) {
-      if (pilotId) return;
-      var aliases = PILOT_TARGET_ALIASES[id];
-      for (var i = 0; i < names.length; i++) {
-        if (aliases.indexOf(names[i]) !== -1) {
-          pilotId = id;
-          return;
-        }
-      }
-    });
-    return pilotId || null;
+    for (var i = 0; i < names.length; i++) {
+      var resolved = Registry.normalizeMediaTargetId(names[i]);
+      if (resolved) return resolved;
+    }
+    return null;
   }
 
   function hasUnsafeUrlCharacters(url) {
@@ -135,7 +135,7 @@
   }
 
   /** Entering an unsupported Solar System target: drop stale in-flight work and
-   * completed-target dedup so a return to a pilot target fetches again. */
+   * completed-target dedup so a return to a media target fetches again. */
   function prepareUnsupportedTargetSwitch(state) {
     state.generation += 1;
     state.inFlightPilotId = null;
@@ -165,22 +165,26 @@
     var label = sanitizeText(target && target.name, 80) || "this Solar System object";
     return {
       mode: "unsupported",
-      headline: "Planetary archive image not available for this target",
+      headline: "NASA Public Media",
       message:
-        "The R0.3 pilot supports Moon, Jupiter, and Saturn only. " +
+        "This Solar System target is not in the NASA public-media registry. " +
+        "(" +
         label +
-        " is outside the supported pilot set.",
+        ")",
       archiveNotice: ARCHIVE_NOTICE,
+      mediaLabel: MEDIA_LABEL,
     };
   }
 
   function buildLoadingView(pilotId) {
-    var names = { moon: "Moon", jupiter: "Jupiter", saturn: "Saturn" };
+    var name = Registry.displayNameForId(pilotId) || pilotId;
     return {
       mode: "loading",
-      headline: "Planetary Archive Image",
-      message: "Searching NASA's official image archive for " + (names[pilotId] || pilotId) + "…",
+      headline: "NASA Public Media",
+      message: "Searching NASA's official image archive for " + name + "…",
       archiveNotice: ARCHIVE_NOTICE,
+      mediaLabel: MEDIA_LABEL,
+      searchedTarget: name,
     };
   }
 
@@ -192,9 +196,10 @@
     if (status === "found" && imageUrl) {
       return {
         mode: "found",
-        headline: "Planetary Archive Image",
+        headline: "NASA Public Media",
         imageUrl: imageUrl,
         targetName: sanitizeText(body.target_name),
+        searchedTarget: sanitizeText(body.searched_target) || sanitizeText(body.target_name),
         title: sanitizeText(body.title),
         description: sanitizeText(body.description),
         mission: sanitizeText(body.mission),
@@ -206,25 +211,32 @@
         credit: sanitizeText(body.credit),
         sourceLink: isAllowedSourceLink(body.source_link) ? body.source_link : null,
         archiveNotice: sanitizeText(body.archive_notice) || ARCHIVE_NOTICE,
+        mediaLabel: sanitizeText(body.media_label, 80) || MEDIA_LABEL,
+        resultType: body.result_type === RESULT_TYPE ? RESULT_TYPE : RESULT_TYPE,
       };
     }
 
-    var fallbackMessage = sanitizeText(body.error) ||
-      "No suitable official NASA archive image is available for this pilot target right now.";
+    var fallbackMessage =
+      sanitizeText(body.error) || EMPTY_MEDIA_MESSAGE;
 
     return {
       mode: status === "timeout" || status === "http_error" ? "error" : "unavailable",
-      headline: "Planetary Archive Image",
+      headline: "NASA Public Media",
       message: fallbackMessage,
       archiveNotice: sanitizeText(body.archive_notice) || ARCHIVE_NOTICE,
+      mediaLabel: sanitizeText(body.media_label, 80) || MEDIA_LABEL,
+      searchedTarget: sanitizeText(body.searched_target) || sanitizeText(body.target_name),
+      resultType: null,
     };
   }
 
   return {
-    PILOT_TARGET_ALIASES: PILOT_TARGET_ALIASES,
     ALLOWED_IMAGE_HOSTS: ALLOWED_IMAGE_HOSTS,
     ALLOWED_SOURCE_LINK_HOSTS: ALLOWED_SOURCE_LINK_HOSTS,
     ARCHIVE_NOTICE: ARCHIVE_NOTICE,
+    MEDIA_LABEL: MEDIA_LABEL,
+    RESULT_TYPE: RESULT_TYPE,
+    EMPTY_MEDIA_MESSAGE: EMPTY_MEDIA_MESSAGE,
     resolvePilotTargetId: resolvePilotTargetId,
     isAllowedImageUrl: isAllowedImageUrl,
     isAllowedSourceLink: isAllowedSourceLink,

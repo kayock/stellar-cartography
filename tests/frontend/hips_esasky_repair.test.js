@@ -203,11 +203,11 @@ test("MAST discovery badges stay independent of ESASky acknowledgement", () => {
   assert.equal(badgeBefore.state, badgeAfter.state);
 });
 
-test("Mars unsupported planetary behavior unchanged", () => {
+test("Mars resolves through NASA public-media registry", () => {
   const PlanetaryImage = require("../../app/static/lib/planetary_image.js");
   const SolarSystem = require("../../app/static/lib/solar_system.js");
   assert.equal(SolarSystem.isSolarSystemTarget(marsTarget()), true);
-  assert.equal(PlanetaryImage.resolvePilotTargetId(marsTarget()), null);
+  assert.equal(PlanetaryImage.resolvePilotTargetId(marsTarget()), "mars");
 });
 
 test("exact survey name rendered from acknowledgement snapshot", () => {

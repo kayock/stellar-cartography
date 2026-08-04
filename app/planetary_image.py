@@ -1,17 +1,18 @@
 """
 planetary_image.py
 
-Server-side client for the R0.3 Planetary Image Pilot.
+Server-side client for Solar System NASA public-media lookups.
 
 Uses the documented NASA Images and Video Library API
 (https://images-api.nasa.gov/docs/) — a primary official NASA machine-readable
-endpoint that requires no API key. PDS Search API was evaluated during R0.2
-research but is unsuitable for this pilot: target-field queries returned empty
-results and keyword search did not yield reliable browse imagery.
+endpoint that requires no API key.
 
-Only the three pilot targets (Moon, Jupiter, Saturn) are accepted. The local
-server sends only the normalized target identifier to NASA; no Stellarium
-metadata, local paths, or machine identity are included.
+Targets are resolved from the data-driven Solar System media registry
+(app/data/solar_system_media_registry.json). Accepted results are classified as
+public_media_asset only — not calibrated science imagery and not proof of
+current appearance. The local server sends only the normalized target
+identifier to NASA; no Stellarium metadata, local paths, or machine identity
+are included.
 """
 
 from __future__ import annotations
@@ -24,17 +25,23 @@ import urllib.parse
 import urllib.request
 from typing import Callable, Optional
 
+from . import solar_system_media_registry as media_registry
+
 logger = logging.getLogger("stellar_archive_bridge.planetary_image")
 
 NASA_IMAGES_SEARCH_URL = "https://images-api.nasa.gov/search"
 NASA_IMAGES_DETAILS_BASE = "https://images.nasa.gov/details/"
 REQUEST_TIMEOUT_SEC = 10
 MAX_RESPONSE_BYTES = 512 * 1024
+SEARCH_PAGE_SIZE = "10"
 
+# Back-compat alias for older tests / docs referring to the pilot map shape.
 PILOT_TARGETS: dict[str, dict[str, str]] = {
-    "moon": {"search_query": "Moon", "display_name": "Moon"},
-    "jupiter": {"search_query": "Jupiter", "display_name": "Jupiter"},
-    "saturn": {"search_query": "Saturn", "display_name": "Saturn"},
+    entry_id: {
+        "search_query": media_registry.primary_search_query(entry),
+        "display_name": str(entry.get("display_name") or entry_id),
+    }
+    for entry_id, entry in media_registry.entries_by_id().items()
 }
 
 ALLOWED_IMAGE_HOSTS = frozenset({"images-assets.nasa.gov"})
@@ -43,17 +50,18 @@ ALLOWED_SOURCE_LINK_HOSTS = frozenset({"images.nasa.gov"})
 _CONTROL_CHAR_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f]")
 _UNSAFE_URL_CHAR_RE = re.compile(r'[\s"\'<>]')
 
+UNSUPPORTED_MESSAGE = (
+    "This Solar System target is not in the NASA public-media registry."
+)
+
 
 def _url_has_unsafe_characters(url: str) -> bool:
     return bool(_UNSAFE_URL_CHAR_RE.search(url))
 
 
 def normalize_pilot_target_id(raw: str | None) -> str | None:
-    """Return a pilot target id (moon|jupiter|saturn) or None."""
-    if not raw or not isinstance(raw, str):
-        return None
-    key = raw.strip().lower()
-    return key if key in PILOT_TARGETS else None
+    """Return a registry media target id or None (name retained for API compat)."""
+    return media_registry.normalize_media_target_id(raw)
 
 
 def is_allowed_image_url(url: str | None) -> bool:
@@ -145,6 +153,15 @@ def _extract_nasa_center(data: dict) -> str | None:
     return sanitize_text(data.get("center"), max_len=80)
 
 
+def _archive_notice() -> str:
+    return (
+        "NASA public archive media — outreach imagery from NASA's Image and Video "
+        "Library, not a calibrated science product and not proof of current "
+        "appearance, phase, orientation, or position at the Stellarium coordinates. "
+        "It was not produced by Stellarium or ESASky."
+    )
+
+
 def _build_result(
     *,
     ok: bool,
@@ -163,8 +180,11 @@ def _build_result(
     credit: str | None = None,
     source_link: str | None = None,
     error: str | None = None,
+    searched_target: str | None = None,
+    search_query: str | None = None,
+    include_media_fields: bool = True,
 ) -> dict:
-    return {
+    result = {
         "ok": ok,
         "status": status,
         "target_id": target_id,
@@ -181,26 +201,35 @@ def _build_result(
         "credit": sanitize_text(credit),
         "source_link": source_link if is_allowed_source_link(source_link) else None,
         "error": sanitize_text(error, max_len=200),
-        "archive_notice": (
-            "This is an archived NASA outreach image, not a live view. "
-            "It does not show the current date, phase, orientation, or appearance "
-            "at the Stellarium coordinates. It was not produced by Stellarium or ESASky."
-        ),
+        "archive_notice": _archive_notice(),
+        "searched_target": sanitize_text(searched_target, max_len=80),
+        "search_query": sanitize_text(search_query, max_len=120),
+        "media_label": media_registry.get_media_label() if include_media_fields else None,
     }
+    if status == "found" and result["image_url"]:
+        result["result_type"] = media_registry.get_result_type()
+    else:
+        result["result_type"] = None
+    return result
 
 
 def parse_nasa_images_response(payload: dict, target_id: str) -> dict:
-    """Normalize a NASA Images API search JSON body into a pilot result."""
-    cfg = PILOT_TARGETS.get(target_id)
-    if not cfg:
-        return _build_result(ok=False, status="error", error="Unknown pilot target.")
+    """Normalize a NASA Images API search JSON body into a public-media result."""
+    entry = media_registry.get_entry(target_id)
+    if not entry:
+        return _build_result(ok=False, status="error", error="Unknown media registry target.")
+
+    display_name = str(entry.get("display_name") or target_id)
+    search_query = media_registry.primary_search_query(entry)
 
     if not isinstance(payload, dict):
         return _build_result(
             ok=False,
             status="malformed",
             target_id=target_id,
-            target_name=cfg["display_name"],
+            target_name=display_name,
+            searched_target=display_name,
+            search_query=search_query,
             error="Archive service returned an unexpected response.",
         )
 
@@ -210,7 +239,9 @@ def parse_nasa_images_response(payload: dict, target_id: str) -> dict:
             ok=False,
             status="malformed",
             target_id=target_id,
-            target_name=cfg["display_name"],
+            target_name=display_name,
+            searched_target=display_name,
+            search_query=search_query,
             error="Archive service returned an unexpected response.",
         )
 
@@ -220,8 +251,10 @@ def parse_nasa_images_response(payload: dict, target_id: str) -> dict:
             ok=True,
             status="unavailable",
             target_id=target_id,
-            target_name=cfg["display_name"],
-            error="No suitable NASA archive image was found for this pilot target.",
+            target_name=display_name,
+            searched_target=display_name,
+            search_query=search_query,
+            error=media_registry.empty_result_message(),
         )
 
     for item in items:
@@ -238,21 +271,36 @@ def parse_nasa_images_response(payload: dict, target_id: str) -> dict:
         if not image_url:
             continue
 
+        title = sanitize_text(data.get("title"))
+        description = sanitize_text(data.get("description"))
+        keywords = _extract_keywords(data)
+        if not media_registry.item_is_relevant(
+            entry,
+            title=title,
+            description=description,
+            keywords=keywords,
+        ):
+            continue
+
         nasa_id = sanitize_text(data.get("nasa_id"), max_len=40)
         source_link = f"{NASA_IMAGES_DETAILS_BASE}{nasa_id}" if nasa_id else None
-        credit = sanitize_text(data.get("secondary_creator")) or sanitize_text(data.get("photographer"))
+        credit = sanitize_text(data.get("secondary_creator")) or sanitize_text(
+            data.get("photographer")
+        )
 
         return _build_result(
             ok=True,
             status="found",
             target_id=target_id,
-            target_name=cfg["display_name"],
+            target_name=display_name,
+            searched_target=display_name,
+            search_query=search_query,
             image_url=image_url,
-            title=sanitize_text(data.get("title")) or cfg["display_name"],
-            description=sanitize_text(data.get("description")),
+            title=title or display_name,
+            description=description,
             mission=None,
             nasa_center=_extract_nasa_center(data),
-            keywords=_extract_keywords(data),
+            keywords=keywords,
             instrument=None,
             image_date=sanitize_text(data.get("date_created"), max_len=40),
             source_agency="NASA",
@@ -264,15 +312,17 @@ def parse_nasa_images_response(payload: dict, target_id: str) -> dict:
         ok=True,
         status="unavailable",
         target_id=target_id,
-        target_name=cfg["display_name"],
-        error="No suitable NASA archive image with a permitted HTTPS URL was found.",
+        target_name=display_name,
+        searched_target=display_name,
+        search_query=search_query,
+        error=media_registry.empty_result_message(),
     )
 
 
 def _default_fetch(url: str, timeout: float) -> dict:
     req = urllib.request.Request(
         url,
-        headers={"Accept": "application/json", "User-Agent": "FOXAI-StellarCartography/0.3"},
+        headers={"Accept": "application/json", "User-Agent": "FOXAI-StellarCartography/0.5"},
         method="GET",
     )
     with urllib.request.urlopen(req, timeout=timeout) as resp:
@@ -287,17 +337,24 @@ def lookup_planetary_image(
     fetcher: Optional[Callable[[str, float], dict]] = None,
     timeout: float = REQUEST_TIMEOUT_SEC,
 ) -> dict:
-    """Look up an official NASA archive image for a pilot target id."""
+    """Look up official NASA public-media for a registry target id."""
     normalized = normalize_pilot_target_id(target_id)
     if not normalized:
-        return _build_result(ok=False, status="unsupported", error="Target is not in the R0.3 pilot set.")
+        return _build_result(
+            ok=False,
+            status="unsupported",
+            error=UNSUPPORTED_MESSAGE,
+        )
 
-    cfg = PILOT_TARGETS[normalized]
+    entry = media_registry.get_entry(normalized)
+    assert entry is not None
+    display_name = str(entry.get("display_name") or normalized)
+    search_query = media_registry.primary_search_query(entry)
     params = urllib.parse.urlencode(
         {
-            "q": cfg["search_query"],
+            "q": search_query,
             "media_type": "image",
-            "page_size": "5",
+            "page_size": SEARCH_PAGE_SIZE,
         }
     )
     url = f"{NASA_IMAGES_SEARCH_URL}?{params}"
@@ -311,7 +368,9 @@ def lookup_planetary_image(
             ok=False,
             status="timeout",
             target_id=normalized,
-            target_name=cfg["display_name"],
+            target_name=display_name,
+            searched_target=display_name,
+            search_query=search_query,
             error="NASA archive service did not respond in time.",
         )
     except urllib.error.HTTPError as exc:
@@ -320,7 +379,9 @@ def lookup_planetary_image(
             ok=False,
             status="http_error",
             target_id=normalized,
-            target_name=cfg["display_name"],
+            target_name=display_name,
+            searched_target=display_name,
+            search_query=search_query,
             error=f"NASA archive service returned HTTP {exc.code}.",
         )
     except (urllib.error.URLError, OSError, json.JSONDecodeError, ValueError):
@@ -329,8 +390,28 @@ def lookup_planetary_image(
             ok=False,
             status="error",
             target_id=normalized,
-            target_name=cfg["display_name"],
-            error="Could not retrieve a NASA archive image at this time.",
+            target_name=display_name,
+            searched_target=display_name,
+            search_query=search_query,
+            error="Could not retrieve NASA public-media at this time.",
         )
 
     return parse_nasa_images_response(payload, normalized)
+
+
+def build_search_url(target_id: str) -> str | None:
+    """Return the bounded NASA Images search URL for a registry id (tests)."""
+    normalized = normalize_pilot_target_id(target_id)
+    if not normalized:
+        return None
+    entry = media_registry.get_entry(normalized)
+    if not entry:
+        return None
+    params = urllib.parse.urlencode(
+        {
+            "q": media_registry.primary_search_query(entry),
+            "media_type": "image",
+            "page_size": SEARCH_PAGE_SIZE,
+        }
+    )
+    return f"{NASA_IMAGES_SEARCH_URL}?{params}"

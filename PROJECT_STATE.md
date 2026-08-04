@@ -1,7 +1,7 @@
 # Project state — FOXAI Stellar Cartography R0.5.0 (development)
 
 **As of:** 2026-08-03  
-**Release:** R0.5.0 — **in development** (Slice 1 landed; not packaged)  
+**Release:** R0.5.0 — **in development** (Slice 1 + Solar System Media Expansion landed; not packaged)  
 **Baseline:** R0.4.0 — preserved under `receipts/baseline_r0.4.0/` (immutable)
 
 ## Baseline receipt quarantine
@@ -29,15 +29,29 @@ receipt yet (`receipts/WORK_IN_PROGRESS.md`).
 | Moving-object historical coverage not evaluated | Done |
 | Automated tests | Done (Python 180, Node 141 at Slice 1 landing) |
 
+## Solar System Media Expansion delivered
+
+| Requirement | Status |
+|-------------|--------|
+| Data-driven Solar System media registry | Done |
+| Sun, major planets, dwarfs, major moons | Done |
+| NASA Images API + `public_media_asset` classification | Done |
+| Relevance filtering / generic-guard | Done |
+| Online Mode off → zero NASA media requests | Done |
+| Stale / dedup / target-switch clear preserved | Done |
+| Visibly separate from MAST + ESASky | Done |
+| Automated tests | Done (Python 198, Node 175) |
+
 ## Explicit exclusions (still)
 
 - IRSA / HEASARC adapters
+- MAST science-product expansion
 - Historical moving-object archive matching
 - Final R0.5.0 packaging / release receipt
 - Starlink / general satellite tracking
 - New third-party runtime dependencies
 
-## Validation at Slice 1 landing
+## Validation (current worktree)
 
-- Python: **180/180**
-- Node: **141/141**
+- Python: **198/198** (`PYTHONWARNINGS=error`)
+- Node: **175/175**

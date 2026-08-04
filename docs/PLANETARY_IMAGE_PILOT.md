@@ -1,22 +1,26 @@
-# Planetary Image Pilot — R0.3
+# Solar System NASA Public Media
 
-**Status:** Implemented in R0.3.0 (packaged).  
-**Baseline:** FOXAI Stellar Cartography R0.2.0  
-**Pilot targets:** Moon, Jupiter, Saturn only.
+**Status:** Expanded in R0.5.0 workstream (Solar System Media Expansion).  
+**Origin:** R0.3 Planetary Image Pilot (Moon / Jupiter / Saturn).  
+**Classification:** `public_media_asset` only — not calibrated science imagery and not proof of current appearance.
 
 ---
 
-## Supported pilot targets
+## Registry
 
-| Stellarium-reported name | Normalized id | Notes |
-|------------------------|---------------|-------|
-| Moon, Luna | `moon` | Requires Solar System classification from Stellarium fields |
-| Jupiter | `jupiter` | Same |
-| Saturn | `saturn` | Same |
+Targets are resolved from the data-driven registry:
 
-Other Solar System bodies (Mars, Venus, comets, etc.) show an honest **unsupported** fallback — no network call. Stars and deep-sky objects hide the panel entirely.
+- `app/data/solar_system_media_registry.json` (source of truth)
+- `app/solar_system_media_registry.py` (server loader + relevance)
+- `app/static/lib/solar_system_media_registry.js` (browser/Node export; parity-tested)
 
-Name matching uses Stellarium's reported `name` / `alt_name` only. Manual coordinate entry without Stellarium type fields is **not** classified as a pilot target.
+Each entry includes: canonical id, display name, aliases, parent body (moons), target class, moving-object flag, and bounded NASA Images search terms, plus relevance / generic-guard context terms.
+
+Supported at minimum: Sun, Mercury–Neptune, Pluto, Ceres, Eris, Haumea, Makemake, and major moons (Phobos, Deimos, Io, Europa, Ganymede, Callisto, Titan, Enceladus, Rhea, Iapetus, Mimas, Miranda, Ariel, Umbriel, Titania, Oberon, Triton, Charon).
+
+Bodies not in the registry show an honest unsupported message without a NASA request. Stars and deep-sky objects hide the panel entirely.
+
+Name matching uses Stellarium's reported `name` / `alt_name` only.
 
 ---
 
@@ -30,17 +34,17 @@ Name matching uses Stellarium's reported `name` / `alt_name` only. Manual coordi
 | Search endpoint | `https://images-api.nasa.gov/search` |
 | Authentication | None required |
 | Image CDN | `https://images-assets.nasa.gov/` (HTTPS only) |
-| Attribution | `secondary_creator`, `nasa_id`, and `date_created` from API metadata; link to `https://images.nasa.gov/details/{nasa_id}` |
+| Details pages | `https://images.nasa.gov/details/{nasa_id}` |
 
-### Why not PDS Search API for this pilot?
+Returned items are labeled **NASA public archive media** and typed `public_media_asset`.
 
-PDS Search API (`https://pds.nasa.gov/api/search/1/`) remains the preferred long-term archive path (see `docs/FUTURE_PLANETARY_IMAGERY.md`). During R0.3 implementation it was **demonstrably insufficient** for a bounded browse-image pilot:
+Relevance filtering rejects hits that do not sufficiently mention the target (and parent/context for moons; extra context for generic words such as sun / earth / moon).
 
-- `target_name eq "Saturn"` queries returned **zero hits**
-- Keyword search returned unreliable/non-image results
-- Product-level browse JPEG selection would require substantial mission-specific filtering beyond this pilot scope
+Empty result copy:
 
-NASA Images API provides documented, keyless, machine-readable search with stable HTTPS preview URLs suitable for outreach imagery with clear attribution.
+> No relevant NASA public-media result was returned for this target.
+
+This must not claim that no imagery or scientific data exists.
 
 ---
 
@@ -50,75 +54,44 @@ NASA Images API provides documented, keyless, machine-readable search with stabl
 User enables Online Archive Mode
        │
        ▼
-Stellarium selection (local only) ──► target card + Solar System notice (R0.2)
+Stellarium selection (local only)
        │
-       ▼ (pilot target + Online Archive Mode on)
-Browser ──GET /api/planetary-image?target=moon──► local Python server
+       ▼ (registry Solar System target + Online Archive Mode on)
+Browser ──GET /api/planetary-image?target=<id>──► local Python server
        │                                              │
        │                                              ▼
        │                              NASA Images API (images-api.nasa.gov)
-       │                              query: target name only (Moon/Jupiter/Saturn)
+       │                              bounded search term from registry only
        │                                              │
        ◄──────── normalized JSON ◄──────────────────┘
        │
        ▼
-Planetary Archive Image panel (separate from ESASky iframe)
+NASA Public Media panel (separate from ESASky Survey Layers and MAST Science Discovery)
 ```
 
 **Privacy:**
 
-- Planetary lookup runs **only** when Online Archive Mode is enabled **and** the target is a pilot Solar System body.
-- The browser sends only the normalized pilot id (`moon`, `jupiter`, `saturn`) to the local server.
-- The local server forwards only the corresponding search term to NASA (`Moon`, `Jupiter`, `Saturn`).
+- Lookup runs **only** when Online Archive Mode is enabled **and** the target resolves in the media registry.
+- Online Archive Mode off produces zero NASA media requests.
+- The browser sends only the normalized registry id to the local server.
+- The local server forwards only the bounded registry search term to NASA.
 - No Stellarium metadata, coordinates, local paths, FOXAI workspace content, or machine identity are sent.
-- ESASky traffic remains browser-direct (unchanged from R0.2).
-- Ordinary browser/network metadata (IP, user agent) may still accompany HTTPS requests to NASA, as with any website visit.
 
 ---
 
-## Archive image versus live appearance
+## UI separation
 
-The panel always displays this notice:
+Keep visibly separate:
 
-> This is an archived NASA outreach image, not a live view. It does not show the current date, phase, orientation, or appearance at the Stellarium coordinates. It was not produced by Stellarium or ESASky.
-
-Metadata fields (mission, image date, credit, title) are shown when NASA provides them. Missing optional fields are omitted — never invented.
-
----
-
-## Failure and fallback behavior
-
-| Condition | Behavior |
-|-----------|----------|
-| Online Archive Mode off | Panel hidden; **zero** planetary network calls |
-| Star / deep-sky target | Panel hidden |
-| Unsupported Solar System target | Panel shown with honest unsupported message; no fetch |
-| NASA timeout (10 s) | Error message in panel |
-| HTTP error | Error message in panel |
-| Malformed NASA response | Unavailable message |
-| No permitted HTTPS image URL | Unavailable message |
-| Rapid Moon → Jupiter → Saturn switching | Stale async responses ignored via generation token |
+1. **NASA Public Media** — this panel (`/api/planetary-image`)
+2. **MAST Science Discovery** — discovery panel / badges
+3. **ESASky Survey Layers** — HiPS layer controls
 
 ---
 
-## Known limitations
+## Stale-response and target switching
 
-- Pilot limited to three targets; no arbitrary planet search.
-- NASA Images API returns outreach/catalog images, not necessarily the best scientific product for the target.
-- First matching result with a permitted preview URL is used — not a curated “best current view”.
-- Image date reflects NASA catalog metadata, not “now”.
-- No ESA PSA/EPN-TAP integration in R0.3 (single official provider for this pilot).
-- Manual targets without Stellarium Solar System type fields do not trigger the pilot.
-
----
-
-## Adding future targets safely
-
-1. Add an entry to `PILOT_TARGETS` in `app/planetary_image.py` with a vetted NASA search query.
-2. Add name aliases to `PILOT_TARGET_ALIASES` in `app/static/lib/planetary_image.js`.
-3. Add fixture JSON under `tests/fixtures/sample_responses/`.
-4. Add unit/integration tests for lookup, URL validation, and UI panel behavior.
-5. Update this document and `CHANGELOG.md`.
-6. Verify NASA Images API returns stable HTTPS assets and attribution metadata for the new target before expanding the pilot list.
-
-Do **not** expand beyond the mission-approved target set without a new release scope review.
+- Duplicate-request suppression and generation-based stale guards are preserved.
+- Switching targets clears the previous target's media immediately (loading / unsupported / empty replace the prior image).
+- Unsupported or empty results clear old imagery.
+- Late responses for a previous target must not overwrite a newer target's panel.

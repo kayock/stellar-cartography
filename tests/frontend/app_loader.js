@@ -26,6 +26,7 @@ const APP_JS = path.join(__dirname, "..", "..", "app", "static", "app.js");
 
 const LIB_FILES = [
   "solar_system.js",
+  "solar_system_media_registry.js",
   "planetary_image.js",
   "archive_availability.js",
   "discovery_panel.js",

@@ -4,7 +4,6 @@ import urllib.error
 from pathlib import Path
 
 from app import planetary_image
-from tests.fixtures.fake_stellarium_server import load_sample
 
 FIXTURES = Path(__file__).resolve().parent / "fixtures" / "sample_responses"
 
@@ -19,8 +18,14 @@ class TestNormalizePilotTarget(unittest.TestCase):
         self.assertEqual(planetary_image.normalize_pilot_target_id("JUPITER"), "jupiter")
         self.assertEqual(planetary_image.normalize_pilot_target_id(" saturn "), "saturn")
 
+    def test_accepts_expanded_registry_targets(self):
+        self.assertEqual(planetary_image.normalize_pilot_target_id("Mars"), "mars")
+        self.assertEqual(planetary_image.normalize_pilot_target_id("Uranus"), "uranus")
+        self.assertEqual(planetary_image.normalize_pilot_target_id("Neptune"), "neptune")
+        self.assertEqual(planetary_image.normalize_pilot_target_id("Europa"), "europa")
+
     def test_rejects_unknown_targets(self):
-        self.assertIsNone(planetary_image.normalize_pilot_target_id("Mars"))
+        self.assertIsNone(planetary_image.normalize_pilot_target_id("1P/Halley"))
         self.assertIsNone(planetary_image.normalize_pilot_target_id(""))
         self.assertIsNone(planetary_image.normalize_pilot_target_id(None))
 
@@ -69,6 +74,7 @@ class TestParseNasaImagesResponse(unittest.TestCase):
         self.assertEqual(result["status"], "found")
         self.assertEqual(result["target_id"], "moon")
         self.assertEqual(result["target_name"], "Moon")
+        self.assertEqual(result["result_type"], "public_media_asset")
         self.assertIn("images-assets.nasa.gov", result["image_url"])
         self.assertEqual(result["title"], "Nearside of the Moon")
         self.assertEqual(result["source_agency"], "NASA")
@@ -81,25 +87,31 @@ class TestParseNasaImagesResponse(unittest.TestCase):
         self.assertEqual(result["status"], "found")
         self.assertEqual(result["target_id"], "jupiter")
         self.assertEqual(result["title"], "Jupiter Plume")
+        self.assertEqual(result["result_type"], "public_media_asset")
 
     def test_saturn_lookup_normalized(self):
         result = planetary_image.parse_nasa_images_response(_load_nasa_fixture("nasa_images_saturn.json"), "saturn")
         self.assertEqual(result["status"], "found")
         self.assertEqual(result["target_id"], "saturn")
         self.assertEqual(result["title"], "Saturn Atmosphere")
+        self.assertEqual(result["result_type"], "public_media_asset")
 
     def test_missing_image_url(self):
         result = planetary_image.parse_nasa_images_response(_load_nasa_fixture("nasa_images_no_image.json"), "moon")
         self.assertTrue(result["ok"])
         self.assertEqual(result["status"], "unavailable")
         self.assertIsNone(result["image_url"])
+        self.assertEqual(
+            result["error"],
+            "No relevant NASA public-media result was returned for this target.",
+        )
 
     def test_missing_optional_metadata(self):
         payload = {
             "collection": {
                 "items": [
                     {
-                        "data": [{"title": "Minimal", "nasa_id": "PIA99999"}],
+                        "data": [{"title": "Jupiter Minimal", "nasa_id": "PIA99999"}],
                         "links": [
                             {
                                 "href": "https://images-assets.nasa.gov/image/PIA99999/PIA99999~thumb.jpg",
@@ -134,7 +146,7 @@ class TestParseNasaImagesResponse(unittest.TestCase):
             "collection": {
                 "items": [
                     {
-                        "data": [{"title": "Bad", "nasa_id": "X"}],
+                        "data": [{"title": "Bad Moon LRO", "nasa_id": "X"}],
                         "links": [{"href": "https://evil.example.com/x.jpg", "rel": "preview"}],
                     }
                 ]
@@ -154,10 +166,45 @@ class TestLookupPlanetaryImage(unittest.TestCase):
     def test_successful_official_source_response(self):
         result = planetary_image.lookup_planetary_image("moon", fetcher=self._fetch_fixture("nasa_images_moon.json"))
         self.assertEqual(result["status"], "found")
+        self.assertEqual(result["result_type"], "public_media_asset")
+
+    def test_mars_is_supported(self):
+        captured = {}
+
+        def fetch(url, _timeout):
+            captured["url"] = url
+            return {
+                "collection": {
+                    "items": [
+                        {
+                            "data": [
+                                {
+                                    "title": "Mars planet",
+                                    "description": "Mars",
+                                    "keywords": ["Mars"],
+                                    "nasa_id": "PIAM1",
+                                }
+                            ],
+                            "links": [
+                                {
+                                    "href": "https://images-assets.nasa.gov/image/PIAM1/PIAM1~thumb.jpg",
+                                    "rel": "preview",
+                                }
+                            ],
+                        }
+                    ]
+                }
+            }
+
+        result = planetary_image.lookup_planetary_image("mars", fetcher=fetch)
+        self.assertEqual(result["status"], "found")
+        self.assertIn("Mars", captured["url"])
+        self.assertNotIn("three-target", (result.get("error") or "").lower())
 
     def test_unsupported_target(self):
-        result = planetary_image.lookup_planetary_image("mars")
+        result = planetary_image.lookup_planetary_image("1P/Halley")
         self.assertEqual(result["status"], "unsupported")
+        self.assertIn("public-media registry", result["error"])
 
     def test_service_timeout(self):
         def fetch(_url, _timeout):
@@ -180,12 +227,22 @@ class TestLookupPlanetaryImage(unittest.TestCase):
         result = planetary_image.lookup_planetary_image("moon", fetcher=fetch)
         self.assertEqual(result["status"], "malformed")
 
+    def test_lookup_does_not_run_when_fetcher_unused_for_unsupported(self):
+        calls = []
 
-class TestSanitizeText(unittest.TestCase):
-    def test_strips_control_characters(self):
+        def fetch(url, timeout):
+            calls.append((url, timeout))
+            return {}
+
+        planetary_image.lookup_planetary_image("unknown-body", fetcher=fetch)
+        self.assertEqual(calls, [])
+
+
+class TestSanitize(unittest.TestCase):
+    def test_strips_control_chars(self):
         self.assertEqual(planetary_image.sanitize_text("hello\x00world"), "helloworld")
 
-    def test_safe_text_rendering_contract(self):
+    def test_preserves_angle_brackets_as_text(self):
         self.assertEqual(planetary_image.sanitize_text("<script>alert(1)</script>"), "<script>alert(1)</script>")
 
 

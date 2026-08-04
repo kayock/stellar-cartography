@@ -39,6 +39,12 @@ const MARS = {
   object_type: "planet",
 };
 
+const COMET = {
+  name: "1P/Halley",
+  object_category: "Planet",
+  object_type: "comet",
+};
+
 const STAR = {
   name: "Sirius",
   object_category: "Star",
@@ -62,6 +68,7 @@ function apiResultFromFixture(fixtureName, targetId) {
     status: "found",
     target_id: targetId,
     target_name: targetId.charAt(0).toUpperCase() + targetId.slice(1),
+    searched_target: targetId.charAt(0).toUpperCase() + targetId.slice(1),
     image_url: link.href,
     title: data.title,
     description: data.description,
@@ -74,6 +81,8 @@ function apiResultFromFixture(fixtureName, targetId) {
     credit: data.secondary_creator,
     source_link: `https://images.nasa.gov/details/${data.nasa_id}`,
     archive_notice: PlanetaryImage.ARCHIVE_NOTICE,
+    media_label: PlanetaryImage.MEDIA_LABEL,
+    result_type: PlanetaryImage.RESULT_TYPE,
   };
 }
 
@@ -89,9 +98,14 @@ test("Saturn resolves to pilot id", () => {
   assert.equal(PlanetaryImage.resolvePilotTargetId(SATURN), "saturn");
 });
 
-test("unsupported Solar System target has no pilot id", () => {
-  assert.equal(PlanetaryImage.resolvePilotTargetId(MARS), null);
+test("Mars resolves through the media registry", () => {
+  assert.equal(PlanetaryImage.resolvePilotTargetId(MARS), "mars");
   assert.equal(SolarSystem.isSolarSystemTarget(MARS), true);
+});
+
+test("unsupported Solar System target has no media registry id", () => {
+  assert.equal(PlanetaryImage.resolvePilotTargetId(COMET), null);
+  assert.equal(SolarSystem.isSolarSystemTarget(COMET), true);
 });
 
 test("normal star hides planetary-image panel", async () => {
@@ -350,21 +364,21 @@ test("late supported response cannot overwrite unsupported target message", asyn
 
   const moonPromise = app.syncPlanetaryImagePanel(MOON);
   await new Promise((resolve) => setTimeout(resolve, 0));
-  await app.syncPlanetaryImagePanel(MARS);
+  await app.syncPlanetaryImagePanel(COMET);
 
-  assert.match(app.el.planetaryImageBody.textContent, /pilot supports Moon, Jupiter, and Saturn only/i);
+  assert.match(app.el.planetaryImageBody.textContent, /not in the NASA public-media registry/i);
   assert.doesNotMatch(app.el.planetaryImageBody.textContent, /Nearside of the Moon/);
 
   releaseMoon();
   await moonPromise;
   await new Promise((resolve) => setTimeout(resolve, 0));
 
-  assert.match(app.el.planetaryImageBody.textContent, /pilot supports Moon, Jupiter, and Saturn only/i);
+  assert.match(app.el.planetaryImageBody.textContent, /not in the NASA public-media registry/i);
   assert.doesNotMatch(app.el.planetaryImageBody.textContent, /Nearside of the Moon/);
   assert.equal(app.el.planetaryImageBody.querySelector("img"), null);
 });
 
-test("returning to Moon after Mars unsupported fetches Moon again", async () => {
+test("returning to Moon after unsupported target fetches Moon again", async () => {
   let moonCalls = 0;
   const fetchImpl = async (url) => {
     if (String(url).includes("target=moon")) {
@@ -381,14 +395,14 @@ test("returning to Moon after Mars unsupported fetches Moon again", async () => 
   assert.equal(moonCalls, 1);
   assert.match(app.el.planetaryImageBody.textContent, /Nearside of the Moon/);
 
-  await app.syncPlanetaryImagePanel(MARS);
-  assert.match(app.el.planetaryImageBody.textContent, /pilot supports Moon, Jupiter, and Saturn only/i);
+  await app.syncPlanetaryImagePanel(COMET);
+  assert.match(app.el.planetaryImageBody.textContent, /not in the NASA public-media registry/i);
   assert.equal(app.el.planetaryImageBody.querySelector("img"), null);
 
   await app.syncPlanetaryImagePanel(MOON);
   assert.equal(moonCalls, 2);
   assert.match(app.el.planetaryImageBody.textContent, /Nearside of the Moon/);
-  assert.doesNotMatch(app.el.planetaryImageBody.textContent, /pilot supports Moon, Jupiter, and Saturn only/i);
+  assert.doesNotMatch(app.el.planetaryImageBody.textContent, /not in the NASA public-media registry/i);
   assert.ok(app.el.planetaryImageBody.querySelector("img"));
 });
 
@@ -409,10 +423,134 @@ test("unsupported Solar System target shows honest fallback without fetch", asyn
 
   const { exports: app } = loadApp(fetchImpl);
   app.state.onlineMode = true;
-  await app.syncPlanetaryImagePanel(MARS);
+  await app.syncPlanetaryImagePanel(COMET);
   assert.equal(planetaryCalls, 0);
   assert.equal(app.el.planetaryImageCard.hidden, false);
-  assert.match(app.el.planetaryImageBody.textContent, /pilot supports Moon, Jupiter, and Saturn only/i);
+  assert.match(app.el.planetaryImageBody.textContent, /not in the NASA public-media registry/i);
+});
+
+test("Mars no longer shows three-target-pilot unsupported message", async () => {
+  let planetaryCalls = 0;
+  const fetchImpl = async (url) => {
+    if (String(url).includes("target=mars")) {
+      planetaryCalls += 1;
+      return {
+        ok: true,
+        json: async () => ({
+          ok: true,
+          status: "unavailable",
+          target_id: "mars",
+          target_name: "Mars",
+          searched_target: "Mars",
+          error: PlanetaryImage.EMPTY_MEDIA_MESSAGE,
+          media_label: PlanetaryImage.MEDIA_LABEL,
+          archive_notice: PlanetaryImage.ARCHIVE_NOTICE,
+        }),
+      };
+    }
+    return { ok: true, json: async () => ({ connected: true }) };
+  };
+
+  const { exports: app } = loadApp(fetchImpl);
+  app.state.onlineMode = true;
+  await app.syncPlanetaryImagePanel(MARS);
+  assert.equal(planetaryCalls, 1);
+  assert.doesNotMatch(app.el.planetaryImageBody.textContent, /Moon, Jupiter, and Saturn only/i);
+  assert.match(app.el.planetaryImageBody.textContent, /No relevant NASA public-media result/i);
+});
+
+test("target switch clears previous media immediately", async () => {
+  let releaseMars;
+  const marsGate = new Promise((resolve) => {
+    releaseMars = resolve;
+  });
+
+  const fetchImpl = async (url) => {
+    if (String(url).includes("target=moon")) {
+      return { ok: true, json: async () => apiResultFromFixture("nasa_images_moon.json", "moon") };
+    }
+    if (String(url).includes("target=mars")) {
+      await marsGate;
+      return {
+        ok: true,
+        json: async () => ({
+          ok: true,
+          status: "found",
+          target_id: "mars",
+          target_name: "Mars",
+          searched_target: "Mars",
+          image_url: "https://images-assets.nasa.gov/image/PIAMARS/PIAMARS~thumb.jpg",
+          title: "Mars planet",
+          media_label: PlanetaryImage.MEDIA_LABEL,
+          result_type: PlanetaryImage.RESULT_TYPE,
+          archive_notice: PlanetaryImage.ARCHIVE_NOTICE,
+          source_agency: "NASA",
+        }),
+      };
+    }
+    return { ok: true, json: async () => ({ connected: true }) };
+  };
+
+  const { exports: app } = loadApp(fetchImpl);
+  app.state.onlineMode = true;
+  await app.syncPlanetaryImagePanel(MOON);
+  assert.ok(app.el.planetaryImageBody.querySelector("img"));
+
+  const marsPromise = app.syncPlanetaryImagePanel(MARS);
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  assert.equal(app.el.planetaryImageBody.querySelector("img"), null);
+  assert.match(app.el.planetaryImageBody.textContent, /Searching NASA/i);
+
+  releaseMars();
+  await marsPromise;
+  assert.match(app.el.planetaryImageBody.textContent, /Mars planet/);
+});
+
+test("empty media result clears old imagery", async () => {
+  const fetchImpl = async (url) => {
+    if (String(url).includes("target=moon")) {
+      return { ok: true, json: async () => apiResultFromFixture("nasa_images_moon.json", "moon") };
+    }
+    if (String(url).includes("target=mars")) {
+      return {
+        ok: true,
+        json: async () => ({
+          ok: true,
+          status: "unavailable",
+          target_id: "mars",
+          target_name: "Mars",
+          error: PlanetaryImage.EMPTY_MEDIA_MESSAGE,
+          media_label: PlanetaryImage.MEDIA_LABEL,
+          archive_notice: PlanetaryImage.ARCHIVE_NOTICE,
+        }),
+      };
+    }
+    return { ok: true, json: async () => ({ connected: true }) };
+  };
+
+  const { exports: app } = loadApp(fetchImpl);
+  app.state.onlineMode = true;
+  await app.syncPlanetaryImagePanel(MOON);
+  assert.ok(app.el.planetaryImageBody.querySelector("img"));
+  await app.syncPlanetaryImagePanel(MARS);
+  assert.equal(app.el.planetaryImageBody.querySelector("img"), null);
+  assert.match(app.el.planetaryImageBody.textContent, /No relevant NASA public-media result/i);
+});
+
+test("found results expose public_media_asset classification", () => {
+  const view = PlanetaryImage.buildResultView(apiResultFromFixture("nasa_images_moon.json", "moon"));
+  assert.equal(view.mode, "found");
+  assert.equal(view.resultType, "public_media_asset");
+  assert.equal(view.mediaLabel, "NASA public archive media");
+});
+
+test("registry aliases resolve deterministically in the browser module", () => {
+  const Registry = require("../../app/static/lib/solar_system_media_registry.js");
+  assert.equal(Registry.normalizeMediaTargetId("Luna"), "moon");
+  assert.equal(Registry.normalizeMediaTargetId("terra"), "earth");
+  assert.equal(Registry.getEntry("europa").parent_body, "jupiter");
+  assert.equal(Registry.getEntry("titan").parent_body, "saturn");
+  assert.equal(Registry.getEntry("charon").parent_body, "pluto");
 });
 
 test("DOM rendering uses safe property assignment for remote image and link values", () => {

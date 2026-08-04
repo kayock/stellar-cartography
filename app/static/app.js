@@ -292,22 +292,27 @@ function renderPlanetaryImagePanel(view) {
     const img = document.createElement("img");
     img.className = "planetary-image";
     img.src = view.imageUrl;
-    img.alt = view.title || view.targetName || "Planetary archive image";
+    img.alt = view.title || view.targetName || "NASA public archive media";
     wrap.appendChild(img);
     el.planetaryImageBody.appendChild(wrap);
+
+    const mediaLabel = document.createElement("p");
+    mediaLabel.className = "planetary-media-label";
+    mediaLabel.textContent = view.mediaLabel || PlanetaryImage.MEDIA_LABEL;
+    el.planetaryImageBody.appendChild(mediaLabel);
 
     const meta = document.createElement("div");
     meta.className = "planetary-meta";
     const metaRows = [
-      ["Target", view.targetName],
-      ["Mission / spacecraft", view.mission],
-      ["NASA center", view.nasaCenter],
-      ["NASA keywords", view.keywords],
-      ["Instrument", view.instrument],
-      ["Image date", view.imageDate],
-      ["Source agency", view.sourceAgency],
+      ["Exact target searched", view.searchedTarget || view.targetName],
       ["Title", view.title],
       ["Description", view.description],
+      ["Image date", view.imageDate],
+      ["NASA center", view.nasaCenter],
+      ["Mission / spacecraft", view.mission],
+      ["NASA keywords", view.keywords],
+      ["Instrument", view.instrument],
+      ["Source agency", view.sourceAgency],
       ["Credit", view.credit],
     ];
     metaRows.forEach(([label, value]) => {
@@ -333,7 +338,7 @@ function renderPlanetaryImagePanel(view) {
       link.href = view.sourceLink;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
-      link.textContent = "Open official NASA archive entry";
+      link.textContent = "Open official NASA source";
       linkWrap.appendChild(link);
       el.planetaryImageBody.appendChild(linkWrap);
     }
@@ -344,7 +349,7 @@ function renderPlanetaryImagePanel(view) {
 
   const fallback = document.createElement("p");
   fallback.className = "planetary-status";
-  fallback.textContent = "No suitable official NASA archive image is available for this pilot target.";
+  fallback.textContent = PlanetaryImage.EMPTY_MEDIA_MESSAGE;
   el.planetaryImageBody.appendChild(fallback);
   appendPlanetaryArchiveNotice(el.planetaryImageBody, view.archiveNotice);
 }
