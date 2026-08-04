@@ -26,6 +26,7 @@ from urllib.parse import parse_qs, urlparse
 from . import apophis_tracker
 from . import coords
 from . import mast_archive
+from . import cosmic_signal_registry
 from . import planetary_image
 from . import watchlist_store
 from .discovery import service as discovery_service
@@ -171,6 +172,36 @@ def make_handler(
                     target,
                     fetcher=planetary_fetcher,
                 )
+                self._send_json(200, result)
+                return
+
+            if path == "/api/cosmic-signal-registry":
+                try:
+                    payload = cosmic_signal_registry.registry_public_payload()
+                except cosmic_signal_registry.RegistryError as exc:
+                    self._send_json(500, {"ok": False, "error": str(exc)})
+                    return
+                self._send_json(200, {"ok": True, "registry": payload})
+                return
+
+            if path == "/api/cosmic-signal-match":
+                qs = parse_qs(parsed.query)
+                name = (qs.get("name") or [""])[0]
+                alt_name = (qs.get("alt_name") or [""])[0]
+                allow_featured = (qs.get("allow_featured") or ["1"])[0] not in (
+                    "0",
+                    "false",
+                    "no",
+                )
+                target = {"name": name or None, "alt_name": alt_name or None}
+                try:
+                    result = cosmic_signal_registry.match_signals_for_target(
+                        target,
+                        allow_featured=allow_featured,
+                    )
+                except cosmic_signal_registry.RegistryError as exc:
+                    self._send_json(500, {"ok": False, "error": str(exc)})
+                    return
                 self._send_json(200, result)
                 return
 
