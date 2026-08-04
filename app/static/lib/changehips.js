@@ -1,11 +1,14 @@
 /* changehips.js
  *
  * Pure, DOM-free logic for interpreting ESASky's response to a changeHips
- * postMessage command. Nothing here reports "Loaded" as soon as the
+ * postMessage command. Nothing here reports acknowledgement as soon as the
  * command is *sent* -- callers must wait for one of:
- *   - a confirmed success message naming the loaded layer
+ *   - a confirmed acknowledgement naming the loaded layer (from ESASky)
  *   - a documented failure (e.g. extras.message) naming the problem
  *   - a timeout, if ESASky never confirms either way
+ *
+ * A generic success-shaped message without an ESASky-supplied layer name
+ * is NOT confirmation. The app must never substitute pending.requestedName.
  *
  * DOM-free so it can be exercised directly by build-time Node tests
  * (tests/frontend/changehips.test.js).
@@ -18,6 +21,32 @@
   }
 })(typeof self !== "undefined" ? self : this, function () {
   "use strict";
+
+  /** Normalize a HiPS layer name for comparison: trim, collapse whitespace,
+   * case-fold. Does not invent correlation beyond string equality of the
+   * normalized forms. */
+  function normalizeLayerName(name) {
+    if (typeof name !== "string") return "";
+    return name.trim().replace(/\s+/g, " ").toLowerCase();
+  }
+
+  /** True when the ESASky-supplied acknowledged name corresponds to the
+   * requested layer under normalized comparison. */
+  function layersCorrespond(requestedName, acknowledgedName) {
+    var a = normalizeLayerName(requestedName);
+    var b = normalizeLayerName(acknowledgedName);
+    if (!a || !b) return false;
+    return a === b;
+  }
+
+  /** Extract a layer name that ESASky itself supplied in the message.
+   * Never falls back to the pending requested name. */
+  function extractEsaskyLayerName(payload) {
+    if (!payload || typeof payload !== "object" || Array.isArray(payload)) return null;
+    var name = payload.hipsName || payload.name;
+    if (typeof name === "string" && name.trim()) return name.trim();
+    return null;
+  }
 
   /** Does `message` look like it's about a HiPS/imagery change at all
    * (as opposed to an unrelated postMessage, e.g. a getAvailableHips
@@ -37,10 +66,15 @@
   }
 
   /** Interpret a changeHips-shaped message against the pending request
-   * ({ requestedName }). Returns:
-   *   { status: "success", layerName }
+   * ({ requestedName, generation? }). Returns:
+   *   { status: "acknowledged", layerName }
    *   { status: "error", message }
+   *   { status: "mismatch", layerName, message }  -- ESASky named a different layer
    *   { status: "unrelated" }   -- caller should keep waiting
+   *
+   * Confirmation REQUIRES an ESASky-supplied layer name that corresponds
+   * to pending.requestedName. Generic success without a layer name stays
+   * unconfirmed (unrelated) so the bounded timeout can handle it.
    */
   function interpretChangeHipsMessage(pending, message) {
     if (!looksLikeChangeHipsMessage(message)) {
@@ -63,18 +97,34 @@
       return { status: "error", message: failureText };
     }
 
-    var confirmedName = payload.hipsName || payload.name || (pending && pending.requestedName) || null;
-    if (confirmedName) {
-      return { status: "success", layerName: confirmedName };
+    var esaskyName = extractEsaskyLayerName(payload);
+    if (!esaskyName) {
+      // No layer name from ESASky -- do not invent confirmation via
+      // pending.requestedName. Keep waiting or eventually time out.
+      return { status: "unrelated" };
     }
 
-    // Carries no name and no clear failure indicator -- not enough to
-    // confidently confirm success; treat as unrelated so the caller keeps
-    // waiting (or eventually times out) rather than guessing.
-    return { status: "unrelated" };
+    var requested = pending && pending.requestedName;
+    if (!layersCorrespond(requested, esaskyName)) {
+      return {
+        status: "mismatch",
+        layerName: esaskyName,
+        message:
+          'ESASky named survey layer "' +
+          esaskyName +
+          '" which does not correspond to the requested layer' +
+          (requested ? ' "' + requested + '"' : "") +
+          ".",
+      };
+    }
+
+    return { status: "acknowledged", layerName: esaskyName };
   }
 
   return {
+    normalizeLayerName: normalizeLayerName,
+    layersCorrespond: layersCorrespond,
+    extractEsaskyLayerName: extractEsaskyLayerName,
     looksLikeChangeHipsMessage: looksLikeChangeHipsMessage,
     interpretChangeHipsMessage: interpretChangeHipsMessage,
   };

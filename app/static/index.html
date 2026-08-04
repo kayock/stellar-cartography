@@ -146,16 +146,22 @@
     </div>
 
     <div class="card">
-      <h2>Imagery</h2>
+      <h2 id="hips-survey-controls-label">ESASky survey-layer controls</h2>
       <p class="hint">
-        Each button asks ESASky's own catalogue of all-sky imagery (HiPS) whether it has a layer
-        matching that telescope or wavelength — nothing is assumed. If ESASky reports no matching
-        layer, this app tells you plainly rather than guessing.
+        These buttons switch ESASky all-sky HiPS survey layers via the documented
+        postMessage API. Acknowledgement means ESASky accepted the layer name —
+        not that useful tiles are present at the current coordinates. MAST
+        scientific archive discovery is a separate panel below.
       </p>
       <div id="imagery-grid" class="imagery-grid"></div>
       <div id="imagery-status" class="imagery-status"></div>
+      <div id="hips-restore-wrap" class="hips-restore-wrap" hidden>
+        <button type="button" id="btn-hips-restore" class="btn btn-secondary"></button>
+      </div>
+      <div id="hips-diagnostics" class="hips-diagnostics" hidden></div>
       <div id="archive-observation-panel" class="archive-observation-panel" hidden></div>
       <div id="discovery-panel" class="discovery-panel" hidden>
+        <h3 class="discovery-panel-heading">MAST scientific archive discovery</h3>
         <div id="discovery-panel-body" class="discovery-panel-body"></div>
       </div>
 
@@ -187,6 +193,7 @@
 <script src="/static/lib/planetary_image.js"></script>
 <script src="/static/lib/archive_availability.js"></script>
 <script src="/static/lib/discovery_panel.js"></script>
+<script src="/static/lib/hips_layer_control.js"></script>
 <script src="/static/lib/watchlist.js"></script>
 <script src="/static/lib/apophis_tracker.js"></script>
 <script src="/static/lib/imagery_matching.js"></script>

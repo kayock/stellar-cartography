@@ -508,6 +508,23 @@ code {
 .discovery-item-summary { color: var(--text-0); font-size: 0.9rem; }
 .discovery-outcome-title { font-weight: 600; font-size: 0.86rem; color: var(--text-0); }
 
+.hips-restore-wrap { margin-top: 10px; }
+.hips-diagnostics {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--text-2);
+}
+.hips-diag-line { margin: 2px 0; }
+.imagery-btn.switching {
+  outline: 1px dashed var(--amber);
+  opacity: 0.9;
+}
+.imagery-status.status-switching { color: var(--amber); }
+.imagery-status.status-acknowledged_unverified { color: var(--text-0); }
+.imagery-status.status-restored { color: var(--text-0); }
+.imagery-status.status-failed,
+.imagery-status.status-timed_out { color: var(--red); }
+
 .watchlist-status {
   margin: 8px 0 4px 0;
   padding: 8px 10px;

@@ -30,9 +30,13 @@ const state = {
   currentTarget: null, // {name, ra_deg, dec_deg, fov_deg, source, ...}
   onlineMode: false,
   esaskyQueue: EsaskyQueue.createState(),
-  pendingHipsRequest: null, // {buttonId, timeoutId}
-  pendingChangeRequest: null, // {buttonId, requestedName, timeoutId}
+  pendingHipsRequest: null, // {buttonId, timeoutId, generation}
+  pendingChangeRequest: null, // {buttonId, requestedName, timeoutId, generation, kind}
+  // Legacy field: kept in sync with hipsLayer.acknowledgedImageryButtonId for
+  // shutdown/failed-selection helpers. Confirmed card styling uses hipsLayer.
   activeImageryButtonId: null,
+  hipsLayer: HipsLayerControl.createState(),
+  hipsNavTargetKey: null,
   planetaryImageRequest: PlanetaryImage.createRequestState(),
   archiveAvailability: ArchiveAvailability.createState(),
   archiveLights: {},
@@ -74,6 +78,10 @@ const el = {
   archiveObservationPanel: document.getElementById("archive-observation-panel"),
   discoveryPanel: document.getElementById("discovery-panel"),
   discoveryPanelBody: document.getElementById("discovery-panel-body"),
+  hipsSurveyControlsLabel: document.getElementById("hips-survey-controls-label"),
+  hipsRestoreWrap: document.getElementById("hips-restore-wrap"),
+  btnHipsRestore: document.getElementById("btn-hips-restore"),
+  hipsDiagnostics: document.getElementById("hips-diagnostics"),
   wavelengthExplainer: document.getElementById("wavelength-explainer"),
   watchlistExplainer: document.getElementById("watchlist-explainer"),
   watchlistStatus: document.getElementById("watchlist-status"),
@@ -129,6 +137,11 @@ function renderTargetCard() {
   }
 
   el.targetCard.className = "target-card";
+  const nextHipsKey = `${t.ra_deg}:${t.dec_deg}:${t.name || ""}`;
+  if (state.hipsNavTargetKey !== null && state.hipsNavTargetKey !== nextHipsKey) {
+    invalidateHipsPendingWork();
+  }
+  state.hipsNavTargetKey = nextHipsKey;
   const viewerFovDeg = SolarSystem.deriveEsaskyFovDeg(t);
   const isSolarSystem = SolarSystem.isSolarSystemTarget(t);
   const fovRow = t.fov_deg != null
@@ -438,6 +451,11 @@ function clearStaleTargetAfterFailedSelection(message) {
   state.pendingHipsRequest = cleared.pendingHipsRequest;
   state.pendingChangeRequest = cleared.pendingChangeRequest;
   state.activeImageryButtonId = cleared.activeImageryButtonId;
+  state.hipsNavTargetKey = null;
+  HipsLayerControl.resetAll(state.hipsLayer);
+  updateImageryButtonPresentations();
+  updateRestoreLayerControl();
+  renderHipsDiagnostics();
 
   el.targetCard.className = "target-card target-card-empty";
   el.targetCard.innerHTML = `<div class="target-empty-msg">${escapeHtml(message)}</div>`;
@@ -449,7 +467,6 @@ function clearStaleTargetAfterFailedSelection(message) {
   resetPlanetaryImagePanel();
 
   disableImageryButtons(false);
-  document.querySelectorAll(".imagery-btn").forEach((b) => b.classList.remove("active"));
   setImageryStatus("", null);
 }
 
@@ -531,7 +548,19 @@ function turnOnlineModeOff() {
   el.viewerStatus.textContent = shutdown.viewerStatusText;
   setImageryStatus(shutdown.imageryStatusText, null);
   disableImageryButtons(false);
-  document.querySelectorAll(".imagery-btn").forEach((b) => b.classList.remove("active"));
+  document.querySelectorAll(".imagery-btn").forEach((b) => {
+    b.classList.remove("active");
+    b.classList.remove("switching");
+  });
+  // Prefer the tracked imagery grid children in the test DOM stub.
+  if (el.imageryGrid && Array.isArray(el.imageryGrid._children)) {
+    el.imageryGrid._children.forEach((b) => {
+      if (b && b.classList) {
+        b.classList.remove("active");
+        b.classList.remove("switching");
+      }
+    });
+  }
 
   el.archiveModeIndicator.classList.remove("status-on", "status-off");
   el.archiveModeIndicator.classList.add("status-off");
@@ -540,6 +569,13 @@ function turnOnlineModeOff() {
   resetPlanetaryImagePanel();
   ArchiveAvailability.resetForOffline(state.archiveAvailability);
   resetArchiveAvailabilityLights();
+  clearHipsPendingTimers();
+  HipsLayerControl.resetAll(state.hipsLayer);
+  state.hipsNavTargetKey = null;
+  state.activeImageryButtonId = null;
+  updateImageryButtonPresentations();
+  updateRestoreLayerControl();
+  renderHipsDiagnostics();
 }
 
 // -- ESASky embed + control ----------------------------------------------
@@ -672,6 +708,10 @@ function handleEsaskyMessage(data) {
   if (!data || typeof data !== "object") return;
 
   if (state.pendingChangeRequest) {
+    if (HipsLayerControl.isStale(state.hipsLayer, state.pendingChangeRequest.generation)) {
+      clearHipsPendingTimers();
+      return;
+    }
     const result = ChangeHips.interpretChangeHipsMessage(state.pendingChangeRequest, data);
     if (result.status !== "unrelated") {
       resolveChangeHipsRequest(result);
@@ -680,10 +720,15 @@ function handleEsaskyMessage(data) {
   }
 
   if (state.pendingHipsRequest && ImageryMatching.looksLikeHipsListing(data)) {
+    if (HipsLayerControl.isStale(state.hipsLayer, state.pendingHipsRequest.generation)) {
+      clearTimeout(state.pendingHipsRequest.timeoutId);
+      state.pendingHipsRequest = null;
+      return;
+    }
     clearTimeout(state.pendingHipsRequest.timeoutId);
     const req = state.pendingHipsRequest;
     state.pendingHipsRequest = null;
-    resolveImageryListing(req.buttonId, data);
+    resolveImageryListing(req.buttonId, data, req.generation);
   }
 }
 
@@ -719,10 +764,6 @@ function renderDiscoveryPanel(bundle) {
   }
   el.discoveryPanel.hidden = false;
   const view = DiscoveryPanel.buildPanelViewModel(bundle);
-
-  const title = document.createElement("h3");
-  title.textContent = "Multi-domain discovery";
-  el.discoveryPanelBody.appendChild(title);
 
   const intro = document.createElement("p");
   intro.className = "discovery-intro";
@@ -823,11 +864,109 @@ function renderDiscoveryPanel(bundle) {
   }
 }
 
-function applyDiscoveryBadges(badges, activeImageryButtonId) {
+// -- ESASky HiPS survey-layer control (separate from MAST discovery) -----
+
+function clearHipsPendingTimers() {
+  if (state.pendingHipsRequest && state.pendingHipsRequest.timeoutId) {
+    clearTimeout(state.pendingHipsRequest.timeoutId);
+  }
+  if (state.pendingChangeRequest && state.pendingChangeRequest.timeoutId) {
+    clearTimeout(state.pendingChangeRequest.timeoutId);
+  }
+  state.pendingHipsRequest = null;
+  state.pendingChangeRequest = null;
+}
+
+function invalidateHipsPendingWork() {
+  clearHipsPendingTimers();
+  HipsLayerControl.invalidatePending(state.hipsLayer);
+  state.activeImageryButtonId = state.hipsLayer.acknowledgedImageryButtonId;
+  updateImageryButtonPresentations();
+  updateRestoreLayerControl();
+  renderHipsDiagnostics();
+  applyHipsStatusFromState();
+}
+
+function updateImageryButtonPresentations() {
+  forEachImageryButton((b) => {
+    b.classList.remove("active", "switching");
+    const id = b.dataset.id;
+    const pres = HipsLayerControl.buttonPresentation(state.hipsLayer, id);
+    if (pres.activeClass) b.classList.add("active");
+    if (pres.switchingClass) b.classList.add("switching");
+  });
+}
+
+function applyHipsStatusFromState() {
+  const msg = HipsLayerControl.buildStatusMessage(state.hipsLayer);
+  setImageryStatus(msg.text, msg.kind);
+}
+
+function renderHipsDiagnostics() {
+  if (!el.hipsDiagnostics) return;
+  const snap = HipsLayerControl.diagnosticSnapshot(state.hipsLayer);
+  const lines = [];
+  if (snap.requestedSurveyName) {
+    lines.push("Requested survey: " + snap.requestedSurveyName);
+  }
+  if (snap.acknowledgementSurveyName) {
+    lines.push("Acknowledged survey: " + snap.acknowledgementSurveyName);
+  }
+  if (snap.uiState && snap.uiState !== HipsLayerControl.UI.AVAILABLE) {
+    lines.push("Request state: " + snap.uiState);
+  }
+  if (snap.failureReason) {
+    lines.push("Detail: " + snap.failureReason);
+  }
+  el.hipsDiagnostics.textContent = "";
+  if (!lines.length) {
+    el.hipsDiagnostics.hidden = true;
+    return;
+  }
+  el.hipsDiagnostics.hidden = false;
+  lines.forEach((line) => {
+    const row = document.createElement("div");
+    row.className = "hips-diag-line";
+    row.textContent = line;
+    el.hipsDiagnostics.appendChild(row);
+  });
+}
+
+function updateRestoreLayerControl() {
+  if (!el.hipsRestoreWrap || !el.btnHipsRestore) return;
+  const show = HipsLayerControl.shouldShowRestoreAction(state.hipsLayer);
+  const action = show ? HipsLayerControl.getRestoreAction(state.hipsLayer) : null;
+  if (!action) {
+    el.hipsRestoreWrap.hidden = true;
+    el.btnHipsRestore.textContent = "";
+    el.btnHipsRestore.onclick = null;
+    return;
+  }
+  el.hipsRestoreWrap.hidden = false;
+  el.btnHipsRestore.textContent = action.label;
+  el.btnHipsRestore.onclick = () => {
+    if (!state.currentTarget) return;
+    if (!state.onlineMode) {
+      el.onlineModeToggle.checked = true;
+      el.onlineModeToggle.dispatchEvent(new Event("change"));
+    }
+    clearHipsPendingTimers();
+    const cfg =
+      IMAGERY_BUTTONS.find((c) => c.id === action.buttonId) || {
+        id: action.buttonId,
+        label: action.buttonId,
+      };
+    openOrUpdateEsasky(state.currentTarget);
+    requestChangeHips(cfg, action.hipsName, action.kind);
+  };
+}
+
+function applyDiscoveryBadges(badges) {
+  const ackId = state.hipsLayer.acknowledgedImageryButtonId;
   ArchiveAvailability.ARCHIVE_MISSIONS.forEach((mission) => {
     const payload = badges && badges[mission];
     const imageryId = imageryIdForMission(mission);
-    const activeMission = imageryId && imageryId === activeImageryButtonId ? mission : null;
+    const activeMission = imageryId && imageryId === ackId ? mission : null;
     const light = ArchiveAvailability.mapBadgePayloadToLight(payload, mission, activeMission);
     updateArchiveBadge(mission, light);
   });
@@ -855,7 +994,7 @@ async function syncArchiveAvailabilityChecks(target) {
     const cached = state.archiveAvailability.cache[discoveryKey].payload;
     state.discoveryBundle = cached.bundle || null;
     renderDiscoveryPanel(state.discoveryBundle);
-    applyDiscoveryBadges(cached.badges || {}, state.activeImageryButtonId);
+    applyDiscoveryBadges(cached.badges || {});
     return;
   }
 
@@ -892,7 +1031,7 @@ async function syncArchiveAvailabilityChecks(target) {
     ArchiveAvailability.storeCache(state.archiveAvailability, discoveryKey, data, Date.now());
     state.discoveryBundle = (data && data.bundle) || null;
     renderDiscoveryPanel(state.discoveryBundle);
-    applyDiscoveryBadges((data && data.badges) || {}, state.activeImageryButtonId);
+    applyDiscoveryBadges((data && data.badges) || {});
   } catch (_err) {
     if (ArchiveAvailability.isStale(state.archiveAvailability, generation)) return;
     ArchiveAvailability.clearInFlight(state.archiveAvailability, discoveryKey);
@@ -1023,7 +1162,7 @@ function refreshSelectedArchiveLayerBadge() {
       ? state.archiveAvailability.cache[discoveryKey].payload
       : null;
   if (discoveryCached && discoveryCached.badges) {
-    applyDiscoveryBadges(discoveryCached.badges, state.activeImageryButtonId);
+    applyDiscoveryBadges(discoveryCached.badges);
     return;
   }
   ArchiveAvailability.ARCHIVE_MISSIONS.forEach((mission) => {
@@ -1778,17 +1917,24 @@ function onImageryButtonClick(cfg) {
     el.onlineModeToggle.checked = true;
     el.onlineModeToggle.dispatchEvent(new Event("change"));
   }
+
+  // Newer card request supersedes any older pending HiPS listing/change.
+  clearHipsPendingTimers();
+  HipsLayerControl.invalidatePending(state.hipsLayer);
+
   openOrUpdateEsasky(state.currentTarget);
 
-  document.querySelectorAll(".imagery-btn").forEach((b) => b.classList.remove("active"));
-  state.activeImageryButtonId = cfg.id;
-  const btnEl = el.imageryGrid.querySelector(`[data-id="${cfg.id}"]`);
-  if (btnEl) btnEl.classList.add("active");
-  refreshSelectedArchiveLayerBadge();
+  // Pending/switching styling only — confirmed .active waits for acknowledgement.
+  state.hipsLayer.requestedImageryButtonId = cfg.id;
+  state.hipsLayer.uiState = HipsLayerControl.UI.SWITCHING;
+  state.hipsLayer.requestedSurveyName = cfg.preferredExact || null;
+  state.hipsLayer.layerCommandSent = false;
+  updateImageryButtonPresentations();
+  updateRestoreLayerControl();
+  renderHipsDiagnostics();
 
-  // Fast path for the default optical layer
   if (cfg.preferredExact) {
-    requestChangeHips(cfg, cfg.preferredExact);
+    requestChangeHips(cfg, cfg.preferredExact, HipsLayerControl.KIND.SWITCH);
     return;
   }
 
@@ -1796,89 +1942,128 @@ function onImageryButtonClick(cfg) {
 }
 
 function requestHipsListingThenApply(cfg) {
-  setImageryStatus(`Asking ESASky what's available for ${cfg.label}…`, null);
+  setImageryStatus(`Asking ESASky what's available for ${cfg.label}…`, "switching");
   disableImageryButtons(true);
 
-  if (state.pendingHipsRequest) {
-    clearTimeout(state.pendingHipsRequest.timeoutId);
-  }
-
+  const generation = state.hipsLayer.generation;
   const timeoutId = setTimeout(() => {
+    if (HipsLayerControl.isStale(state.hipsLayer, generation)) return;
+    if (!state.pendingHipsRequest || state.pendingHipsRequest.generation !== generation) return;
     state.pendingHipsRequest = null;
     disableImageryButtons(false);
-    setImageryStatus(
-      `Could not confirm imagery availability for ${cfg.label} (no response from ESASky). ` +
-      `It may still be browsable manually inside the ESASky viewer's Sky menu.`,
-      "error"
-    );
+    state.hipsLayer.uiState = HipsLayerControl.UI.TIMED_OUT;
+    state.hipsLayer.failureReason =
+      "ESASky did not return a HiPS listing within the time limit.";
+    state.hipsLayer.layerCommandSent = false;
+    applyHipsStatusFromState();
+    updateImageryButtonPresentations();
+    updateRestoreLayerControl();
+    renderHipsDiagnostics();
   }, 5000);
 
-  state.pendingHipsRequest = { buttonId: cfg.id, timeoutId };
+  state.pendingHipsRequest = { buttonId: cfg.id, timeoutId, generation };
   sendEsaskyCommand("getAvailableHips", {});
 }
 
-function resolveImageryListing(buttonId, hipsData) {
+function resolveImageryListing(buttonId, hipsData, generation) {
+  if (generation !== undefined && HipsLayerControl.isStale(state.hipsLayer, generation)) {
+    return;
+  }
   disableImageryButtons(false);
   const cfg = IMAGERY_BUTTONS.find((c) => c.id === buttonId);
   if (!cfg) return;
+  // Ignore listing if a newer card request already replaced this button.
+  if (state.hipsLayer.requestedImageryButtonId && state.hipsLayer.requestedImageryButtonId !== buttonId) {
+    return;
+  }
 
   const names = ImageryMatching.extractHipsNames(hipsData);
   const match = ImageryMatching.matchImageryLayer(cfg, names);
 
   if (!match) {
-    // Honest coverage language: getAvailableHips only tells us whether a
-    // matching ESASky layer *exists* -- it says nothing about whether the
-    // telescope actually observed this target, so we never claim that.
     setImageryStatus("No matching ESASky visualization layer was found.", "missing");
+    state.hipsLayer.uiState = HipsLayerControl.UI.FAILED;
+    state.hipsLayer.failureReason = "No matching ESASky visualization layer was found.";
+    state.hipsLayer.layerCommandSent = false;
+    updateImageryButtonPresentations();
+    updateRestoreLayerControl();
+    renderHipsDiagnostics();
     return;
   }
 
-  requestChangeHips(cfg, match);
+  requestChangeHips(cfg, match, HipsLayerControl.KIND.SWITCH);
 }
 
-// Requirement: do not report "Loaded" immediately after sending
-// changeHips. Track the pending request and wait for ESASky's own
-// confirmation, a documented failure, or a timeout.
-function requestChangeHips(cfg, layerName) {
-  setImageryStatus(`Requesting "${layerName}"…`, null);
+function requestChangeHips(cfg, layerName, kind) {
+  const switchKind = kind || HipsLayerControl.KIND.SWITCH;
+  const started = HipsLayerControl.beginSwitch(state.hipsLayer, cfg.id, layerName, switchKind);
+  const generation = started.generation;
+  const pending = started.pending;
+
   disableImageryButtons(true);
 
-  if (state.pendingChangeRequest) {
-    clearTimeout(state.pendingChangeRequest.timeoutId);
-  }
-
   const timeoutId = setTimeout(() => {
+    if (HipsLayerControl.isStale(state.hipsLayer, generation)) return;
+    if (!state.pendingChangeRequest || state.pendingChangeRequest.generation !== generation) return;
     state.pendingChangeRequest = null;
     disableImageryButtons(false);
-    setImageryStatus(`ESASky did not confirm the layer change for ${cfg.label}.`, "error");
+    HipsLayerControl.applyTimeout(state.hipsLayer, pending);
+    // Do not auto-restore after timeout.
+    applyHipsStatusFromState();
+    updateImageryButtonPresentations();
+    updateRestoreLayerControl();
+    renderHipsDiagnostics();
   }, 5000);
 
-  state.pendingChangeRequest = { buttonId: cfg.id, requestedName: layerName, timeoutId };
+  state.pendingChangeRequest = Object.assign({}, pending, { timeoutId });
+  updateImageryButtonPresentations();
+  applyHipsStatusFromState();
+  updateRestoreLayerControl();
+  renderHipsDiagnostics();
   sendEsaskyCommand("changeHips", { hipsName: layerName });
 }
 
 function resolveChangeHipsRequest(result) {
-  if (!state.pendingChangeRequest) return;
-  clearTimeout(state.pendingChangeRequest.timeoutId);
-  const cfg = IMAGERY_BUTTONS.find((c) => c.id === state.pendingChangeRequest.buttonId);
+  const pending = state.pendingChangeRequest;
+  if (!pending) return;
+  if (HipsLayerControl.isStale(state.hipsLayer, pending.generation)) {
+    return;
+  }
+
+  clearTimeout(pending.timeoutId);
   state.pendingChangeRequest = null;
   disableImageryButtons(false);
-  const label = cfg ? cfg.label : "this layer";
 
-  if (result.status === "success") {
-    setImageryStatus(
-      `ESASky confirmed "${result.layerName}" for ${label}. ESASky provides this imagery layer. ` +
-      `Target coverage may be incomplete; a blank area means this layer has no imagery at these coordinates.`,
-      "found"
-    );
+  if (result.status === "acknowledged") {
+    HipsLayerControl.applyAcknowledgement(state.hipsLayer, result.layerName, pending);
+    state.activeImageryButtonId = state.hipsLayer.acknowledgedImageryButtonId;
+  } else if (result.status === "mismatch") {
+    HipsLayerControl.applyFailure(state.hipsLayer, result.message, pending);
   } else if (result.status === "error") {
-    setImageryStatus(`ESASky could not load ${label}: ${result.message}`, "error");
+    HipsLayerControl.applyFailure(state.hipsLayer, result.message, pending);
   }
-  refreshSelectedArchiveLayerBadge();
+
+  applyHipsStatusFromState();
+  updateImageryButtonPresentations();
+  updateRestoreLayerControl();
+  renderHipsDiagnostics();
+  // ESASky acknowledgement must not change MAST discovery badges or counts.
 }
 
 function disableImageryButtons(disabled) {
-  document.querySelectorAll(".imagery-btn").forEach((b) => (b.disabled = disabled));
+  forEachImageryButton((b) => {
+    b.disabled = disabled;
+  });
+}
+
+function forEachImageryButton(fn) {
+  if (el.imageryGrid && Array.isArray(el.imageryGrid._children) && el.imageryGrid._children.length) {
+    el.imageryGrid._children.forEach((child) => {
+      if (child && child.dataset && child.dataset.id) fn(child);
+    });
+    return;
+  }
+  document.querySelectorAll(".imagery-btn").forEach(fn);
 }
 
 // -- init -----------------------------------------------------------------

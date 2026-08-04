@@ -29,6 +29,7 @@ const LIB_FILES = [
   "planetary_image.js",
   "archive_availability.js",
   "discovery_panel.js",
+  "hips_layer_control.js",
   "watchlist.js",
   "apophis_tracker.js",
   "esasky_queue.js",
