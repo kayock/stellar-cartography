@@ -17,6 +17,7 @@ are included.
 
 from __future__ import annotations
 
+import html
 import json
 import logging
 import re
@@ -50,9 +51,33 @@ ALLOWED_SOURCE_LINK_HOSTS = frozenset({"images.nasa.gov"})
 _CONTROL_CHAR_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f]")
 _UNSAFE_URL_CHAR_RE = re.compile(r'[\s"\'<>]')
 
+# Non-text / executable markup blocks — remove element and inner content.
+_NONTEXT_BLOCK_RE = re.compile(
+    r"<(script|style|iframe|object|embed|svg|noscript|template)\b[^>]*>.*?</\1\s*>",
+    re.IGNORECASE | re.DOTALL,
+)
+# Self-closing or unpaired non-text tags (images, media, void elements with attrs).
+_NONTEXT_TAG_RE = re.compile(
+    r"<(script|style|iframe|object|embed|svg|noscript|template|img|video|audio|"
+    r"source|track|link|meta|base|area|map|picture|canvas|form|input|button|"
+    r"select|textarea|option)\b[^>]*/?>",
+    re.IGNORECASE,
+)
+# Anchors: drop the tag entirely; keep inner text except when it is "Read more".
+_ANCHOR_RE = re.compile(r"<a\b[^>]*>(.*?)</a\s*>", re.IGNORECASE | re.DOTALL)
+_OPEN_TAG_RE = re.compile(r"<[^>]+>")
+_READ_MORE_RE = re.compile(r"\bread\s*more\b\.?", re.IGNORECASE)
+_RAW_URL_RE = re.compile(
+    r"(?:https?://|www\.)[^\s<>\"']+",
+    re.IGNORECASE,
+)
+_WHITESPACE_RE = re.compile(r"\s+")
+_ANGLE_BRACKET_RE = re.compile(r"[<>]")
+
 UNSUPPORTED_MESSAGE = (
     "This Solar System target is not in the NASA public-media registry."
 )
+DESCRIPTION_MAX_LEN = 500
 
 
 def _url_has_unsafe_characters(url: str) -> bool:
@@ -114,6 +139,79 @@ def sanitize_text(value: object, max_len: int = 500) -> str | None:
     if len(text) > max_len:
         text = text[: max_len - 1] + "…"
     return text
+
+
+def _trim_at_word_boundary(text: str, max_len: int) -> str:
+    if len(text) <= max_len:
+        return text
+    budget = max(1, max_len - 1)
+    cut = text[:budget]
+    space = cut.rfind(" ")
+    if space >= max(8, budget // 2):
+        cut = cut[:space]
+    return cut.rstrip(" ,;:-") + "…"
+
+
+def _anchor_replacement(match: re.Match[str]) -> str:
+    inner = match.group(1) or ""
+    # Drop tags nested inside the anchor before judging link text.
+    inner_plain = _OPEN_TAG_RE.sub(" ", inner)
+    inner_plain = html.unescape(inner_plain)
+    inner_plain = _WHITESPACE_RE.sub(" ", inner_plain).strip()
+    if not inner_plain:
+        return " "
+    if _READ_MORE_RE.fullmatch(inner_plain):
+        return " "
+    return f" {inner_plain} "
+
+
+def sanitize_media_description(
+    value: object,
+    max_len: int = DESCRIPTION_MAX_LEN,
+) -> str | None:
+    """Convert NASA description HTML into bounded plain text for safe display.
+
+    Does not use a DOM parser or insert markup. Tags are stripped; entities are
+    decoded; non-text elements, \"Read more\" prompts, and raw URLs are removed
+    because the official NASA source link is shown separately.
+    """
+    if value is None:
+        return None
+    if not isinstance(value, str):
+        value = str(value)
+    text = _CONTROL_CHAR_RE.sub("", value)
+    if not text.strip():
+        return None
+
+    # 1) Drop non-text / executable blocks entirely (content included).
+    text = _NONTEXT_BLOCK_RE.sub(" ", text)
+    text = _NONTEXT_TAG_RE.sub(" ", text)
+
+    # 2) Anchors: keep readable label text; drop \"Read more\" and bare links.
+    text = _ANCHOR_RE.sub(_anchor_replacement, text)
+
+    # 3) Turn common break tags into spaces before a general tag strip.
+    text = re.sub(r"<(br|/p|/div|/li|p|div|li|tr|h[1-6])\b[^>]*/?>", " ", text, flags=re.I)
+
+    # 4) Strip remaining tags (bold/italic/nested/malformed open tags).
+    text = _OPEN_TAG_RE.sub(" ", text)
+
+    # 5) Decode ordinary HTML entities (&amp; &quot; &#39; numeric, etc.).
+    text = html.unescape(text)
+
+    # 6) Remove any leftover angle brackets so displayed text has no markup.
+    text = _ANGLE_BRACKET_RE.sub(" ", text)
+
+    # 7) Remove \"Read more\" leftovers and raw URLs (source link is separate).
+    text = _READ_MORE_RE.sub(" ", text)
+    text = _RAW_URL_RE.sub(" ", text)
+
+    # 8) Collapse whitespace / line breaks.
+    text = _WHITESPACE_RE.sub(" ", text).strip()
+    if not text:
+        return None
+
+    return _trim_at_word_boundary(text, max_len)
 
 
 def _pick_image_link(links: list[dict] | None) -> str | None:
@@ -191,7 +289,7 @@ def _build_result(
         "target_name": target_name,
         "image_url": image_url if is_allowed_image_url(image_url) else None,
         "title": sanitize_text(title),
-        "description": sanitize_text(description),
+        "description": sanitize_media_description(description),
         "mission": sanitize_text(mission),
         "nasa_center": sanitize_text(nasa_center),
         "keywords": sanitize_text(keywords),
@@ -272,7 +370,7 @@ def parse_nasa_images_response(payload: dict, target_id: str) -> dict:
             continue
 
         title = sanitize_text(data.get("title"))
-        description = sanitize_text(data.get("description"))
+        description = sanitize_media_description(data.get("description"))
         keywords = _extract_keywords(data)
         if not media_registry.item_is_relevant(
             entry,

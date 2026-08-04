@@ -588,6 +588,55 @@ test("DOM rendering uses safe property assignment for remote image and link valu
   assert.doesNotMatch(app.el.planetaryImageBody.innerHTML, /onclick=/i);
 });
 
+test("cleaned media description renders via textContent without markup execution", () => {
+  const cleanedDescription = "The moon Phobos near Mars.";
+  const view = PlanetaryImage.buildResultView({
+    status: "found",
+    image_url: "https://images-assets.nasa.gov/image/PIAPHOBOS/PIAPHOBOS~thumb.jpg",
+    title: "Phobos",
+    description: cleanedDescription,
+    searched_target: "Phobos",
+    target_name: "Phobos",
+    source_agency: "NASA",
+    media_label: PlanetaryImage.MEDIA_LABEL,
+    result_type: PlanetaryImage.RESULT_TYPE,
+    source_link: "https://images.nasa.gov/details/PIAPHOBOS",
+  });
+
+  const { exports: app } = loadApp(async () => ({ ok: true, json: async () => ({}) }));
+  app.renderPlanetaryImagePanel(view);
+
+  assert.match(app.el.planetaryImageBody.textContent, /The moon Phobos near Mars/);
+  assert.doesNotMatch(app.el.planetaryImageBody.textContent, /Read more/i);
+  // Official source link remains the separate panel link only; description is text.
+  assert.equal(app.el.planetaryImageBody.querySelectorAll("a").length, 1);
+  assert.equal(app.el.planetaryImageBody.querySelectorAll("b").length, 0);
+  assert.equal(app.el.planetaryImageBody.querySelectorAll("script").length, 0);
+  assert.equal(app.el.planetaryImageBody.querySelector("a").href, "https://images.nasa.gov/details/PIAPHOBOS");
+});
+
+test("unclean description strings never become executable HTML in the panel", () => {
+  const view = PlanetaryImage.buildResultView({
+    status: "found",
+    image_url: "https://images-assets.nasa.gov/image/PIA00001/PIA00001~thumb.jpg",
+    title: "Phobos",
+    description: 'Phobos <a href="javascript:alert(1)">Read more</a> <b>surface</b>',
+    target_name: "Phobos",
+    source_agency: "NASA",
+    source_link: "https://images.nasa.gov/details/PIA00001",
+  });
+  const { exports: app } = loadApp(async () => ({ ok: true, json: async () => ({}) }));
+  app.renderPlanetaryImagePanel(view);
+
+  // Even if unclean markup reached the client, textContent assignment keeps it literal.
+  assert.match(app.el.planetaryImageBody.textContent, /<a href=/);
+  assert.match(app.el.planetaryImageBody.textContent, /<b>surface<\/b>/);
+  assert.equal(app.el.planetaryImageBody.querySelectorAll("a").length, 1);
+  assert.equal(app.el.planetaryImageBody.querySelectorAll("b").length, 0);
+  assert.equal(app.el.planetaryImageBody.querySelectorAll("script").length, 0);
+  assert.equal(app.el.planetaryImageBody.querySelector("a").href, "https://images.nasa.gov/details/PIA00001");
+});
+
 test("literal quote characters in image URL are rejected before rendering", () => {
   const quotedUrl =
     "https://images-assets.nasa.gov/image/PIA00001/PIA00001~thumb.jpg?x=\" onerror=\"alert(1)";
