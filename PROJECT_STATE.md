@@ -53,5 +53,17 @@ receipt yet (`receipts/WORK_IN_PROGRESS.md`).
 
 ## Validation (current worktree)
 
-- Python: **198/198** (`PYTHONWARNINGS=error`)
-- Node: **175/175**
+- Python: **229/229** (`PYTHONWARNINGS=error`)
+- Node: **188/188**
+
+## Cosmic Signal Deck Slice 1
+
+| Requirement | Status |
+|-------------|--------|
+| Two-column layout; deck atop right panel | Done |
+| Single JSON registry + local API | Done |
+| Reuse Solar System IDs + deep-space aliases | Done |
+| Native media, Play-gated src, no autoplay | Done |
+| Five verified enabled entries | Done |
+| Featured fallback + preference | Done |
+| Independence from MAST / ESASky / NASA media | Done |
