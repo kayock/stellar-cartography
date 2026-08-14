@@ -220,6 +220,8 @@ def match_spectrum_for_target(
             region.append(presented)
 
     matched = exact + region
+    # Exact-target wavelength views only — never include Planck/all-sky here.
+    available_views = list(exact)
     options = matched + all_sky
     if matched:
         primary = matched[0]
@@ -242,6 +244,7 @@ def match_spectrum_for_target(
         "relevance": relevance,
         "empty_exact_message": empty_message,
         "primary": primary,
+        "available_views": available_views,
         "options": options,
         "matched_count": len(matched),
         "all_sky_count": len(all_sky),

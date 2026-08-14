@@ -10,22 +10,39 @@
   const UNSAFE_URL_CHARS = /[\x00-\x08\x0b\x0c\x0e-\x1f\s"'<>]/;
 
   function createRequestState() {
-    return { generation: 0, inFlightKey: null, activeTargetKey: null, currentEntry: null };
+    return {
+      generation: 0,
+      viewGeneration: 0,
+      inFlightKey: null,
+      activeTargetKey: null,
+      currentEntry: null,
+    };
   }
 
   function beginRequest(state, targetKey) {
     state.generation += 1;
+    state.viewGeneration += 1;
     state.inFlightKey = targetKey || null;
     state.activeTargetKey = targetKey || null;
     return state.generation;
+  }
+
+  function beginViewSelection(state) {
+    state.viewGeneration += 1;
+    return state.viewGeneration;
   }
 
   function isStaleResponse(state, generation) {
     return !state || generation !== state.generation;
   }
 
+  function isStaleView(state, viewGeneration) {
+    return !state || viewGeneration !== state.viewGeneration;
+  }
+
   function resetRequestState(state) {
     state.generation += 1;
+    state.viewGeneration += 1;
     state.inFlightKey = null;
     state.activeTargetKey = null;
     state.currentEntry = null;
@@ -67,6 +84,27 @@
     return "";
   }
 
+  function exactViewsFromPayload(payload) {
+    if (!payload) return [];
+    if (Array.isArray(payload.available_views)) {
+      return payload.available_views.filter((entry) => entry && entry.relevance === "exact_target");
+    }
+    const options = Array.isArray(payload.options) ? payload.options : [];
+    return options.filter((entry) => entry && entry.relevance === "exact_target");
+  }
+
+  function viewButtonLabel(entry, siblings) {
+    const wavelength = (entry && entry.wavelength) || "View";
+    const peers = Array.isArray(siblings) ? siblings : [];
+    const sameWave = peers.filter((peer) => peer && peer.wavelength === wavelength).length > 1;
+    if (!sameWave) return wavelength;
+    const observatory = String((entry && entry.observatory) || "")
+      .split("/")[0]
+      .trim();
+    const shortObs = observatory.replace(/\s+X-ray Observatory$/i, "").replace(/\s+Space Telescope$/i, "");
+    return shortObs ? shortObs + " " + wavelength : wavelength;
+  }
+
   function buildEmptyView(payload) {
     return {
       title: (payload && payload.gallery_title) || "Spectrum Gallery",
@@ -75,17 +113,20 @@
         (payload && payload.empty_exact_message) ||
         "No curated spectrum image is available for this target.",
       primary: null,
+      availableViews: [],
       options: (payload && payload.options) || [],
     };
   }
 
   function buildMatchView(payload) {
     if (!payload || !payload.primary) return buildEmptyView(payload || {});
+    const availableViews = exactViewsFromPayload(payload);
     return {
       title: payload.gallery_title || "Spectrum Gallery",
       subtitle: payload.gallery_subtitle || "See the universe in another light.",
       status: payload.primary.title || "",
       primary: payload.primary,
+      availableViews: availableViews,
       options: Array.isArray(payload.options) ? payload.options : [payload.primary],
     };
   }
@@ -98,11 +139,15 @@
   return {
     createRequestState,
     beginRequest,
+    beginViewSelection,
     isStaleResponse,
+    isStaleView,
     resetRequestState,
     buildMatchUrl,
     isAllowedUrl,
     relevanceLabel,
+    exactViewsFromPayload,
+    viewButtonLabel,
     buildEmptyView,
     buildMatchView,
     findOption,

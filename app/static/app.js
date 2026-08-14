@@ -104,6 +104,7 @@ const el = {
   spectrumGalleryRelevance: document.getElementById("spectrum-gallery-relevance"),
   spectrumGalleryImageWrap: document.getElementById("spectrum-gallery-image-wrap"),
   spectrumGalleryImage: document.getElementById("spectrum-gallery-image"),
+  spectrumGalleryAvailable: document.getElementById("spectrum-gallery-available"),
   spectrumGallerySelectors: document.getElementById("spectrum-gallery-selectors"),
   spectrumGalleryWavelength: document.getElementById("spectrum-gallery-wavelength"),
   spectrumGalleryObservatory: document.getElementById("spectrum-gallery-observatory"),
@@ -464,6 +465,7 @@ function resetSpectrumGallery() {
   el.spectrumGalleryRelevance.hidden = true;
   el.spectrumGalleryRelevance.className = "spectrum-gallery-relevance";
   el.spectrumGalleryImageWrap.hidden = true;
+  if (el.spectrumGalleryAvailable) el.spectrumGalleryAvailable.hidden = true;
   el.spectrumGallerySelectors.hidden = true;
   el.spectrumGallerySelectors.textContent = "";
   el.spectrumGalleryWavelength.hidden = true;
@@ -501,25 +503,38 @@ async function ensureSpectrumGalleryHosts() {
   return state.spectrumGalleryRegistryPromise;
 }
 
-function renderSpectrumGallerySelectors(options, activeId) {
+function renderSpectrumGallerySelectors(views, activeId) {
   el.spectrumGallerySelectors.textContent = "";
-  if (!Array.isArray(options) || options.length === 0) {
+  const exactViews = Array.isArray(views)
+    ? views.filter((entry) => entry && entry.relevance === "exact_target")
+    : [];
+  if (exactViews.length < 2) {
+    if (el.spectrumGalleryAvailable) el.spectrumGalleryAvailable.hidden = true;
     el.spectrumGallerySelectors.hidden = true;
     return;
   }
-  options.forEach((entry) => {
+  exactViews.forEach((entry) => {
     const button = document.createElement("button");
     button.type = "button";
-    button.textContent = entry.wavelength || entry.title || "Spectrum";
+    button.textContent = SpectrumGallery.viewButtonLabel(entry, exactViews);
     button.dataset.entryId = entry.id;
-    if (entry.id === activeId) button.classList.add("is-active");
+    const selected = entry.id === activeId;
+    if (selected) button.classList.add("is-active");
+    button.setAttribute("aria-pressed", selected ? "true" : "false");
     button.addEventListener("click", () => {
-      const selected = SpectrumGallery.findOption(state.spectrumGalleryOptions, entry.id);
-      if (selected) showSpectrumGalleryEntry(selected);
+      const chosen = SpectrumGallery.findOption(state.spectrumGalleryOptions, entry.id);
+      if (chosen) selectSpectrumGalleryView(chosen);
     });
     el.spectrumGallerySelectors.appendChild(button);
   });
   el.spectrumGallerySelectors.hidden = false;
+  if (el.spectrumGalleryAvailable) el.spectrumGalleryAvailable.hidden = false;
+}
+
+function selectSpectrumGalleryView(entry) {
+  if (!entry) return;
+  SpectrumGallery.beginViewSelection(state.spectrumGalleryRequest);
+  showSpectrumGalleryEntry(entry);
 }
 
 function showSpectrumGalleryEntry(entry) {
@@ -527,6 +542,7 @@ function showSpectrumGalleryEntry(entry) {
   const hosts = state.spectrumGalleryHosts || { image: new Set(), source: new Set() };
   const imageAllowed = SpectrumGallery.isAllowedUrl(entry.image_url, hosts.image);
   const sourceAllowed = SpectrumGallery.isAllowedUrl(entry.source_page_url, hosts.source);
+  const viewGeneration = state.spectrumGalleryRequest.viewGeneration;
   state.spectrumGalleryRequest.currentEntry = entry;
 
   el.spectrumGalleryStatus.textContent = entry.title || "";
@@ -537,6 +553,7 @@ function showSpectrumGalleryEntry(entry) {
 
   clearSpectrumGalleryImage();
   if (imageAllowed && state.onlineMode) {
+    if (SpectrumGallery.isStaleView(state.spectrumGalleryRequest, viewGeneration)) return;
     el.spectrumGalleryImage.alt = entry.title || "Spectrum gallery image";
     el.spectrumGalleryImage.src = entry.image_url;
     el.spectrumGalleryImage.hidden = false;
@@ -551,7 +568,9 @@ function showSpectrumGalleryEntry(entry) {
   el.spectrumGalleryWavelength.hidden = false;
   el.spectrumGalleryWavelength.textContent = "Wavelength: " + String(entry.wavelength || "");
   el.spectrumGalleryObservatory.hidden = false;
-  el.spectrumGalleryObservatory.textContent = "Observatory / mission: " + String(entry.observatory || "");
+  const instrument = entry.instrument ? " / " + entry.instrument : "";
+  el.spectrumGalleryObservatory.textContent =
+    "Observatory / mission: " + String(entry.observatory || "") + instrument;
   el.spectrumGalleryExplanation.hidden = false;
   el.spectrumGalleryExplanation.textContent = entry.short_explanation || "";
   el.spectrumGalleryCredits.hidden = false;
@@ -573,12 +592,13 @@ function renderSpectrumGallery(payload) {
   const view = SpectrumGallery.buildMatchView(payload);
   el.spectrumGalleryTitle.textContent = view.title;
   el.spectrumGallerySubtitle.textContent = view.subtitle;
-  state.spectrumGalleryOptions = view.options || [];
+  state.spectrumGalleryOptions = view.availableViews || [];
 
   if (!view.primary) {
     state.spectrumGalleryRequest.currentEntry = null;
     clearSpectrumGalleryImage();
     el.spectrumGalleryImageWrap.hidden = true;
+    if (el.spectrumGalleryAvailable) el.spectrumGalleryAvailable.hidden = true;
     el.spectrumGallerySelectors.hidden = true;
     el.spectrumGallerySelectors.textContent = "";
     el.spectrumGalleryRelevance.hidden = true;
@@ -588,11 +608,9 @@ function renderSpectrumGallery(payload) {
     el.spectrumGalleryCredits.hidden = true;
     el.spectrumGallerySourceLink.hidden = true;
     el.spectrumGalleryStatus.textContent = view.status;
-    if (state.spectrumGalleryOptions.length) {
-      renderSpectrumGallerySelectors(state.spectrumGalleryOptions, null);
-    }
     return;
   }
+  SpectrumGallery.beginViewSelection(state.spectrumGalleryRequest);
   showSpectrumGalleryEntry(view.primary);
 }
 
@@ -2639,6 +2657,7 @@ if (typeof module === "object" && module.exports) {
     resetSpectrumGallery,
     renderSpectrumGallery,
     showSpectrumGalleryEntry,
+    selectSpectrumGalleryView,
     syncArchiveAvailabilityChecks,
     fetchArchiveMission,
     loadWatchlistFromServer,

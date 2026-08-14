@@ -566,6 +566,13 @@ code {
   border-radius: var(--radius-md);
   background: #000;
 }
+.spectrum-gallery-available { display: grid; gap: 6px; }
+.spectrum-gallery-available-label {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-2);
+}
 .spectrum-gallery-selectors {
   display: flex;
   flex-wrap: wrap;
@@ -583,6 +590,7 @@ code {
 .spectrum-gallery-selectors button.is-active {
   border-color: var(--purple-400);
   color: var(--purple-400);
+  font-weight: 600;
 }
 .spectrum-gallery-wavelength,
 .spectrum-gallery-observatory,
