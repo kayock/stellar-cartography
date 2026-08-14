@@ -31,6 +31,8 @@ const ELEMENT_IDS = [
   "cosmic-signal-subtitle",
   "cosmic-signal-body",
   "cosmic-signal-status",
+  "cosmic-signal-available",
+  "cosmic-signal-available-buttons",
   "cosmic-signal-relevance",
   "cosmic-signal-media-type",
   "cosmic-signal-player-wrap",

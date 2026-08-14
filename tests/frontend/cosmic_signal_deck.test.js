@@ -96,10 +96,10 @@ test("only one registry JSON source exists", () => {
   assert.equal(fs.existsSync(JS_MIRROR), false);
 });
 
-test("expanded registry keeps Slice 1 entries and fifteen enabled composites", () => {
+test("expanded registry keeps prior entries and Slice 4 solar/near-Earth signals", () => {
   const registry = JSON.parse(fs.readFileSync(REGISTRY_JSON, "utf8"));
   const enabled = registry.entries.filter((e) => e.enabled);
-  assert.equal(enabled.length, 15);
+  assert.equal(enabled.length, 21);
   const ids = new Set(enabled.map((e) => e.id));
   for (const id of [
     "voyager1_interstellar_plasma_pia17045",
@@ -117,6 +117,12 @@ test("expanded registry keeps Slice 1 entries and fifteen enabled composites", (
     "uranus_chandra_keck_sonification",
     "southern_ring_nebula_jwst_sonification",
     "stephans_quintet_chandra_webb_sonification",
+    "earth_van_allen_chorus_svs11073",
+    "earth_van_allen_whistlers_iowa",
+    "venus_parker_fields_ionosphere_svs13847",
+    "jupiter_juno_waves_bow_shock",
+    "jupiter_juno_waves_auroral_bkom",
+    "europa_juno_waves_flyby",
   ]) {
     assert.equal(ids.has(id), true, id);
   }
@@ -342,4 +348,82 @@ test("Play button is keyboard-activatable semantic control", () => {
   assert.equal(app.el.cosmicSignalPlay.tagName, "BUTTON");
   assert.equal(app.el.cosmicSignalStop.tagName, "BUTTON");
   assert.equal(app.el.cosmicSignalPlay.type, "button");
+});
+
+test("Earth multi-signal selector switches entries and clears media src", async () => {
+  const earthPayload = () => ({
+    ok: true,
+    relevance: "exact_target",
+    empty_exact_message: "No exact curated signal is available for this target.",
+    deck_title: "Cosmic Signal Deck",
+    deck_subtitle: "Listen to the data. See how we know.",
+    redirect_limitation_notice: "Slice 1 validates the initial HTTPS media URL host only.",
+    exact: [
+      {
+        id: "earth_van_allen_chorus_svs11073",
+        title: "Earth Chorus Waves",
+        relevance: "exact_target",
+        media_type: "instrument_signal",
+        conversion_method: "EMFISIS translation",
+        mapping_explanation: "Electromagnetic chorus waves.",
+        what_it_does_not_prove: "Not acoustic vacuum sound.",
+        short_explanation: "Chorus waves near Earth.",
+        observatories: [],
+        spacecraft: ["Van Allen Probes"],
+        instruments: ["EMFISIS"],
+        media_kind: "video",
+        media_url: "https://svs.gsfc.nasa.gov/vis/a010000/a011000/a011073/EarthSong_Edited_960x540_high.mp4",
+        source_page_url: "https://svs.gsfc.nasa.gov/11073/",
+        poster_url: null,
+        credits: "NASA SVS",
+        attribution: "SVS 11073",
+      },
+      {
+        id: "earth_van_allen_whistlers_iowa",
+        title: "Earth Lightning Whistlers",
+        relevance: "exact_target",
+        media_type: "instrument_signal",
+        conversion_method: "EMFISIS audio",
+        mapping_explanation: "Lightning whistlers.",
+        what_it_does_not_prove: "Not acoustic vacuum sound.",
+        short_explanation: "Whistlers near Earth.",
+        observatories: [],
+        spacecraft: ["Van Allen Probe A"],
+        instruments: ["EMFISIS Waves"],
+        media_kind: "audio",
+        media_url: "https://space.physics.uiowa.edu/plasma-wave/rbsp/audio/201904/VanA-2019-04-30-0054.mp3",
+        source_page_url: "https://space.physics.uiowa.edu/plasma-wave/rbsp/audio/",
+        poster_url: null,
+        credits: "University of Iowa",
+        attribution: "EMFISIS",
+      },
+    ],
+    primary: null,
+    featured: [],
+  });
+  const payload = earthPayload();
+  payload.primary = payload.exact[0];
+
+  const fetchImpl = async (url) => {
+    const href = String(url);
+    if (href.startsWith("/api/cosmic-signal-registry")) {
+      return { ok: true, json: async () => registryPayload() };
+    }
+    if (href.startsWith("/api/cosmic-signal-match")) {
+      return { ok: true, json: async () => payload };
+    }
+    return { ok: true, json: async () => ({ connected: true }) };
+  };
+
+  const { exports: app } = loadApp(fetchImpl);
+  app.state.onlineMode = true;
+  await app.syncCosmicSignalDeck({ name: "Earth", ra_deg: 0, dec_deg: 0 });
+  assert.equal(app.el.cosmicSignalAvailableButtons.querySelectorAll("button").length, 2);
+  await fireAndFlush(app.el.cosmicSignalPlay, "click");
+  assert.ok(app.el.cosmicSignalVideo.getAttribute("src"));
+  await fireAndFlush(app.el.cosmicSignalAvailableButtons.querySelectorAll("button")[1], "click");
+  assert.equal(app.el.cosmicSignalVideo.getAttribute("src"), null);
+  assert.equal(app.el.cosmicSignalAudio.getAttribute("src"), null);
+  assert.match(app.el.cosmicSignalStatus.textContent, /Whistlers near Earth/i);
+  assert.equal(app.state.cosmicSignalRequest.currentEntry.id, "earth_van_allen_whistlers_iowa");
 });

@@ -22,8 +22,8 @@ class TestSingleRegistrySource(unittest.TestCase):
     def test_registry_validates(self):
         csr.reload_registry()
         data = csr.load_registry()
-        self.assertEqual(len([e for e in data["entries"] if e.get("enabled")]), 15)
-        self.assertEqual(len(data["entries"]), 15)
+        self.assertEqual(len([e for e in data["entries"] if e.get("enabled")]), 21)
+        self.assertEqual(len(data["entries"]), 21)
 
     def test_redirect_limitation_documented(self):
         notice = csr.load_registry().get("redirect_limitation_notice") or ""
@@ -57,6 +57,9 @@ class TestDeepSpaceMatching(unittest.TestCase):
             ("Uranus", "uranus_chandra_keck_sonification"),
             ("Southern Ring Nebula", "southern_ring_nebula_jwst_sonification"),
             ("Stephan's Quintet", "stephans_quintet_chandra_webb_sonification"),
+            ("Earth", "earth_van_allen_chorus_svs11073"),
+            ("Venus", "venus_parker_fields_ionosphere_svs13847"),
+            ("Europa", "europa_juno_waves_flyby"),
         ):
             result = csr.match_signals_for_target({"name": name})
             self.assertEqual(result["relevance"], "exact_target", name)
@@ -141,9 +144,10 @@ class TestFalseMatchPrevention(unittest.TestCase):
         result = csr.match_signals_for_target({"name": "Titan"}, allow_featured=False)
         self.assertIsNone(result["primary"])
 
-    def test_europa_not_exact_signal(self):
+    def test_europa_is_exact_juno_waves_signal(self):
         result = csr.match_signals_for_target({"name": "Europa"}, allow_featured=False)
-        self.assertIsNone(result["primary"])
+        self.assertEqual(result["relevance"], "exact_target")
+        self.assertEqual(result["primary"]["id"], "europa_juno_waves_flyby")
 
     def test_no_bare_andromeda_or_ring_or_number_false_match(self):
         self.assertIsNone(csr.resolve_canonical_target_id("andromeda"))
@@ -277,8 +281,70 @@ class TestM87StellariumIdentityHandoff(unittest.TestCase):
         )
         self.assertNotIn("87", tokens)
 
-    def test_fifteen_enabled_entries_intact(self):
-        self.assertEqual(len(csr.enabled_entries()), 15)
+    def test_original_and_slice4_enabled_counts(self):
+        ids = {e["id"] for e in csr.enabled_entries()}
+        self.assertEqual(len(ids), 21)
+        for entry_id in (
+            "voyager1_interstellar_plasma_pia17045",
+            "earth_van_allen_chorus_svs11073",
+            "europa_juno_waves_flyby",
+        ):
+            self.assertIn(entry_id, ids)
+
+
+class TestSolarNearEarthSignals(unittest.TestCase):
+    def test_earth_has_multiple_exact_signals(self):
+        result = csr.match_signals_for_target({"name": "Earth"})
+        self.assertEqual(result["relevance"], "exact_target")
+        ids = [e["id"] for e in result["exact"]]
+        self.assertIn("earth_van_allen_chorus_svs11073", ids)
+        self.assertIn("earth_van_allen_whistlers_iowa", ids)
+        self.assertGreaterEqual(len(ids), 2)
+
+    def test_jupiter_multi_exact_includes_instrument_and_sonification(self):
+        result = csr.match_signals_for_target({"name": "Jupiter"})
+        ids = [e["id"] for e in result["exact"]]
+        self.assertIn("jupiter_chandra_hubble_sonification", ids)
+        self.assertIn("jupiter_juno_waves_bow_shock", ids)
+        self.assertIn("jupiter_juno_waves_auroral_bkom", ids)
+
+    def test_europa_exact_does_not_claim_ganymede_or_io(self):
+        europa = csr.match_signals_for_target({"name": "Europa"}, allow_featured=False)
+        self.assertEqual(europa["primary"]["id"], "europa_juno_waves_flyby")
+        for name in ("Ganymede", "Io"):
+            result = csr.match_signals_for_target({"name": name}, allow_featured=False)
+            self.assertIsNone(result["primary"], name)
+
+    def test_slice4_classifications_and_honesty(self):
+        by_id = {e["id"]: e for e in csr.enabled_entries()}
+        self.assertEqual(by_id["earth_van_allen_chorus_svs11073"]["media_type"], "instrument_signal")
+        self.assertEqual(by_id["earth_van_allen_whistlers_iowa"]["media_type"], "instrument_signal")
+        self.assertEqual(by_id["venus_parker_fields_ionosphere_svs13847"]["media_type"], "data_sonification")
+        self.assertEqual(by_id["jupiter_juno_waves_bow_shock"]["media_type"], "instrument_signal")
+        self.assertEqual(by_id["europa_juno_waves_flyby"]["media_type"], "instrument_signal")
+        for entry_id in (
+            "earth_van_allen_chorus_svs11073",
+            "jupiter_juno_waves_auroral_bkom",
+            "europa_juno_waves_flyby",
+        ):
+            text = (
+                by_id[entry_id]["mapping_explanation"]
+                + " "
+                + by_id[entry_id]["what_it_does_not_prove"]
+            ).lower()
+            self.assertNotIn("nasa recorded the sound of space", text)
+            self.assertTrue(
+                "plasma" in text or "radio" in text or "electromagnetic" in text,
+                entry_id,
+            )
+
+    def test_earth_signals_are_not_global_fallbacks(self):
+        for entry in csr.enabled_entries():
+            if entry["id"].startswith("earth_"):
+                self.assertNotIn("general_featured", entry["relevance_capabilities"])
+
+    def test_sunlight_still_false_match(self):
+        self.assertIsNone(csr.resolve_canonical_target_id("sunlight"))
 
 
 class TestUrlValidation(unittest.TestCase):

@@ -1,7 +1,7 @@
 # Project state — FOXAI Stellar Cartography R0.5.0 (development)
 
 **As of:** 2026-08-14  
-**Release:** R0.5.0 — **in development** (Slice 1–3 landed: discovery/media + Cosmic Signal Deck + Spectrum Gallery; not packaged)  
+**Release:** R0.5.0 — **in development** (Slice 1–4 landed: discovery/media + Cosmic Signal Deck + Spectrum Gallery + solar/near-Earth signals; not packaged)  
 **Baseline:** R0.4.0 — preserved under `receipts/baseline_r0.4.0/` (immutable)
 
 ## Baseline receipt quarantine
@@ -53,8 +53,8 @@ receipt yet (`receipts/WORK_IN_PROGRESS.md`).
 
 ## Validation (current worktree)
 
-- Python: **251/251** (`PYTHONWARNINGS=error`)
-- Node: **197/197**
+- Python: **257/257** (`PYTHONWARNINGS=error`)
+- Node: **198/198**
 
 ## Cosmic Signal Deck Slice 1
 
@@ -94,3 +94,18 @@ Deferred: per-wavelength alternate tracks; bare `andromeda` alias; informal “H
 | Online Mode off → zero image requests | Done |
 | Ten verified official images | Done |
 | No proxy / library / database / redesign | Done |
+
+## Cosmic Signal Deck Slice 4 (Solar & Near-Earth)
+
+| Requirement | Status |
+|-------------|--------|
+| Expand existing Cosmic Signal Deck only | Done |
+| Six verified Earth/Venus/Jupiter-system signals | Done |
+| Compact Available signals selector (multi-exact) | Done |
+| Official SVS + Iowa Waves hosts | Done |
+| Rejected weak/unavailable candidates documented | Done |
+| No proxy / new player / database / redesign | Done |
+
+Enabled Cosmic Signal total: **21** (prior 15 + 6 Slice 4).
+
+Deferred: Juno Morse HI (SSL/403); magnetosphere drum (no asset); SOHO sun sounds (404/SSL); Parker solar-wind scream (unverified); Ganymede Waves (CDN 403/404); Io-exact radio (no asset).
