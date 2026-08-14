@@ -44,6 +44,7 @@ const state = {
   cosmicSignalMediaUrlAllowed: false,
   cosmicSignalRequestGeneration: 0,
   cosmicSignalUserRequestedPlayback: false,
+  cosmicSignalAvailableSignals: [],
   spectrumGalleryRequest: SpectrumGallery.createRequestState(),
   spectrumGalleryHosts: null,
   spectrumGalleryRegistryPromise: null,
@@ -79,6 +80,8 @@ const el = {
   cosmicSignalSubtitle: document.getElementById("cosmic-signal-subtitle"),
   cosmicSignalBody: document.getElementById("cosmic-signal-body"),
   cosmicSignalStatus: document.getElementById("cosmic-signal-status"),
+  cosmicSignalAvailable: document.getElementById("cosmic-signal-available"),
+  cosmicSignalAvailableButtons: document.getElementById("cosmic-signal-available-buttons"),
   cosmicSignalRelevance: document.getElementById("cosmic-signal-relevance"),
   cosmicSignalMediaType: document.getElementById("cosmic-signal-media-type"),
   cosmicSignalPlayerWrap: document.getElementById("cosmic-signal-player-wrap"),
@@ -181,6 +184,9 @@ function resetCosmicSignalDeck() {
   clearCosmicSignalMedia();
   el.cosmicSignalPoster.removeAttribute("src");
   el.cosmicSignalPoster.hidden = true;
+  state.cosmicSignalAvailableSignals = [];
+  if (el.cosmicSignalAvailableButtons) el.cosmicSignalAvailableButtons.textContent = "";
+  if (el.cosmicSignalAvailable) el.cosmicSignalAvailable.hidden = true;
   el.cosmicSignalTitle.textContent = "Cosmic Signal Deck";
   el.cosmicSignalSubtitle.textContent = "Listen to the data. See how we know.";
   el.cosmicSignalStatus.textContent = state.onlineMode
@@ -247,6 +253,87 @@ function appendCosmicSignalExplanation(entry) {
   el.cosmicSignalHearing.hidden = !content.textContent;
 }
 
+function renderCosmicSignalAvailable(signals, activeId) {
+  if (!el.cosmicSignalAvailable || !el.cosmicSignalAvailableButtons) return;
+  el.cosmicSignalAvailableButtons.textContent = "";
+  state.cosmicSignalAvailableSignals = Array.isArray(signals) ? signals : [];
+  if (!state.cosmicSignalAvailableSignals.length) {
+    el.cosmicSignalAvailable.hidden = true;
+    return;
+  }
+  state.cosmicSignalAvailableSignals.forEach((entry) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = entry.title || entry.id;
+    button.dataset.entryId = entry.id;
+    if (entry.id === activeId) button.classList.add("is-active");
+    button.addEventListener("click", () => selectCosmicSignalEntry(entry.id));
+    el.cosmicSignalAvailableButtons.appendChild(button);
+  });
+  el.cosmicSignalAvailable.hidden = false;
+}
+
+function showCosmicSignalEntry(entry, options) {
+  const opts = options || {};
+  const featured = !!opts.featured;
+  const availableSignals = opts.availableSignals || state.cosmicSignalAvailableSignals || [];
+  state.cosmicSignalRequest.currentEntry = entry;
+  state.cosmicSignalUserRequestedPlayback = false;
+  clearCosmicSignalMedia();
+  state.cosmicSignalMediaUrlAllowed = CosmicSignalDeck.isAllowedUrl(
+    entry.media_url,
+    (state.cosmicSignalHosts && state.cosmicSignalHosts.media) || new Set()
+  );
+  el.cosmicSignalBody.className = "cosmic-signal-body" + (featured ? " is-featured" : "");
+  el.cosmicSignalStatus.textContent = featured
+    ? "Featured fallback — this signal is not an exact match for the selected target."
+    : entry.short_explanation || "Curated signal available.";
+  el.cosmicSignalRelevance.textContent = CosmicSignalDeck.relevanceLabel(entry.relevance || opts.relevance);
+  el.cosmicSignalRelevance.className = "cosmic-signal-relevance" + (featured ? " is-featured" : "");
+  el.cosmicSignalRelevance.hidden = false;
+  el.cosmicSignalMediaType.textContent = CosmicSignalDeck.mediaTypeLabel(entry.media_type);
+  el.cosmicSignalMediaType.hidden = false;
+  el.cosmicSignalPlayerWrap.hidden = !state.cosmicSignalMediaUrlAllowed;
+  if (!state.cosmicSignalMediaUrlAllowed) {
+    el.cosmicSignalStatus.textContent = "This curated signal's media URL could not be validated for safe playback.";
+  }
+  appendCosmicSignalExplanation(entry);
+  el.cosmicSignalCredits.textContent = entry.credits ? "Credits: " + entry.credits : "";
+  el.cosmicSignalCredits.hidden = !entry.credits;
+  const sourceAllowed = CosmicSignalDeck.isAllowedUrl(
+    entry.source_page_url,
+    (state.cosmicSignalHosts && state.cosmicSignalHosts.source) || new Set()
+  );
+  el.cosmicSignalSourceLink.hidden = !sourceAllowed;
+  if (sourceAllowed) el.cosmicSignalSourceLink.href = entry.source_page_url;
+  else el.cosmicSignalSourceLink.removeAttribute("href");
+
+  const posterAllowed = CosmicSignalDeck.isAllowedUrl(
+    entry.poster_url || entry.thumbnail_url,
+    (state.cosmicSignalHosts && state.cosmicSignalHosts.poster) || new Set()
+  );
+  if (posterAllowed) {
+    el.cosmicSignalPoster.src = entry.poster_url || entry.thumbnail_url;
+    el.cosmicSignalPoster.hidden = false;
+  } else {
+    el.cosmicSignalPoster.removeAttribute("src");
+    el.cosmicSignalPoster.hidden = true;
+  }
+  renderCosmicSignalAvailable(availableSignals, entry.id);
+  el.cosmicSignalLive.textContent =
+    entry.title + " loaded. " + CosmicSignalDeck.relevanceLabel(entry.relevance || opts.relevance) + ".";
+}
+
+function selectCosmicSignalEntry(entryId) {
+  const entry = CosmicSignalDeck.findSignal(state.cosmicSignalAvailableSignals, entryId);
+  if (!entry) return;
+  showCosmicSignalEntry(entry, {
+    featured: false,
+    relevance: "exact_target",
+    availableSignals: state.cosmicSignalAvailableSignals,
+  });
+}
+
 function renderCosmicSignalDeck(payload) {
   const view = CosmicSignalDeck.buildMatchView(payload);
   el.cosmicSignalTitle.textContent = view.title;
@@ -257,9 +344,12 @@ function renderCosmicSignalDeck(payload) {
   if (view.mode !== "match") {
     state.cosmicSignalRequest.currentEntry = null;
     state.cosmicSignalMediaUrlAllowed = false;
+    state.cosmicSignalAvailableSignals = [];
     clearCosmicSignalMedia();
     el.cosmicSignalPoster.removeAttribute("src");
     el.cosmicSignalPoster.hidden = true;
+    if (el.cosmicSignalAvailableButtons) el.cosmicSignalAvailableButtons.textContent = "";
+    if (el.cosmicSignalAvailable) el.cosmicSignalAvailable.hidden = true;
     el.cosmicSignalStatus.textContent = view.message;
     el.cosmicSignalPlayerWrap.hidden = true;
     el.cosmicSignalRelevance.hidden = true;
@@ -272,38 +362,11 @@ function renderCosmicSignalDeck(payload) {
     return;
   }
 
-  const entry = view.entry;
-  state.cosmicSignalRequest.currentEntry = entry;
-  state.cosmicSignalMediaUrlAllowed = CosmicSignalDeck.isAllowedUrl(entry.media_url, state.cosmicSignalHosts.media);
-  el.cosmicSignalBody.className = "cosmic-signal-body" + (view.featured ? " is-featured" : "");
-  el.cosmicSignalStatus.textContent = view.featured
-    ? "Featured fallback — this signal is not an exact match for the selected target."
-    : entry.short_explanation || "Curated signal available.";
-  el.cosmicSignalRelevance.textContent = CosmicSignalDeck.relevanceLabel(view.relevance);
-  el.cosmicSignalRelevance.className = "cosmic-signal-relevance" + (view.featured ? " is-featured" : "");
-  el.cosmicSignalRelevance.hidden = false;
-  el.cosmicSignalMediaType.textContent = CosmicSignalDeck.mediaTypeLabel(entry.media_type);
-  el.cosmicSignalMediaType.hidden = false;
-  el.cosmicSignalPlayerWrap.hidden = !state.cosmicSignalMediaUrlAllowed;
-  if (!state.cosmicSignalMediaUrlAllowed) {
-    el.cosmicSignalStatus.textContent = "This curated signal's media URL could not be validated for safe playback.";
-  }
-  appendCosmicSignalExplanation(entry);
-  el.cosmicSignalCredits.textContent = entry.credits ? "Credits: " + entry.credits : "";
-  el.cosmicSignalCredits.hidden = !entry.credits;
-  const sourceAllowed = CosmicSignalDeck.isAllowedUrl(entry.source_page_url, state.cosmicSignalHosts.source);
-  el.cosmicSignalSourceLink.hidden = !sourceAllowed;
-  if (sourceAllowed) el.cosmicSignalSourceLink.href = entry.source_page_url;
-
-  const posterAllowed = CosmicSignalDeck.isAllowedUrl(entry.poster_url || entry.thumbnail_url, state.cosmicSignalHosts.poster);
-  if (posterAllowed) {
-    el.cosmicSignalPoster.src = entry.poster_url || entry.thumbnail_url;
-    el.cosmicSignalPoster.hidden = false;
-  } else {
-    el.cosmicSignalPoster.removeAttribute("src");
-    el.cosmicSignalPoster.hidden = true;
-  }
-  el.cosmicSignalLive.textContent = entry.title + " loaded. " + CosmicSignalDeck.relevanceLabel(view.relevance) + ".";
+  showCosmicSignalEntry(view.entry, {
+    featured: view.featured,
+    relevance: view.relevance,
+    availableSignals: view.availableSignals || [],
+  });
 }
 
 async function syncCosmicSignalDeck(target) {
@@ -2569,6 +2632,7 @@ if (typeof module === "object" && module.exports) {
     syncCosmicSignalDeck,
     resetCosmicSignalDeck,
     renderCosmicSignalDeck,
+    selectCosmicSignalEntry,
     playCosmicSignal,
     stopCosmicSignal,
     syncSpectrumGallery,

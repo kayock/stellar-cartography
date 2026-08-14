@@ -13,7 +13,9 @@
     "science.nasa.gov",
     "www.jpl.nasa.gov",
     "photojournal.jpl.nasa.gov",
-    "images-assets.nasa.gov"
+    "images-assets.nasa.gov",
+    "svs.gsfc.nasa.gov",
+    "space.physics.uiowa.edu"
   ],
   "allowed_source_hosts": [
     "www.chandra.si.edu",
@@ -24,7 +26,9 @@
     "science.nasa.gov",
     "www.jpl.nasa.gov",
     "voyager.jpl.nasa.gov",
-    "images.nasa.gov"
+    "images.nasa.gov",
+    "svs.gsfc.nasa.gov",
+    "space.physics.uiowa.edu"
   ],
   "allowed_poster_hosts": [
     "www.chandra.si.edu",
@@ -34,7 +38,8 @@
     "assets.science.nasa.gov",
     "images-assets.nasa.gov",
     "www.jpl.nasa.gov",
-    "photojournal.jpl.nasa.gov"
+    "photojournal.jpl.nasa.gov",
+    "svs.gsfc.nasa.gov"
   ],
   "deep_space_targets": [
     {
@@ -151,7 +156,7 @@
       "aliases": [
         "stephan's quintet",
         "stephans quintet",
-        "stephan’s quintet",
+        "stephan\u2019s quintet",
         "hcg 92",
         "hickson compact group 92"
       ]
@@ -288,7 +293,7 @@
       ],
       "media_type": "data_sonification",
       "conversion_method": "Left-to-right image scan; each wavelength family maps to a different instrument family; vertical position to pitch; brightness to loudness.",
-      "processing_notes": "Chandra X-ray → brass; Hubble optical → strings; Spitzer infrared → woodwinds.",
+      "processing_notes": "Chandra X-ray \u2192 brass; Hubble optical \u2192 strings; Spitzer infrared \u2192 woodwinds.",
       "observatories": [
         "Chandra X-ray Observatory",
         "Hubble Space Telescope",
@@ -792,7 +797,7 @@
         "x-ray",
         "infrared"
       ],
-      "short_explanation": "A data sonification of Jupiter combining Chandra X-ray and Hubble infrared imagery — not literal planetary microphone audio.",
+      "short_explanation": "A data sonification of Jupiter combining Chandra X-ray and Hubble infrared imagery \u2014 not literal planetary microphone audio.",
       "mapping_explanation": "As the scan moves left to right, Chandra X-rays flanking the planet play as woodwind sounds. Over the planet, Hubble infrared data make the texture fuller. Because Jupiter is tilted, pitch descends across the bright equatorial band and Great Red Spot. Additional Chandra X-ray emission at the end sounds gusty/wind-like. These are mapped telescope data, not sounds recorded in Jupiter's atmosphere.",
       "what_it_does_not_prove": "This is not a microphone recording from Jupiter. It sonifies Chandra and Hubble image products.",
       "recorded_or_created_date": "2026",
@@ -901,7 +906,7 @@
         "x-ray",
         "optical"
       ],
-      "short_explanation": "A data sonification of Uranus combining Chandra X-ray and Keck optical data — not literal ice-giant microphone audio.",
+      "short_explanation": "A data sonification of Uranus combining Chandra X-ray and Keck optical data \u2014 not literal ice-giant microphone audio.",
       "mapping_explanation": "Left to right, a cello traces Uranus's arcing ring. Notes then change with reflected optical light and position from Keck. Chandra X-rays (solar X-rays reflected from Uranus) are heard as higher frequencies over the pinkish planetary region. Apparent X-ray asymmetry may be an imaging/smoothing artifact per the official caption.",
       "what_it_does_not_prove": "This is not a microphone recording from Uranus. It sonifies Chandra and Keck image products.",
       "recorded_or_created_date": "2026",
@@ -1023,6 +1028,332 @@
       "poster_url": "https://www.chandra.si.edu/sound/images/stephansquintet_thm.jpg",
       "accessibility_description": "Sonification of Stephan's Quintet Chandra and JWST composite.",
       "verification_notes": "Official Chandra Stephan's Quintet page. stephansquintet_all.mp4 verified."
+    },
+    {
+      "id": "earth_van_allen_chorus_svs11073",
+      "title": "Earth Chorus Waves",
+      "enabled": true,
+      "target_ids": [
+        "earth"
+      ],
+      "target_aliases": [
+        "earth",
+        "terra"
+      ],
+      "related_body_ids": [],
+      "related_missions": [
+        "van allen probes",
+        "rbsp"
+      ],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
+      "media_type": "instrument_signal",
+      "conversion_method": "Van Allen Probes EMFISIS antennas measured very-low-frequency electromagnetic plasma waves already in the human hearing range; the electric/magnetic wave recordings were translated into an audible soundtrack without musical pitch mapping.",
+      "processing_notes": "NASA SVS Earth's Song presents Van Allen Probes chorus recordings. Electromagnetic waves, not atmospheric pressure waves.",
+      "observatories": [
+        "NASA Goddard / SVS"
+      ],
+      "spacecraft": [
+        "Van Allen Probes"
+      ],
+      "instruments": [
+        "EMFISIS"
+      ],
+      "data_domains": [
+        "plasma waves",
+        "magnetosphere",
+        "heliophysics"
+      ],
+      "short_explanation": "Chorus-mode plasma waves measured near Earth by the Van Allen Probes EMFISIS instrument, made audible as an instrument signal.",
+      "mapping_explanation": "Chorus waves are electromagnetic oscillations in Earth's magnetosphere. EMFISIS recorded those wave fields; because many of the measured frequencies already fall in the audible band, the recordings can drive speakers after translating the electromagnetic signal into sound pressure.",
+      "what_it_does_not_prove": "This is not ordinary acoustic sound traveling through vacuum or air at the spacecraft. It is an electromagnetic plasma-wave measurement converted for listening.",
+      "recorded_or_created_date": "2012-09-05",
+      "duration_sec": null,
+      "media_format": "video/mp4",
+      "media_kind": "video",
+      "media_url": "https://svs.gsfc.nasa.gov/vis/a010000/a011000/a011073/EarthSong_Edited_960x540_high.mp4",
+      "source_page_url": "https://svs.gsfc.nasa.gov/11073/",
+      "thumbnail_url": null,
+      "poster_url": null,
+      "credits": "NASA's Scientific Visualization Studio; Van Allen Probes / EMFISIS (University of Iowa)",
+      "attribution": "NASA SVS 11073 \u2014 Earth's Song",
+      "accessibility_description": "Video presenting Van Allen Probes chorus-wave audio with explanatory visuals of Earth's magnetosphere.",
+      "transcript_text": null,
+      "captions_url": null,
+      "verified_date": "2026-08-14T18:30:00Z",
+      "verified_by": "manual official-page check",
+      "verification_notes": "SVS page 11073; MP4 HEAD/GET returns video/mp4 on svs.gsfc.nasa.gov. Alternate Iowa whistlers clip enabled separately.",
+      "final_resolved_media_host": "svs.gsfc.nasa.gov"
+    },
+    {
+      "id": "earth_van_allen_whistlers_iowa",
+      "title": "Earth Lightning Whistlers",
+      "enabled": true,
+      "target_ids": [
+        "earth"
+      ],
+      "target_aliases": [
+        "earth",
+        "terra"
+      ],
+      "related_body_ids": [],
+      "related_missions": [
+        "van allen probes",
+        "rbsp"
+      ],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
+      "media_type": "instrument_signal",
+      "conversion_method": "EMFISIS Waves magnetic-search-coil measurements of lightning-generated whistlers were recorded and played as stereo audio; frequencies already span the human hearing range.",
+      "processing_notes": "Official Van Allen Probes Waves Investigation audio clip hosted by the University of Iowa EMFISIS team.",
+      "observatories": [],
+      "spacecraft": [
+        "Van Allen Probe A"
+      ],
+      "instruments": [
+        "EMFISIS Waves"
+      ],
+      "data_domains": [
+        "plasma waves",
+        "whistlers",
+        "magnetosphere"
+      ],
+      "short_explanation": "Lightning-generated whistler plasma waves detected by Van Allen Probe A EMFISIS, played as an instrument audio clip.",
+      "mapping_explanation": "Lightning launches electromagnetic impulses that travel along magnetic field lines as whistlers. EMFISIS recorded the magnetic components; the published clip uses the three orthogonal search-coil channels mixed to stereo so the measured wave activity can be heard.",
+      "what_it_does_not_prove": "This is not a microphone recording in space. Whistlers are electromagnetic plasma waves converted into audible speaker drive signals.",
+      "recorded_or_created_date": "2019-04-30",
+      "duration_sec": 180,
+      "media_format": "audio/mpeg",
+      "media_kind": "audio",
+      "media_url": "https://space.physics.uiowa.edu/plasma-wave/rbsp/audio/201904/VanA-2019-04-30-0054.mp3",
+      "source_page_url": "https://space.physics.uiowa.edu/plasma-wave/rbsp/audio/",
+      "thumbnail_url": null,
+      "poster_url": null,
+      "credits": "NASA Van Allen Probes / EMFISIS Waves Investigation, University of Iowa",
+      "attribution": "University of Iowa plasma-wave RBSP audio archive",
+      "accessibility_description": "Audio clip of lightning whistlers and proton whistlers measured by Van Allen Probe A.",
+      "transcript_text": null,
+      "captions_url": null,
+      "verified_date": "2026-08-14T18:30:00Z",
+      "verified_by": "manual official-page check",
+      "verification_notes": "Iowa EMFISIS Waves audio page; MP3 returns audio/mpeg. Direct AVI also available but MP3 preferred for browser audio element.",
+      "final_resolved_media_host": "space.physics.uiowa.edu"
+    },
+    {
+      "id": "venus_parker_fields_ionosphere_svs13847",
+      "title": "Venus Ionosphere Radio Signal",
+      "enabled": true,
+      "target_ids": [
+        "venus"
+      ],
+      "target_aliases": [
+        "venus"
+      ],
+      "related_body_ids": [],
+      "related_missions": [
+        "parker solar probe",
+        "psp"
+      ],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
+      "media_type": "data_sonification",
+      "conversion_method": "Parker Solar Probe FIELDS low-frequency radio measurements from the Venus flyby were sonified into an audible track for the NASA SVS release.",
+      "processing_notes": "Official NASA SVS page describes the soundtrack as a data sonification of FIELDS ionospheric radio emission.",
+      "observatories": [
+        "NASA Goddard / SVS"
+      ],
+      "spacecraft": [
+        "Parker Solar Probe"
+      ],
+      "instruments": [
+        "FIELDS"
+      ],
+      "data_domains": [
+        "radio emission",
+        "ionosphere",
+        "heliophysics"
+      ],
+      "short_explanation": "Sonified FIELDS radio detection from Parker Solar Probe's flight through Venus' upper atmosphere.",
+      "mapping_explanation": "FIELDS measured a natural low-frequency radio emission while Parker skimmed Venus' ionosphere. NASA's Scientific Visualization Studio translated those instrument data into an audible sonification accompanying the visualization.",
+      "what_it_does_not_prove": "This is not a microphone recording of Venusian air sound. It is a processed representation of measured radio/plasma-wave data.",
+      "recorded_or_created_date": "2020-07-11",
+      "duration_sec": null,
+      "media_format": "video/mp4",
+      "media_kind": "video",
+      "media_url": "https://svs.gsfc.nasa.gov/vis/a010000/a013800/a013847/13847_Parker_Venus.mp4",
+      "source_page_url": "https://svs.gsfc.nasa.gov/13847/",
+      "thumbnail_url": null,
+      "poster_url": null,
+      "credits": "NASA's Scientific Visualization Studio / Mark SubbaRao; Parker Solar Probe FIELDS",
+      "attribution": "NASA SVS 13847",
+      "accessibility_description": "Video with sonified Parker Solar Probe FIELDS radio data from a Venus atmosphere encounter.",
+      "transcript_text": null,
+      "captions_url": null,
+      "verified_date": "2026-08-14T18:30:00Z",
+      "verified_by": "manual official-page check",
+      "verification_notes": "SVS 13847 MP4 verified video/mp4 on svs.gsfc.nasa.gov.",
+      "final_resolved_media_host": "svs.gsfc.nasa.gov"
+    },
+    {
+      "id": "jupiter_juno_waves_bow_shock",
+      "title": "Jupiter Bow Shock",
+      "enabled": true,
+      "target_ids": [
+        "jupiter"
+      ],
+      "target_aliases": [
+        "jupiter"
+      ],
+      "related_body_ids": [],
+      "related_missions": [
+        "juno"
+      ],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
+      "media_type": "instrument_signal",
+      "conversion_method": "Juno Waves radio/plasma-wave measurements of Jupiter's bow shock were converted into an audible MP3 by the Waves investigation team.",
+      "processing_notes": "Official Juno Waves audio clip from the University of Iowa Waves team.",
+      "observatories": [],
+      "spacecraft": [
+        "Juno"
+      ],
+      "instruments": [
+        "Waves"
+      ],
+      "data_domains": [
+        "plasma waves",
+        "bow shock",
+        "magnetosphere"
+      ],
+      "short_explanation": "Juno Waves recording of plasma-wave activity as the spacecraft crossed Jupiter's bow shock.",
+      "mapping_explanation": "Juno's Waves instrument measures electric and magnetic wave fields. This clip presents the published audible conversion of those measurements during the bow-shock crossing.",
+      "what_it_does_not_prove": "This is not acoustic sound in Jupiter's atmosphere. It is an instrument-derived radio/plasma-wave signal made audible.",
+      "recorded_or_created_date": "2016-06",
+      "duration_sec": null,
+      "media_format": "audio/mpeg",
+      "media_kind": "audio",
+      "media_url": "https://space.physics.uiowa.edu/plasma-wave/juno/audio/201606/jno-bshock-16-176-0700-0900-blk.mp3",
+      "source_page_url": "https://space.physics.uiowa.edu/plasma-wave/juno/audio/201606/jno-bshock-16-176-0700-0900-blk.html",
+      "thumbnail_url": null,
+      "poster_url": null,
+      "credits": "NASA/JPL-Caltech/SwRI/University of Iowa \u2014 Juno Waves Investigation",
+      "attribution": "University of Iowa Juno Waves audio archive",
+      "accessibility_description": "Audio of Juno Waves measurements at Jupiter's bow shock.",
+      "transcript_text": null,
+      "captions_url": null,
+      "verified_date": "2026-08-14T18:30:00Z",
+      "verified_by": "manual official-page check",
+      "verification_notes": "Iowa Juno Waves audio page; MP3 verified audio/mpeg.",
+      "final_resolved_media_host": "space.physics.uiowa.edu"
+    },
+    {
+      "id": "jupiter_juno_waves_auroral_bkom",
+      "title": "Jupiter Auroral Radio Emission",
+      "enabled": true,
+      "target_ids": [
+        "jupiter"
+      ],
+      "target_aliases": [
+        "jupiter"
+      ],
+      "related_body_ids": [],
+      "related_missions": [
+        "juno"
+      ],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
+      "media_type": "instrument_signal",
+      "conversion_method": "Juno Waves detections of Jupiter's broadband kilometric / auroral radio emissions were converted into an audible WAV/MP3 by the Waves team.",
+      "processing_notes": "Featured Iowa Juno Waves clip associated with auroral radio emissions.",
+      "observatories": [],
+      "spacecraft": [
+        "Juno"
+      ],
+      "instruments": [
+        "Waves"
+      ],
+      "data_domains": [
+        "radio emission",
+        "aurora",
+        "magnetosphere"
+      ],
+      "short_explanation": "Audible conversion of Juno Waves measurements of Jupiter's powerful auroral radio emissions.",
+      "mapping_explanation": "Jupiter produces intense radio emissions linked to its auroras. Waves recorded those electromagnetic signals; the published clip shifts/presents them in the audible range for listening.",
+      "what_it_does_not_prove": "This is not sound from Jupiter's clouds. It represents measured radio/plasma-wave activity made audible.",
+      "recorded_or_created_date": "2016-08",
+      "duration_sec": null,
+      "media_format": "audio/mpeg",
+      "media_kind": "audio",
+      "media_url": "https://space.physics.uiowa.edu/plasma-wave/juno/audio/201608/jno-bkom-16-240.mp3",
+      "source_page_url": "https://space.physics.uiowa.edu/plasma-wave/juno/audio/201608/jno-bKOM-16-240.html",
+      "thumbnail_url": null,
+      "poster_url": null,
+      "credits": "NASA/JPL-Caltech/SwRI/University of Iowa \u2014 Juno Waves Investigation",
+      "attribution": "University of Iowa Juno Waves audio archive",
+      "accessibility_description": "Audio of Juno Waves auroral radio emission measurements at Jupiter.",
+      "transcript_text": null,
+      "captions_url": null,
+      "verified_date": "2026-08-14T18:30:00Z",
+      "verified_by": "manual official-page check",
+      "verification_notes": "Iowa Juno Waves bKOM clip; MP3 verified. WAV also available.",
+      "final_resolved_media_host": "space.physics.uiowa.edu"
+    },
+    {
+      "id": "europa_juno_waves_flyby",
+      "title": "Europa Flyby Plasma Waves",
+      "enabled": true,
+      "target_ids": [
+        "europa"
+      ],
+      "target_aliases": [
+        "europa"
+      ],
+      "related_body_ids": [],
+      "related_missions": [
+        "juno"
+      ],
+      "relevance_capabilities": [
+        "exact_target"
+      ],
+      "media_type": "instrument_signal",
+      "conversion_method": "Juno Waves electric-field spectrogram data from the 2022 Europa flyby were frequency-converted into an audible soundtrack spanning the observed 50\u2013150 kHz plasma-wave activity.",
+      "processing_notes": "Official Juno Waves Europa flyby audio; density diagnostics described on the Iowa feature page.",
+      "observatories": [],
+      "spacecraft": [
+        "Juno"
+      ],
+      "instruments": [
+        "Waves"
+      ],
+      "data_domains": [
+        "plasma waves",
+        "moon-magnetosphere interaction"
+      ],
+      "short_explanation": "Juno Waves measurements near Europa converted into audible plasma-wave audio from the close flyby.",
+      "mapping_explanation": "As Juno flew past Europa, Waves recorded plasma-wave electric fields whose characteristic frequencies encode local plasma density. The published clip converts those measured frequencies into an audible track synchronized to the spectrogram.",
+      "what_it_does_not_prove": "This is not sound from Europa's icy surface or subsurface ocean. It is an instrument-derived plasma-wave signal.",
+      "recorded_or_created_date": "2022-09-29",
+      "duration_sec": null,
+      "media_format": "audio/mpeg",
+      "media_kind": "audio",
+      "media_url": "https://space.physics.uiowa.edu/plasma-wave/juno/audio/202209/jno-E45-LFRH-22-272-0836-1006-1st-try-Matlab-modified.mp3",
+      "source_page_url": "https://space.physics.uiowa.edu/plasma-wave/juno/audio/202209/jno-E45-LFRH-Europa-fuh-22-272-0836-1006-blk.html",
+      "thumbnail_url": null,
+      "poster_url": null,
+      "credits": "NASA/JPL-Caltech/SwRI/University of Iowa \u2014 Juno Waves Investigation",
+      "attribution": "University of Iowa Juno Waves Europa flyby audio",
+      "accessibility_description": "Audio of plasma-wave measurements from Juno's Europa flyby.",
+      "transcript_text": null,
+      "captions_url": null,
+      "verified_date": "2026-08-14T18:30:00Z",
+      "verified_by": "manual official-page check",
+      "verification_notes": "Iowa Europa flyby Waves audio; MP3 verified. Related Jupiter body capability included; exact only for europa.",
+      "final_resolved_media_host": "space.physics.uiowa.edu"
     }
   ]
 }

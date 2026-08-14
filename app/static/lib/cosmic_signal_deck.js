@@ -118,6 +118,7 @@
   function buildMatchView(payload) {
     const entry = payload && payload.primary;
     if (!entry) return buildEmptyView(payload);
+    const exact = Array.isArray(payload.exact) ? payload.exact : [];
     return {
       mode: "match",
       title: payload.deck_title || "Cosmic Signal Deck",
@@ -125,9 +126,15 @@
       entry: entry,
       relevance: entry.relevance || payload.relevance,
       featured: (entry.relevance || payload.relevance) === "general_featured",
+      availableSignals: exact.length > 1 ? exact : [],
       emptyExactMessage: payload.empty_exact_message || "",
       redirectNotice: payload.redirect_limitation_notice || "",
     };
+  }
+
+  function findSignal(signals, entryId) {
+    if (!Array.isArray(signals)) return null;
+    return signals.find((entry) => entry && entry.id === entryId) || null;
   }
 
   function clearMediaElement(el) {
@@ -163,6 +170,7 @@
     buildLoadingView,
     buildEmptyView,
     buildMatchView,
+    findSignal,
     clearMediaElement,
     shouldAssignMediaSrc,
   };

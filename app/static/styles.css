@@ -512,6 +512,31 @@ code {
 .cosmic-signal-featured-toggle { display: flex; gap: 8px; align-items: center; color: var(--text-2); font-size: 0.82rem; }
 .cosmic-signal-featured-toggle input { accent-color: var(--purple-500); }
 .cosmic-signal-deck-card a { color: var(--purple-400); font-size: 0.88rem; }
+.cosmic-signal-available { display: grid; gap: 6px; }
+.cosmic-signal-available-label {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-2);
+}
+.cosmic-signal-available-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cosmic-signal-available-buttons button {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  background: var(--bg-2);
+  color: var(--text-1);
+  padding: 6px 10px;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.cosmic-signal-available-buttons button.is-active {
+  border-color: var(--purple-400);
+  color: var(--purple-400);
+}
 .sr-only {
   position: absolute;
   width: 1px;
