@@ -524,6 +524,66 @@ code {
   border: 0;
 }
 
+.spectrum-gallery-card {
+  width: 100%;
+  border-color: rgba(96, 165, 250, 0.45);
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.10), var(--bg-card) 48%);
+}
+.spectrum-gallery-body { display: grid; gap: 10px; }
+.spectrum-gallery-status { margin: 0; color: var(--text-1); }
+.spectrum-gallery-image-wrap { display: grid; gap: 8px; }
+.spectrum-gallery-image {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  background: #000;
+}
+.spectrum-gallery-selectors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.spectrum-gallery-selectors button {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  background: var(--bg-2);
+  color: var(--text-1);
+  padding: 6px 10px;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.spectrum-gallery-selectors button.is-active {
+  border-color: var(--purple-400);
+  color: var(--purple-400);
+}
+.spectrum-gallery-wavelength,
+.spectrum-gallery-observatory,
+.spectrum-gallery-explanation,
+.spectrum-gallery-credits {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--text-1);
+}
+.spectrum-gallery-wavelength { color: var(--purple-400); font-weight: 600; }
+.spectrum-gallery-relevance {
+  padding: 3px 9px;
+  border: 1px solid var(--green);
+  border-radius: 999px;
+  color: var(--green);
+  background: rgba(52, 211, 153, 0.08);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+.spectrum-gallery-relevance.is-context {
+  border-color: var(--amber);
+  color: var(--amber);
+  background: rgba(251, 191, 36, 0.08);
+}
+.spectrum-gallery-card a { color: var(--purple-400); font-size: 0.88rem; }
+
 .archive-badge {
   display: block;
   margin-top: 6px;

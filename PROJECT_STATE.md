@@ -1,7 +1,7 @@
 # Project state — FOXAI Stellar Cartography R0.5.0 (development)
 
-**As of:** 2026-08-04  
-**Release:** R0.5.0 — **in development** (Slice 1 + Solar System Media Expansion + Cosmic Signal Deck Slice 2 landed; not packaged)  
+**As of:** 2026-08-14  
+**Release:** R0.5.0 — **in development** (Slice 1–3 landed: discovery/media + Cosmic Signal Deck + Spectrum Gallery; not packaged)  
 **Baseline:** R0.4.0 — preserved under `receipts/baseline_r0.4.0/` (immutable)
 
 ## Baseline receipt quarantine
@@ -53,8 +53,8 @@ receipt yet (`receipts/WORK_IN_PROGRESS.md`).
 
 ## Validation (current worktree)
 
-- Python: **237/237** (`PYTHONWARNINGS=error`)
-- Node: **189/189**
+- Python: **251/251** (`PYTHONWARNINGS=error`)
+- Node: **197/197**
 
 ## Cosmic Signal Deck Slice 1
 
@@ -82,3 +82,15 @@ receipt yet (`receipts/WORK_IN_PROGRESS.md`).
 Enabled total: **15** (`data_audification` Voyager + 14 `data_sonification` Chandra composites).
 
 Deferred: per-wavelength alternate tracks; bare `andromeda` alias; informal “Hand of God” as match key. Saturn sound-page HTML mislabels Uranus — provenance uses Chandra `photo/2026/sonify11/` album instead.
+
+## Spectrum Gallery Slice 3
+
+| Requirement | Status |
+|-------------|--------|
+| Compact curated Spectrum Gallery UI | Done |
+| Single JSON registry + local match API | Done |
+| Reuse Cosmic Signal target identity | Done |
+| Exact / region / all-sky relevance labels | Done |
+| Online Mode off → zero image requests | Done |
+| Ten verified official images | Done |
+| No proxy / library / database / redesign | Done |

@@ -27,6 +27,7 @@ from . import apophis_tracker
 from . import coords
 from . import mast_archive
 from . import cosmic_signal_registry
+from . import spectrum_gallery_registry
 from . import planetary_image
 from . import watchlist_store
 from .discovery import service as discovery_service
@@ -205,6 +206,41 @@ def make_handler(
                         allow_featured=allow_featured,
                     )
                 except cosmic_signal_registry.RegistryError as exc:
+                    self._send_json(500, {"ok": False, "error": str(exc)})
+                    return
+                self._send_json(200, result)
+                return
+
+            if path == "/api/spectrum-gallery-registry":
+                try:
+                    payload = spectrum_gallery_registry.registry_public_payload()
+                except spectrum_gallery_registry.SpectrumRegistryError as exc:
+                    self._send_json(500, {"ok": False, "error": str(exc)})
+                    return
+                self._send_json(200, {"ok": True, "registry": payload})
+                return
+
+            if path == "/api/spectrum-gallery-match":
+                qs = parse_qs(parsed.query)
+                name = (qs.get("name") or [""])[0]
+                alt_name = (qs.get("alt_name") or [""])[0]
+                catalogue_designations = (qs.get("catalogue_designations") or [""])[0]
+                allow_all_sky = (qs.get("allow_all_sky") or ["1"])[0] not in (
+                    "0",
+                    "false",
+                    "no",
+                )
+                target = {
+                    "name": name or None,
+                    "alt_name": alt_name or None,
+                    "catalogue_designations": catalogue_designations or None,
+                }
+                try:
+                    result = spectrum_gallery_registry.match_spectrum_for_target(
+                        target,
+                        allow_all_sky=allow_all_sky,
+                    )
+                except spectrum_gallery_registry.SpectrumRegistryError as exc:
                     self._send_json(500, {"ok": False, "error": str(exc)})
                     return
                 self._send_json(200, result)

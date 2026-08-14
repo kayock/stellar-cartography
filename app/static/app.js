@@ -44,6 +44,11 @@ const state = {
   cosmicSignalMediaUrlAllowed: false,
   cosmicSignalRequestGeneration: 0,
   cosmicSignalUserRequestedPlayback: false,
+  spectrumGalleryRequest: SpectrumGallery.createRequestState(),
+  spectrumGalleryHosts: null,
+  spectrumGalleryRegistryPromise: null,
+  spectrumGalleryRequestGeneration: 0,
+  spectrumGalleryOptions: [],
   archiveAvailability: ArchiveAvailability.createState(),
   archiveLights: {},
   discoveryBundle: null,
@@ -88,6 +93,21 @@ const el = {
   cosmicSignalFeaturedWrap: document.getElementById("cosmic-signal-featured-wrap"),
   cosmicSignalFeaturedToggle: document.getElementById("cosmic-signal-featured-toggle"),
   cosmicSignalLive: document.getElementById("cosmic-signal-live"),
+  spectrumGalleryCard: document.getElementById("spectrum-gallery-card"),
+  spectrumGalleryTitle: document.getElementById("spectrum-gallery-title"),
+  spectrumGallerySubtitle: document.getElementById("spectrum-gallery-subtitle"),
+  spectrumGalleryBody: document.getElementById("spectrum-gallery-body"),
+  spectrumGalleryStatus: document.getElementById("spectrum-gallery-status"),
+  spectrumGalleryRelevance: document.getElementById("spectrum-gallery-relevance"),
+  spectrumGalleryImageWrap: document.getElementById("spectrum-gallery-image-wrap"),
+  spectrumGalleryImage: document.getElementById("spectrum-gallery-image"),
+  spectrumGallerySelectors: document.getElementById("spectrum-gallery-selectors"),
+  spectrumGalleryWavelength: document.getElementById("spectrum-gallery-wavelength"),
+  spectrumGalleryObservatory: document.getElementById("spectrum-gallery-observatory"),
+  spectrumGalleryExplanation: document.getElementById("spectrum-gallery-explanation"),
+  spectrumGalleryCredits: document.getElementById("spectrum-gallery-credits"),
+  spectrumGallerySourceLink: document.getElementById("spectrum-gallery-source-link"),
+  spectrumGalleryLive: document.getElementById("spectrum-gallery-live"),
   manualForm: document.getElementById("manual-form"),
   manualName: document.getElementById("manual-name"),
   manualRa: document.getElementById("manual-ra"),
@@ -360,6 +380,191 @@ function stopCosmicSignal() {
   }
 }
 
+// -- Spectrum Gallery ---------------------------------------------------
+
+function clearSpectrumGalleryImage() {
+  el.spectrumGalleryImage.removeAttribute("src");
+  el.spectrumGalleryImage.hidden = true;
+  el.spectrumGalleryImage.alt = "";
+}
+
+function resetSpectrumGallery() {
+  SpectrumGallery.resetRequestState(state.spectrumGalleryRequest);
+  state.spectrumGalleryRequestGeneration = state.spectrumGalleryRequest.generation;
+  state.spectrumGalleryOptions = [];
+  clearSpectrumGalleryImage();
+  el.spectrumGalleryTitle.textContent = "Spectrum Gallery";
+  el.spectrumGallerySubtitle.textContent = "See the universe in another light.";
+  el.spectrumGalleryStatus.textContent = state.onlineMode
+    ? "Select a target to look for curated spectrum images."
+    : "Enable Online Archive Mode and select a target to look for curated spectrum images.";
+  el.spectrumGalleryRelevance.hidden = true;
+  el.spectrumGalleryRelevance.className = "spectrum-gallery-relevance";
+  el.spectrumGalleryImageWrap.hidden = true;
+  el.spectrumGallerySelectors.hidden = true;
+  el.spectrumGallerySelectors.textContent = "";
+  el.spectrumGalleryWavelength.hidden = true;
+  el.spectrumGalleryObservatory.hidden = true;
+  el.spectrumGalleryExplanation.hidden = true;
+  el.spectrumGalleryCredits.hidden = true;
+  el.spectrumGallerySourceLink.hidden = true;
+  el.spectrumGallerySourceLink.removeAttribute("href");
+  el.spectrumGalleryLive.textContent = "";
+}
+
+function cacheSpectrumGalleryHosts(registry) {
+  const toSet = (value) =>
+    new Set((Array.isArray(value) ? value : []).filter((host) => typeof host === "string").map((host) => host.toLowerCase()));
+  state.spectrumGalleryHosts = {
+    image: toSet(registry && registry.allowed_image_hosts),
+    source: toSet(registry && registry.allowed_source_hosts),
+  };
+  return state.spectrumGalleryHosts;
+}
+
+async function ensureSpectrumGalleryHosts() {
+  if (state.spectrumGalleryHosts) return state.spectrumGalleryHosts;
+  if (!state.spectrumGalleryRegistryPromise) {
+    state.spectrumGalleryRegistryPromise = fetch("/api/spectrum-gallery-registry", { cache: "no-store" })
+      .then((resp) => resp.json())
+      .then((data) => {
+        if (!data || !data.ok || !data.registry) throw new Error("Registry unavailable");
+        return cacheSpectrumGalleryHosts(data.registry);
+      })
+      .finally(() => {
+        state.spectrumGalleryRegistryPromise = null;
+      });
+  }
+  return state.spectrumGalleryRegistryPromise;
+}
+
+function renderSpectrumGallerySelectors(options, activeId) {
+  el.spectrumGallerySelectors.textContent = "";
+  if (!Array.isArray(options) || options.length === 0) {
+    el.spectrumGallerySelectors.hidden = true;
+    return;
+  }
+  options.forEach((entry) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = entry.wavelength || entry.title || "Spectrum";
+    button.dataset.entryId = entry.id;
+    if (entry.id === activeId) button.classList.add("is-active");
+    button.addEventListener("click", () => {
+      const selected = SpectrumGallery.findOption(state.spectrumGalleryOptions, entry.id);
+      if (selected) showSpectrumGalleryEntry(selected);
+    });
+    el.spectrumGallerySelectors.appendChild(button);
+  });
+  el.spectrumGallerySelectors.hidden = false;
+}
+
+function showSpectrumGalleryEntry(entry) {
+  if (!entry) return;
+  const hosts = state.spectrumGalleryHosts || { image: new Set(), source: new Set() };
+  const imageAllowed = SpectrumGallery.isAllowedUrl(entry.image_url, hosts.image);
+  const sourceAllowed = SpectrumGallery.isAllowedUrl(entry.source_page_url, hosts.source);
+  state.spectrumGalleryRequest.currentEntry = entry;
+
+  el.spectrumGalleryStatus.textContent = entry.title || "";
+  el.spectrumGalleryRelevance.hidden = false;
+  el.spectrumGalleryRelevance.textContent = entry.relevance_label || SpectrumGallery.relevanceLabel(entry.relevance);
+  el.spectrumGalleryRelevance.className =
+    "spectrum-gallery-relevance" + (entry.relevance === "all_sky_context" ? " is-context" : "");
+
+  clearSpectrumGalleryImage();
+  if (imageAllowed && state.onlineMode) {
+    el.spectrumGalleryImage.alt = entry.title || "Spectrum gallery image";
+    el.spectrumGalleryImage.src = entry.image_url;
+    el.spectrumGalleryImage.hidden = false;
+    el.spectrumGalleryImageWrap.hidden = false;
+  } else {
+    el.spectrumGalleryImageWrap.hidden = true;
+    if (!imageAllowed) {
+      el.spectrumGalleryStatus.textContent = "Curated image URL failed local host validation.";
+    }
+  }
+
+  el.spectrumGalleryWavelength.hidden = false;
+  el.spectrumGalleryWavelength.textContent = "Wavelength: " + String(entry.wavelength || "");
+  el.spectrumGalleryObservatory.hidden = false;
+  el.spectrumGalleryObservatory.textContent = "Observatory / mission: " + String(entry.observatory || "");
+  el.spectrumGalleryExplanation.hidden = false;
+  el.spectrumGalleryExplanation.textContent = entry.short_explanation || "";
+  el.spectrumGalleryCredits.hidden = false;
+  el.spectrumGalleryCredits.textContent = "Credits: " + String(entry.credits || "");
+
+  if (sourceAllowed) {
+    el.spectrumGallerySourceLink.href = entry.source_page_url;
+    el.spectrumGallerySourceLink.hidden = false;
+  } else {
+    el.spectrumGallerySourceLink.hidden = true;
+    el.spectrumGallerySourceLink.removeAttribute("href");
+  }
+
+  renderSpectrumGallerySelectors(state.spectrumGalleryOptions, entry.id);
+  el.spectrumGalleryLive.textContent = entry.title || "";
+}
+
+function renderSpectrumGallery(payload) {
+  const view = SpectrumGallery.buildMatchView(payload);
+  el.spectrumGalleryTitle.textContent = view.title;
+  el.spectrumGallerySubtitle.textContent = view.subtitle;
+  state.spectrumGalleryOptions = view.options || [];
+
+  if (!view.primary) {
+    state.spectrumGalleryRequest.currentEntry = null;
+    clearSpectrumGalleryImage();
+    el.spectrumGalleryImageWrap.hidden = true;
+    el.spectrumGallerySelectors.hidden = true;
+    el.spectrumGallerySelectors.textContent = "";
+    el.spectrumGalleryRelevance.hidden = true;
+    el.spectrumGalleryWavelength.hidden = true;
+    el.spectrumGalleryObservatory.hidden = true;
+    el.spectrumGalleryExplanation.hidden = true;
+    el.spectrumGalleryCredits.hidden = true;
+    el.spectrumGallerySourceLink.hidden = true;
+    el.spectrumGalleryStatus.textContent = view.status;
+    if (state.spectrumGalleryOptions.length) {
+      renderSpectrumGallerySelectors(state.spectrumGalleryOptions, null);
+    }
+    return;
+  }
+  showSpectrumGalleryEntry(view.primary);
+}
+
+async function syncSpectrumGallery(target) {
+  if (!state.onlineMode || !target) {
+    resetSpectrumGallery();
+    return;
+  }
+  resetSpectrumGallery();
+  const targetKey = `${target.name || ""}|${target.alt_name || ""}|${target.catalogue_designations || ""}`;
+  const generation = SpectrumGallery.beginRequest(state.spectrumGalleryRequest, targetKey);
+  state.spectrumGalleryRequestGeneration = generation;
+  el.spectrumGalleryStatus.textContent = "Looking up curated spectrum images through the local server…";
+  try {
+    await ensureSpectrumGalleryHosts();
+    if (SpectrumGallery.isStaleResponse(state.spectrumGalleryRequest, generation) || !state.onlineMode) return;
+    const resp = await fetch(
+      SpectrumGallery.buildMatchUrl(
+        target.name,
+        target.alt_name,
+        target.catalogue_designations,
+        true
+      ),
+      { cache: "no-store" }
+    );
+    const data = await resp.json();
+    if (SpectrumGallery.isStaleResponse(state.spectrumGalleryRequest, generation) || !state.onlineMode) return;
+    if (!data || !data.ok) throw new Error("Match unavailable");
+    renderSpectrumGallery(data);
+  } catch (_err) {
+    if (SpectrumGallery.isStaleResponse(state.spectrumGalleryRequest, generation) || !state.onlineMode) return;
+    el.spectrumGalleryStatus.textContent = "Could not reach the local server for a spectrum gallery lookup.";
+  }
+}
+
 // -- Selected-target card ----------------------------------------------
 
 function renderTargetCard() {
@@ -375,6 +580,7 @@ function renderTargetCard() {
     resetPlanetaryImagePanel();
     resetArchiveAvailabilityLights();
     resetCosmicSignalDeck();
+    resetSpectrumGallery();
     return;
   }
 
@@ -420,6 +626,7 @@ function renderTargetCard() {
   syncPlanetaryImagePanel(t);
   syncArchiveAvailabilityChecks(t);
   syncCosmicSignalDeck(t);
+  syncSpectrumGallery(t);
 }
 
 function getViewerFovDeg(target) {
@@ -714,6 +921,7 @@ function clearStaleTargetAfterFailedSelection(message) {
   el.solarSystemNoticeBody.innerHTML = "";
   resetPlanetaryImagePanel();
   resetCosmicSignalDeck();
+  resetSpectrumGallery();
 
   disableImageryButtons(false);
   setImageryStatus("", null);
@@ -764,8 +972,10 @@ function turnOnlineModeOn() {
     syncPlanetaryImagePanel(state.currentTarget);
     syncArchiveAvailabilityChecks(state.currentTarget);
     syncCosmicSignalDeck(state.currentTarget);
+    syncSpectrumGallery(state.currentTarget);
   } else {
     resetCosmicSignalDeck();
+    resetSpectrumGallery();
   }
 }
 
@@ -820,6 +1030,7 @@ function turnOnlineModeOff() {
   el.onlineModeToggle.checked = false;
   resetPlanetaryImagePanel();
   resetCosmicSignalDeck();
+  resetSpectrumGallery();
   ArchiveAvailability.resetForOffline(state.archiveAvailability);
   resetArchiveAvailabilityLights();
   clearHipsPendingTimers();
@@ -2360,6 +2571,10 @@ if (typeof module === "object" && module.exports) {
     renderCosmicSignalDeck,
     playCosmicSignal,
     stopCosmicSignal,
+    syncSpectrumGallery,
+    resetSpectrumGallery,
+    renderSpectrumGallery,
+    showSpectrumGalleryEntry,
     syncArchiveAvailabilityChecks,
     fetchArchiveMission,
     loadWatchlistFromServer,

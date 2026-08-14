@@ -29,6 +29,7 @@ const LIB_FILES = [
   "solar_system_media_registry.js",
   "planetary_image.js",
   "cosmic_signal_deck.js",
+  "spectrum_gallery.js",
   "archive_availability.js",
   "discovery_panel.js",
   "hips_layer_control.js",
