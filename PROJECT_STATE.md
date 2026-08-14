@@ -1,7 +1,7 @@
 # Project state — FOXAI Stellar Cartography R0.5.0 (development)
 
 **As of:** 2026-08-14  
-**Release:** R0.5.0 — **in development** (Slice 1–4 landed: discovery/media + Cosmic Signal Deck + Spectrum Gallery + solar/near-Earth signals; not packaged)  
+**Release:** R0.5.0 — **in development** (Slice 1–5 landed: discovery/media + Cosmic Signal Deck + Spectrum Gallery multi-view + solar/near-Earth signals; not packaged)  
 **Baseline:** R0.4.0 — preserved under `receipts/baseline_r0.4.0/` (immutable)
 
 ## Baseline receipt quarantine
@@ -53,8 +53,8 @@ receipt yet (`receipts/WORK_IN_PROGRESS.md`).
 
 ## Validation (current worktree)
 
-- Python: **257/257** (`PYTHONWARNINGS=error`)
-- Node: **198/198**
+- Python: **259/259** (`PYTHONWARNINGS=error`)
+- Node: **202/202**
 
 ## Cosmic Signal Deck Slice 1
 
@@ -109,3 +109,18 @@ Deferred: per-wavelength alternate tracks; bare `andromeda` alias; informal “H
 Enabled Cosmic Signal total: **21** (prior 15 + 6 Slice 4).
 
 Deferred: Juno Morse HI (SSL/403); magnetosphere drum (no asset); SOHO sun sounds (404/SSL); Parker solar-wind scream (unverified); Ganymede Waves (CDN 403/404); Io-exact radio (no asset).
+
+## Spectrum Gallery Slice 5 (Same Target, Different Eyes)
+
+| Requirement | Status |
+|-------------|--------|
+| Multiple exact views per target in existing gallery | Done |
+| Compact Available views selector (exact-only) | Done |
+| Prior Slice 3 image remains default | Done |
+| Planck excluded from wavelength buttons | Done |
+| Thirteen verified Chandra-hosted wavelength layers | Done |
+| No proxy / scraper / database / redesign | Done |
+
+Enabled Spectrum Gallery total: **23** (prior 10 + 13 Slice 5).
+
+Multi-view targets: Crab, Cas A, Galactic Center, M87, M31, M74.

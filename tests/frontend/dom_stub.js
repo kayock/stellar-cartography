@@ -55,6 +55,7 @@ const ELEMENT_IDS = [
   "spectrum-gallery-relevance",
   "spectrum-gallery-image-wrap",
   "spectrum-gallery-image",
+  "spectrum-gallery-available",
   "spectrum-gallery-selectors",
   "spectrum-gallery-wavelength",
   "spectrum-gallery-observatory",
@@ -193,7 +194,15 @@ function makeElement(tag) {
       if (name === "src") return el.src || null;
       if (name === "href") return el.href || null;
       if (name === "alt") return el.alt || null;
+      if (Object.prototype.hasOwnProperty.call(el._attrs || {}, name)) return el._attrs[name];
       return null;
+    },
+    setAttribute(name, value) {
+      el._attrs = el._attrs || {};
+      el._attrs[String(name)] = String(value);
+      if (name === "src") el.src = String(value);
+      if (name === "href") el.href = String(value);
+      if (name === "alt") el.alt = String(value);
     },
     focus() {},
   };

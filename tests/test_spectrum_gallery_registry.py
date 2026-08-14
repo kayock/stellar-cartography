@@ -20,13 +20,13 @@ class TestSpectrumRegistry(unittest.TestCase):
     def test_registry_validates_and_enabled_count(self):
         sgr.reload_registry()
         enabled = sgr.enabled_entries()
-        self.assertEqual(len(enabled), 10)
+        self.assertEqual(len(enabled), 23)
         wavelengths = {e["wavelength"] for e in enabled}
         self.assertTrue(wavelengths.issubset(set(sgr.load_registry()["wavelengths"])))
 
 
 class TestSpectrumMatching(unittest.TestCase):
-    def test_exact_targets(self):
+    def test_exact_targets_default_to_prior_primary(self):
         cases = (
             ("Crab Nebula", "crab_2018_chandra_hubble_spitzer"),
             ("Cassiopeia A", "casa_2005_great_observatories"),
@@ -44,6 +44,53 @@ class TestSpectrumMatching(unittest.TestCase):
             self.assertEqual(result["primary"]["id"], entry_id, name)
             self.assertEqual(result["primary"]["relevance_label"], "Exact target")
 
+    def test_multi_view_exact_targets(self):
+        expected = {
+            "Crab Nebula": [
+                "crab_2018_chandra_hubble_spitzer",
+                "crab_2018_chandra_xray",
+                "crab_2018_hubble_optical",
+                "crab_2018_spitzer_infrared",
+            ],
+            "Cassiopeia A": [
+                "casa_2005_great_observatories",
+                "casa_2005_chandra_xray",
+                "casa_2005_hubble_optical",
+                "casa_2005_spitzer_infrared",
+            ],
+            "Messier 87": [
+                "m87_2021_chandra_composite",
+                "m87_2001_chandra_xray",
+                "m87_2001_hubble_optical",
+                "m87_2001_vla_radio",
+            ],
+            "Sagittarius A*": [
+                "gcenter_2009_chandra_mosaic",
+                "galactic_2009_great_observatories",
+                "galactic_2009_spitzer_infrared",
+            ],
+            "Andromeda Galaxy": [
+                "m31_2006_chandra_xray",
+                "m31_2010_optical",
+            ],
+            "Phantom Galaxy": [
+                "m74_2024_chandra_webb_hubble",
+                "m74_2024_chandra_xray",
+            ],
+        }
+        for name, ids in expected.items():
+            result = sgr.match_spectrum_for_target({"name": name})
+            view_ids = [entry["id"] for entry in result["available_views"]]
+            self.assertEqual(view_ids, ids, name)
+            self.assertTrue(all(v["relevance"] == "exact_target" for v in result["available_views"]))
+            # Planck must never appear as an exact wavelength view.
+            self.assertFalse(any(v["id"].startswith("planck_") for v in result["available_views"]))
+
+    def test_single_view_target_has_one_available_view(self):
+        result = sgr.match_spectrum_for_target({"name": "Jupiter"})
+        self.assertEqual(len(result["available_views"]), 1)
+        self.assertEqual(result["available_views"][0]["id"], "jupiter_2005_chandra_xray")
+
     def test_m87_catalogue_designations_handoff(self):
         result = sgr.match_spectrum_for_target(
             {
@@ -54,6 +101,7 @@ class TestSpectrumMatching(unittest.TestCase):
         )
         self.assertEqual(result["relevance"], "exact_target")
         self.assertEqual(result["primary"]["id"], "m87_2021_chandra_composite")
+        self.assertEqual(len(result["available_views"]), 4)
 
     def test_all_sky_context_for_unmatched_target(self):
         result = sgr.match_spectrum_for_target({"name": "Phobos"})
@@ -61,6 +109,7 @@ class TestSpectrumMatching(unittest.TestCase):
         self.assertEqual(result["primary"]["id"], "planck_2013_cmb_allsky")
         self.assertEqual(result["primary"]["relevance_label"], "All-sky context")
         self.assertEqual(result["primary"]["wavelength"], "Microwave")
+        self.assertEqual(result["available_views"], [])
         self.assertIn("not a photograph", result["primary"]["short_explanation"].lower())
 
     def test_all_sky_can_be_disabled(self):
