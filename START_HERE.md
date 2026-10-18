@@ -1,65 +1,58 @@
-# Start Here — FOXAI Stellar Cartography R0.4.0
+# Start Here — Stellar Cartography
 
-> R0.4.0 adds **MAST archive-availability lights** (Hubble/JWST), a **Tracked Objects**
-> watchlist with notes and unified details, and a featured **Apophis 2029 tracker**
-> on top of R0.3.0 Planetary Image Pilot and R0.2.0 Solar System Awareness.
-> See README.md, `docs/ARCHIVE_AVAILABILITY.md`, `docs/TRACKED_OBJECTS.md`, and
-> `docs/APOPHIS_TRACKER.md`.
+Browser UI for **Stellarium**: select sky objects, open archive viewers, run
+**Stories of the Sky**, and explore the six **Specials**.
 
-## 1. Launch it
+## Requirements
 
-**Windows:** double-click `Start_FOXAI_Stellar_Cartography.bat`.
+- Python **3.9+**
+- **Stellarium** with the **Remote Control** plugin (typically `http://127.0.0.1:8090`)
+- A modern browser
 
-**Any OS with Python 3.9+:** run `python run.py` from this folder.
+Stellarium is installed separately — this repo does not bundle it.
 
-A browser tab opens automatically at `http://127.0.0.1:<port>/`.
+## Quick launch
 
-## 2. Try it with Stellarium (optional)
+**Linux / macOS:**
 
-1. Open Stellarium and enable the Remote Control plug-in (`localhost:8090`).
-2. Select an object in Stellarium.
-3. Click **Use Stellarium Selection** in the app.
+```bash
+./start.sh --host 127.0.0.1 --port 8775 --stellarium-url http://127.0.0.1:8090
+```
 
-**Moon, Jupiter, or Saturn:** with **Online Archive Mode** on, the **Planetary Archive Image**
-panel fetches NASA outreach imagery (archival — not live).
+**Windows:** double-click `Start_Stellar_Cartography.bat`  
+(or the compatibility wrapper `Start_FOXAI_Stellar_Cartography.bat`).
 
-**Solar System notice:** ESASky shows survey background, not disk-resolved photos.
+Open the UI at `http://127.0.0.1:8775` (or the port you chose).
 
-## 3. Tracked Objects (local watchlist)
+Full install, configuration, and troubleshooting: **[docs/PUBLIC_INSTALL.md](docs/PUBLIC_INSTALL.md)**.
 
-- Entries persist in `runtime_data/tracked_objects.json` beside this folder.
-- Add the current target, favorite, write notes (**Save Note**), and **Open Details**.
-- Load status shows path, entry count, and backup recovery when applicable.
-- If load fails, the list shows unavailable — not “empty” — and writes are blocked until **Retry Load** succeeds.
+## Six Specials
 
-## 4. Apophis tracker
+1. Light Echoes  
+2. Cosmic Web  
+3. Gravitational Waves  
+4. Black Holes  
+5. Galactic Encounters  
+6. Cosmic Dawn  
 
-- **Add Apophis Tracker** or **Open Apophis Tracker** (no duplicate).
-- Shows JPL SBDB/HORIZONS data, April 2029 encounter, cached summary when offline.
-- Opening Apophis **does not** move the sky viewer to RA 0°, Dec 0°.
-- After a successful refresh with Horizons ephemeris, use **Use Ephemeris Position** explicitly.
-- **Refresh Selected** honors a 60-second minimum between JPL requests.
+See the matching docs under `docs/` (e.g. `docs/LIGHT_ECHOES.md`).
 
-## 5. Archive imagery
+## Stories of the Sky
 
-1. Turn on **Online Archive Mode**.
-2. Click **Open in ESASky**.
-3. Use imagery buttons; Hubble/JWST buttons show MAST availability lights (metadata counts only).
+Constellation tours, exhibits, and related sky-culture material are part of the
+same UI (alongside earlier archive / watchlist / Solar System features).
 
-## Restoring personal watchlist data
+## Tests
 
-The release ZIP does **not** include your watchlist. After extracting a clean copy:
+```bash
+python3 -m unittest discover -s tests -v
+```
 
-1. Copy your backed-up files into `runtime_data\`:
-   - `tracked_objects.json`
-   - `tracked_objects.json.bak` (optional)
-2. Restart the app.
+Optional Node frontend tests: `node --test tests/frontend/*.test.js` (Node ≥ 18).
 
-## Troubleshooting
+## More
 
-* **Watchlist could not be loaded:** ensure the local server is running; click **Retry Load**.
-* **Apophis shows no sky position:** expected until Horizons ephemeris is retrieved; use **Refresh Selected** when online.
-* **Planetary panel unsupported:** pilot is Moon, Jupiter, Saturn only.
-* **No MAST lights:** Online Archive Mode must be on.
-
-See `README.md` for architecture, privacy, and boundaries.
+- Product overview: [README.md](README.md)
+- Media provenance: [docs/MEDIA_PROVENANCE.md](docs/MEDIA_PROVENANCE.md)
+- Project status: [PROJECT_STATE.md](PROJECT_STATE.md)
+- Historical R0.4.0 entry notes: [docs/history/START_HERE_R0.4.0.md](docs/history/START_HERE_R0.4.0.md)

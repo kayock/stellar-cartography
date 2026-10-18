@@ -13,7 +13,7 @@ This guide is for a clean checkout as an outside user would receive it.
 ## 1. Get the source
 
 ```bash
-git clone <YOUR_GITHUB_URL> stellar-cartography
+git clone https://github.com/kayock/stellar-cartography.git
 cd stellar-cartography
 ```
 
@@ -83,6 +83,12 @@ Remote Control is listening and the URL matches.
 
 ```bash
 python3 -m unittest discover -s tests -v
+
+Optional frontend tests (Node ≥ 18, no npm packages):
+
+```bash
+node --test tests/frontend/*.test.js
+```
 ```
 
 Some tests that require a live Stellarium instance may skip or soft-fail when

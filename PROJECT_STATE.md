@@ -1,126 +1,43 @@
-# Project state — FOXAI Stellar Cartography R0.5.0 (development)
+# Project state — Stellar Cartography
 
-**As of:** 2026-08-14  
-**Release:** R0.5.0 — **in development** (Slice 1–5 landed: discovery/media + Cosmic Signal Deck + Spectrum Gallery multi-view + solar/near-Earth signals; not packaged)  
-**Baseline:** R0.4.0 — preserved under `receipts/baseline_r0.4.0/` (immutable)
+**As of:** 2026-10-18  
+**Status:** Six-Special series **complete**; public GitHub repository **live**  
+**Repository:** https://github.com/kayock/stellar-cartography  
+**License:** MIT (`LICENSE`)  
+**Test baseline:** **513** Python tests (`python3 -m unittest discover -s tests`)
 
-## Baseline receipt quarantine
+## Current product
 
-R0.4.0 `BUILD_RECEIPT` / `SHA256SUMS` were moved byte-for-byte to:
+Stellar Cartography is a stdlib Python + browser UI that drives **Stellarium
+Remote Control** and presents:
 
-- `receipts/baseline_r0.4.0/BUILD_RECEIPT_R0.4.0.json`
-- `receipts/baseline_r0.4.0/SHA256SUMS_R0.4.0.txt`
+- **Stories of the Sky** (constellation tours / exhibits)
+- **Six Specials:** Light Echoes · Cosmic Web · Gravitational Waves · Black Holes · Galactic Encounters · Cosmic Dawn
+- Earlier archive / watchlist / Solar System / Cosmic Signal / Spectrum Gallery features
 
-Those checksum paths are historical evidence of the R0.4.0 archive layout —
-**not** a current manifest for this working tree. There is no R0.5.0 release
-receipt yet (`receipts/WORK_IN_PROGRESS.md`).
+Stellarium (including Windows Stellarium on another machine) is configured via
+`--stellarium-url` / `STELLAR_CARTOGRAPHY_STELLARIUM_URL` — no LAN-specific values
+are required in the public tree.
 
-## Slice 1 delivered
+## Explicit exclusions
 
-| Requirement | Status |
-|-------------|--------|
-| Discovery contracts (`items` vs `query_outcomes`) | Done |
-| Orchestrator + provider failure isolation | Done |
-| Honest MAST multi-strategy discovery | Done |
-| Dedup with merged provenance + match_basis | Done |
-| Discovery panel skeleton | Done |
-| Badge compatibility (conservative mapping) | Done |
-| Single `/api/discovery` request (no duplicate archive-availability) | Done |
-| Moving-object historical coverage not evaluated | Done |
-| Automated tests | Done (Python 180, Node 141 at Slice 1 landing) |
-
-## Solar System Media Expansion delivered
-
-| Requirement | Status |
-|-------------|--------|
-| Data-driven Solar System media registry | Done |
-| Sun, major planets, dwarfs, major moons | Done |
-| NASA Images API + `public_media_asset` classification | Done |
-| Relevance filtering / generic-guard | Done |
-| Online Mode off → zero NASA media requests | Done |
-| Stale / dedup / target-switch clear preserved | Done |
-| Visibly separate from MAST + ESASky | Done |
-| Automated tests | Done (Python 198, Node 175) |
-
-## Explicit exclusions (still)
-
-- IRSA / HEASARC adapters
-- MAST science-product expansion
-- Historical moving-object archive matching
-- Final R0.5.0 packaging / release receipt
+- Bundled Stellarium AppImage / installer
+- Cloud API keys (none required for core use)
 - Starlink / general satellite tracking
-- New third-party runtime dependencies
+- Relicensing of third-party agency media (linked with credit; see `docs/MEDIA_PROVENANCE.md`)
 
-## Validation (current worktree)
+## Historical baselines
 
-- Python: **259/259** (`PYTHONWARNINGS=error`)
-- Node: **202/202**
+| Milestone | Notes |
+|-----------|--------|
+| R0.4.0 | Archive lights, watchlist, Apophis — receipt under `receipts/baseline_r0.4.0/` |
+| R0.5.0 development slices | Discovery, Cosmic Signal Deck, Spectrum Gallery (pre-Specials) |
+| Six Specials | Complete / public |
+| Public GitHub | First publish verified; presentation cleanup ongoing |
 
-## Cosmic Signal Deck Slice 1
+Historical README / Start Here text: `docs/history/`.
 
-| Requirement | Status |
-|-------------|--------|
-| Two-column layout; deck atop right panel | Done |
-| Single JSON registry + local API | Done |
-| Reuse Solar System IDs + deep-space aliases | Done |
-| Native media, Play-gated src, no autoplay | Done |
-| Five verified enabled entries | Done |
-| Featured fallback + preference | Done |
-| Independence from MAST / ESASky / NASA media | Done |
+## Validation
 
-## Cosmic Signal Deck Slice 2
-
-| Requirement | Status |
-|-------------|--------|
-| Curated catalog expansion (ten verified additions) | Done |
-| Exact aliases + false-match guards | Done |
-| One primary composite per target | Done |
-| Slice 1 five entries unchanged | Done |
-| No player / layout redesign / proxy | Done |
-| Docs + matching/provenance tests | Done |
-
-Enabled total: **15** (`data_audification` Voyager + 14 `data_sonification` Chandra composites).
-
-Deferred: per-wavelength alternate tracks; bare `andromeda` alias; informal “Hand of God” as match key. Saturn sound-page HTML mislabels Uranus — provenance uses Chandra `photo/2026/sonify11/` album instead.
-
-## Spectrum Gallery Slice 3
-
-| Requirement | Status |
-|-------------|--------|
-| Compact curated Spectrum Gallery UI | Done |
-| Single JSON registry + local match API | Done |
-| Reuse Cosmic Signal target identity | Done |
-| Exact / region / all-sky relevance labels | Done |
-| Online Mode off → zero image requests | Done |
-| Ten verified official images | Done |
-| No proxy / library / database / redesign | Done |
-
-## Cosmic Signal Deck Slice 4 (Solar & Near-Earth)
-
-| Requirement | Status |
-|-------------|--------|
-| Expand existing Cosmic Signal Deck only | Done |
-| Six verified Earth/Venus/Jupiter-system signals | Done |
-| Compact Available signals selector (multi-exact) | Done |
-| Official SVS + Iowa Waves hosts | Done |
-| Rejected weak/unavailable candidates documented | Done |
-| No proxy / new player / database / redesign | Done |
-
-Enabled Cosmic Signal total: **21** (prior 15 + 6 Slice 4).
-
-Deferred: Juno Morse HI (SSL/403); magnetosphere drum (no asset); SOHO sun sounds (404/SSL); Parker solar-wind scream (unverified); Ganymede Waves (CDN 403/404); Io-exact radio (no asset).
-
-## Spectrum Gallery Slice 5 (Same Target, Different Eyes)
-
-| Requirement | Status |
-|-------------|--------|
-| Multiple exact views per target in existing gallery | Done |
-| Compact Available views selector (exact-only) | Done |
-| Prior Slice 3 image remains default | Done |
-| Planck excluded from wavelength buttons | Done |
-| Thirteen verified Chandra-hosted wavelength layers | Done |
-| No proxy / scraper / database / redesign | Done |
-
-Enabled Spectrum Gallery total: **23** (prior 10 + 13 Slice 5).
-
-Multi-view targets: Crab, Cas A, Galactic Center, M87, M31, M74.
+- Python: **513/513** (`python3 -m unittest discover -s tests`)
+- Optional Node: `node --test tests/frontend/*.test.js` (not part of the 513 count)

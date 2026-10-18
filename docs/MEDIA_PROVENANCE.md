@@ -40,3 +40,13 @@ project configuration/registry structure.
 It does **not** relicense third-party imagery, multimedia, survey products,
 or Stellarium. Those retain their respective agency / author terms; Cartography
 typically **links** to them with credit rather than redistributing binaries.
+
+## Project license vs third-party media
+
+The **MIT License** in the repository root applies to Stellar Cartography
+**project-owned** source code, documentation authored for this project, and
+project configuration/registry structure.
+
+It does **not** relicense third-party imagery, multimedia, survey products,
+or Stellarium. Those retain their respective agency / author terms; Cartography
+typically **links** to them with credit rather than redistributing binaries.
