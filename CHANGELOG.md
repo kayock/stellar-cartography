@@ -1,4 +1,9 @@
-# Changelog — FOXAI Stellar Cartography
+# Changelog
+
+## v1.0.0 — 2026-10-18
+
+First stable public release on GitHub: six Specials complete, MIT license, public install docs, screenshot gallery, and CI.
+
 
 ## R0.4.0 — 2026-07-31 — Archive Lights, Watchlist, Apophis Tracker
 

@@ -81,14 +81,16 @@ Remote Control is listening and the URL matches.
 
 ## 6. Tests
 
+Python:
+
 ```bash
 python3 -m unittest discover -s tests -v
+```
 
 Optional frontend tests (Node ≥ 18, no npm packages):
 
 ```bash
 node --test tests/frontend/*.test.js
-```
 ```
 
 Some tests that require a live Stellarium instance may skip or soft-fail when
@@ -101,4 +103,4 @@ Remote Control is unreachable; core Specials and registry tests should run offli
 | UI won’t start | Port in use; Python version |
 | Stellarium “unavailable” | Remote Control URL, firewall, plugin enabled |
 | TTS blocked | Only loopback + `STELLAR_CARTOGRAPHY_TTS_HOSTS` are allowed |
-| Missing Specials | Ensure `app/specials/` and registries were included in the checkout |
+| Missing Specials | Ensure Specials modules under `app/`, registries in `app/data/`, and docs under `docs/` are present after clone |
