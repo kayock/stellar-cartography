@@ -62,5 +62,5 @@ Tracked doc changes scanned for private LAN / home / library paths — **clean**
 |-------|--------|
 | Python 513 | **513 PASS** |
 | Node 254 | **254 PASS** |
-| CI | _(fill)_ |
-| Commit | _(fill)_ |
+| CI | **success** — https://github.com/kayock/stellar-cartography/actions/runs/39101941270 |
+| Commit | `e476314` (`e476314eb45128c9eb65ab0786dd691c9dc65e6a`) |
