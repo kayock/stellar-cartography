@@ -53,6 +53,12 @@ Copy `.env.example` to `.env` if you prefer file-based documentation of variable
 
 ## 4. Start Cartography
 
+If `start.sh` is not executable after clone:
+
+```bash
+chmod +x start.sh start-production.example.sh
+```
+
 ```bash
 ./start.sh --host 127.0.0.1 --port 8775 --stellarium-url "$STELLAR_CARTOGRAPHY_STELLARIUM_URL"
 ```
