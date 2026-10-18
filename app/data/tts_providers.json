@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "tls_note": "Certificate verification is relaxed only for allowlisted local Father Fox (8765) and Kayock Voice (8766) HTTPS endpoints (loopback by default; extra hosts via STELLAR_CARTOGRAPHY_TTS_HOSTS). TLS is not disabled globally.",
+  "max_text_chars": 2500,
+  "request_timeout_sec": 90,
+  "health_timeout_sec": 3,
+  "cache_max_age_sec": 604800,
+  "cache_max_bytes": 83886080,
+  "auto_advance_delay_ms": 800,
+  "providers": {
+    "father_fox": {
+      "id": "father_fox",
+      "label": "Father Fox",
+      "health_url": "https://127.0.0.1:8765/health",
+      "tts_url": "https://127.0.0.1:8766/speak",
+      "tts_kind": "kayock_speak",
+      "default_profile": "father_fox",
+      "default_voice": "am_adam",
+      "allowed_profiles": [
+        "father_fox"
+      ],
+      "allowed_voices": [
+        "am_adam",
+        "af_heart",
+        "am_fenrir",
+        "am_onyx",
+        "bm_fable",
+        "bm_daniel",
+        "bm_george"
+      ],
+      "pure_tts": false,
+      "renderer": "kayock_voice",
+      "note": "Father Fox /api/talk invokes an LLM. Cartography never calls it. Speech is rendered by Kayock Voice POST /speak with profile father_fox."
+    },
+    "kayock_voice": {
+      "id": "kayock_voice",
+      "label": "Kayock Voice",
+      "health_url": "https://127.0.0.1:8766/health",
+      "tts_url": "https://127.0.0.1:8766/speak",
+      "tts_kind": "kayock_speak",
+      "default_profile": "eve",
+      "default_voice": "af_heart",
+      "allowed_profiles": [
+        "eve",
+        "fenrir",
+        "onyx",
+        "fable",
+        "daniel",
+        "george"
+      ],
+      "allowed_voices": [
+        "am_adam",
+        "af_heart",
+        "am_fenrir",
+        "am_onyx",
+        "bm_fable",
+        "bm_daniel",
+        "bm_george"
+      ],
+      "pure_tts": true,
+      "renderer": "kayock_voice",
+      "note": "Kayock Voice POST /speak is a pure text-to-speech renderer. Cartography supplies the exact narration text."
+    }
+  }
+}

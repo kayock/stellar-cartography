@@ -1,0 +1,45 @@
+{
+  "collection": {
+    "items": [
+      {
+        "data": [
+          {
+            "center": "GSFC",
+            "date_created": "2017-02-23T00:00:00Z",
+            "description": "A NASA video tour of Cassiopeia A, a young supernova remnant.",
+            "keywords": ["Cassiopeia A", "Supernova"],
+            "media_type": "video",
+            "nasa_id": "GSFC_20170223_CassiopeiaA",
+            "title": "Cassiopeia A in Multiple Wavelengths"
+          }
+        ],
+        "links": [
+          {
+            "href": "https://images-assets.nasa.gov/video/GSFC_20170223_CassiopeiaA/GSFC_20170223_CassiopeiaA~thumb.jpg",
+            "rel": "preview",
+            "render": "image"
+          }
+        ]
+      },
+      {
+        "data": [
+          {
+            "center": "CXC",
+            "date_created": "2005-06-01T00:00:00Z",
+            "description": "Great Observatories image of Cassiopeia A.",
+            "keywords": ["Cassiopeia A", "Chandra"],
+            "media_type": "image",
+            "nasa_id": "PIA03519",
+            "title": "Cassiopeia A Composite"
+          }
+        ],
+        "links": [
+          {
+            "href": "https://images-assets.nasa.gov/image/PIA03519/PIA03519~thumb.jpg",
+            "rel": "preview"
+          }
+        ]
+      }
+    ]
+  }
+}

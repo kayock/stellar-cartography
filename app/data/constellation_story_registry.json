@@ -1,0 +1,3093 @@
+{
+  "version": 1,
+  "deck_title": "Stories of the Sky",
+  "deck_subtitle": "Modern IAU figures and a small set of sourced sky-culture stories on the live Stellarium session.",
+  "default_sky_culture": "modern",
+  "sky_culture_note": "Cartography story culture and Stellarium's active rendering culture are shown separately. They are synchronized only when the selected story's Stellarium culture id matches the live sky culture.",
+  "unsupported_stellarium_controls": [
+    {
+      "id": "select_constellation_by_object_type",
+      "reason": "GET /api/objects/listobjectsbytype?type=Constellation returns an empty list. Constellations are selectable via search/focus using English names (type=ConstellationMgr)."
+    }
+  ],
+  "entries": [
+    {
+      "id": "orion",
+      "canonical_name": "Orion",
+      "abbreviation": "Ori",
+      "aliases": [
+        "orion",
+        "ori",
+        "the hunter",
+        "orion the hunter"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Orion",
+          "mythology_summary": "In the modern Western / IAU figure, Orion is the hunter. Classical Greek star lore placed this figure among the winter stars opposite Scorpius.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the modern Western / IAU figure, Orion is the hunter. Classical Greek star lore placed this figure among the winter stars opposite Scorpius.",
+      "science_summary": "Orion is a large equatorial constellation. It contains the bright stars Betelgeuse and Rigel and the Orion Molecular Cloud Complex, including the Great Orion Nebula (M42).",
+      "major_objects": [
+        {
+          "id": "betelgeuse",
+          "name": "Betelgeuse",
+          "search_name": "Betelgeuse",
+          "kind": "star",
+          "aliases": [
+            "alpha orionis",
+            "alp ori",
+            "hip 27989"
+          ],
+          "designations": [
+            "α Ori",
+            "HIP 27989"
+          ],
+          "notes": "Red supergiant marking Orion's eastern shoulder.",
+          "fov_deg": 12
+        },
+        {
+          "id": "rigel",
+          "name": "Rigel",
+          "search_name": "Rigel",
+          "kind": "star",
+          "aliases": [
+            "beta orionis",
+            "bet ori",
+            "hip 24436"
+          ],
+          "designations": [
+            "β Ori",
+            "HIP 24436"
+          ],
+          "notes": "Blue-white supergiant at Orion's foot.",
+          "fov_deg": 12
+        },
+        {
+          "id": "bellatrix",
+          "name": "Bellatrix",
+          "search_name": "Bellatrix",
+          "kind": "star",
+          "aliases": [
+            "gamma orionis",
+            "gam ori",
+            "hip 25336"
+          ],
+          "designations": [
+            "γ Ori",
+            "HIP 25336"
+          ],
+          "notes": "Bright star at Orion's western shoulder.",
+          "fov_deg": 12
+        },
+        {
+          "id": "alnilam",
+          "name": "Alnilam",
+          "search_name": "Alnilam",
+          "kind": "star",
+          "aliases": [
+            "epsilon orionis",
+            "eps ori",
+            "hip 26311"
+          ],
+          "designations": [
+            "ε Ori",
+            "HIP 26311"
+          ],
+          "notes": "Central star of Orion's Belt.",
+          "fov_deg": 15
+        }
+      ],
+      "notable_deep_sky_objects": [
+        {
+          "id": "orion_nebula",
+          "name": "Great Orion Nebula",
+          "search_name": "Great Orion Nebula",
+          "kind": "nebula",
+          "aliases": [
+            "m42",
+            "m 42",
+            "ngc 1976",
+            "orion nebula"
+          ],
+          "designations": [
+            "M 42",
+            "NGC 1976"
+          ],
+          "notes": "Bright H II region in Orion's sword. A nearby stellar nursery.",
+          "fov_deg": 3
+        },
+        {
+          "id": "horsehead_nebula",
+          "name": "Horsehead Nebula",
+          "search_name": "Horsehead Nebula",
+          "kind": "nebula",
+          "aliases": [
+            "ic 434",
+            "barnard 33"
+          ],
+          "designations": [
+            "IC 434"
+          ],
+          "notes": "Dark nebula silhouetted against IC 434, south of Alnitak.",
+          "fov_deg": 2
+        }
+      ],
+      "story_order": [
+        "orion",
+        "betelgeuse",
+        "rigel",
+        "alnilam",
+        "orion_nebula"
+      ],
+      "cosmic_signal_tags": [
+        "nebula",
+        "star-forming",
+        "orion"
+      ],
+      "spectrum_tags": [
+        "optical",
+        "nebula"
+      ],
+      "media_tags": [
+        "orion"
+      ],
+      "source_notes": [
+        "IAU constellation Ori.",
+        "Stellarium 26.3 Remote Control resolves the listed search_name values.",
+        "No curated Cosmic Signal or Spectrum Gallery entry is tied to these Orion objects in the current local registries."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "ursa_major",
+      "canonical_name": "Ursa Major",
+      "abbreviation": "UMa",
+      "aliases": [
+        "ursa major",
+        "uma",
+        "great bear",
+        "big dipper"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Ursa Major",
+          "mythology_summary": "The modern IAU figure is the Great Bear. The seven bright stars of the Plough / Big Dipper are an asterism inside this constellation, not a separate IAU constellation.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "The modern IAU figure is the Great Bear. The seven bright stars of the Plough / Big Dipper are an asterism inside this constellation, not a separate IAU constellation.",
+      "science_summary": "Ursa Major is a large northern constellation. Besides the Plough asterism, it contains nearby galaxies including M81, M82, and M101.",
+      "major_objects": [
+        {
+          "id": "dubhe",
+          "name": "Dubhe",
+          "search_name": "Dubhe",
+          "kind": "star",
+          "aliases": [
+            "alpha ursae majoris",
+            "hip 54061"
+          ],
+          "designations": [
+            "α UMa",
+            "HIP 54061"
+          ],
+          "notes": "Pointer star toward Polaris, with Merak.",
+          "fov_deg": 15
+        },
+        {
+          "id": "merak",
+          "name": "Merak",
+          "search_name": "Merak",
+          "kind": "star",
+          "aliases": [
+            "beta ursae majoris",
+            "hip 53910"
+          ],
+          "designations": [
+            "β UMa",
+            "HIP 53910"
+          ],
+          "notes": "The other pointer star of the Plough.",
+          "fov_deg": 15
+        },
+        {
+          "id": "mizar",
+          "name": "Mizar",
+          "search_name": "Mizar",
+          "kind": "star",
+          "aliases": [
+            "zeta ursae majoris",
+            "hip 65378"
+          ],
+          "designations": [
+            "ζ UMa",
+            "HIP 65378"
+          ],
+          "notes": "Naked-eye double with Alcor in the Plough handle.",
+          "fov_deg": 8
+        },
+        {
+          "id": "alkaid",
+          "name": "Alkaid",
+          "search_name": "Alkaid",
+          "kind": "star",
+          "aliases": [
+            "eta ursae majoris",
+            "hip 67301"
+          ],
+          "designations": [
+            "η UMa",
+            "HIP 67301"
+          ],
+          "notes": "End star of the Plough handle.",
+          "fov_deg": 15
+        }
+      ],
+      "notable_deep_sky_objects": [
+        {
+          "id": "m81",
+          "name": "Bode's Galaxy",
+          "search_name": "M 81",
+          "kind": "galaxy",
+          "aliases": [
+            "m81",
+            "m 81",
+            "ngc 3031",
+            "bode's galaxy"
+          ],
+          "designations": [
+            "M 81",
+            "NGC 3031"
+          ],
+          "notes": "Grand-design spiral galaxy in Ursa Major.",
+          "fov_deg": 1.5
+        },
+        {
+          "id": "m82",
+          "name": "Cigar Galaxy",
+          "search_name": "M 82",
+          "kind": "galaxy",
+          "aliases": [
+            "m82",
+            "m 82",
+            "ngc 3034",
+            "cigar galaxy"
+          ],
+          "designations": [
+            "M 82",
+            "NGC 3034"
+          ],
+          "notes": "Starburst galaxy near M81.",
+          "fov_deg": 1.5
+        }
+      ],
+      "story_order": [
+        "ursa_major",
+        "dubhe",
+        "merak",
+        "mizar",
+        "m81"
+      ],
+      "cosmic_signal_tags": [
+        "galaxy",
+        "ursa-major"
+      ],
+      "spectrum_tags": [
+        "galaxy"
+      ],
+      "media_tags": [
+        "ursa-major"
+      ],
+      "source_notes": [
+        "IAU constellation UMa.",
+        "The Big Dipper is an asterism, not a separate constellation.",
+        "No curated Cosmic Signal or Spectrum Gallery entry is tied to these Ursa Major objects in the current local registries."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "cassiopeia",
+      "canonical_name": "Cassiopeia",
+      "abbreviation": "Cas",
+      "aliases": [
+        "cassiopeia",
+        "cas",
+        "cassiopeia the queen"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Cassiopeia",
+          "mythology_summary": "In the modern Western / IAU figure, Cassiopeia is the queen. The constellation is the familiar W-shaped northern pattern.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the modern Western / IAU figure, Cassiopeia is the queen. The constellation is the familiar W-shaped northern pattern.",
+      "science_summary": "Cassiopeia is a circumpolar constellation for mid-northern latitudes. It contains the young supernova remnant Cassiopeia A, a well-studied X-ray and radio source.",
+      "major_objects": [
+        {
+          "id": "schedar",
+          "name": "Schedar",
+          "search_name": "Schedar",
+          "kind": "star",
+          "aliases": [
+            "alpha cassiopeiae",
+            "hip 3179"
+          ],
+          "designations": [
+            "α Cas",
+            "HIP 3179"
+          ],
+          "notes": "Brightest star of the Cassiopeia W.",
+          "fov_deg": 15
+        },
+        {
+          "id": "caph",
+          "name": "Caph",
+          "search_name": "Caph",
+          "kind": "star",
+          "aliases": [
+            "beta cassiopeiae",
+            "hip 746"
+          ],
+          "designations": [
+            "β Cas",
+            "HIP 746"
+          ],
+          "notes": "End star of the Cassiopeia W.",
+          "fov_deg": 15
+        }
+      ],
+      "notable_deep_sky_objects": [
+        {
+          "id": "cassiopeia_a",
+          "name": "Cassiopeia A",
+          "search_name": "Cassiopeia A",
+          "kind": "supernova_remnant",
+          "aliases": [
+            "cas a",
+            "casa",
+            "snr g111.7-02.1"
+          ],
+          "designations": [
+            "Cas A",
+            "SNR G111.7-02.1"
+          ],
+          "notes": "Young supernova remnant in Cassiopeia. Chandra hosts a curated sonification and multiwavelength images for this object.",
+          "fov_deg": 1
+        }
+      ],
+      "story_order": [
+        "cassiopeia",
+        "schedar",
+        "caph",
+        "cassiopeia_a"
+      ],
+      "cosmic_signal_tags": [
+        "supernova",
+        "x-ray",
+        "cassiopeia"
+      ],
+      "spectrum_tags": [
+        "x-ray",
+        "optical",
+        "infrared"
+      ],
+      "media_tags": [
+        "cassiopeia"
+      ],
+      "source_notes": [
+        "IAU constellation Cas.",
+        "Cassiopeia A is a Stellarium-selectable supernova remnant and a Cosmic Signal / Spectrum Gallery target."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "scorpius",
+      "canonical_name": "Scorpius",
+      "abbreviation": "Sco",
+      "aliases": [
+        "scorpius",
+        "sco",
+        "scorpio",
+        "the scorpion"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Scorpius",
+          "mythology_summary": "In the modern Western / IAU figure, Scorpius is the scorpion. Classical star lore places it opposite Orion.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the modern Western / IAU figure, Scorpius is the scorpion. Classical star lore places it opposite Orion.",
+      "science_summary": "Scorpius is a bright zodiacal constellation near the galactic plane. Antares is its lucida; M4 is a nearby globular cluster.",
+      "major_objects": [
+        {
+          "id": "antares",
+          "name": "Antares",
+          "search_name": "Antares",
+          "kind": "star",
+          "aliases": [
+            "alpha scorpii",
+            "hip 80763"
+          ],
+          "designations": [
+            "α Sco",
+            "HIP 80763"
+          ],
+          "notes": "Red supergiant at the heart of Scorpius.",
+          "fov_deg": 12
+        },
+        {
+          "id": "shaula",
+          "name": "Shaula",
+          "search_name": "Shaula",
+          "kind": "star",
+          "aliases": [
+            "lambda scorpii",
+            "hip 85927"
+          ],
+          "designations": [
+            "λ Sco",
+            "HIP 85927"
+          ],
+          "notes": "Bright star in the scorpion's stinger.",
+          "fov_deg": 12
+        }
+      ],
+      "notable_deep_sky_objects": [
+        {
+          "id": "m4",
+          "name": "Crab Globular Cluster",
+          "search_name": "M 4",
+          "kind": "globular_cluster",
+          "aliases": [
+            "m4",
+            "m 4",
+            "ngc 6121"
+          ],
+          "designations": [
+            "M 4",
+            "NGC 6121"
+          ],
+          "notes": "Nearby globular cluster west of Antares. Stellarium's localized name is Crab Globular Cluster; it is not the Crab Nebula.",
+          "fov_deg": 1
+        }
+      ],
+      "story_order": [
+        "scorpius",
+        "antares",
+        "shaula",
+        "m4"
+      ],
+      "cosmic_signal_tags": [
+        "star",
+        "globular-cluster",
+        "scorpius"
+      ],
+      "spectrum_tags": [
+        "optical"
+      ],
+      "media_tags": [
+        "scorpius"
+      ],
+      "source_notes": [
+        "IAU constellation Sco.",
+        "No curated Cosmic Signal or Spectrum Gallery entry is tied to these Scorpius objects in the current local registries."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "sagittarius",
+      "canonical_name": "Sagittarius",
+      "abbreviation": "Sgr",
+      "aliases": [
+        "sagittarius",
+        "sgr",
+        "the archer"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Sagittarius",
+          "mythology_summary": "In the modern Western / IAU figure, Sagittarius is the archer. The Teapot asterism lies in this constellation toward the inner Milky Way.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the modern Western / IAU figure, Sagittarius is the archer. The Teapot asterism lies in this constellation toward the inner Milky Way.",
+      "science_summary": "Sagittarius lies toward the Galactic Center. Stellarium can select nearby nebulae and Sagittarius A East; it does not expose a selectable Sgr A* black-hole object in this session.",
+      "major_objects": [
+        {
+          "id": "kaus_australis",
+          "name": "Kaus Australis",
+          "search_name": "Kaus Australis",
+          "kind": "star",
+          "aliases": [
+            "epsilon sagittarii",
+            "hip 90185"
+          ],
+          "designations": [
+            "ε Sgr",
+            "HIP 90185"
+          ],
+          "notes": "Brightest star of Sagittarius, in the Teapot.",
+          "fov_deg": 15
+        },
+        {
+          "id": "nunki",
+          "name": "Nunki",
+          "search_name": "Nunki",
+          "kind": "star",
+          "aliases": [
+            "sigma sagittarii",
+            "hip 92855"
+          ],
+          "designations": [
+            "σ Sgr",
+            "HIP 92855"
+          ],
+          "notes": "Bright star on the Teapot handle.",
+          "fov_deg": 15
+        }
+      ],
+      "notable_deep_sky_objects": [
+        {
+          "id": "lagoon_nebula",
+          "name": "Lagoon Nebula",
+          "search_name": "Lagoon Nebula",
+          "kind": "nebula",
+          "aliases": [
+            "m8",
+            "m 8"
+          ],
+          "designations": [
+            "M 8"
+          ],
+          "notes": "Bright star-forming region in Sagittarius.",
+          "fov_deg": 2
+        },
+        {
+          "id": "trifid_nebula",
+          "name": "Trifid Nebula",
+          "search_name": "Trifid Nebula",
+          "kind": "nebula",
+          "aliases": [
+            "m20",
+            "m 20",
+            "ngc 6514"
+          ],
+          "designations": [
+            "M 20",
+            "NGC 6514"
+          ],
+          "notes": "Emission and dark-lane nebula near the Lagoon.",
+          "fov_deg": 1.5
+        },
+        {
+          "id": "sagittarius_a_east",
+          "name": "Sagittarius A East",
+          "search_name": "Sagittarius A East",
+          "kind": "supernova_remnant",
+          "aliases": [
+            "sgr a east",
+            "snr g000.0+00.0"
+          ],
+          "designations": [
+            "SNR G000.0+00.0"
+          ],
+          "notes": "Stellarium-selectable supernova remnant at the Galactic Center. The curated Cosmic Signal for Sagittarius A* / the Galactic Center is related, not a recording of this remnant alone. Sgr A* itself is not selectable here.",
+          "fov_deg": 1
+        }
+      ],
+      "story_order": [
+        "sagittarius",
+        "kaus_australis",
+        "lagoon_nebula",
+        "sagittarius_a_east"
+      ],
+      "cosmic_signal_tags": [
+        "galactic-center",
+        "x-ray",
+        "sagittarius"
+      ],
+      "spectrum_tags": [
+        "x-ray",
+        "infrared",
+        "galactic-center"
+      ],
+      "media_tags": [
+        "sagittarius"
+      ],
+      "source_notes": [
+        "IAU constellation Sgr.",
+        "Focus on 'Sagittarius A*' does not select an object in Stellarium 26.3; 'Sagittarius A East' does.",
+        "Galactic Center Chandra sonification and Spectrum Gallery mosaics are associated as related Galactic Center material."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "taurus",
+      "story_kind": "iau_constellation",
+      "culture_id": "modern",
+      "canonical_name": "Taurus",
+      "abbreviation": "Tau",
+      "aliases": [
+        "taurus",
+        "tau",
+        "the bull"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Taurus",
+          "mythology_summary": "In the modern Western / IAU figure, Taurus is the bull. Classical Greek star lore placed the Hyades in the bull's head and the Pleiades on its shoulder.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the modern Western / IAU figure, Taurus is the bull. Classical Greek star lore placed the Hyades in the bull's head and the Pleiades on its shoulder.",
+      "science_summary": "Taurus is a zodiacal constellation. Aldebaran is its lucida. It contains the Pleiades and Hyades open clusters and the Crab Nebula (M1), a young supernova remnant.",
+      "major_objects": [
+        {
+          "id": "aldebaran",
+          "name": "Aldebaran",
+          "search_name": "Aldebaran",
+          "kind": "star",
+          "aliases": [
+            "alpha tauri",
+            "hip 21421"
+          ],
+          "designations": [
+            "α Tau",
+            "HIP 21421"
+          ],
+          "notes": "Orange giant marking the bull's eye.",
+          "fov_deg": 12
+        },
+        {
+          "id": "elNath",
+          "name": "El Nath",
+          "search_name": "El Nath",
+          "kind": "star",
+          "aliases": [
+            "beta tauri",
+            "hip 25428"
+          ],
+          "designations": [
+            "β Tau",
+            "HIP 25428"
+          ],
+          "notes": "Bright star at the tip of one horn.",
+          "fov_deg": 12
+        }
+      ],
+      "notable_deep_sky_objects": [
+        {
+          "id": "pleiades",
+          "name": "Pleiades",
+          "search_name": "Pleiades",
+          "kind": "cluster",
+          "aliases": [
+            "m45",
+            "m 45",
+            "seven sisters",
+            "subaru"
+          ],
+          "designations": [
+            "M 45"
+          ],
+          "notes": "Nearby open cluster. Several sky traditions name this group independently of the IAU bull.",
+          "fov_deg": 4
+        },
+        {
+          "id": "crab_nebula",
+          "name": "Crab Nebula",
+          "search_name": "Crab Nebula",
+          "kind": "supernova_remnant",
+          "aliases": [
+            "m1",
+            "m 1",
+            "ngc 1952"
+          ],
+          "designations": [
+            "M 1",
+            "NGC 1952"
+          ],
+          "notes": "Remnant of the 1054 supernova. Chandra hosts a curated sonification and multiwavelength images.",
+          "fov_deg": 2
+        }
+      ],
+      "story_order": [
+        "taurus",
+        "aldebaran",
+        "pleiades",
+        "crab_nebula"
+      ],
+      "cosmic_signal_tags": [
+        "taurus",
+        "crab nebula"
+      ],
+      "spectrum_tags": [
+        "optical",
+        "x-ray",
+        "supernova remnant"
+      ],
+      "media_tags": [
+        "taurus",
+        "pleiades",
+        "crab"
+      ],
+      "source_notes": [
+        "IAU constellation Tau.",
+        "Stellarium 26.3 Remote Control resolves the listed search_name values.",
+        "Crab Nebula matches the existing Cosmic Signal and Spectrum Gallery entries."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "gemini",
+      "story_kind": "iau_constellation",
+      "culture_id": "modern",
+      "canonical_name": "Gemini",
+      "abbreviation": "Gem",
+      "aliases": [
+        "gemini",
+        "gem",
+        "the twins"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Gemini",
+          "mythology_summary": "In the modern Western / IAU figure, Gemini is the twins. Castor and Pollux are the two bright heads of the figure.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the modern Western / IAU figure, Gemini is the twins. Castor and Pollux are the two bright heads of the figure.",
+      "science_summary": "Gemini is a zodiacal constellation. Castor is a multiple star system; Pollux is an evolved orange giant. The ecliptic crosses this region, so planets and the Moon often pass nearby.",
+      "major_objects": [
+        {
+          "id": "castor",
+          "name": "Castor",
+          "search_name": "Castor",
+          "kind": "star",
+          "aliases": [
+            "alpha geminorum",
+            "hip 36850"
+          ],
+          "designations": [
+            "α Gem",
+            "HIP 36850"
+          ],
+          "notes": "Visual multiple star at one twin's head.",
+          "fov_deg": 12
+        },
+        {
+          "id": "pollux",
+          "name": "Pollux",
+          "search_name": "Pollux",
+          "kind": "star",
+          "aliases": [
+            "beta geminorum",
+            "hip 37826"
+          ],
+          "designations": [
+            "β Gem",
+            "HIP 37826"
+          ],
+          "notes": "Orange giant; the brighter of the two twins as seen from Earth.",
+          "fov_deg": 12
+        }
+      ],
+      "notable_deep_sky_objects": [],
+      "story_order": [
+        "gemini",
+        "castor",
+        "pollux"
+      ],
+      "cosmic_signal_tags": [
+        "gemini"
+      ],
+      "spectrum_tags": [
+        "optical"
+      ],
+      "media_tags": [
+        "gemini"
+      ],
+      "source_notes": [
+        "IAU constellation Gem.",
+        "Stellarium 26.3 Remote Control resolves the listed search_name values."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "leo",
+      "story_kind": "iau_constellation",
+      "culture_id": "modern",
+      "canonical_name": "Leo",
+      "abbreviation": "Leo",
+      "aliases": [
+        "leo",
+        "the lion"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Leo",
+          "mythology_summary": "In the modern Western / IAU figure, Leo is the lion. The Sickle asterism outlines the head and chest.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the modern Western / IAU figure, Leo is the lion. The Sickle asterism outlines the head and chest.",
+      "science_summary": "Leo is a zodiacal constellation. Regulus lies close to the ecliptic. Several nearby galaxies appear in this region, but this story uses only Stellarium-verified bright stars.",
+      "major_objects": [
+        {
+          "id": "regulus",
+          "name": "Regulus",
+          "search_name": "Regulus",
+          "kind": "star",
+          "aliases": [
+            "alpha leonis",
+            "hip 49669"
+          ],
+          "designations": [
+            "α Leo",
+            "HIP 49669"
+          ],
+          "notes": "Blue-white star at the heart of the Sickle.",
+          "fov_deg": 12
+        },
+        {
+          "id": "algieba",
+          "name": "Algieba",
+          "search_name": "Algieba",
+          "kind": "star",
+          "aliases": [
+            "gamma leonis"
+          ],
+          "designations": [
+            "γ Leo"
+          ],
+          "notes": "Bright double star in the Sickle.",
+          "fov_deg": 12
+        },
+        {
+          "id": "denebola",
+          "name": "Denebola",
+          "search_name": "Denebola",
+          "kind": "star",
+          "aliases": [
+            "beta leonis"
+          ],
+          "designations": [
+            "β Leo"
+          ],
+          "notes": "Star marking the lion's tail.",
+          "fov_deg": 12
+        }
+      ],
+      "notable_deep_sky_objects": [],
+      "story_order": [
+        "leo",
+        "regulus",
+        "algieba",
+        "denebola"
+      ],
+      "cosmic_signal_tags": [
+        "leo"
+      ],
+      "spectrum_tags": [
+        "optical"
+      ],
+      "media_tags": [
+        "leo"
+      ],
+      "source_notes": [
+        "IAU constellation Leo.",
+        "Stellarium 26.3 Remote Control resolves the listed search_name values."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "cygnus",
+      "story_kind": "iau_constellation",
+      "culture_id": "modern",
+      "canonical_name": "Cygnus",
+      "abbreviation": "Cyg",
+      "aliases": [
+        "cygnus",
+        "cyg",
+        "the swan",
+        "northern cross"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Cygnus",
+          "mythology_summary": "In the modern Western / IAU figure, Cygnus is the swan. The Northern Cross is an asterism inside this constellation, not a separate IAU constellation.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the modern Western / IAU figure, Cygnus is the swan. The Northern Cross is an asterism inside this constellation, not a separate IAU constellation.",
+      "science_summary": "Cygnus lies along the northern Milky Way. Deneb is a distant luminous supergiant. Albireo is a contrasting double star at the swan's head. The North America Nebula is a nearby H II region.",
+      "major_objects": [
+        {
+          "id": "deneb",
+          "name": "Deneb",
+          "search_name": "Deneb",
+          "kind": "star",
+          "aliases": [
+            "alpha cygni",
+            "hip 102098"
+          ],
+          "designations": [
+            "α Cyg",
+            "HIP 102098"
+          ],
+          "notes": "Luminous supergiant at the swan's tail.",
+          "fov_deg": 12
+        },
+        {
+          "id": "sadr",
+          "name": "Sadr",
+          "search_name": "Sadr",
+          "kind": "star",
+          "aliases": [
+            "gamma cygni"
+          ],
+          "designations": [
+            "γ Cyg"
+          ],
+          "notes": "Star at the center of the Northern Cross.",
+          "fov_deg": 12
+        },
+        {
+          "id": "albireo",
+          "name": "Albireo",
+          "search_name": "Albireo",
+          "kind": "star",
+          "aliases": [
+            "beta cygni"
+          ],
+          "designations": [
+            "β Cyg"
+          ],
+          "notes": "Famous color-contrast double star.",
+          "fov_deg": 8
+        }
+      ],
+      "notable_deep_sky_objects": [
+        {
+          "id": "north_america_nebula",
+          "name": "North America Nebula",
+          "search_name": "North America Nebula",
+          "kind": "nebula",
+          "aliases": [
+            "ngc 7000"
+          ],
+          "designations": [
+            "NGC 7000"
+          ],
+          "notes": "H II region east of Deneb. The name describes an outline, not a cultural figure.",
+          "fov_deg": 4
+        }
+      ],
+      "story_order": [
+        "cygnus",
+        "deneb",
+        "albireo",
+        "north_america_nebula"
+      ],
+      "cosmic_signal_tags": [
+        "cygnus"
+      ],
+      "spectrum_tags": [
+        "optical",
+        "nebula"
+      ],
+      "media_tags": [
+        "cygnus"
+      ],
+      "source_notes": [
+        "IAU constellation Cyg.",
+        "Stellarium 26.3 Remote Control resolves the listed search_name values."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "lyra",
+      "story_kind": "iau_constellation",
+      "culture_id": "modern",
+      "canonical_name": "Lyra",
+      "abbreviation": "Lyr",
+      "aliases": [
+        "lyra",
+        "lyr",
+        "the lyre"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Lyra",
+          "mythology_summary": "In the modern Western / IAU figure, Lyra is the lyre. Vega is one of the brightest stars in the northern sky.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the modern Western / IAU figure, Lyra is the lyre. Vega is one of the brightest stars in the northern sky.",
+      "science_summary": "Lyra is a small northern constellation. Vega is a nearby A-type star. Sheliak and Sulafat help mark the small parallelogram of the lyre.",
+      "major_objects": [
+        {
+          "id": "vega",
+          "name": "Vega",
+          "search_name": "Vega",
+          "kind": "star",
+          "aliases": [
+            "alpha lyrae",
+            "hip 91262"
+          ],
+          "designations": [
+            "α Lyr",
+            "HIP 91262"
+          ],
+          "notes": "Bright nearby star; also 织女一 in the Stellarium Chinese Xingguan list.",
+          "fov_deg": 12
+        },
+        {
+          "id": "sheliak",
+          "name": "Sheliak",
+          "search_name": "Sheliak",
+          "kind": "star",
+          "aliases": [
+            "beta lyrae"
+          ],
+          "designations": [
+            "β Lyr"
+          ],
+          "notes": "Eclipsing binary on the lyre's frame.",
+          "fov_deg": 12
+        },
+        {
+          "id": "sulafat",
+          "name": "Sulafat",
+          "search_name": "Sulafat",
+          "kind": "star",
+          "aliases": [
+            "gamma lyrae"
+          ],
+          "designations": [
+            "γ Lyr"
+          ],
+          "notes": "Star completing the small lyre quadrilateral.",
+          "fov_deg": 12
+        }
+      ],
+      "notable_deep_sky_objects": [],
+      "story_order": [
+        "lyra",
+        "vega",
+        "sheliak",
+        "sulafat"
+      ],
+      "cosmic_signal_tags": [
+        "lyra"
+      ],
+      "spectrum_tags": [
+        "optical"
+      ],
+      "media_tags": [
+        "lyra",
+        "vega"
+      ],
+      "source_notes": [
+        "IAU constellation Lyr.",
+        "Stellarium 26.3 Remote Control resolves the listed search_name values."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "aquila",
+      "story_kind": "iau_constellation",
+      "culture_id": "modern",
+      "canonical_name": "Aquila",
+      "abbreviation": "Aql",
+      "aliases": [
+        "aquila",
+        "aql",
+        "the eagle"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Aquila",
+          "mythology_summary": "In the modern Western / IAU figure, Aquila is the eagle. Altair is its lucida.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the modern Western / IAU figure, Aquila is the eagle. Altair is its lucida.",
+      "science_summary": "Aquila lies on the Milky Way. Altair is a nearby rapidly rotating A-type star. Tarazed and Alshain form a short line with Altair; those three stars are 河鼓 in the Stellarium Chinese Xingguan list.",
+      "major_objects": [
+        {
+          "id": "altair",
+          "name": "Altair",
+          "search_name": "Altair",
+          "kind": "star",
+          "aliases": [
+            "alpha aquilae",
+            "hip 97649",
+            "河鼓二",
+            "牛郎"
+          ],
+          "designations": [
+            "α Aql",
+            "HIP 97649"
+          ],
+          "notes": "Nearby bright star. Stellarium's Chinese star list also records 河鼓二 / 牛郎.",
+          "fov_deg": 12
+        },
+        {
+          "id": "tarazed",
+          "name": "Tarazed",
+          "search_name": "Tarazed",
+          "kind": "star",
+          "aliases": [
+            "gamma aquilae",
+            "hip 98036"
+          ],
+          "designations": [
+            "γ Aql",
+            "HIP 98036"
+          ],
+          "notes": "Orange giant; 河鼓一 in the Stellarium Chinese list.",
+          "fov_deg": 12
+        },
+        {
+          "id": "alshain",
+          "name": "Alshain",
+          "search_name": "Alshain",
+          "kind": "star",
+          "aliases": [
+            "beta aquilae",
+            "hip 97278"
+          ],
+          "designations": [
+            "β Aql",
+            "HIP 97278"
+          ],
+          "notes": "Fainter companion in the line; 河鼓三.",
+          "fov_deg": 12
+        }
+      ],
+      "notable_deep_sky_objects": [],
+      "story_order": [
+        "aquila",
+        "altair",
+        "tarazed",
+        "alshain"
+      ],
+      "cosmic_signal_tags": [
+        "aquila"
+      ],
+      "spectrum_tags": [
+        "optical"
+      ],
+      "media_tags": [
+        "aquila",
+        "altair"
+      ],
+      "source_notes": [
+        "IAU constellation Aql.",
+        "Stellarium 26.3 Remote Control resolves the listed search_name values."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "andromeda",
+      "story_kind": "iau_constellation",
+      "culture_id": "modern",
+      "canonical_name": "Andromeda",
+      "abbreviation": "And",
+      "aliases": [
+        "andromeda",
+        "and"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Andromeda",
+          "mythology_summary": "In the modern Western / IAU figure, Andromeda is a chained figure from classical Greek star lore. The IAU constellation is a sky area, not a single galaxy.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the modern Western / IAU figure, Andromeda is a chained figure from classical Greek star lore. The IAU constellation is a sky area, not a single galaxy.",
+      "science_summary": "Andromeda contains the Andromeda Galaxy (M31), the nearest large spiral galaxy. Alpheratz marks one corner of the Great Square of Pegasus while belonging to Andromeda in the IAU system.",
+      "major_objects": [
+        {
+          "id": "alpheratz",
+          "name": "Alpheratz",
+          "search_name": "Alpheratz",
+          "kind": "star",
+          "aliases": [
+            "alpha andromedae",
+            "sirrah"
+          ],
+          "designations": [
+            "α And"
+          ],
+          "notes": "Star shared visually with the Great Square of Pegasus.",
+          "fov_deg": 15
+        },
+        {
+          "id": "mirach",
+          "name": "Mirach",
+          "search_name": "Mirach",
+          "kind": "star",
+          "aliases": [
+            "beta andromedae"
+          ],
+          "designations": [
+            "β And"
+          ],
+          "notes": "Orange giant used as a pointer toward M31.",
+          "fov_deg": 12
+        }
+      ],
+      "notable_deep_sky_objects": [
+        {
+          "id": "m31",
+          "name": "Andromeda Galaxy",
+          "search_name": "Andromeda Galaxy",
+          "kind": "galaxy",
+          "aliases": [
+            "m31",
+            "m 31",
+            "ngc 224"
+          ],
+          "designations": [
+            "M 31",
+            "NGC 224"
+          ],
+          "notes": "Nearest large spiral galaxy. A curated Cosmic Signal and Spectrum Gallery views exist for this object.",
+          "fov_deg": 3
+        }
+      ],
+      "story_order": [
+        "andromeda",
+        "alpheratz",
+        "m31"
+      ],
+      "cosmic_signal_tags": [
+        "andromeda",
+        "m31"
+      ],
+      "spectrum_tags": [
+        "optical",
+        "x-ray",
+        "galaxy"
+      ],
+      "media_tags": [
+        "andromeda",
+        "m31"
+      ],
+      "source_notes": [
+        "IAU constellation And.",
+        "Stellarium 26.3 Remote Control resolves the listed search_name values.",
+        "M31 matches existing Cosmic Signal and Spectrum Gallery entries."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "perseus",
+      "story_kind": "iau_constellation",
+      "culture_id": "modern",
+      "canonical_name": "Perseus",
+      "abbreviation": "Per",
+      "aliases": [
+        "perseus",
+        "per"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Perseus",
+          "mythology_summary": "In the modern Western / IAU figure, Perseus is a hero from classical Greek star lore. Algol is the variable star long associated with the figure's head.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the modern Western / IAU figure, Perseus is a hero from classical Greek star lore. Algol is the variable star long associated with the figure's head.",
+      "science_summary": "Perseus lies in the northern Milky Way. Algol is an eclipsing binary. The Double Cluster (NGC 869/884) is a pair of open clusters along the Perseus Arm.",
+      "major_objects": [
+        {
+          "id": "mirfak",
+          "name": "Mirfak",
+          "search_name": "Mirfak",
+          "kind": "star",
+          "aliases": [
+            "alpha persei"
+          ],
+          "designations": [
+            "α Per"
+          ],
+          "notes": "Brightest star of Perseus; center of a nearby moving group.",
+          "fov_deg": 12
+        },
+        {
+          "id": "algol",
+          "name": "Algol",
+          "search_name": "Algol",
+          "kind": "star",
+          "aliases": [
+            "beta persei"
+          ],
+          "designations": [
+            "β Per"
+          ],
+          "notes": "Prototype eclipsing binary.",
+          "fov_deg": 10
+        }
+      ],
+      "notable_deep_sky_objects": [
+        {
+          "id": "double_cluster",
+          "name": "Double Cluster",
+          "search_name": "Double Cluster",
+          "kind": "cluster",
+          "aliases": [
+            "ngc 869",
+            "h persei",
+            "chi persei"
+          ],
+          "designations": [
+            "NGC 869",
+            "NGC 884"
+          ],
+          "notes": "Pair of open clusters in Perseus.",
+          "fov_deg": 3
+        }
+      ],
+      "story_order": [
+        "perseus",
+        "mirfak",
+        "algol",
+        "double_cluster"
+      ],
+      "cosmic_signal_tags": [
+        "perseus"
+      ],
+      "spectrum_tags": [
+        "optical"
+      ],
+      "media_tags": [
+        "perseus"
+      ],
+      "source_notes": [
+        "IAU constellation Per.",
+        "Stellarium 26.3 Remote Control resolves the listed search_name values."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "canis_major",
+      "story_kind": "iau_constellation",
+      "culture_id": "modern",
+      "canonical_name": "Canis Major",
+      "abbreviation": "CMa",
+      "aliases": [
+        "canis major",
+        "cma",
+        "great dog"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Canis Major",
+          "mythology_summary": "In the modern Western / IAU figure, Canis Major is the greater dog. Sirius is the brightest star in the night sky.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the modern Western / IAU figure, Canis Major is the greater dog. Sirius is the brightest star in the night sky.",
+      "science_summary": "Canis Major is a southern constellation as seen from mid-northern latitudes. Sirius is a nearby A-type binary. Adhara, Wezen, and Mirzam are luminous more-distant stars in the same IAU area.",
+      "major_objects": [
+        {
+          "id": "sirius",
+          "name": "Sirius",
+          "search_name": "Sirius",
+          "kind": "star",
+          "aliases": [
+            "alpha canis majoris",
+            "hip 32349"
+          ],
+          "designations": [
+            "α CMa",
+            "HIP 32349"
+          ],
+          "notes": "Brightest night-sky star; a nearby binary.",
+          "fov_deg": 15
+        },
+        {
+          "id": "adhara",
+          "name": "Adhara",
+          "search_name": "Adhara",
+          "kind": "star",
+          "aliases": [
+            "epsilon canis majoris"
+          ],
+          "designations": [
+            "ε CMa"
+          ],
+          "notes": "Luminous star in the dog's body.",
+          "fov_deg": 12
+        },
+        {
+          "id": "mirzam",
+          "name": "Mirzam",
+          "search_name": "Mirzam",
+          "kind": "star",
+          "aliases": [
+            "beta canis majoris"
+          ],
+          "designations": [
+            "β CMa"
+          ],
+          "notes": "Bright star preceding Sirius in the sky's daily motion.",
+          "fov_deg": 12
+        }
+      ],
+      "notable_deep_sky_objects": [],
+      "story_order": [
+        "canis_major",
+        "sirius",
+        "adhara"
+      ],
+      "cosmic_signal_tags": [
+        "canis major"
+      ],
+      "spectrum_tags": [
+        "optical"
+      ],
+      "media_tags": [
+        "canis_major",
+        "sirius"
+      ],
+      "source_notes": [
+        "IAU constellation CMa.",
+        "Stellarium 26.3 Remote Control resolves the listed search_name values."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "carina",
+      "story_kind": "iau_constellation",
+      "culture_id": "modern",
+      "canonical_name": "Carina",
+      "abbreviation": "Car",
+      "aliases": [
+        "carina",
+        "car",
+        "the keel"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Carina",
+          "mythology_summary": "In the modern IAU figure, Carina is the keel of the ship Argo, which was later divided into Carina, Puppis, and Vela.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the modern IAU figure, Carina is the keel of the ship Argo, which was later divided into Carina, Puppis, and Vela.",
+      "science_summary": "Carina is a rich southern Milky Way constellation. Canopus is the second-brightest night-sky star. η Car and NGC 3372 mark a massive star-forming region. Stellarium focuses η Car and NGC 3372; the English phrase 'Eta Carinae' was not accepted as a search target in this session.",
+      "major_objects": [
+        {
+          "id": "canopus",
+          "name": "Canopus",
+          "search_name": "Canopus",
+          "kind": "star",
+          "aliases": [
+            "alpha carinae",
+            "hip 30438"
+          ],
+          "designations": [
+            "α Car",
+            "HIP 30438"
+          ],
+          "notes": "Second-brightest night-sky star.",
+          "fov_deg": 15
+        },
+        {
+          "id": "eta_car",
+          "name": "η Car",
+          "search_name": "η Car",
+          "kind": "star",
+          "aliases": [
+            "eta carinae",
+            "hip 41307"
+          ],
+          "designations": [
+            "η Car",
+            "HIP 41307"
+          ],
+          "notes": "Luminous unstable massive star. Use the Stellarium search name η Car.",
+          "fov_deg": 8
+        }
+      ],
+      "notable_deep_sky_objects": [
+        {
+          "id": "ngc_3372",
+          "name": "NGC 3372",
+          "search_name": "NGC 3372",
+          "kind": "nebula",
+          "aliases": [
+            "keyhole nebula",
+            "carina nebula"
+          ],
+          "designations": [
+            "NGC 3372"
+          ],
+          "notes": "Bright southern H II region. Stellarium also accepts Keyhole Nebula for a dark lane inside this complex.",
+          "fov_deg": 3
+        }
+      ],
+      "story_order": [
+        "carina",
+        "canopus",
+        "eta_car",
+        "ngc_3372"
+      ],
+      "cosmic_signal_tags": [
+        "carina"
+      ],
+      "spectrum_tags": [
+        "optical",
+        "nebula"
+      ],
+      "media_tags": [
+        "carina"
+      ],
+      "source_notes": [
+        "IAU constellation Car.",
+        "Stellarium 26.3 Remote Control resolves the listed search_name values."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "crux",
+      "story_kind": "iau_constellation",
+      "culture_id": "modern",
+      "canonical_name": "Crux",
+      "abbreviation": "Cru",
+      "aliases": [
+        "crux",
+        "cru",
+        "southern cross"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Crux",
+          "mythology_summary": "In the modern IAU figure, Crux is the Southern Cross. It is a small constellation, not merely an asterism inside Centaurus.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the modern IAU figure, Crux is the Southern Cross. It is a small constellation, not merely an asterism inside Centaurus.",
+      "science_summary": "Crux is the smallest IAU constellation. Acrux, Mimosa, and Gacrux form the familiar cross used with the Pointers for southern orientation.",
+      "major_objects": [
+        {
+          "id": "acrux",
+          "name": "Acrux",
+          "search_name": "Acrux",
+          "kind": "star",
+          "aliases": [
+            "alpha crucis"
+          ],
+          "designations": [
+            "α Cru"
+          ],
+          "notes": "Southern end of the cross.",
+          "fov_deg": 12
+        },
+        {
+          "id": "mimosa",
+          "name": "Mimosa",
+          "search_name": "Mimosa",
+          "kind": "star",
+          "aliases": [
+            "beta crucis"
+          ],
+          "designations": [
+            "β Cru"
+          ],
+          "notes": "Eastern arm of the cross.",
+          "fov_deg": 12
+        },
+        {
+          "id": "gacrux",
+          "name": "Gacrux",
+          "search_name": "Gacrux",
+          "kind": "star",
+          "aliases": [
+            "gamma crucis"
+          ],
+          "designations": [
+            "γ Cru"
+          ],
+          "notes": "Northern arm; an orange giant.",
+          "fov_deg": 12
+        }
+      ],
+      "notable_deep_sky_objects": [],
+      "story_order": [
+        "crux",
+        "acrux",
+        "mimosa",
+        "gacrux"
+      ],
+      "cosmic_signal_tags": [
+        "crux"
+      ],
+      "spectrum_tags": [
+        "optical"
+      ],
+      "media_tags": [
+        "crux"
+      ],
+      "source_notes": [
+        "IAU constellation Cru.",
+        "Stellarium 26.3 Remote Control resolves the listed search_name values."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "virgo",
+      "story_kind": "iau_constellation",
+      "culture_id": "modern",
+      "canonical_name": "Virgo",
+      "abbreviation": "Vir",
+      "aliases": [
+        "virgo",
+        "vir"
+      ],
+      "sky_culture": "modern",
+      "cultures": [
+        {
+          "id": "modern",
+          "name": "Modern IAU",
+          "constellation_name": "Virgo",
+          "mythology_summary": "In the modern Western / IAU figure, Virgo is a maiden. Spica is the ear of grain in that figure.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the modern Western / IAU figure, Virgo is a maiden. Spica is the ear of grain in that figure.",
+      "science_summary": "Virgo is a large zodiacal constellation. Spica is a close binary. The Virgo Cluster of galaxies lies in this area; M87 is a giant elliptical with a relativistic jet and curated Chandra media.",
+      "major_objects": [
+        {
+          "id": "spica",
+          "name": "Spica",
+          "search_name": "Spica",
+          "kind": "star",
+          "aliases": [
+            "alpha virginis"
+          ],
+          "designations": [
+            "α Vir"
+          ],
+          "notes": "Bright binary star; lucida of Virgo.",
+          "fov_deg": 12
+        }
+      ],
+      "notable_deep_sky_objects": [
+        {
+          "id": "m87",
+          "name": "M87",
+          "search_name": "M87",
+          "kind": "galaxy",
+          "aliases": [
+            "messier 87",
+            "ngc 4486",
+            "virgo a"
+          ],
+          "designations": [
+            "M 87",
+            "NGC 4486"
+          ],
+          "notes": "Giant elliptical in the Virgo Cluster. A curated Cosmic Signal and Spectrum Gallery views exist for this object.",
+          "fov_deg": 2
+        }
+      ],
+      "story_order": [
+        "virgo",
+        "spica",
+        "m87"
+      ],
+      "cosmic_signal_tags": [
+        "virgo",
+        "m87"
+      ],
+      "spectrum_tags": [
+        "optical",
+        "x-ray",
+        "radio",
+        "galaxy"
+      ],
+      "media_tags": [
+        "virgo",
+        "m87"
+      ],
+      "source_notes": [
+        "IAU constellation Vir.",
+        "Stellarium 26.3 Remote Control resolves the listed search_name values.",
+        "M87 matches existing Cosmic Signal and Spectrum Gallery entries."
+      ],
+      "enabled": true
+    },
+    {
+      "id": "chinese_beidou",
+      "story_kind": "cultural_sky_story",
+      "culture_id": "chinese",
+      "culture_name": "Chinese",
+      "tradition_name": "Chinese Xingguan tradition (Yixiang Kaocheng / Stellarium Chinese sky culture)",
+      "story_type": "xingguan",
+      "source_region": "East Asia",
+      "source_people": "Chinese astronomical tradition as recorded in Qing imperial star catalogues",
+      "canonical_name": "Northern Dipper",
+      "native_name": "北斗",
+      "translated_name": "Northern Dipper (Běi Dǒu)",
+      "abbreviation": "UMa",
+      "aliases": [
+        "beidou",
+        "bei dou",
+        "northern dipper",
+        "北斗"
+      ],
+      "sky_culture": "chinese",
+      "iau_overlap": [
+        "UMa"
+      ],
+      "cultures": [
+        {
+          "id": "chinese",
+          "name": "Chinese",
+          "constellation_name": "北斗",
+          "mythology_summary": "In this Chinese Xingguan tradition, 北斗 (Běi Dǒu, Northern Dipper) is a seven-star asterism. It is not the same figure as the IAU constellation Ursa Major, though the same seven bright stars lie inside that IAU area.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In this Chinese Xingguan tradition, 北斗 (Běi Dǒu, Northern Dipper) is a seven-star asterism recorded in Stellarium's Chinese sky culture from the Yixiang Kaocheng tradition. Xingguan are star-official groupings without IAU-style boundaries.",
+      "science_summary": "The same seven stars are Dubhe, Merak, Phecda, Megrez, Alioth, Mizar, and Alkaid. In modern astronomy they form the Plough / Big Dipper asterism inside Ursa Major. Scientific names below are modern identifiers, not Chinese catalogue names.",
+      "story_summary": "In this Chinese Xingguan tradition, 北斗 is a northern seven-star grouping. Stellarium lists the primary stars as HIP 54061, 53910, 58001, 59774, 62956, 65378, and 67301.",
+      "astronomy_context": "These HIP identifiers correspond to Dubhe through Alkaid. This story does not treat the IAU Great Bear as a Chinese figure.",
+      "major_objects": [
+        {
+          "id": "dubhe",
+          "name": "Dubhe / 北斗一",
+          "search_name": "Dubhe",
+          "kind": "star",
+          "aliases": [
+            "alpha ursae majoris",
+            "hip 54061",
+            "天枢"
+          ],
+          "designations": [
+            "α UMa",
+            "HIP 54061"
+          ],
+          "notes": "Stellarium Chinese list: 北斗一 / 天枢.",
+          "fov_deg": 18
+        },
+        {
+          "id": "merak",
+          "name": "Merak / 北斗二",
+          "search_name": "Merak",
+          "kind": "star",
+          "aliases": [
+            "beta ursae majoris",
+            "hip 53910"
+          ],
+          "designations": [
+            "β UMa",
+            "HIP 53910"
+          ],
+          "notes": "Stellarium Chinese list: 北斗二.",
+          "fov_deg": 18
+        },
+        {
+          "id": "phecda",
+          "name": "Phecda / 北斗三",
+          "search_name": "Phecda",
+          "kind": "star",
+          "aliases": [
+            "gamma ursae majoris",
+            "hip 58001"
+          ],
+          "designations": [
+            "γ UMa",
+            "HIP 58001"
+          ],
+          "notes": "Stellarium Chinese list: 北斗三.",
+          "fov_deg": 18
+        },
+        {
+          "id": "megrez",
+          "name": "Megrez / 北斗四",
+          "search_name": "Megrez",
+          "kind": "star",
+          "aliases": [
+            "delta ursae majoris",
+            "hip 59774"
+          ],
+          "designations": [
+            "δ UMa",
+            "HIP 59774"
+          ],
+          "notes": "Stellarium Chinese list: 北斗四.",
+          "fov_deg": 18
+        },
+        {
+          "id": "alioth",
+          "name": "Alioth / 北斗五",
+          "search_name": "Alioth",
+          "kind": "star",
+          "aliases": [
+            "epsilon ursae majoris",
+            "hip 62956"
+          ],
+          "designations": [
+            "ε UMa",
+            "HIP 62956"
+          ],
+          "notes": "Stellarium Chinese list: 北斗五.",
+          "fov_deg": 18
+        },
+        {
+          "id": "mizar",
+          "name": "Mizar / 北斗六",
+          "search_name": "Mizar",
+          "kind": "star",
+          "aliases": [
+            "zeta ursae majoris",
+            "hip 65378"
+          ],
+          "designations": [
+            "ζ UMa",
+            "HIP 65378"
+          ],
+          "notes": "Stellarium Chinese list: 北斗六.",
+          "fov_deg": 12
+        },
+        {
+          "id": "alkaid",
+          "name": "Alkaid / 北斗七",
+          "search_name": "Alkaid",
+          "kind": "star",
+          "aliases": [
+            "eta ursae majoris",
+            "hip 67301"
+          ],
+          "designations": [
+            "η UMa",
+            "HIP 67301"
+          ],
+          "notes": "Stellarium Chinese list: 北斗七.",
+          "fov_deg": 18
+        }
+      ],
+      "notable_deep_sky_objects": [],
+      "story_order": [
+        "dubhe",
+        "merak",
+        "phecda",
+        "megrez",
+        "alioth",
+        "mizar",
+        "alkaid"
+      ],
+      "cosmic_signal_tags": [],
+      "spectrum_tags": [],
+      "media_tags": [
+        "ursa major"
+      ],
+      "source_notes": [
+        "Stellarium 26.3 sky culture id=chinese, Xingguan 北斗 / Northern Dipper (CON chinese 039).",
+        "Primary HIP line from Stellarium chinese/index.json; Chinese labels from star_names.zh_CN.fab.",
+        "Catalogue tradition: Yixiang Kaocheng (仪象考成, 1756) and Yi Shitong's Chinese and Western Contrast Star Chart and Catalogue 1950.0.",
+        "Variants exist among historical Chinese maps; this story follows the Stellarium Chinese pack."
+      ],
+      "source_urls": [
+        {
+          "title": "Stellarium Chinese sky culture — 北斗 / Northern Dipper",
+          "institution": "Stellarium / Chinese sky-culture pack",
+          "url": "https://github.com/Stellarium/stellarium/tree/master/skycultures/chinese",
+          "supports": "Xingguan name, HIP members, and catalogue tradition notes."
+        },
+        {
+          "title": "Yi Shitong, Chinese and Western Contrast Star Chart and Catalogue 1950.0 (1981)",
+          "institution": "Science Press, Beijing (cited in Stellarium chinese/description.md)",
+          "url": "https://github.com/Stellarium/stellarium/blob/master/skycultures/chinese/description.md",
+          "supports": "Identification of Stellarium's Chinese Xingguan list with the Yixiang Kaocheng tradition."
+        }
+      ],
+      "source_quality": "stellarium_skyculture",
+      "cultural_note": "Xingguan are not IAU constellations. This is a living naming tradition in modern Chinese astronomy even though Xingguan are no longer the official constellation system.",
+      "enabled": true
+    },
+    {
+      "id": "chinese_zhinu_hegu",
+      "story_kind": "cultural_sky_story",
+      "culture_id": "chinese",
+      "culture_name": "Chinese",
+      "tradition_name": "Chinese Xingguan tradition (Yixiang Kaocheng / Stellarium Chinese sky culture)",
+      "story_type": "xingguan_pair",
+      "source_region": "East Asia",
+      "source_people": "Chinese astronomical tradition as recorded in Qing imperial star catalogues",
+      "canonical_name": "Weaving Girl and Drum at the River",
+      "native_name": "织女 · 河鼓",
+      "translated_name": "Zhī Nǚ (Weaving Girl) and Hé Gǔ (Drum at the River)",
+      "abbreviation": "",
+      "aliases": [
+        "zhinu",
+        "zhi nu",
+        "hegu",
+        "he gu",
+        "织女",
+        "河鼓",
+        "weaver and cowherd",
+        "niulang"
+      ],
+      "sky_culture": "chinese",
+      "iau_overlap": [
+        "Lyr",
+        "Aql"
+      ],
+      "cultures": [
+        {
+          "id": "chinese",
+          "name": "Chinese",
+          "constellation_name": "织女 · 河鼓",
+          "mythology_summary": "In this Chinese Xingguan tradition, 织女 and 河鼓 are two separate asterisms. They sit in the modern IAU areas of Lyra and Aquila. They are not Chinese versions of those IAU constellations.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In this Chinese Xingguan tradition, 织女 (Zhī Nǚ, Weaving Girl) is a three-star grouping around Vega, and 河鼓 (Hé Gǔ, Drum at the River) is the three-star line Altair–Tarazed–Alshain. Stellarium also records 牛郎 as an alternate label on 河鼓二 (Altair). Folklore associated with Qixi is a later popular layer and is not treated here as the Xingguan definition.",
+      "science_summary": "Vega and Altair are nearby bright A-type stars on opposite sides of the Milky Way band. Scientific NASA or Chandra media for these stars, if shown, is a modern scientific view and is not a source for the Xingguan.",
+      "story_summary": "Two Xingguan spanning the IAU constellations Lyra and Aquila.",
+      "astronomy_context": "HIP 91262 (Vega), 91919, 91971 form 织女. HIP 98036, 97649, 97278 form 河鼓.",
+      "major_objects": [
+        {
+          "id": "vega",
+          "name": "Vega / 织女一",
+          "search_name": "Vega",
+          "kind": "star",
+          "aliases": [
+            "alpha lyrae",
+            "hip 91262",
+            "织女"
+          ],
+          "designations": [
+            "α Lyr",
+            "HIP 91262"
+          ],
+          "notes": "Stellarium Chinese list: 织女一 / 织女.",
+          "fov_deg": 10
+        },
+        {
+          "id": "zhinu_er",
+          "name": "织女二",
+          "search_name": "HIP 91919",
+          "kind": "star",
+          "aliases": [
+            "hip 91919"
+          ],
+          "designations": [
+            "HIP 91919"
+          ],
+          "notes": "Second star of Xingguan 织女 in Stellarium's line list.",
+          "fov_deg": 10
+        },
+        {
+          "id": "zhinu_san",
+          "name": "织女三",
+          "search_name": "HIP 91971",
+          "kind": "star",
+          "aliases": [
+            "hip 91971"
+          ],
+          "designations": [
+            "HIP 91971"
+          ],
+          "notes": "Third star of Xingguan 织女 in Stellarium's line list.",
+          "fov_deg": 10
+        },
+        {
+          "id": "tarazed",
+          "name": "Tarazed / 河鼓一",
+          "search_name": "Tarazed",
+          "kind": "star",
+          "aliases": [
+            "gamma aquilae",
+            "hip 98036"
+          ],
+          "designations": [
+            "γ Aql",
+            "HIP 98036"
+          ],
+          "notes": "Stellarium Chinese list: 河鼓一.",
+          "fov_deg": 10
+        },
+        {
+          "id": "altair",
+          "name": "Altair / 河鼓二 / 牛郎",
+          "search_name": "Altair",
+          "kind": "star",
+          "aliases": [
+            "alpha aquilae",
+            "hip 97649",
+            "牛郎"
+          ],
+          "designations": [
+            "α Aql",
+            "HIP 97649"
+          ],
+          "notes": "Stellarium Chinese list: 河鼓二 and 牛郎.",
+          "fov_deg": 10
+        },
+        {
+          "id": "alshain",
+          "name": "Alshain / 河鼓三",
+          "search_name": "Alshain",
+          "kind": "star",
+          "aliases": [
+            "beta aquilae",
+            "hip 97278"
+          ],
+          "designations": [
+            "β Aql",
+            "HIP 97278"
+          ],
+          "notes": "Stellarium Chinese list: 河鼓三.",
+          "fov_deg": 10
+        }
+      ],
+      "notable_deep_sky_objects": [],
+      "story_order": [
+        "vega",
+        "altair",
+        "tarazed"
+      ],
+      "cosmic_signal_tags": [],
+      "spectrum_tags": [],
+      "media_tags": [
+        "vega",
+        "altair"
+      ],
+      "source_notes": [
+        "Stellarium Chinese Xingguan 织女 (CON chinese 304) and 河鼓 (CON chinese 093).",
+        "Does not include Deneb. Deneb is not a member of these two Xingguan in the Stellarium Chinese pack.",
+        "Popular Cowherd-Weaver festival narratives are not used as the definition of the Xingguan."
+      ],
+      "source_urls": [
+        {
+          "title": "Stellarium Chinese sky culture — 织女 and 河鼓",
+          "institution": "Stellarium / Chinese sky-culture pack",
+          "url": "https://github.com/Stellarium/stellarium/tree/master/skycultures/chinese",
+          "supports": "Xingguan names, HIP lines, and 牛郎 as an alternate label on Altair."
+        },
+        {
+          "title": "Stellarium Chinese sky culture description (Yixiang Kaocheng; Yi Shitong 1981)",
+          "institution": "Stellarium documentation citing Science Press, Beijing",
+          "url": "https://github.com/Stellarium/stellarium/blob/master/skycultures/chinese/description.md",
+          "supports": "That Stellarium's Chinese asterisms follow the Yixiang Kaocheng / Yi Shitong tradition."
+        }
+      ],
+      "source_quality": "stellarium_skyculture",
+      "cultural_note": "This story spans two IAU constellations on purpose. It is not a Chinese translation of Lyra or Aquila.",
+      "enabled": true
+    },
+    {
+      "id": "maori_matariki",
+      "story_kind": "cultural_sky_story",
+      "culture_id": "maori",
+      "culture_name": "Māori",
+      "tradition_name": "Māori astronomical tradition (Tātai Arorangi), as documented in Stellarium's Māori sky culture",
+      "story_type": "seasonal_sky_knowledge",
+      "source_region": "Aotearoa New Zealand",
+      "source_people": "Māori",
+      "canonical_name": "Matariki",
+      "native_name": "Matariki",
+      "translated_name": "Matariki (Pleiades)",
+      "abbreviation": "Tau",
+      "aliases": [
+        "matariki",
+        "pleiades",
+        "m45"
+      ],
+      "sky_culture": "maori",
+      "iau_overlap": [
+        "Tau"
+      ],
+      "cultures": [
+        {
+          "id": "maori",
+          "name": "Māori",
+          "constellation_name": "Matariki",
+          "mythology_summary": "In the Māori tradition represented by this story, Matariki is the Pleiades. Stellarium's Māori pack notes iwi (tribal) variation in star naming and records Matariki as the well-known name for this cluster.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the Māori tradition represented by this story, Matariki names the Pleiades. Stellarium's Māori sky culture, following published sources including Elsdon Best's Dominion Museum monographs, treats Matariki as seasonal and navigational sky knowledge. This is not a generic Polynesian story, and it is not the Greek Pleiades myth.",
+      "science_summary": "The Pleiades (M45) is a nearby open cluster in Taurus. NASA imagery of the cluster is a modern scientific view and is not a Māori source.",
+      "story_summary": "Matariki is the Māori name for the Pleiades in the Stellarium Māori pack.",
+      "astronomy_context": "M45 / Alcyone and neighbouring bright cluster members.",
+      "major_objects": [
+        {
+          "id": "pleiades",
+          "name": "Matariki / Pleiades",
+          "search_name": "Pleiades",
+          "kind": "cluster",
+          "aliases": [
+            "m45",
+            "matariki"
+          ],
+          "designations": [
+            "M 45"
+          ],
+          "notes": "Stellarium Māori common name for M45 is Matariki. The English cluster name is the Stellarium search target.",
+          "fov_deg": 4
+        },
+        {
+          "id": "alcyone",
+          "name": "Alcyone",
+          "search_name": "Alcyone",
+          "kind": "star",
+          "aliases": [
+            "eta tauri",
+            "hip 17702"
+          ],
+          "designations": [
+            "η Tau",
+            "HIP 17702"
+          ],
+          "notes": "Brightest star in the cluster. Stellarium Māori common_names also attach Matariki to HIP 17702.",
+          "fov_deg": 3
+        },
+        {
+          "id": "atlas",
+          "name": "Atlas",
+          "search_name": "Atlas",
+          "kind": "star",
+          "aliases": [
+            "27 tauri"
+          ],
+          "designations": [
+            "27 Tau"
+          ],
+          "notes": "Bright cluster member used as a tour step. Individual Māori star names inside Matariki vary by iwi; Stellarium notes some labels were placed only to record names.",
+          "fov_deg": 3
+        },
+        {
+          "id": "electra",
+          "name": "Electra",
+          "search_name": "Electra",
+          "kind": "star",
+          "aliases": [
+            "17 tauri"
+          ],
+          "designations": [
+            "17 Tau"
+          ],
+          "notes": "Bright cluster member. Not treated here as a specific iwi personal name.",
+          "fov_deg": 3
+        }
+      ],
+      "notable_deep_sky_objects": [],
+      "story_order": [
+        "pleiades",
+        "alcyone",
+        "atlas",
+        "electra"
+      ],
+      "cosmic_signal_tags": [],
+      "spectrum_tags": [],
+      "media_tags": [
+        "pleiades"
+      ],
+      "source_notes": [
+        "Stellarium sky culture id=maori. Common name Matariki on M45 and HIP 17702.",
+        "Iwi variation is explicitly recorded in Stellarium's Māori description.",
+        "Not generalized to Hawaiian, Tahitian, or other Polynesian star compasses."
+      ],
+      "source_urls": [
+        {
+          "title": "Stellarium Māori sky culture description and references",
+          "institution": "Stellarium (contributor Dan Smale); cites Dominion Museum / Phoenix Astronomical Society",
+          "url": "https://github.com/Stellarium/stellarium/tree/master/skycultures/maori",
+          "supports": "Matariki = Pleiades; iwi variation; seasonal/navigation framing."
+        },
+        {
+          "title": "Best, E. (1955). The Astronomical Knowledge of the Maori. Dominion Museum Monograph no. 3",
+          "institution": "Dominion Museum, Wellington (cited by Stellarium maori/references.txt)",
+          "url": "https://github.com/Stellarium/stellarium/blob/master/skycultures/maori/references.txt",
+          "supports": "Scholarly monograph behind the Stellarium Māori star list."
+        }
+      ],
+      "source_quality": "stellarium_skyculture",
+      "cultural_note": "This is a living tradition. Public Matariki marking in Aotearoa is contemporary. Variants among iwi are acknowledged and not merged.",
+      "enabled": true
+    },
+    {
+      "id": "arabic_peninsula_thurayya",
+      "story_kind": "cultural_sky_story",
+      "culture_id": "arabic_peninsula",
+      "culture_name": "Arabic (Arabian Peninsula tradition)",
+      "tradition_name": "Arabian Peninsula oral stellar tradition (anwāʾ / seasonal star timing)",
+      "story_type": "seasonal_star_knowledge",
+      "source_region": "Arabian Peninsula",
+      "source_people": "Arabic-speaking communities of the Arabian Peninsula, as documented in recorded poetry and anwāʾ commentary",
+      "canonical_name": "al-Thurayyā",
+      "native_name": "الثريا",
+      "translated_name": "al-Thurayyā (Pleiades)",
+      "abbreviation": "Tau",
+      "aliases": [
+        "thurayya",
+        "al-thurayya",
+        "pleiades",
+        "الثريا"
+      ],
+      "sky_culture": "arabic_arabian_peninsula",
+      "iau_overlap": [
+        "Tau"
+      ],
+      "cultures": [
+        {
+          "id": "arabic_peninsula",
+          "name": "Arabic (Arabian Peninsula tradition)",
+          "constellation_name": "الثريا",
+          "mythology_summary": "In this Arabian Peninsula stellar tradition, al-Thurayyā is the Pleiades and is used in seasonal timing. Stellarium records that some local calendars begin the year with the heliacal rising of al-Thurayyā.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In this Arabian Peninsula stellar tradition — not medieval Islamic astronomy and not a collapsed folk category — al-Thurayyā is the Pleiades. Stellarium's Arabian Peninsula sky culture, drawing on documented poetry and anwāʾ commentary, describes star timing for travel, weather, and agriculture. Other names and legends in that pack belong to different asterisms and are not merged here.",
+      "science_summary": "The Pleiades are a nearby open cluster. Official NASA images of the cluster are scientific media, not the cultural source.",
+      "story_summary": "al-Thurayyā as a timing asterism in Arabian Peninsula tradition.",
+      "astronomy_context": "M45 / Pleiades.",
+      "major_objects": [
+        {
+          "id": "pleiades",
+          "name": "al-Thurayyā / Pleiades",
+          "search_name": "Pleiades",
+          "kind": "cluster",
+          "aliases": [
+            "m45",
+            "thurayya"
+          ],
+          "designations": [
+            "M 45"
+          ],
+          "notes": "Stellarium arabic_arabian_peninsula constellation Thur: Al-Thurayya / الثريا.",
+          "fov_deg": 4
+        },
+        {
+          "id": "alcyone",
+          "name": "Alcyone",
+          "search_name": "Alcyone",
+          "kind": "star",
+          "aliases": [
+            "eta tauri"
+          ],
+          "designations": [
+            "η Tau"
+          ],
+          "notes": "Brightest star in the cluster; used here as a Stellarium tour step, not as a substitute Arabic personal name.",
+          "fov_deg": 3
+        }
+      ],
+      "notable_deep_sky_objects": [],
+      "story_order": [
+        "pleiades",
+        "alcyone"
+      ],
+      "cosmic_signal_tags": [],
+      "spectrum_tags": [],
+      "media_tags": [
+        "pleiades"
+      ],
+      "source_notes": [
+        "Stellarium sky culture id=arabic_arabian_peninsula, constellation Thur (Al-Thurayya).",
+        "Distinct from arabic_al-sufi (Book of Fixed Stars / medieval Islamic astronomy).",
+        "Distinct from modern IAU Taurus and from Māori Matariki."
+      ],
+      "source_urls": [
+        {
+          "title": "Stellarium Arabic (Arabian Peninsula) sky culture — Al-Thurayya",
+          "institution": "Stellarium; commentary compiled with published anwāʾ sources",
+          "url": "https://github.com/Stellarium/stellarium/tree/master/skycultures/arabic_arabian_peninsula",
+          "supports": "Name الثريا / al-Thurayyā for the Pleiades; seasonal timing; oral-poetry documentation."
+        },
+        {
+          "title": "Al-Ajaji, Khalid. Explanation of al-Qāḍī poem of anwāʾ and stars (2013), cited as Stellarium reference #2",
+          "institution": "Riyadh (cited in Stellarium arabic_arabian_peninsula/description.md)",
+          "url": "https://github.com/Stellarium/stellarium/blob/master/skycultures/arabic_arabian_peninsula/description.md",
+          "supports": "Published commentary on Peninsula star-timing poetry used by the sky-culture pack."
+        }
+      ],
+      "source_quality": "stellarium_skyculture",
+      "cultural_note": "This is Peninsula folk / anwāʾ star knowledge, not al-Ṣūfī's Ptolemaic Book of Fixed Stars.",
+      "enabled": true
+    },
+    {
+      "id": "arabic_sufi_lyra",
+      "story_kind": "cultural_sky_story",
+      "culture_id": "arabic_sufi",
+      "culture_name": "Medieval Islamic astronomy (al-Ṣūfī)",
+      "tradition_name": "al-Ṣūfī, Book of Fixed Stars (Kitāb ṣuwar al-kawākib al-thābita), c. 964",
+      "story_type": "medieval_astronomical_treatise",
+      "source_region": "Iran / Islamic world (Rayy; the book treats Ptolemy's 48 constellations)",
+      "source_people": "ʿAbd al-Raḥmān al-Ṣūfī and the medieval Islamic astronomical tradition transmitting the Almagest",
+      "canonical_name": "al-Lawrā (the Lyre)",
+      "native_name": "اللورا",
+      "translated_name": "al-Lawrā / the Lyre",
+      "abbreviation": "Lyr",
+      "aliases": [
+        "al-lawra",
+        "lyra",
+        "lyre",
+        "al-sufi lyra"
+      ],
+      "sky_culture": "arabic_al-sufi",
+      "iau_overlap": [
+        "Lyr"
+      ],
+      "cultures": [
+        {
+          "id": "arabic_sufi",
+          "name": "Medieval Islamic astronomy (al-Ṣūfī)",
+          "constellation_name": "اللورا",
+          "mythology_summary": "In al-Ṣūfī's Book of Fixed Stars, the Lyre is one of Ptolemy's 48 constellations. Stellarium's arabic_al-sufi pack labels it al-Lawrā. This is a scientific treatise tradition, not Peninsula folk star lore.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the medieval Islamic astronomical tradition represented by this story, ʿAbd al-Raḥmān al-Ṣūfī (903–986) described the Lyre among Ptolemy's 48 constellations in the Book of Fixed Stars, shortly before 964. Stellarium's Al-Sufi sky culture, following Paul Kunitzsch's account, presents each constellation with discussion, indigenous Arabic star-name identifications, globe/sky drawings, and a Ptolemaic table. This is not Arabian Peninsula oral tradition and is not labeled Arab mythology.",
+      "science_summary": "The same IAU area is Lyra, with Vega as lucida. Modern photometry and NASA imagery are later scientific views.",
+      "story_summary": "al-Ṣūfī's Lyre / al-Lawrā.",
+      "astronomy_context": "Vega, Sheliak, Sulafat.",
+      "major_objects": [
+        {
+          "id": "vega",
+          "name": "Vega",
+          "search_name": "Vega",
+          "kind": "star",
+          "aliases": [
+            "alpha lyrae"
+          ],
+          "designations": [
+            "α Lyr"
+          ],
+          "notes": "Lucida of the IAU constellation Lyra; tour target for al-Ṣūfī's Lyre region.",
+          "fov_deg": 10
+        },
+        {
+          "id": "sheliak",
+          "name": "Sheliak",
+          "search_name": "Sheliak",
+          "kind": "star",
+          "aliases": [
+            "beta lyrae"
+          ],
+          "designations": [
+            "β Lyr"
+          ],
+          "notes": "Frame star of the lyre.",
+          "fov_deg": 10
+        },
+        {
+          "id": "sulafat",
+          "name": "Sulafat",
+          "search_name": "Sulafat",
+          "kind": "star",
+          "aliases": [
+            "gamma lyrae"
+          ],
+          "designations": [
+            "γ Lyr"
+          ],
+          "notes": "Frame star of the lyre.",
+          "fov_deg": 10
+        }
+      ],
+      "notable_deep_sky_objects": [],
+      "story_order": [
+        "vega",
+        "sheliak",
+        "sulafat"
+      ],
+      "cosmic_signal_tags": [],
+      "spectrum_tags": [],
+      "media_tags": [
+        "lyra",
+        "vega"
+      ],
+      "source_notes": [
+        "Stellarium sky culture id=arabic_al-sufi, constellation Lyr / al-Lawrā.",
+        "Kunitzsch describes the Book of Fixed Stars as treating Ptolemy's 48 constellations with criticism and indigenous Arabic name identifications.",
+        "Do not collapse this with arabic_arabian_peninsula."
+      ],
+      "source_urls": [
+        {
+          "title": "Stellarium Arabic (Al-Sufi) sky culture description",
+          "institution": "Stellarium; quoting Paul Kunitzsch on the Book of Fixed Stars",
+          "url": "https://github.com/Stellarium/stellarium/tree/master/skycultures/arabic_al-sufi",
+          "supports": "Identification of al-Lawrā as the Lyre; treatise structure; date c. 964."
+        },
+        {
+          "title": "Kunitzsch, Paul. The Astronomer Abu'l-Husayn al-Sufi and His Book on the Constellations. In The Arabs and the Stars. Variorum, 1989.",
+          "institution": "Variorum Reprints (cited as Stellarium arabic_al-sufi reference #1)",
+          "url": "https://github.com/Stellarium/stellarium/blob/master/skycultures/arabic_al-sufi/description.md",
+          "supports": "Scholarly description of al-Ṣūfī's method and relation to the Almagest."
+        }
+      ],
+      "source_quality": "stellarium_skyculture",
+      "cultural_note": "Medieval Islamic mathematical astronomy transmitting and revising Ptolemy. Not folk mythology.",
+      "enabled": true
+    },
+    {
+      "id": "ancestral_puebloan_fajada_sun_dagger",
+      "story_kind": "cultural_sky_story",
+      "culture_id": "ancestral_puebloan",
+      "culture_name": "Ancestral Puebloan",
+      "tradition_name": "Ancestral Puebloan archaeoastronomy (Chaco Canyon)",
+      "story_type": "archaeoastronomy",
+      "evidence_type": "archaeological_inference",
+      "living_tradition": false,
+      "public_story_status": "public",
+      "source_region": "Chaco Canyon, northwestern New Mexico",
+      "source_people": "Ancestral Puebloan builders of Chaco Canyon",
+      "canonical_name": "Fajada Butte Sun Dagger",
+      "native_name": null,
+      "translated_name": "Fajada Butte solar dagger",
+      "abbreviation": "",
+      "aliases": [
+        "sun dagger",
+        "fajada butte",
+        "chaco sun dagger"
+      ],
+      "search_aliases": [
+        "Anasazi",
+        "Ancestral Pueblo",
+        "Ancient Puebloan"
+      ],
+      "terminology_note": "Older archaeological and documentary sources frequently use 'Anasazi'; Cartography uses 'Ancestral Puebloan' as the primary display term.",
+      "sky_culture": "ancestral_puebloan",
+      "iau_overlap": [],
+      "archaeological_context": "Three sandstone slabs on Fajada Butte channel midday sunlight onto spiral petroglyphs. Public access is closed.",
+      "cultures": [
+        {
+          "id": "ancestral_puebloan",
+          "name": "Ancestral Puebloan",
+          "constellation_name": "Fajada Butte Sun Dagger",
+          "mythology_summary": "Archaeological interpretations suggest the Fajada Butte slabs and spirals marked solstices and equinoxes with changing midday light. This is not presented as a surviving oral constellation story.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "Archaeological interpretations suggest that three sandstone slabs on Fajada Butte, at Chaco Culture National Historical Park, once sent dagger-shaped midday sunlight across two spiral petroglyphs at the solstices and equinoxes. The National Park Service reports the site is no longer open; visitor erosion later shifted the slabs so the original centered summer pattern no longer occurs. This card does not claim to retell a living Pueblo oral story.",
+      "science_summary": "The Sun's changing noon altitude through the year can produce a calendar of light and shadow. NASA or Chandra images of the Sun, if shown, are modern scientific views and are not Ancestral Puebloan sources.",
+      "story_summary": "Public archaeoastronomy of the Fajada Butte solar marker.",
+      "astronomy_context": "Solar declination / midday altitude; solstice and equinox.",
+      "narration_lead": "This archaeological interpretation of Ancestral Puebloan observations suggests the Fajada Butte Sun Dagger marked the solar year with midday light on spiral petroglyphs.",
+      "major_objects": [
+        {
+          "id": "sun",
+          "name": "Sun",
+          "search_name": "Sun",
+          "kind": "sun",
+          "aliases": [
+            "sol"
+          ],
+          "designations": [
+            "Sol"
+          ],
+          "notes": "Stellarium-verified focus target for solar / horizon cards.",
+          "fov_deg": 8
+        }
+      ],
+      "notable_deep_sky_objects": [],
+      "story_order": [
+        "sun"
+      ],
+      "cosmic_signal_tags": [],
+      "spectrum_tags": [],
+      "media_tags": [
+        "sun"
+      ],
+      "shared_motifs": [
+        {
+          "motif_id": "solar_horizon_or_solstice",
+          "tradition_story_ids": [
+            "ancestral_puebloan_fajada_sun_dagger",
+            "ancestral_puebloan_holly_solstice_panel",
+            "mexica_templo_mayor_solar"
+          ],
+          "astronomical_region": "Sun / solstice-equinox",
+          "similarity_description": "Independent public records of solar-year marking. Not evidence of a shared origin story.",
+          "relationship_status": "independent_similarity",
+          "source_support": "NPS archaeoastronomy page; Sofaer 1979 for Chaco. PNAS 2022 / Šprajc for Mexica — separate sources."
+        }
+      ],
+      "related_story_ids": [
+        "ancestral_puebloan_chaco_cardinal",
+        "ancestral_puebloan_holly_solstice_panel"
+      ],
+      "source_notes": [
+        "NPS: believed to have marked summer and winter solstices and equinoxes.",
+        "Sofaer, Zinser, and Sinclair 1979 described the original midday dagger patterns.",
+        "Lunar-standstill claims are not included here.",
+        "Display term is Ancestral Puebloan; Anasazi is a search alias only."
+      ],
+      "source_urls": [
+        {
+          "title": "Archeoastronomy in Stone",
+          "institution": "U.S. National Park Service",
+          "date": "2024-01-23",
+          "url": "https://www.nps.gov/articles/000/archeoastronomy-in-stone.htm",
+          "supports": "Public NPS framing of the Fajada Butte Sun Dagger as a solstice/equinox marker; site closed; Ancestral Pueblo terminology."
+        },
+        {
+          "title": "A Unique Solar Marking Construct",
+          "institution": "Science / Solstice Project",
+          "date": "1979",
+          "url": "https://solsticeproject.org/wp-content/uploads/2021/12/19-uniquesolar2028197929.pdf",
+          "supports": "Original published description of the slab-and-spiral midday solar construct."
+        }
+      ],
+      "source_quality": "scholarly",
+      "cultural_note": "Archaeological inference about seasonal observation, not mythology.",
+      "enabled": true
+    },
+    {
+      "id": "ancestral_puebloan_chaco_cardinal",
+      "story_kind": "cultural_sky_story",
+      "culture_id": "ancestral_puebloan",
+      "culture_name": "Ancestral Puebloan",
+      "tradition_name": "Ancestral Puebloan archaeoastronomy (Chaco Canyon)",
+      "story_type": "solar_lunar_alignment",
+      "evidence_type": "archaeological_inference",
+      "living_tradition": false,
+      "public_story_status": "public",
+      "source_region": "Chaco Canyon, northwestern New Mexico",
+      "source_people": "Ancestral Puebloan builders of Chaco Canyon",
+      "canonical_name": "Chaco Cardinal Architecture",
+      "native_name": null,
+      "translated_name": "Chaco north–south and east–west alignments",
+      "abbreviation": "",
+      "aliases": [
+        "pueblo bonito alignment",
+        "chaco cardinal",
+        "casa rinconada"
+      ],
+      "search_aliases": [
+        "Anasazi",
+        "Ancestral Pueblo",
+        "Ancient Puebloan"
+      ],
+      "terminology_note": "Older archaeological and documentary sources frequently use 'Anasazi'; Cartography uses 'Ancestral Puebloan' as the primary display term.",
+      "sky_culture": "ancestral_puebloan",
+      "iau_overlap": [],
+      "archaeological_context": "Great-house and great-kiva axes at Chaco are documented near true cardinal directions. A specific Casa Rinconada summer-solstice niche light is contested after 1930s reconstruction and is not claimed here.",
+      "cultures": [
+        {
+          "id": "ancestral_puebloan",
+          "name": "Ancestral Puebloan",
+          "constellation_name": "Chaco Cardinal Architecture",
+          "mythology_summary": "Archaeological interpretations suggest several Chaco constructions were laid out on near-cardinal axes. This is architecture, not a named star figure.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "Archaeological interpretations suggest that Pueblo Bonito and other Chaco Canyon constructions include walls and axes within a fraction of a degree of true north–south and east–west. Knowledge of those axes can mark solar noon and the equinoxes. Polaris is shown in the tour only as a modern north-sky reference. It is not presented as an Ancestral Puebloan constellation. The popular Casa Rinconada niche-light effect is omitted because reconstruction makes the original opening uncertain.",
+      "science_summary": "A building aligned to true north lets a shadow cross a north–south line at local solar noon. NASA imagery, if shown, is a modern scientific view of the Sun or north sky, not a Chaco source.",
+      "story_summary": "Cardinal architectural astronomy at Chaco.",
+      "astronomy_context": "Cardinal directions; solar noon; equinox east–west.",
+      "narration_lead": "This archaeological interpretation of Ancestral Puebloan observations suggests major Chaco buildings were aligned close to the cardinal directions.",
+      "major_objects": [
+        {
+          "id": "sun",
+          "name": "Sun",
+          "search_name": "Sun",
+          "kind": "sun",
+          "aliases": [
+            "sol"
+          ],
+          "designations": [
+            "Sol"
+          ],
+          "notes": "Stellarium-verified focus target for solar / horizon cards.",
+          "fov_deg": 8
+        },
+        {
+          "id": "polaris",
+          "name": "Polaris",
+          "search_name": "Polaris",
+          "kind": "star",
+          "aliases": [
+            "north star",
+            "alpha ursae minoris"
+          ],
+          "designations": [
+            "α UMi"
+          ],
+          "notes": "Modern north celestial pole star used here as a tour reference for cardinal architecture, not as an Ancestral Puebloan constellation.",
+          "fov_deg": 12
+        }
+      ],
+      "notable_deep_sky_objects": [],
+      "story_order": [
+        "sun",
+        "polaris"
+      ],
+      "cosmic_signal_tags": [],
+      "spectrum_tags": [],
+      "media_tags": [
+        "sun"
+      ],
+      "shared_motifs": [
+        {
+          "motif_id": "solar_horizon_or_solstice",
+          "tradition_story_ids": [
+            "ancestral_puebloan_chaco_cardinal",
+            "ancestral_puebloan_holly_solstice_panel",
+            "mexica_templo_mayor_solar"
+          ],
+          "astronomical_region": "Sun / cardinal and horizon geometry",
+          "similarity_description": "Independent architectural uses of the solar year. Not a shared myth.",
+          "relationship_status": "independent_similarity",
+          "source_support": "NPS / Solstice Project for Chaco; Šprajc and PNAS 2022 for Tenochtitlan."
+        }
+      ],
+      "related_story_ids": [
+        "ancestral_puebloan_fajada_sun_dagger",
+        "ancestral_puebloan_holly_solstice_panel"
+      ],
+      "source_notes": [
+        "NPS identifies Pueblo Bonito as an Ancestral Puebloan great house (about AD 850–1150).",
+        "Survey literature reports cardinal axes at Pueblo Bonito and related constructions.",
+        "Casa Rinconada summer-solstice niche light is not treated as settled."
+      ],
+      "source_urls": [
+        {
+          "title": "Pueblo Bonito",
+          "institution": "U.S. National Park Service, Chaco Culture National Historical Park",
+          "date": "2017-12-18",
+          "url": "https://www.nps.gov/chcu/planyourvisit/pueblo-bonito.htm",
+          "supports": "Ancestral Puebloan identification and public site context for Pueblo Bonito."
+        },
+        {
+          "title": "Archeoastronomy in Stone",
+          "institution": "U.S. National Park Service",
+          "date": "2024-01-23",
+          "url": "https://www.nps.gov/articles/000/archeoastronomy-in-stone.htm",
+          "supports": "NPS statement that Chaco complexes were oriented to mark astronomical time."
+        }
+      ],
+      "source_quality": "scholarly",
+      "cultural_note": "Architectural astronomy. Not a constellation myth.",
+      "enabled": true
+    },
+    {
+      "id": "mexica_tianquiztli",
+      "story_kind": "cultural_sky_story",
+      "culture_id": "mexica",
+      "culture_name": "Mexica (historical)",
+      "tradition_name": "historical Mexica calendrical astronomy (Sahagún / colonial Nahuatl sources)",
+      "story_type": "calendrical_astronomy",
+      "evidence_type": "scholarly_ethnographic",
+      "living_tradition": false,
+      "public_story_status": "public",
+      "source_region": "Basin of Mexico / Tenochtitlan",
+      "source_people": "historical Mexica / Nahua informants recorded in sixteenth-century sources",
+      "canonical_name": "Tianquiztli",
+      "native_name": "Tianquiztli",
+      "translated_name": "the Marketplace (Pleiades)",
+      "abbreviation": "Tau",
+      "aliases": [
+        "tianquiztli",
+        "tianguis",
+        "mastelejos",
+        "cabrillas",
+        "pleiades"
+      ],
+      "search_aliases": [
+        "Aztec Pleiades",
+        "Tianquiztli"
+      ],
+      "sky_culture": "mexica",
+      "stellarium_culture_ids": [
+        "aztec"
+      ],
+      "iau_overlap": [
+        "Tau"
+      ],
+      "cultures": [
+        {
+          "id": "mexica",
+          "name": "Mexica (historical)",
+          "constellation_name": "Tianquiztli",
+          "mythology_summary": "In the Mexica historical sources represented here, Tianquiztli is the Pleiades, used in calendrical timing including the 52-year New Fire / xiuhmolpilli watch.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "In the Mexica historical sources represented here, Tianquiztli — the marketplace — is identified with the Pleiades (Spanish colonial 'Cabrillas' / 'Mastelejos'). Sahagún's Primeros Memoriales draws a compact many-star figure. Related colonial and INAH discussions connect the midnight culmination of this group to the New Fire ceremony that bound the 52-year cycle (xiuhmolpilli) at Huixachtécatl, the Hill of the Star. This is historical calendrical astronomy, not a modern Nahua teaching and not a collapsed folk category. Other Primeros Memoriales figures with conflicting star identifications are not merged here.",
+      "science_summary": "The Pleiades (M45) are a nearby open cluster in Taurus. Official NASA images of the cluster are a scientific view and are not a Mexica source.",
+      "story_summary": "Tianquiztli as Pleiades and New Fire timing object.",
+      "astronomy_context": "M45 / Pleiades; 52-year calendar cycle.",
+      "narration_lead": "In the Mexica historical sources represented here, Tianquiztli is identified with the Pleiades and used in calendrical timing, including the New Fire watch.",
+      "major_objects": [
+        {
+          "id": "pleiades",
+          "name": "Tianquiztli / Pleiades",
+          "search_name": "Pleiades",
+          "kind": "cluster",
+          "aliases": [
+            "m45",
+            "tianquiztli",
+            "cabrillas"
+          ],
+          "designations": [
+            "M 45"
+          ],
+          "notes": "Stellarium search target for the historical Mexica marketplace asterism.",
+          "fov_deg": 4
+        },
+        {
+          "id": "alcyone",
+          "name": "Alcyone",
+          "search_name": "Alcyone",
+          "kind": "star",
+          "aliases": [
+            "eta tauri"
+          ],
+          "designations": [
+            "η Tau"
+          ],
+          "notes": "Brightest star in the cluster; a Stellarium tour step, not a Nahuatl personal name.",
+          "fov_deg": 3
+        }
+      ],
+      "notable_deep_sky_objects": [],
+      "story_order": [
+        "pleiades",
+        "alcyone"
+      ],
+      "cosmic_signal_tags": [],
+      "spectrum_tags": [],
+      "media_tags": [
+        "pleiades"
+      ],
+      "shared_motifs": [
+        {
+          "motif_id": "pleiades_seasonal_marker",
+          "tradition_story_ids": [
+            "mexica_tianquiztli",
+            "taurus",
+            "maori_matariki",
+            "arabic_peninsula_thurayya"
+          ],
+          "astronomical_region": "Pleiades / M45",
+          "similarity_description": "Several independent traditions use the same physical cluster as a timing object. Similarity is not a shared origin.",
+          "relationship_status": "independent_similarity",
+          "source_support": "Sahagún / Tezozomoc / INAH for Mexica; existing Cartography cards for Māori, Peninsula, and IAU Taurus."
+        }
+      ],
+      "related_story_ids": [
+        "taurus",
+        "maori_matariki",
+        "arabic_peninsula_thurayya",
+        "mexica_templo_mayor_solar"
+      ],
+      "source_notes": [
+        "Tezozomoc 1598 equates Tianquiztli with las Cabrillas (Pleiades).",
+        "INAH and Pérez Negrete discuss Pleiades timing in the New Fire ceremony.",
+        "Not merged with Maya or modern Nahua practice.",
+        "Stellarium aztec pack is a name index only; its Maya Paris Codex scorpion art is not used."
+      ],
+      "source_urls": [
+        {
+          "title": "Florentine Codex Book VII chapters 3–6 paleography",
+          "institution": "UNAM / Estudios de Cultura Náhuatl",
+          "url": "https://nahuatl.historicas.unam.mx/index.php/ecn/article/download/77903/68956/228837",
+          "supports": "Scholarly edition of Sahagún's Nahuatl/Spanish sky and fire-drill vocabulary."
+        },
+        {
+          "title": "El Templo pirámide del Fuego nuevo",
+          "institution": "INAH / Arqueología Mexicana",
+          "url": "https://www.revistas.inah.gob.mx/index.php/arqueologia/article/download/6392/7233/12653",
+          "supports": "New Fire temple at Huixachtécatl and Pleiades in the ceremony narrative."
+        },
+        {
+          "title": "The Temple of the New Fire at the Huixachtécatl (Hill of the Star)",
+          "institution": "FAMSI",
+          "url": "https://www.famsi.org/reports/01082/01082PerezNegrete01.pdf",
+          "supports": "Historical reconstruction of xiuhmolpilli / New Fire at Cerro de la Estrella."
+        }
+      ],
+      "source_quality": "scholarly",
+      "cultural_note": "Historical Mexica / colonial Nahua sources. Not a collapsed folk category and not a living Nahua classroom story.",
+      "enabled": true
+    },
+    {
+      "id": "mexica_templo_mayor_solar",
+      "story_kind": "cultural_sky_story",
+      "culture_id": "mexica",
+      "culture_name": "Mexica (historical)",
+      "tradition_name": "historical Mexica calendrical astronomy (Templo Mayor horizon alignments)",
+      "story_type": "solar_lunar_alignment",
+      "evidence_type": "archaeological_inference",
+      "living_tradition": false,
+      "public_story_status": "public",
+      "source_region": "Tenochtitlan / Basin of Mexico",
+      "source_people": "historical Mexica builders and ritual specialists of Tenochtitlan",
+      "canonical_name": "Templo Mayor Solar Alignments",
+      "native_name": null,
+      "translated_name": "Templo Mayor sunrise / Mount Tlaloc",
+      "abbreviation": "",
+      "aliases": [
+        "templo mayor",
+        "mount tlaloc sunrise",
+        "tenochtitlan orientation"
+      ],
+      "search_aliases": [
+        "Aztec Templo Mayor",
+        "Mexica sun alignment"
+      ],
+      "sky_culture": "mexica",
+      "stellarium_culture_ids": [
+        "aztec"
+      ],
+      "iau_overlap": [],
+      "archaeological_context": "Measured orientations of the Templo Mayor and mountain foresights in the eastern Basin of Mexico.",
+      "cultures": [
+        {
+          "id": "mexica",
+          "name": "Mexica (historical)",
+          "constellation_name": "Templo Mayor Solar Alignments",
+          "mythology_summary": "Archaeological and ethnohistoric interpretations suggest the Templo Mayor and nearby peaks were used as solar-horizon calendar marks.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "This archaeological interpretation of Mexica observations, supported by measured building orientations and Sahagún's feast calendar, suggests that sunrise alignments from the Templo Mayor toward Mount Tlaloc and other eastern peaks helped keep an agricultural year. Šprajc documented Templo Mayor solar dates; a 2022 PNAS study reconstructs Basin sunrise observatories. This is not a constellation figure and is not merged with Maya astronomy.",
+      "science_summary": "Horizon astronomy uses a fixed backsight and a mountain or built foresight to catch the rising or setting Sun on chosen dates. NASA solar imagery, if shown, is a modern scientific view.",
+      "story_summary": "Templo Mayor / Basin of Mexico solar horizon calendar.",
+      "astronomy_context": "Solar azimuth / agricultural year.",
+      "narration_lead": "This archaeological interpretation of Mexica observations suggests the Templo Mayor and eastern mountain foresights marked solar dates in the agricultural year.",
+      "major_objects": [
+        {
+          "id": "sun",
+          "name": "Sun",
+          "search_name": "Sun",
+          "kind": "sun",
+          "aliases": [
+            "sol"
+          ],
+          "designations": [
+            "Sol"
+          ],
+          "notes": "Stellarium-verified focus target for solar / horizon cards.",
+          "fov_deg": 8
+        }
+      ],
+      "notable_deep_sky_objects": [],
+      "story_order": [
+        "sun"
+      ],
+      "cosmic_signal_tags": [],
+      "spectrum_tags": [],
+      "media_tags": [
+        "sun"
+      ],
+      "shared_motifs": [
+        {
+          "motif_id": "solar_horizon_or_solstice",
+          "tradition_story_ids": [
+            "mexica_templo_mayor_solar",
+            "ancestral_puebloan_fajada_sun_dagger",
+            "ancestral_puebloan_holly_solstice_panel"
+          ],
+          "astronomical_region": "Sun",
+          "similarity_description": "Independent solar-year architecture in different regions. Not a common origin.",
+          "relationship_status": "independent_similarity",
+          "source_support": "Šprajc 2000 and PNAS 2022 for Mexica; NPS / Sofaer 1979 for Chaco."
+        }
+      ],
+      "related_story_ids": [
+        "mexica_tianquiztli"
+      ],
+      "source_notes": [
+        "Šprajc 2000: Templo Mayor alignments to solar horizon dates.",
+        "PNAS 2022: Mount Tlaloc and other Basin sunrise landmarks.",
+        "Not a Venus-Pleiades claim; Venus identifications are omitted here."
+      ],
+      "source_urls": [
+        {
+          "title": "Ancient inhabitants of the Basin of Mexico kept an accurate agricultural calendar using sunrise observatories and mountain alignments",
+          "institution": "PNAS",
+          "date": "2022",
+          "url": "https://www.pnas.org/doi/10.1073/pnas.2215615119",
+          "supports": "Sunrise observatories and Mount Tlaloc / Templo Mayor agricultural calendar."
+        },
+        {
+          "title": "Archeoastronomy in Stone (comparative public framing of architectural solar time)",
+          "institution": "U.S. National Park Service",
+          "date": "2024-01-23",
+          "url": "https://www.nps.gov/articles/000/archeoastronomy-in-stone.htm",
+          "supports": "General public definition of archaeoastronomy used to keep this card in that category."
+        }
+      ],
+      "source_quality": "scholarly",
+      "cultural_note": "Historical Mexica archaeoastronomy. Not generic Mesoamerican mythology.",
+      "enabled": true
+    },
+    {
+      "id": "ancestral_puebloan_holly_solstice_panel",
+      "story_kind": "cultural_sky_story",
+      "culture_id": "ancestral_puebloan",
+      "culture_name": "Ancestral Puebloan",
+      "tradition_name": "Ancestral Puebloan archaeoastronomy (Hovenweep)",
+      "story_type": "horizon_calendar",
+      "evidence_type": "archaeological_inference",
+      "living_tradition": false,
+      "public_story_status": "public",
+      "source_region": "Hovenweep National Monument, Utah–Colorado",
+      "source_people": "Ancestral Puebloan builders of the Holly community at Hovenweep",
+      "canonical_name": "Holly Solstice Panel",
+      "native_name": null,
+      "translated_name": "Holly summer-solstice petroglyph panel",
+      "abbreviation": "",
+      "aliases": [
+        "holly petroglyph",
+        "hovenweep solstice",
+        "holly sun panel"
+      ],
+      "search_aliases": [
+        "Anasazi",
+        "Ancestral Pueblo",
+        "Ancient Puebloan"
+      ],
+      "terminology_note": "Older archaeological and documentary sources frequently use 'Anasazi'; Cartography uses 'Ancestral Puebloan' as the primary display term.",
+      "sky_culture": "ancestral_puebloan",
+      "iau_overlap": [],
+      "archaeological_context": "A public NPS trail at Hovenweep's Holly Unit reaches a petroglyph panel in a boulder gap. NPS interprets a summer-solstice light beam that bisects spiral and concentric-circle marks.",
+      "cultures": [
+        {
+          "id": "ancestral_puebloan",
+          "name": "Ancestral Puebloan",
+          "constellation_name": "Holly Solstice Panel",
+          "mythology_summary": "Archaeological interpretations suggest the Holly petroglyph panel marked the summer solstice with a beam of light. This is not presented as a surviving oral constellation story.",
+          "artwork_ref": null
+        }
+      ],
+      "mythology_summary": "Archaeological evidence suggests, and the National Park Service interprets, that Ancestral Puebloan observers at Hovenweep's Holly Unit marked the summer solstice on a petroglyph panel. A beam of light through a narrow gap between boulders bisects spiral and concentric-circle marks on the solstice and nearby mornings. Researchers have interpreted this as a public seasonal marker, not as a living Pueblo oral story.",
+      "science_summary": "At mid-northern latitudes the rising Sun reaches its northernmost azimuth near the June solstice. A fixed gap and marked rock face can record that extreme. NASA solar imagery, if shown, is a modern scientific view and is not an Ancestral Puebloan source.",
+      "story_summary": "Public NPS archaeoastronomy of the Holly summer-solstice panel.",
+      "astronomy_context": "Summer-solstice sunrise azimuth; horizon calendar.",
+      "narration_lead": "Archaeological evidence suggests Ancestral Puebloan observers at Hovenweep marked the summer solstice with a light beam on the Holly petroglyph panel.",
+      "major_objects": [
+        {
+          "id": "sun",
+          "name": "Sun",
+          "search_name": "Sun",
+          "kind": "sun",
+          "aliases": [
+            "sol"
+          ],
+          "designations": [
+            "Sol"
+          ],
+          "notes": "Stellarium-verified focus target for solar / horizon cards.",
+          "fov_deg": 8
+        }
+      ],
+      "notable_deep_sky_objects": [],
+      "story_order": [
+        "sun"
+      ],
+      "cosmic_signal_tags": [],
+      "spectrum_tags": [],
+      "media_tags": [
+        "sun"
+      ],
+      "shared_motifs": [
+        {
+          "motif_id": "solar_horizon_or_solstice",
+          "tradition_story_ids": [
+            "ancestral_puebloan_holly_solstice_panel",
+            "ancestral_puebloan_fajada_sun_dagger",
+            "mexica_templo_mayor_solar"
+          ],
+          "astronomical_region": "Sun / solstice",
+          "similarity_description": "Independent public records of solar-year marking. Similar observational function, not a shared tradition.",
+          "relationship_status": "independent_similarity",
+          "source_support": "NPS Holly pages for Hovenweep; NPS / Sofaer for Chaco; PNAS 2022 for Mexica — separate sources."
+        }
+      ],
+      "related_story_ids": [
+        "ancestral_puebloan_fajada_sun_dagger",
+        "ancestral_puebloan_chaco_cardinal"
+      ],
+      "source_notes": [
+        "NPS Holly Petroglyph Panel: believed to mark the summer solstice.",
+        "NPS Holly Group: light through a boulder gap bisects spirals and circles on and near the solstice.",
+        "Lunar-standstill and Hovenweep Castle porthole claims are not added to this card.",
+        "Display term is Ancestral Puebloan; Anasazi is a search alias only."
+      ],
+      "source_urls": [
+        {
+          "title": "Holly Petroglyph Panel",
+          "institution": "U.S. National Park Service, Hovenweep National Monument",
+          "date": "2025-04-29",
+          "url": "https://www.nps.gov/places/hollypetropanel.htm",
+          "supports": "Public NPS interpretation of the Holly panel as a summer-solstice marker."
+        },
+        {
+          "title": "Holly Group",
+          "institution": "U.S. National Park Service, Hovenweep National Monument",
+          "url": "https://www.nps.gov/hove/planyourvisit/holly.htm",
+          "supports": "Public trail description of the solstice light beam and descendant-community consultation context."
+        }
+      ],
+      "source_quality": "scholarly",
+      "cultural_note": "Archaeological inference about a seasonal marker, not mythology.",
+      "enabled": true
+    }
+  ]
+}

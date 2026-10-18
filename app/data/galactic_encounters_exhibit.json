@@ -1,0 +1,160 @@
+{
+  "id": "galactic_encounters",
+  "title": "Galactic Encounters",
+  "subtitle": "Galaxies grow by meeting",
+  "description": "Interactive walk through tidal forces, tails and bridges, stars versus gas, Antennae, Whirlpool, Mice, major versus minor mergers, remnants, and the uncertain Milky Way–Andromeda future.",
+  "theme": "scientific_galactic_encounters",
+  "estimated_minutes": 18,
+  "culture_scope": ["ESA/Hubble", "NASA", "STScI", "NOIRLab"],
+  "evidence_types": ["strong_evidence", "scholarly_interpretation", "historical_source"],
+  "story_ids": [],
+  "cover_media": {"kind": "native_svg", "id": "galactic_encounters_cover"},
+  "narrator_default": "father_fox",
+  "source_note": "Encounter labs ILLUSTRATIVE. Observed systems use ESA/Hubble media. MW–M31 section is FUTURE PREDICTION / SIMULATION and model-dependent.",
+  "enabled": true,
+  "test_fixture": false,
+  "steps": [
+    {
+      "step_id": "ge_intro",
+      "step_type": "intro",
+      "title": "Galaxies are not islands",
+      "narration_kind": "exhibit_step",
+      "narration_text": "Galaxies influence one another across millions of light-years. This walk separates observation, simulation, illustration, and future prediction.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "ge_gravity",
+      "step_type": "galactic_encounters",
+      "title": "Gravity across millions of light-years",
+      "narration_kind": "exhibit_step",
+      "narration_text": "Gravity is the main handshake. Dark-matter halos dominate the mass and steer long orbits between galaxies.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "ge_first",
+      "step_type": "galactic_encounters",
+      "title": "First passage",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Advance the encounter lab from approach through first passage. A flyby does not finish a merger overnight—timescales are hundreds of millions to billions of years.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "ge_tides",
+      "step_type": "galactic_encounters",
+      "title": "Tidal tails and bridges",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Differential gravity stretches disks: the near side feels a stronger pull than the far side. Tails and bridges are the long signatures of that stretch.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "ge_stars",
+      "step_type": "galactic_encounters",
+      "title": "Stars mostly miss",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "When galaxies overlap, stars almost never smash into each other. Stellar separations dwarf stellar sizes.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "ge_gas",
+      "step_type": "galactic_encounters",
+      "title": "Gas collides",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Gas clouds can compress and shock, helping light new stars. Not every encounter makes the same starburst.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "ge_antennae",
+      "step_type": "galactic_encounters",
+      "title": "The Antennae",
+      "object_name": "Antennae",
+      "galactic_encounters_object_id": "antennae",
+      "stellarium_focus": "NGC 4038",
+      "stellarium_fov": 1.0,
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "NGC 4038 and 4039 are a classic merger with long tidal antennae and intense star formation. Hubble imaging is an observation; the lab remains illustrative.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "ge_whirlpool",
+      "step_type": "galactic_encounters",
+      "title": "The Whirlpool",
+      "object_name": "M51",
+      "galactic_encounters_object_id": "whirlpool",
+      "stellarium_focus": "M51",
+      "stellarium_fov": 1.2,
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "M51 and its companion show how interactions can help organize spiral structure while the pair continues to dance.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "ge_mice",
+      "step_type": "galactic_encounters",
+      "title": "The Mice",
+      "object_name": "The Mice",
+      "galactic_encounters_object_id": "mice",
+      "stellarium_focus": "NGC 4676",
+      "stellarium_fov": 0.8,
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "NGC 4676 flaunts twin tidal tails—visual proof of strong tidal stripping during an encounter.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "ge_major_minor",
+      "step_type": "galactic_encounters",
+      "title": "Major vs minor mergers",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Major mergers scramble peers of similar mass. Minor mergers let large galaxies grow by absorbing smaller ones, often leaving streams or shells.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "ge_remnants",
+      "step_type": "galactic_encounters",
+      "title": "What remains",
+      "narration_kind": "exhibit_step",
+      "narration_text": "Remnants are diverse: disturbed disks, elliptical-like shapes, rebuilt gas-rich disks, starbursts, or AGN if fuel reaches the central black hole. Visit Black Holes for horizon-scale physics.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "ge_mw_m31",
+      "step_type": "galactic_encounters",
+      "title": "Milky Way meets Andromeda?",
+      "object_name": "MW–M31",
+      "galactic_encounters_object_id": "mw_andromeda",
+      "stellarium_focus": "Andromeda Galaxy",
+      "stellarium_fov": 3.0,
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Andromeda approaches on billion-year timescales. Label this FUTURE PREDICTION slash SIMULATION: exact timing and geometry remain model-dependent.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "ge_outro",
+      "step_type": "outro",
+      "title": "Galaxies grow by encounter",
+      "narration_kind": "exhibit_step",
+      "narration_text": "From Antennae tails to our own Local Group future, encounters write galaxy history. Exit and Restore returns Stellarium when you are done.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    }
+  ]
+}

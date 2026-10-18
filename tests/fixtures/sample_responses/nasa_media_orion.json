@@ -1,0 +1,25 @@
+{
+  "collection": {
+    "items": [
+      {
+        "data": [
+          {
+            "center": "GSFC",
+            "date_created": "2006-01-01T00:00:00Z",
+            "description": "Hubble image of the Orion Nebula.",
+            "keywords": ["Orion Nebula", "M42"],
+            "media_type": "image",
+            "nasa_id": "GSFC_OrionNebula",
+            "title": "Orion Nebula"
+          }
+        ],
+        "links": [
+          {
+            "href": "https://images-assets.nasa.gov/image/GSFC_OrionNebula/GSFC_OrionNebula~thumb.jpg",
+            "rel": "preview"
+          }
+        ]
+      }
+    ]
+  }
+}

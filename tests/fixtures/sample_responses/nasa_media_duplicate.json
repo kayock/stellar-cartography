@@ -1,0 +1,44 @@
+{
+  "collection": {
+    "items": [
+      {
+        "data": [
+          {
+            "center": "JPL",
+            "date_created": "2017-05-25T00:00:00Z",
+            "description": "Jupiter clouds.",
+            "keywords": ["Jupiter"],
+            "media_type": "image",
+            "nasa_id": "PIA21641",
+            "title": "Jupiter from Juno"
+          }
+        ],
+        "links": [
+          {
+            "href": "https://images-assets.nasa.gov/image/PIA21641/PIA21641~orig.jpg",
+            "rel": "canonical"
+          }
+        ]
+      },
+      {
+        "data": [
+          {
+            "center": "JPL",
+            "date_created": "2017-05-25T00:00:00Z",
+            "description": "Jupiter clouds, alternate rendition.",
+            "keywords": ["Jupiter"],
+            "media_type": "image",
+            "nasa_id": "PIA21641",
+            "title": "Jupiter from Juno"
+          }
+        ],
+        "links": [
+          {
+            "href": "https://images-assets.nasa.gov/image/PIA21641/PIA21641~medium.jpg",
+            "rel": "preview"
+          }
+        ]
+      }
+    ]
+  }
+}

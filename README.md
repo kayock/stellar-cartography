@@ -1,3 +1,96 @@
+# Stellar Cartography
+
+**Browser-based educational bridge for [Stellarium](https://stellarium.org/)** — select sky objects, open archive viewers, run curated **Stories of the Sky** and six **Specials**, with optional local narration/TTS.
+
+> **Status:** Feature-complete for the six Specials series (Light Echoes → Cosmic Dawn) plus earlier archive / watchlist / Solar System work. Stellarium is an **external** dependency (do not expect an AppImage in this repo). Licensed under the **MIT License** — see `LICENSE`. Third-party media retain their own terms (`docs/MEDIA_PROVENANCE.md`).
+
+---
+
+## Features (at a glance)
+
+- **Stellarium Remote Control** integration (exact name, host-sky, or coordinate hosting)
+- **Stories of the Sky** / constellation tours and exhibit flows
+- **Six Specials:** Light Echoes · Cosmic Web · Gravitational Waves · Black Holes · Galactic Encounters · Cosmic Dawn
+- **NASA / Chandra / ESA / survey media** via remote URLs and provenance fields (not bundled binaries)
+- **Optional local TTS** (Father Fox / Kayock Voice style HTTPS endpoints on loopback)
+- **Stdlib-only Python runtime** (Python ≥ 3.9) — no pip packages required to run
+
+---
+
+## Quick start
+
+```bash
+git clone <YOUR_REPO_URL> stellar-cartography
+cd stellar-cartography
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt   # documents Python ≥3.9; installs nothing else
+cp .env.example .env              # optional documentation of env vars
+
+# Stellarium Remote Control must be reachable (example: same machine)
+./start.sh --host 127.0.0.1 --port 8775 --stellarium-url http://127.0.0.1:8090
+```
+
+Open `http://127.0.0.1:8775`. Full install, Windows Stellarium + Linux Cartography, and troubleshooting: **[docs/PUBLIC_INSTALL.md](docs/PUBLIC_INSTALL.md)**.
+
+### Configuration
+
+| Variable / flag | Purpose | Example |
+|-----------------|---------|---------|
+| `--host` / `STELLAR_CARTOGRAPHY_HOST` | Bind address | `127.0.0.1` or `0.0.0.0` |
+| `--port` / `STELLAR_CARTOGRAPHY_PORT` | UI port | `8775` |
+| `--stellarium-url` / `STELLAR_CARTOGRAPHY_STELLARIUM_URL` | Remote Control base | `http://127.0.0.1:8090` |
+| `STELLAR_CARTOGRAPHY_TTS_HOSTS` | Extra TTS allowlist hosts | unset (loopback only) |
+
+Public launcher template: `start-production.example.sh`.
+
+### Prerequisites
+
+- Python **3.9+**
+- **Stellarium** with **Remote Control** plugin enabled
+- Modern browser
+- Optional: Node.js ≥ 18 for frontend unit tests only
+
+### Tests
+
+```bash
+python3 -m unittest discover -s tests -v
+```
+
+---
+
+## Architecture (short)
+
+```
+Browser UI ──► Cartography (Python stdlib http.server)
+                    │
+                    ├── Stellarium Remote Control (HTTP)
+                    ├── Official media / NASA proxies (optional online)
+                    └── Local TTS HTTPS (optional, allowlisted)
+```
+
+Specials live under `app/*` modules + `app/data/*_registry.json` + `app/static/lib/*.js`.
+
+Media provenance: **[docs/MEDIA_PROVENANCE.md](docs/MEDIA_PROVENANCE.md)**. Contributing: **[CONTRIBUTING.md](CONTRIBUTING.md)**. Security: **[SECURITY.md](SECURITY.md)**.
+
+---
+
+## License
+
+Stellar Cartography project code and project-authored docs are released under the **MIT License** (see [`LICENSE`](LICENSE)).
+
+Third-party media and Stellarium are **not** covered by that grant — see [`docs/MEDIA_PROVENANCE.md`](docs/MEDIA_PROVENANCE.md).
+
+## Attribution
+
+Imagery and multimedia are typically **linked** from agency sources (NASA, ESA, STScI, ESO, Chandra, LIGO/Virgo/KAGRA, EHT, surveys, etc.). Credits appear in Specials registries and the UI. Stellarium is trademarked by its authors; this project does not redistribute Stellarium.
+
+---
+
+## Historical README (R0.4.0 lineage)
+
+The sections below preserve the original R0.4.0 product documentation (ESASky bridge, archive lights, watchlist, Apophis). They remain accurate for those features; prefer the Quick start above for a fresh install.
+
+
 # FOXAI Stellar Cartography — R0.4.0
 
 A standalone, additive proof-of-concept sidecar for FOXAI. It lets you select
@@ -639,3 +732,28 @@ Apophis tracker behavior, and preserved R0.3 planetary pilot validation.
   response format changes in a way this app doesn't recognize, it reports
   "could not confirm" rather than silently failing quiet. The same 5-second
   timeout applies to `changeHips` confirmation.
+
+## Light Echoes (Upgrade #1)
+
+Interactive scientific exhibit on light echoes: illustrative source–dust–observer geometry, curated real examples (V838 Mon, Cas A echoes, SN 1987A), optional Stellarium focus via existing Remote Control client, and user-controlled narration. Data: `app/data/light_echoes_registry.json`. Docs: `docs/LIGHT_ECHOES.md`.
+
+## Cosmic Web (Upgrade #2)
+
+Interactive exhibit on large-scale structure: illustrative structure-growth lab with layer toggles, survey/simulation media with OBSERVATION/RECONSTRUCTION/SIMULATION/ILLUSTRATION badges, and Stellarium sky anchors. Data: `app/data/cosmic_web_registry.json`. Docs: `docs/COSMIC_WEB.md`.
+
+## Gravitational Waves (Upgrade #3)
+
+Interactive Special: illustrative plus/cross polarization, interferometer diagram, inspiral chirp (browser sonification clearly labeled), GW150914/GW170817 event cards, detector network localization honesty, multi-messenger section, Stellarium sky anchor for NGC 4993. Data: `app/data/gravitational_waves_registry.json`. Docs: `docs/GRAVITATIONAL_WAVES.md`.
+
+## Black Holes (Upgrade #4)
+
+Interactive Special: Schwarzschild scale lab, approach regions, illustrative lensing, accretion appearance notes, tidal comparison, EHT reconstructions for M87*/Sgr A*, Cygnus X-1, detection methods linking to Gravitational Waves. Data: `app/data/black_holes_registry.json`. Docs: `docs/BLACK_HOLES.md`.
+
+## Galactic Encounters (Upgrade #5)
+
+Interactive Special: illustrative encounter stages, galaxy-scale tides, stars-vs-gas, major/minor mergers, Antennae/M51/Mice observations, and a model-dependent Milky Way–Andromeda future section. Data: `app/data/galactic_encounters_registry.json`. Docs: `docs/GALACTIC_ENCOUNTERS.md`.
+
+## Cosmic Dawn (Upgrade #6)
+
+Final Special in the six-upgrade series: illustrative timeline, redshift teaching aid, Planck CMB reconstruction, dark ages, cautious first-star language, reionization bubbles, JWST deep-field observations, conservative 21-cm frontier, and present-day Stellarium anchors only. Data: `app/data/cosmic_dawn_registry.json`. Docs: `docs/COSMIC_DAWN.md`.
+

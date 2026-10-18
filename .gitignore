@@ -1,13 +1,62 @@
-﻿__pycache__/
+# Python
+__pycache__/
 *.py[cod]
+*$py.class
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
 .venv/
 venv/
+*.egg-info/
+.coverage
+htmlcov/
+
+# Node (frontend tests only; no runtime node_modules required)
 node_modules/
+
+# OS / editor
 .DS_Store
 Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# Local runtime / caches
 runtime_data/*.tmp
+runtime_data/*.log
 runtime_data/tracked_objects.json
 runtime_data/tracked_objects.json.bak
+runtime_data/official_media_cache/
+runtime_data/narration_cache/
+runtime_data/*.pid
+
+# Local deployment (keep examples in repo; private launchers stay local)
+.start-production.local.sh
+start-production.sh
+.env
+.env.local
+
+# Bundled Stellarium / AppImage / extracted trees (external dependency — do not publish)
+stellarium/
+*.AppImage
+squashfs-root/
+
+# Local backups / ops artifacts
+backups/
+*.bak
+*.bak-*
+run.py.bak*
+
+# Logs
+*.log
+logs/
+
+# Local-only ops / LAN migration reports (not for public GitHub)
+docs/STELLARIUM_WINDOWS_*.md
+docs/STELLAR_CARTOGRAPHY_*_UPGRADE.md
+docs/STELLAR_CARTOGRAPHY_WINDOWS_STELLARIUM_CUTOVER.md
+docs/UBUNTU_START.md
+
+# Research scratch (optional local notes)
+research/tmp/

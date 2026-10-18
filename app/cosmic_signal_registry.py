@@ -169,6 +169,12 @@ def validate_registry(raw: dict[str, Any]) -> None:
         _require_list_of_str(entry["target_aliases"], "target_aliases")
         _require_list_of_str(entry["related_body_ids"], "related_body_ids")
         _require_list_of_str(entry["related_missions"], "related_missions")
+        for optional_list in ("related_constellations", "object_ids", "story_tags"):
+            if optional_list in entry:
+                _require_list_of_str(entry[optional_list], optional_list)
+        for optional_str in ("constellation", "narrative_role", "signal_category"):
+            if optional_str in entry and entry[optional_str] is not None and not isinstance(entry[optional_str], str):
+                raise RegistryError(f"Optional field '{optional_str}' for '{entry_id}' must be a string.")
 
         for body_id in list(entry["target_ids"]) + list(entry["related_body_ids"]):
             if body_id in deep_ids:
@@ -431,4 +437,10 @@ def _present(entry: dict[str, Any], relevance: str) -> dict[str, Any]:
         "captions_url": entry.get("captions_url"),
         "final_resolved_media_host": entry.get("final_resolved_media_host"),
         "verified_date": entry.get("verified_date"),
+        "constellation": entry.get("constellation"),
+        "related_constellations": entry.get("related_constellations") or [],
+        "object_ids": entry.get("object_ids") or [],
+        "story_tags": entry.get("story_tags") or [],
+        "narrative_role": entry.get("narrative_role"),
+        "signal_category": entry.get("signal_category"),
     }

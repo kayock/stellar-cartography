@@ -1,0 +1,371 @@
+{
+  "id": "galactic_encounters",
+  "title": "Galactic Encounters",
+  "subtitle": "When galaxies meet across cosmic time",
+  "description": "Interactive exhibit on galaxy interactions: tidal forces, tails and bridges, stars versus gas, major and minor mergers, observed systems, and the uncertain future of the Milky Way and Andromeda.",
+  "estimated_minutes": 18,
+  "source_note": "Scientific outreach. Encounter and tidal labs are ILLUSTRATIVE. Observed systems cite Hubble/ESA/NASA media. Milky Way\u2013Andromeda content is FUTURE PREDICTION / SIMULATION and model-dependent\u2014not a fixed calendar date.",
+  "illustrative_disclaimer": "ILLUSTRATIVE GALAXY ENCOUNTER \u2014 educational sketches, not N-body trajectories of a specific observed pair unless separately labeled.",
+  "audio_autoplay": false,
+  "classification_legend": {
+    "observation": "Telescope imaging of real galaxies",
+    "simulation": "Numerical encounter or merger visualization",
+    "reconstruction": "Derived structural interpretation from data",
+    "illustration": "Educational interactive diagram",
+    "future_prediction": "Forward model of a system not yet observed at that epoch"
+  },
+  "science": {
+    "gravity": "Galaxies influence one another primarily through gravity acting across tens to hundreds of thousands of light-years. Stars within each galaxy remain widely separated.",
+    "stars_miss": "Even when disks overlap, the odds that two individual stars collide head-on are tiny\u2014stellar separations are enormous compared with stellar sizes.",
+    "gas_collides": "Interstellar gas and dust interact strongly: clouds can compress, shock, and cool, often fueling new star formation. Not every encounter produces the same starburst.",
+    "tides": "Differential gravity across a galaxy stretches material\u2014the near side feels a stronger pull than the far side\u2014drawing out tidal tails and bridges over long times.",
+    "timescales": "Close passages and mergers unfold over hundreds of millions to billions of years. A first flyby does not instantly finish a merger.",
+    "major_minor": "Major mergers involve comparable masses and can scramble disks globally. Minor mergers embed smaller galaxies into larger ones, often leaving streams or shells.",
+    "dark_matter": "Extended dark-matter halos dominate the mass budget and strongly shape encounter orbits and dynamical friction.",
+    "remnants": "Outcomes vary: disturbed disks, elliptical-like remnants, rebuilt gas-rich disks, shells/streams, central starbursts, or AGN fueling if gas reaches the nucleus.",
+    "mw_m31": "Andromeda shows blueshift toward the Milky Way, so a future Local Group encounter is expected on billion-year timescales. Exact timing, impact parameter, and remnant morphology remain model-dependent. Recent dynamical studies (including Magellanic Cloud mass/orbit effects) revise encounter likelihood and timing\u2014do not treat any single 'collision in X billion years' figure as settled fact. This section is FUTURE PREDICTION / SIMULATION, not a calendar event."
+  },
+  "encounter_lab": {
+    "kind": "illustrative",
+    "classification": "illustration",
+    "label": "ILLUSTRATIVE GALAXY ENCOUNTER",
+    "disclaimer": "Conceptual stages only\u2014not calibrated N-body particles of Antennae, Mice, or M51.",
+    "stages": [
+      {
+        "id": "approach",
+        "label": "Approach",
+        "progress": 0.0,
+        "caption": "Two galaxies fall toward each other under mutual gravity."
+      },
+      {
+        "id": "first_passage",
+        "label": "First passage",
+        "progress": 0.22,
+        "caption": "Closest approach begins to distort disks; bridges may start."
+      },
+      {
+        "id": "tidal_distortion",
+        "label": "Tidal distortion",
+        "progress": 0.4,
+        "caption": "Differential gravity warps disks and pulls material outward."
+      },
+      {
+        "id": "tails",
+        "label": "Tails and bridges",
+        "progress": 0.58,
+        "caption": "Extended tidal tails and bridges become prominent."
+      },
+      {
+        "id": "second_passage",
+        "label": "Later passages",
+        "progress": 0.78,
+        "caption": "Orbital energy drains; repeated encounters can deepen the interaction."
+      },
+      {
+        "id": "remnant",
+        "label": "Merger / remnant",
+        "progress": 1.0,
+        "caption": "If bound, systems may coalesce into a disturbed or elliptical-like remnant over Gyr."
+      }
+    ],
+    "mass_ratios": [
+      {
+        "id": "equal",
+        "label": "Comparable masses (~1:1)",
+        "ratio": 1.0
+      },
+      {
+        "id": "three_to_one",
+        "label": "Unequal (~3:1)",
+        "ratio": 3.0
+      },
+      {
+        "id": "ten_to_one",
+        "label": "Minor (~10:1)",
+        "ratio": 10.0
+      }
+    ],
+    "orientations": [
+      {
+        "id": "prograde",
+        "label": "Prograde-style",
+        "note": "Disk spins roughly aligned with the encounter orbit\u2014often stronger tidal response."
+      },
+      {
+        "id": "retrograde",
+        "label": "Retrograde-style",
+        "note": "Opposite sense of rotation\u2014often milder disk response for the same path."
+      }
+    ]
+  },
+  "tidal_lab": {
+    "kind": "illustrative",
+    "classification": "illustration",
+    "label": "GALAXY-SCALE TIDAL STRETCH",
+    "disclaimer": "Shows differential gravity across a disk companion. Distinct from black-hole horizon tides\u2014here the perturber is another galaxy.",
+    "caption": "Near-side material feels a stronger pull than the far side; the disk stretches into tails over long timescales."
+  },
+  "stars_gas_lab": {
+    "kind": "illustrative",
+    "classification": "illustration",
+    "label": "STARS VS GAS",
+    "modes": [
+      {
+        "id": "stars",
+        "label": "Stars",
+        "caption": "Collisionless stellar orbits mostly pass through; direct star\u2013star impacts are rare."
+      },
+      {
+        "id": "gas",
+        "label": "Gas",
+        "caption": "Gas clouds can collide, shock, and compress\u2014helping trigger star formation and bright UV/IR regions."
+      },
+      {
+        "id": "both",
+        "label": "Together",
+        "caption": "Stars stream while gas piles up\u2014why overlapping galaxies can look stormy without stellar pile-ups."
+      }
+    ]
+  },
+  "merger_lab": {
+    "kind": "illustrative",
+    "classification": "illustration",
+    "modes": [
+      {
+        "id": "major",
+        "label": "Major merger",
+        "caption": "Roughly comparable masses: strong global disruption is common; disks may be scrambled before a remnant settles."
+      },
+      {
+        "id": "minor",
+        "label": "Minor merger",
+        "caption": "A much smaller galaxy is accreted: the large disk often survives with streams, shells, or a thickened halo."
+      }
+    ]
+  },
+  "future_mw_m31": {
+    "classification": "future_prediction",
+    "label": "FUTURE PREDICTION / SIMULATION",
+    "disclaimer": "FUTURE PREDICTION / SIMULATION \u2014 model-dependent. Observed: Andromeda approaches (blueshift). Not observed: the future merger geometry. Do not hard-code a single collision year. Orbit mass models (Milky Way, M31, Magellanic Clouds) continue to update timing and whether a direct head-on merger is favored. Simulation images are not photographs of our future sky.",
+    "points": [
+      "Andromeda\u2019s spectrum shows approach (blueshift) relative to the Milky Way.",
+      "Billion-year timescales are the relevant teaching frame\u2014not human history.",
+      "Simulations explore families of outcomes; they are not photographs of our future sky.",
+      "Uncertainty is scientifically honest: refine orbits, still revise timing and morphology."
+    ]
+  },
+  "objects": [
+    {
+      "id": "antennae",
+      "name": "Antennae Galaxies",
+      "short_name": "Antennae",
+      "components": [
+        "NGC 4038",
+        "NGC 4039"
+      ],
+      "interaction_type": "ongoing major merger / strong tidal tails",
+      "distance_note": "~45\u201370 million light-years (literature range; use as approximate).",
+      "significance": "Textbook interacting pair with spectacular tidal tails and intense star formation.",
+      "observed_features": [
+        "long tidal tails",
+        "overlapping disks",
+        "starburst regions",
+        "dust lanes"
+      ],
+      "stellarium_search": "NGC 4038",
+      "stellarium_fov_deg": 1.0,
+      "stellarium_match_mode": "exact",
+      "stellarium_accept_names": [
+        "Antennae",
+        "NGC 4038",
+        "NGC 4039"
+      ],
+      "stellarium_note": "Focuses NGC 4038; Stellarium may label the pair Antennae.",
+      "media": {
+        "id": "hubble_antennae_heic0506a",
+        "title": "ESA/Hubble \u2014 Antennae Galaxies",
+        "organization": "ESA/Hubble",
+        "credit": "NASA, ESA, and the Hubble Heritage Team (STScI/AURA)-ESA/Hubble Collaboration",
+        "classification": "observation",
+        "source_page_url": "https://esahubble.org/images/heic0506a/",
+        "image_url": "https://cdn.esahubble.org/archives/images/screen/heic0506a.jpg",
+        "license_note": "ESA/Hubble public image; follow ESA/Hubble credit guidelines.",
+        "relation": "optical_observation"
+      },
+      "sources": [
+        {
+          "title": "ESA/Hubble \u2014 The Antennae Galaxies",
+          "url": "https://esahubble.org/images/heic0506a/",
+          "organization": "ESA/Hubble",
+          "classification": "observation"
+        }
+      ]
+    },
+    {
+      "id": "whirlpool",
+      "name": "Whirlpool Galaxy (M51)",
+      "short_name": "M51",
+      "components": [
+        "NGC 5194",
+        "NGC 5195"
+      ],
+      "interaction_type": "interacting spiral + companion",
+      "distance_note": "~23\u201331 million light-years (approximate).",
+      "significance": "Clear spiral with a companion (NGC 5195) useful for discussing tidal triggering of structure.",
+      "observed_features": [
+        "grand-design spiral",
+        "companion bridge/dust",
+        "star-forming arms"
+      ],
+      "stellarium_search": "M51",
+      "stellarium_fov_deg": 1.2,
+      "stellarium_match_mode": "exact",
+      "stellarium_accept_names": [
+        "Whirlpool Galaxy",
+        "M51",
+        "NGC 5194"
+      ],
+      "stellarium_note": "Focuses M51 / Whirlpool Galaxy; companion NGC 5195 is separately selectable as M51B.",
+      "media": {
+        "id": "hubble_m51_heic1410a",
+        "title": "ESA/Hubble \u2014 Whirlpool Galaxy",
+        "organization": "ESA/Hubble",
+        "credit": "NASA, ESA, S. Beckwith (STScI), and the Hubble Heritage Team (STScI/AURA)",
+        "classification": "observation",
+        "source_page_url": "https://esahubble.org/images/heic1410a/",
+        "image_url": "https://cdn.esahubble.org/archives/images/screen/heic1410a.jpg",
+        "license_note": "ESA/Hubble public image; follow ESA/Hubble credit guidelines.",
+        "relation": "optical_observation"
+      },
+      "sources": [
+        {
+          "title": "ESA/Hubble \u2014 M51 Whirlpool",
+          "url": "https://esahubble.org/images/heic1410a/",
+          "organization": "ESA/Hubble",
+          "classification": "observation"
+        }
+      ]
+    },
+    {
+      "id": "mice",
+      "name": "The Mice (NGC 4676)",
+      "short_name": "The Mice",
+      "components": [
+        "NGC 4676A",
+        "NGC 4676B"
+      ],
+      "interaction_type": "interacting pair with long tidal tails",
+      "distance_note": "~290 million light-years (approximate).",
+      "significance": "Iconic long tails illustrating strong tidal stripping during an encounter.",
+      "observed_features": [
+        "twin long tidal tails",
+        "distorted disks",
+        "bridging material"
+      ],
+      "stellarium_search": "NGC 4676",
+      "stellarium_fov_deg": 0.8,
+      "stellarium_match_mode": "exact",
+      "stellarium_accept_names": [
+        "Mice Galaxies",
+        "NGC 4676",
+        "The Mice"
+      ],
+      "stellarium_note": "Focuses NGC 4676 (Mice Galaxies).",
+      "media": {
+        "id": "hubble_mice_heic0601a",
+        "title": "ESA/Hubble \u2014 The Mice Galaxies",
+        "organization": "ESA/Hubble",
+        "credit": "NASA, H. Ford (JHU), G. Illingworth (UCSC/LO), M.Clampin (STScI), G. Hartig (STScI), the ACS Science Team, and ESA",
+        "classification": "observation",
+        "source_page_url": "https://esahubble.org/images/heic0601a/",
+        "image_url": "https://cdn.esahubble.org/archives/images/screen/heic0601a.jpg",
+        "license_note": "ESA/Hubble public image; follow ESA/Hubble credit guidelines.",
+        "relation": "optical_observation"
+      },
+      "sources": [
+        {
+          "title": "ESA/Hubble \u2014 The Mice",
+          "url": "https://esahubble.org/images/heic0601a/",
+          "organization": "ESA/Hubble",
+          "classification": "observation"
+        }
+      ]
+    },
+    {
+      "id": "mw_andromeda",
+      "name": "Milky Way\u2013Andromeda future",
+      "short_name": "MW\u2013M31",
+      "components": [
+        "Milky Way",
+        "M31"
+      ],
+      "interaction_type": "future Local Group encounter (predicted)",
+      "distance_note": "M31 currently ~2.5 million light-years away.",
+      "significance": "Our own future encounter laboratory\u2014must remain labeled prediction/simulation.",
+      "observed_features": [
+        "M31 blueshift / approach",
+        "Local Group dynamics"
+      ],
+      "stellarium_search": "Andromeda Galaxy",
+      "stellarium_fov_deg": 3.0,
+      "stellarium_match_mode": "exact",
+      "stellarium_accept_names": [
+        "Andromeda Galaxy",
+        "M31"
+      ],
+      "stellarium_note": "Focuses Andromeda Galaxy (M31) as present-day sky context\u2014not a depiction of the future merger.",
+      "media": {
+        "id": "nasa_pia04632_collision",
+        "title": "NASA Photojournal PIA04632 \u2014 galaxy collision simulation still",
+        "organization": "NASA / JPL",
+        "credit": "NASA/JPL-Caltech",
+        "classification": "future_prediction",
+        "source_page_url": "https://photojournal.jpl.nasa.gov/catalog/PIA04632",
+        "image_url": "https://images-assets.nasa.gov/image/PIA04632/PIA04632~orig.jpg",
+        "license_note": "NASA public image; simulation visualization\u2014not a photograph of our future sky.",
+        "relation": "encounter_simulation"
+      },
+      "sources": [
+        {
+          "title": "NASA \u2014 Messier 31 (Andromeda)",
+          "url": "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-31/",
+          "organization": "NASA",
+          "classification": "observation"
+        },
+        {
+          "title": "NASA Photojournal PIA04632",
+          "url": "https://photojournal.jpl.nasa.gov/catalog/PIA04632",
+          "organization": "NASA / JPL",
+          "classification": "simulation"
+        }
+      ]
+    }
+  ],
+  "narration": {
+    "motion": "Galaxies are not lonely islands. Gravity reaches across millions of light-years and slowly rearranges their shapes.",
+    "tides": "Tidal forces stretch a galaxy because the near side feels a stronger pull than the far side. Over long ages, that stretch becomes tails and bridges.",
+    "tails": "Tidal tails and bridges are rivers of stars and gas pulled outward during close passages\u2014billboards of past encounters.",
+    "stars_gas": "Stars usually miss each other, but gas clouds can slam together and light new stars. That is why interacting galaxies often look stormy.",
+    "antennae": "The Antennae are a classic merger in progress: overlapping disks, furious star formation, and long tidal antennae.",
+    "whirlpool": "The Whirlpool Galaxy shows how a companion can help sculpt spiral structure while the pair continues to interact.",
+    "major_minor": "Major mergers scramble peers; minor mergers let a large galaxy grow by eating smaller ones, often leaving stellar streams.",
+    "remnants": "There is no single ending. Remnants may look elliptical-like, rebuild disks, host starbursts, or feed a central black hole.",
+    "mw_m31": "Andromeda approaches the Milky Way on cosmic timescales. Simulations explore possible futures, but exact timing and geometry remain model-dependent\u2014no single collision date is certain.",
+    "closing": "Galaxies grow by encounter. Watching tails, bridges, and starbursts, we read gravity\u2019s long conversation across the sky."
+  },
+  "provenance_hosts_allowed": [
+    "cdn.esahubble.org",
+    "esahubble.org",
+    "www.spacetelescope.org",
+    "images-assets.nasa.gov",
+    "photojournal.jpl.nasa.gov",
+    "www.nasa.gov",
+    "nasa.gov",
+    "science.nasa.gov",
+    "noirlab.edu",
+    "www.eso.org",
+    "cdn.eso.org",
+    "chandra.harvard.edu",
+    "chandra.si.edu"
+  ]
+}

@@ -19,6 +19,11 @@
       <span class="dot"></span>
       <span class="status-text">Checking Stellarium…</span>
     </div>
+    <label class="status-pill ui-sound-pill">
+      <input id="ui-sound-toggle" type="checkbox">
+      <span>UI sounds</span>
+      <input id="ui-sound-volume" type="range" min="0" max="1" step="0.05" value="0.25" aria-label="UI sound volume">
+    </label>
     <div id="archive-mode-indicator" class="status-pill status-off">
       <span class="dot"></span>
       <span class="status-text">Online Archive Mode: Off</span>
@@ -44,7 +49,469 @@
         <div class="target-empty-msg">No target loaded yet. Select an object in Stellarium, then press
           "Use Stellarium Selection" — or enter a target manually below.</div>
       </div>
+      <p id="constellation-context" class="hint"></p>
+      <div class="button-row">
+        <button type="button" id="btn-open-constellation-story" class="btn btn-secondary">Open Stories of the Sky</button>
+      </div>
     </div>
+
+    <details class="card" id="constellation-story-card">
+      <summary>Stories of the Sky</summary>
+      <p class="hint">Modern IAU figures and a small set of sourced sky-culture stories. Audio never autoplays. Cartography's selected story culture is not Stellarium's rendering culture unless the ids actually match.</p>
+      <p id="stellarium-sky-culture" class="hint" role="status"></p>
+      <div class="coord-row narration-select-row">
+        <label for="story-culture-select">Story culture
+          <select id="story-culture-select" aria-label="Cartography story culture">
+            <option value="modern">Modern IAU</option>
+            <option value="chinese">Chinese</option>
+            <option value="arabic_peninsula">Arabic (Arabian Peninsula tradition)</option>
+            <option value="arabic_sufi">Medieval Islamic astronomy (al-Ṣūfī)</option>
+            <option value="maori">Māori</option>
+            <option value="ancestral_puebloan">Ancestral Puebloan</option>
+            <option value="mexica">Mexica (historical)</option>
+          </select>
+        </label>
+      </div>
+      <div id="story-browser" class="constellation-chip-row" aria-label="Stories in the selected culture"></div>
+      <div id="story-compare" class="story-compare" hidden></div>
+      <div id="constellation-tour-status" class="constellation-progress" role="status"></div>
+      <div class="button-row">
+        <button type="button" id="btn-constellation-tour-start" class="btn btn-primary">Start Guided Tour</button>
+        <button type="button" id="btn-constellation-tour-prev" class="btn btn-secondary" disabled>Previous</button>
+        <button type="button" id="btn-constellation-tour-next" class="btn btn-secondary" disabled>Next</button>
+        <button type="button" id="btn-constellation-tour-stop" class="btn btn-secondary" disabled>Stop</button>
+        <button type="button" id="btn-constellation-return" class="btn btn-secondary" disabled>Return to original</button>
+        <button type="button" id="btn-archaeoastronomy" class="btn btn-secondary" hidden>View Archaeoastronomy</button>
+      </div>
+      <div class="narration-panel" id="constellation-narration-panel">
+        <div class="narration-label">Cartography Narration <span class="event-chip">LOCAL</span></div>
+        <p class="hint">Spoken from Cartography story text by a local voice. This is not NASA or Chandra narration. Nothing plays until you press a button.</p>
+        <div id="tts-provider-status" class="hint" role="status" aria-live="polite"></div>
+        <div class="coord-row narration-select-row">
+          <label for="tts-provider">Voice
+            <select id="tts-provider" aria-label="Narration voice provider">
+              <option value="father_fox">Father Fox</option>
+              <option value="kayock_voice">Kayock Voice</option>
+            </select>
+          </label>
+          <label for="tts-voice">Voice color
+            <select id="tts-voice" aria-label="Narration voice color"></select>
+          </label>
+        </div>
+        <div class="button-row">
+          <button type="button" id="btn-tell-story" class="btn btn-primary">Tell Me the Story</button>
+          <button type="button" id="btn-narrated-tour" class="btn btn-secondary">Start Narrated Tour</button>
+          <button type="button" id="btn-narration-pause" class="btn btn-secondary" disabled>Pause</button>
+          <button type="button" id="btn-narration-resume" class="btn btn-secondary" disabled>Resume</button>
+          <button type="button" id="btn-narration-stop" class="btn btn-secondary" disabled>Stop Narration</button>
+        </div>
+        <label class="narration-auto"><input id="tts-auto-advance" type="checkbox"> Automatic advance after narration</label>
+        <label class="narration-volume">Volume <input id="tts-volume" type="range" min="0" max="1" step="0.05" value="0.8" aria-label="Narration volume"></label>
+        <audio id="tts-audio" preload="none" data-autoplay="false"></audio>
+        <div id="narration-script" class="narration-script" aria-live="polite"></div>
+        <div id="narration-status" class="hint" role="status" aria-live="polite"></div>
+      </div>
+      <div class="constellation-controls" id="constellation-controls">
+        <label><input id="constellation-ctrl-lines" type="checkbox"> Lines</label>
+        <label><input id="constellation-ctrl-labels" type="checkbox"> Labels</label>
+        <label><input id="constellation-ctrl-boundaries" type="checkbox"> Boundaries</label>
+        <label><input id="constellation-ctrl-artwork" type="checkbox"> Artwork</label>
+        <label><input id="constellation-ctrl-isolate" type="checkbox"> Isolate selected</label>
+      </div>
+      <div id="constellation-story-body" class="about-object-body"></div>
+      <div id="archaeoastronomy-panel" class="archaeo-panel" hidden>
+        <div class="narration-label">Archaeoastronomy Visual Mode</div>
+        <p class="hint">Browser-native interpretive diagrams. The story card stays above. Stellarium does not change until you choose a historical date.</p>
+        <div id="archaeoastronomy-status" class="hint" role="status"></div>
+        <div id="archaeoastronomy-body"></div>
+      </div>
+      <div id="constellation-official-media"></div>
+      <div id="constellation-listen-body"></div>
+    </details>
+
+
+
+
+
+
+
+    <details class="card" id="cosmic-dawn-card">
+      <summary>Cosmic Dawn</summary>
+      <p class="hint">Interactive Special on recombination, the CMB, dark ages, first stars/galaxies, reionization, JWST's early-galaxy frontier, and cautious 21-cm cosmology. Timeline and bubble labs are ILLUSTRATIVE. Stellarium is present-day sky only. Narration stays silent until Listen.</p>
+      <div id="cd-legend" class="cd-legend"></div>
+      <div id="cd-science" class="cd-science"></div>
+      <div class="cd-lab">
+        <div class="narration-label">Cosmic timeline</div>
+        <svg id="cd-timeline-svg" class="cd-svg" viewBox="0 0 100 100" role="img" aria-label="Illustrative cosmic timeline"></svg>
+        <label>Epoch progress <input id="cd-timeline-time" type="range" min="0" max="100" value="0"></label>
+        <p id="cd-timeline-caption" class="hint"></p>
+      </div>
+      <div class="cd-lab">
+        <div class="narration-label">Redshift / lookback</div>
+        <label>Teaching redshift z <input id="cd-redshift-z" type="range" min="0" max="200" value="60"></label>
+        <div id="cd-redshift"></div>
+      </div>
+      <div class="cd-lab">
+        <div class="narration-label">Reionization</div>
+        <svg id="cd-reion-svg" class="cd-svg" viewBox="0 0 100 100" role="img" aria-label="Illustrative reionization bubbles"></svg>
+        <label>Reionization progress <input id="cd-reion-time" type="range" min="0" max="100" value="0"></label>
+        <p id="cd-reion-caption" class="hint"></p>
+      </div>
+      <div class="cd-lab">
+        <div class="narration-label">Early structure growth</div>
+        <svg id="cd-structure-svg" class="cd-svg" viewBox="0 0 100 100" role="img" aria-label="Early structure growth sketch"></svg>
+        <label>Growth <input id="cd-structure-time" type="range" min="0" max="100" value="40"></label>
+        <p id="cd-structure-caption" class="hint"></p>
+      </div>
+      <div id="cd-21cm" class="cd-21cm"></div>
+      <div class="narration-label">Topics & media</div>
+      <div id="cd-objects" class="constellation-chip-row" aria-label="Cosmic Dawn topics"></div>
+      <div id="cd-detail" class="cd-detail"></div>
+      <div id="cd-media" class="cd-media"></div>
+      <div class="button-row">
+        <button type="button" id="btn-cd-focus" class="btn btn-primary">Focus sky anchor</button>
+        <button type="button" id="btn-cd-lookback" class="btn btn-secondary">Listen: Lookback</button>
+        <button type="button" id="btn-cd-recombination" class="btn btn-secondary">Listen: Recombination</button>
+        <button type="button" id="btn-cd-cmb" class="btn btn-secondary">Listen: CMB</button>
+        <button type="button" id="btn-cd-dark" class="btn btn-secondary">Listen: Dark ages</button>
+        <button type="button" id="btn-cd-stars" class="btn btn-secondary">Listen: First stars</button>
+        <button type="button" id="btn-cd-galaxies" class="btn btn-secondary">Listen: First galaxies</button>
+        <button type="button" id="btn-cd-reion" class="btn btn-secondary">Listen: Reionization</button>
+        <button type="button" id="btn-cd-jwst" class="btn btn-secondary">Listen: JWST</button>
+        <button type="button" id="btn-cd-21" class="btn btn-secondary">Listen: 21-cm</button>
+        <button type="button" id="btn-cd-closing" class="btn btn-secondary">Listen: Closing</button>
+        <button type="button" id="btn-cd-stop-narration" class="btn btn-secondary">Stop Narration</button>
+      </div>
+      <p id="cd-status" class="hint" role="status" aria-live="polite">Loading Cosmic Dawn…</p>
+    </details>
+
+    <details class="card" id="galactic-encounters-card">
+      <summary>Galactic Encounters</summary>
+      <p class="hint">Interactive Special on galaxy interactions: tidal tails, stars vs gas, mergers, Antennae/M51/Mice, and the model-dependent Milky Way–Andromeda future. Labs are ILLUSTRATIVE. Narration stays silent until Listen.</p>
+      <div id="ge-legend" class="ge-legend"></div>
+      <div id="ge-science" class="ge-science"></div>
+      <div class="ge-lab">
+        <div class="narration-label">Encounter lab</div>
+        <svg id="ge-encounter-svg" class="ge-svg" viewBox="0 0 100 100" role="img" aria-label="Illustrative galaxy encounter"></svg>
+        <label>Encounter progress <input id="ge-encounter-time" type="range" min="0" max="100" value="0"></label>
+        <label>Mass ratio <select id="ge-mass-ratio"></select></label>
+        <label>Orientation <select id="ge-orientation"></select></label>
+        <p id="ge-encounter-caption" class="hint"></p>
+      </div>
+      <div class="ge-lab">
+        <div class="narration-label">Galaxy-scale tides</div>
+        <svg id="ge-tidal-svg" class="ge-svg" viewBox="0 0 100 100" role="img" aria-label="Illustrative galactic tides"></svg>
+        <label>Tidal strength <input id="ge-tidal-strength" type="range" min="0" max="100" value="65"></label>
+        <p id="ge-tidal-caption" class="hint"></p>
+      </div>
+      <div class="ge-lab">
+        <div class="narration-label">Stars vs gas</div>
+        <label>Mode <select id="ge-stars-gas-mode"></select></label>
+        <div id="ge-stars-gas"></div>
+      </div>
+      <div class="ge-lab">
+        <div class="narration-label">Major vs minor</div>
+        <label>Mode <select id="ge-merger-mode"></select></label>
+        <div id="ge-merger"></div>
+      </div>
+      <div id="ge-future" class="ge-future"></div>
+      <div class="narration-label">Real systems</div>
+      <div id="ge-objects" class="constellation-chip-row" aria-label="Galaxy encounter systems"></div>
+      <div id="ge-detail" class="ge-detail"></div>
+      <div id="ge-media" class="ge-media"></div>
+      <div class="button-row">
+        <button type="button" id="btn-ge-focus" class="btn btn-primary">Focus sky anchor</button>
+        <button type="button" id="btn-ge-motion" class="btn btn-secondary">Listen: Motion</button>
+        <button type="button" id="btn-ge-tides" class="btn btn-secondary">Listen: Tides</button>
+        <button type="button" id="btn-ge-tails" class="btn btn-secondary">Listen: Tails</button>
+        <button type="button" id="btn-ge-stars-gas" class="btn btn-secondary">Listen: Stars vs gas</button>
+        <button type="button" id="btn-ge-antennae" class="btn btn-secondary">Listen: Antennae</button>
+        <button type="button" id="btn-ge-whirlpool" class="btn btn-secondary">Listen: Whirlpool</button>
+        <button type="button" id="btn-ge-major-minor" class="btn btn-secondary">Listen: Major/minor</button>
+        <button type="button" id="btn-ge-remnants" class="btn btn-secondary">Listen: Remnants</button>
+        <button type="button" id="btn-ge-mw-m31" class="btn btn-secondary">Listen: MW–M31</button>
+        <button type="button" id="btn-ge-closing" class="btn btn-secondary">Listen: Closing</button>
+        <button type="button" id="btn-ge-stop-narration" class="btn btn-secondary">Stop Narration</button>
+      </div>
+      <p id="ge-status" class="hint" role="status" aria-live="polite">Loading Galactic Encounters…</p>
+    </details>
+
+    <details class="card" id="black-holes-card">
+      <summary>Black Holes</summary>
+      <p class="hint">Interactive Special on event horizons, scale, approach regions, illustrative lensing, accretion appearance, tidal forces, EHT imaging, and detection methods. Labs are ILLUSTRATIVE unless labeled reconstruction/observation. Narration stays silent until Listen.</p>
+      <div id="bh-legend" class="bh-legend"></div>
+      <div id="bh-science" class="bh-science"></div>
+      <div class="bh-lab">
+        <div class="narration-label">Scale lab (Schwarzschild model)</div>
+        <svg id="bh-scale-svg" class="bh-svg" viewBox="0 0 100 100" role="img" aria-label="Black-hole scale comparison"></svg>
+        <label>Example <select id="bh-scale-select"></select></label>
+        <p id="bh-scale-caption" class="hint"></p>
+      </div>
+      <div class="bh-lab">
+        <div class="narration-label">Approach / region lab</div>
+        <svg id="bh-approach-svg" class="bh-svg" viewBox="0 0 100 100" role="img" aria-label="Illustrative approach regions"></svg>
+        <label>Approach <input id="bh-approach-time" type="range" min="0" max="100" value="0"></label>
+        <p id="bh-approach-caption" class="hint"></p>
+      </div>
+      <div class="bh-lab">
+        <div class="narration-label">Lensing lab</div>
+        <svg id="bh-lensing-svg" class="bh-svg" viewBox="0 0 100 100" role="img" aria-label="Illustrative relativistic lensing"></svg>
+        <label>Lensing strength <input id="bh-lensing-strength" type="range" min="0" max="100" value="55"></label>
+        <p id="bh-lensing-caption" class="hint"></p>
+      </div>
+      <div id="bh-accretion" class="bh-accretion"></div>
+      <div class="bh-lab">
+        <div class="narration-label">Tidal forces</div>
+        <label>Compare <select id="bh-tidal-select"></select></label>
+        <div id="bh-tidal"></div>
+      </div>
+      <div id="bh-detection" class="bh-detection"></div>
+      <div class="narration-label">Real systems</div>
+      <div id="bh-objects" class="constellation-chip-row" aria-label="Black-hole systems"></div>
+      <div id="bh-detail" class="bh-detail"></div>
+      <div id="bh-media" class="bh-media"></div>
+      <div class="button-row">
+        <button type="button" id="btn-bh-focus" class="btn btn-primary">Focus sky anchor</button>
+        <button type="button" id="btn-bh-what" class="btn btn-secondary">Listen: What is</button>
+        <button type="button" id="btn-bh-horizon" class="btn btn-secondary">Listen: Horizon</button>
+        <button type="button" id="btn-bh-scale" class="btn btn-secondary">Listen: Scale</button>
+        <button type="button" id="btn-bh-accretion" class="btn btn-secondary">Listen: Accretion</button>
+        <button type="button" id="btn-bh-lensing" class="btn btn-secondary">Listen: Lensing</button>
+        <button type="button" id="btn-bh-tidal" class="btn btn-secondary">Listen: Tidal</button>
+        <button type="button" id="btn-bh-sgr" class="btn btn-secondary">Listen: Sgr A*</button>
+        <button type="button" id="btn-bh-m87" class="btn btn-secondary">Listen: M87*</button>
+        <button type="button" id="btn-bh-detection" class="btn btn-secondary">Listen: Detection</button>
+        <button type="button" id="btn-bh-closing" class="btn btn-secondary">Listen: Closing</button>
+        <button type="button" id="btn-bh-stop-narration" class="btn btn-secondary">Stop Narration</button>
+      </div>
+      <p id="bh-status" class="hint" role="status" aria-live="polite">Loading Black Holes…</p>
+    </details>
+
+    <details class="card" id="gravitational-waves-card">
+      <summary>Gravitational Waves</summary>
+      <p class="hint">Interactive Special on spacetime ripples, interferometers, chirps, LIGO/Virgo events, and multi-messenger astronomy. Wave deformations are ILLUSTRATIVE and greatly exaggerated. Chirp tones are ILLUSTRATIVE SONIFICATIONS. Narration stays silent until Listen.</p>
+      <div id="gw-legend" class="gw-legend"></div>
+      <div id="gw-science" class="gw-science"></div>
+      <div class="gw-lab">
+        <div class="narration-label">Wave polarization lab</div>
+        <svg id="gw-wave-svg" class="gw-svg" viewBox="0 0 100 100" role="img" aria-label="Illustrative gravitational-wave polarization"></svg>
+        <div class="gw-controls">
+          <label><input id="gw-pol-plus" type="radio" name="gw-pol" checked> Plus</label>
+          <label><input id="gw-pol-cross" type="radio" name="gw-pol"> Cross</label>
+          <label>Phase <input id="gw-phase" type="range" min="0" max="100" value="0"></label>
+          <label>Exaggerated amplitude <input id="gw-amplitude" type="range" min="5" max="55" value="35"></label>
+          <button type="button" id="btn-gw-animate" class="btn btn-secondary">Animate / Pause</button>
+        </div>
+        <p id="gw-wave-caption" class="hint"></p>
+      </div>
+      <div class="gw-lab">
+        <div class="narration-label">Interferometer lab</div>
+        <svg id="gw-ifo-svg" class="gw-svg" viewBox="0 0 100 100" role="img" aria-label="Illustrative interferometer"></svg>
+        <label>Interferometer stage <input id="gw-ifo-time" type="range" min="0" max="100" value="0"></label>
+        <p id="gw-ifo-caption" class="hint"></p>
+      </div>
+      <div class="gw-lab">
+        <div class="narration-label">Chirp lab</div>
+        <svg id="gw-chirp-svg" class="gw-svg" viewBox="0 0 100 100" role="img" aria-label="Illustrative chirp waveform"></svg>
+        <label>Inspiral progress <input id="gw-chirp-time" type="range" min="0" max="100" value="0"></label>
+        <p id="gw-chirp-audio-label" class="hint"></p>
+        <p id="gw-chirp-caption" class="hint"></p>
+        <button type="button" id="btn-gw-play-chirp" class="btn btn-secondary">Play illustrative tone</button>
+      </div>
+      <div id="gw-network" class="gw-network"></div>
+      <div class="narration-label">Real events</div>
+      <div id="gw-events" class="constellation-chip-row" aria-label="Gravitational-wave events"></div>
+      <div id="gw-detail" class="gw-detail"></div>
+      <div id="gw-media" class="gw-media"></div>
+      <div class="button-row">
+        <button type="button" id="btn-gw-focus" class="btn btn-primary">Focus sky anchor</button>
+        <button type="button" id="btn-gw-spacetime" class="btn btn-secondary">Listen: Spacetime</button>
+        <button type="button" id="btn-gw-interferometer" class="btn btn-secondary">Listen: Interferometer</button>
+        <button type="button" id="btn-gw-inspiral" class="btn btn-secondary">Listen: Inspiral</button>
+        <button type="button" id="btn-gw-chirp" class="btn btn-secondary">Listen: Chirp</button>
+        <button type="button" id="btn-gw-gw150914" class="btn btn-secondary">Listen: GW150914</button>
+        <button type="button" id="btn-gw-gw170817" class="btn btn-secondary">Listen: GW170817</button>
+        <button type="button" id="btn-gw-network" class="btn btn-secondary">Listen: Network</button>
+        <button type="button" id="btn-gw-multimessenger" class="btn btn-secondary">Listen: Multi-messenger</button>
+        <button type="button" id="btn-gw-closing" class="btn btn-secondary">Listen: Closing</button>
+        <button type="button" id="btn-gw-stop-narration" class="btn btn-secondary">Stop Narration</button>
+      </div>
+      <p id="gw-status" class="hint" role="status" aria-live="polite">Loading Gravitational Waves…</p>
+    </details>
+
+    <details class="card" id="cosmic-web-card">
+      <summary>Cosmic Web</summary>
+      <p class="hint">Interactive scientific exhibit on large-scale structure. The structure-growth lab is ILLUSTRATIVE. Media cards show OBSERVATION / RECONSTRUCTION / SIMULATION badges. Stellarium is a sky anchor only. Narration stays silent until Listen.</p>
+      <div id="cosmic-web-legend" class="cosmic-web-legend"></div>
+      <div id="cosmic-web-science" class="cosmic-web-science"></div>
+      <div class="cosmic-web-lab">
+        <div class="narration-label">Illustrative structure growth</div>
+        <svg id="cosmic-web-svg" class="cosmic-web-svg" viewBox="0 0 100 100" role="img" aria-label="Illustrative cosmic web"></svg>
+        <label class="cosmic-web-time-label">Cosmic time / structure growth
+          <input id="cosmic-web-time" type="range" min="0" max="100" value="0" aria-label="Illustrative structure growth">
+        </label>
+        <div class="cosmic-web-layers" aria-label="Layer toggles">
+          <label><input id="cw-layer-galaxies" type="checkbox" checked> Galaxies</label>
+          <label><input id="cw-layer-filaments" type="checkbox" checked> Filaments</label>
+          <label><input id="cw-layer-nodes" type="checkbox" checked> Nodes / clusters</label>
+          <label><input id="cw-layer-voids" type="checkbox" checked> Voids</label>
+        </div>
+        <p id="cosmic-web-caption" class="hint" role="status"></p>
+      </div>
+      <div class="narration-label">Sky anchors &amp; surveys</div>
+      <div id="cosmic-web-objects" class="constellation-chip-row" aria-label="Cosmic web objects"></div>
+      <div id="cosmic-web-detail" class="cosmic-web-detail"></div>
+      <div id="cosmic-web-media" class="cosmic-web-media"></div>
+      <div class="button-row">
+        <button type="button" id="btn-cosmic-web-focus" class="btn btn-primary">Focus sky anchor</button>
+        <button type="button" id="btn-cosmic-web-intro" class="btn btn-secondary">Listen: Intro</button>
+        <button type="button" id="btn-cosmic-web-fluctuations" class="btn btn-secondary">Listen: Fluctuations</button>
+        <button type="button" id="btn-cosmic-web-gravity" class="btn btn-secondary">Listen: Gravity</button>
+        <button type="button" id="btn-cosmic-web-filaments" class="btn btn-secondary">Listen: Filaments</button>
+        <button type="button" id="btn-cosmic-web-voids" class="btn btn-secondary">Listen: Voids</button>
+        <button type="button" id="btn-cosmic-web-surveys" class="btn btn-secondary">Listen: Surveys</button>
+        <button type="button" id="btn-cosmic-web-night-sky" class="btn btn-secondary">Listen: Night sky</button>
+        <button type="button" id="btn-cosmic-web-closing" class="btn btn-secondary">Listen: Closing</button>
+        <button type="button" id="btn-cosmic-web-stop-narration" class="btn btn-secondary">Stop Narration</button>
+      </div>
+      <p id="cosmic-web-status" class="hint" role="status" aria-live="polite">Loading Cosmic Web…</p>
+    </details>
+
+    <details class="card" id="light-echoes-card">
+      <summary>Light Echoes</summary>
+      <p class="hint">Interactive scientific exhibit: delayed starlight illuminating dust. Geometry controls are educational simplifications labeled ILLUSTRATIVE. Narration stays silent until you press Listen.</p>
+      <div id="light-echoes-science" class="light-echoes-science"></div>
+      <div class="light-echoes-lab">
+        <div class="narration-label">Illustrative geometry</div>
+        <svg id="light-echoes-svg" class="light-echoes-svg" viewBox="0 0 100 100" role="img" aria-label="Illustrative light-echo geometry"></svg>
+        <label class="light-echoes-time-label">Time progression
+          <input id="light-echoes-time" type="range" min="0" max="100" value="0" aria-label="Illustrative light-echo time">
+        </label>
+        <p id="light-echoes-caption" class="hint" role="status"></p>
+      </div>
+      <div class="narration-label">Real examples</div>
+      <div id="light-echoes-objects" class="constellation-chip-row" aria-label="Light echo objects"></div>
+      <div id="light-echoes-detail" class="light-echoes-detail"></div>
+      <div id="light-echoes-media" class="light-echoes-media"></div>
+      <div class="button-row">
+        <button type="button" id="btn-light-echoes-focus" class="btn btn-primary">Focus in Stellarium</button>
+        <button type="button" id="btn-light-echoes-intro" class="btn btn-secondary">Listen: Intro</button>
+        <button type="button" id="btn-light-echoes-geometry-narration" class="btn btn-secondary">Listen: Geometry</button>
+        <button type="button" id="btn-light-echoes-expansion" class="btn btn-secondary">Listen: Expansion</button>
+        <button type="button" id="btn-light-echoes-examples" class="btn btn-secondary">Listen: Examples</button>
+        <button type="button" id="btn-light-echoes-closing" class="btn btn-secondary">Listen: Closing</button>
+        <button type="button" id="btn-light-echoes-stop-narration" class="btn btn-secondary">Stop Narration</button>
+      </div>
+      <p id="light-echoes-status" class="hint" role="status" aria-live="polite">Loading Light Echoes…</p>
+    </details>
+
+    <details class="card" id="exhibit-card">
+      <summary>Exhibits</summary>
+      <p class="hint">A curated planetarium walk. Nothing starts, speaks, or changes historical time until you choose it. Official media remain manual. Cosmic Signals remain manual.</p>
+      <div id="exhibit-list" class="constellation-chip-row" aria-label="Curated exhibits"></div>
+      <div id="exhibit-overview" class="exhibit-overview"></div>
+      <div id="exhibit-player" class="exhibit-player" hidden></div>
+      <div class="button-row">
+        <button type="button" id="btn-exhibit-start" class="btn btn-primary" hidden>Start Exhibit</button>
+        <button type="button" id="btn-exhibit-resume" class="btn btn-secondary" hidden>Resume</button>
+        <button type="button" id="btn-exhibit-restart" class="btn btn-secondary" hidden>Start from beginning</button>
+        <button type="button" id="btn-exhibit-prev" class="btn btn-secondary" disabled>Previous</button>
+        <button type="button" id="btn-exhibit-next" class="btn btn-secondary" disabled>Next</button>
+        <button type="button" id="btn-exhibit-pause" class="btn btn-secondary" disabled>Pause Narration</button>
+        <button type="button" id="btn-exhibit-stop-narration" class="btn btn-secondary" disabled>Stop Narration</button>
+        <button type="button" id="btn-exhibit-stop" class="btn btn-secondary" disabled>Stop Exhibit</button>
+        <button type="button" id="btn-exhibit-exit-restore" class="btn btn-secondary" disabled>Exit and Restore</button>
+        <button type="button" id="btn-exhibit-apply-historical" class="btn btn-primary" hidden>Apply Historical Sky</button>
+        <button type="button" id="btn-exhibit-sources" class="btn btn-secondary">Sources for this Exhibit</button>
+      </div>
+      <label class="narration-auto"><input id="exhibit-auto-advance" type="checkbox"> Auto-advance narration steps</label>
+      <p id="exhibit-status" class="hint" role="status" aria-live="polite">Open an exhibit to begin. Narration stays silent until Start Exhibit.</p>
+    </details>
+
+
+    <div class="card" id="sky-time-machine-card">
+      <h2>Sky Time Machine</h2>
+      <p class="hint">Explicitly change the existing Stellarium session time and Earth location through Remote Control. Nothing is sent until you press Apply or a preset.</p>
+      <div id="tm-active" class="tm-active" role="status"></div>
+      <div class="button-row">
+        <button type="button" id="btn-tm-use-current" class="btn btn-secondary">Use Current</button>
+        <button type="button" id="btn-tm-now" class="btn btn-secondary">Now</button>
+        <button type="button" id="btn-tm-year" class="btn btn-secondary">1 year ago</button>
+        <button type="button" id="btn-tm-decade" class="btn btn-secondary">10 years ago</button>
+      </div>
+      <form class="manual-form" onsubmit="return false;">
+        <label>UTC date/time <input id="tm-utc" type="text" placeholder="2020-01-01T00:00:00Z"></label>
+        <div class="coord-row">
+          <label>Latitude <input id="tm-lat" type="text" placeholder="39.1004"></label>
+          <label>Longitude <input id="tm-lon" type="text" placeholder="-104.855"></label>
+        </div>
+        <div class="coord-row">
+          <label>Altitude m <input id="tm-alt" type="text" value="0"></label>
+          <label>Place name <input id="tm-name" type="text" placeholder="Monument"></label>
+        </div>
+        <div class="button-row">
+          <button type="button" id="btn-tm-apply" class="btn btn-primary">Apply time + location</button>
+          <button type="button" id="btn-tm-apply-time" class="btn btn-secondary">Apply time only</button>
+        </div>
+      </form>
+      <div id="tm-status" class="form-error" role="status"></div>
+    </div>
+
+    <div class="card" id="object-card-extras-wrap">
+      <h2>Object Visual Card</h2>
+      <p class="hint">Live Stellarium fields plus local registry provenance. Imagery stays in the existing NASA / Cosmic Signal / Spectrum panels. Missing values are omitted.</p>
+      <div id="object-card-extras" class="about-object-body"></div>
+      <div id="object-card-media" class="official-media-card"></div>
+    </div>
+
+    <div class="card" id="motion-card">
+      <h2>Object Motion</h2>
+      <p class="hint">Apparent altitude along PAST — NOW — FUTURE using the current RA/Dec. Not a second Stellarium instance.</p>
+      <svg id="motion-svg" class="motion-svg" viewBox="0 0 320 84" width="100%" height="84" role="img" aria-label="Apparent altitude timeline"></svg>
+      <p id="motion-note" class="hint"></p>
+    </div>
+
+    <details class="card" id="sonify-card">
+      <summary>Data Sonification</summary>
+      <p class="hint">An optional audible mapping of computed altitude numbers. This is not the physical sound of the astronomical object. Nothing plays until you press Play.</p>
+      <div class="button-row">
+        <button type="button" id="btn-sonify-play" class="btn btn-primary" disabled>Play</button>
+        <button type="button" id="btn-sonify-stop" class="btn btn-secondary" disabled>Stop</button>
+        <label>Volume <input id="sonify-volume" type="range" min="0" max="1" step="0.05" value="0.2"></label>
+      </div>
+      <p id="sonify-status" class="hint"></p>
+    </details>
+
+    <details class="card" id="postcard-card">
+      <summary>Sky Postcard</summary>
+      <p class="hint">Save a local metadata postcard of the current Stellarium state. No upload. Screenshot capture is unavailable through Remote Control, so the card is Cartography-rendered.</p>
+      <div class="button-row">
+        <button type="button" id="btn-postcard-save" class="btn btn-primary">Save Sky Postcard</button>
+      </div>
+      <pre id="postcard-preview" class="postcard-preview"></pre>
+    </details>
+
+    <details class="card" id="compare-card">
+      <summary>Historical Comparison</summary>
+      <p class="hint">Compare two metadata snapshots from the single live Stellarium session.</p>
+      <div class="button-row">
+        <button type="button" id="btn-compare-store-a" class="btn btn-secondary">Store snapshot A</button>
+        <button type="button" id="btn-compare-run" class="btn btn-primary">Compare with current</button>
+      </div>
+      <div id="compare-out" class="about-object-body"></div>
+    </details>
+
+    <details class="card" id="event-card">
+      <summary>Observation Strip</summary>
+      <div id="event-strip"></div>
+    </details>
+
+    <details class="card" id="narration-card">
+      <summary>Listen</summary>
+      <p class="hint">Cartography Narration lives on the Constellation Story panel. This card still shows the local text summary. It is not NASA or Chandra narration.</p>
+      <button type="button" id="btn-listen-hook" class="btn btn-secondary">Show summary</button>
+      <p id="narration-summary" class="hint"></p>
+    </details>
 
     <div class="card" id="about-object-card" hidden>
       <h2>About This Object</h2>
@@ -58,6 +525,27 @@
       <p class="hint">Honest guidance when Stellarium reports a Moon, planet, or other Solar System body.</p>
       <div id="solar-system-notice-body" class="solar-system-notice-body"></div>
     </div>
+
+    <details class="card" id="official-media-search-card">
+      <summary>Official Media Search</summary>
+      <p class="hint">NASA Image and Video Library only. No arbitrary web search. Nothing plays until you press Play.</p>
+      <form class="manual-form" onsubmit="return false;">
+        <label>Query <input id="official-media-query" type="text" placeholder="Cassiopeia A"></label>
+        <label>Media type
+          <select id="official-media-type">
+            <option value="all">all</option>
+            <option value="image">image</option>
+            <option value="video">video</option>
+            <option value="audio">audio</option>
+          </select>
+        </label>
+        <div class="button-row">
+          <button type="button" id="btn-media-search" class="btn btn-primary">Search NASA media</button>
+        </div>
+      </form>
+      <div id="official-media-search-results" class="about-object-body"></div>
+      <div id="official-media-viewer" class="official-media-viewer" hidden></div>
+    </details>
 
     <div class="card planetary-image-card" id="planetary-image-card" hidden>
       <h2>NASA Public Media</h2>
@@ -176,6 +664,7 @@
           <p class="spectrum-gallery-available-label">Available views</p>
           <div id="spectrum-gallery-selectors" class="spectrum-gallery-selectors" role="group" aria-label="Available spectrum views"></div>
         </div>
+        <div id="spectrum-axis" class="spectrum-axis"></div>
         <p id="spectrum-gallery-wavelength" class="spectrum-gallery-wavelength" hidden></p>
         <p id="spectrum-gallery-observatory" class="spectrum-gallery-observatory" hidden></p>
         <p id="spectrum-gallery-explanation" class="spectrum-gallery-explanation" hidden></p>
@@ -271,6 +760,21 @@
 <script src="/static/lib/changehips.js"></script>
 <script src="/static/lib/target_model.js"></script>
 <script src="/static/lib/online_mode.js"></script>
+<script src="/static/lib/experience_model.js"></script>
+<script src="/static/lib/experience_ui.js"></script>
+<script src="/static/lib/audio_coordinator.js"></script>
+<script src="/static/lib/narration_tts.js"></script>
+<script src="/static/lib/constellation_story.js"></script>
+<script src="/static/lib/archaeoastronomy.js"></script>
+<script src="/static/lib/official_media.js"></script>
+<script src="/static/lib/exhibit_model.js"></script>
+<script src="/static/lib/cosmic_dawn.js"></script>
+<script src="/static/lib/galactic_encounters.js"></script>
+<script src="/static/lib/black_holes.js"></script>
+<script src="/static/lib/gravitational_waves.js"></script>
+<script src="/static/lib/cosmic_web.js"></script>
+<script src="/static/lib/light_echoes.js"></script>
+<script src="/static/lib/exhibit.js"></script>
 <script src="/static/app.js"></script>
 </body>
 </html>

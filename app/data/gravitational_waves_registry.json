@@ -1,0 +1,299 @@
+{
+  "version": 1,
+  "id": "gravitational_waves",
+  "title": "Gravitational Waves",
+  "subtitle": "Ripples in spacetime and a new sense for the Universe",
+  "description": "Interactive exhibit on gravitational waves: illustrative stretch-and-squeeze polarization, conceptual interferometers, inspiral chirps, real LIGO/Virgo events, detector networks, and multi-messenger astronomy.",
+  "theme": "scientific_gravitational_waves",
+  "estimated_minutes": 15,
+  "enabled": true,
+  "source_note": "Scientific outreach. Wave and interferometer labs are ILLUSTRATIVE with greatly exaggerated deformations. Chirp tones generated in the browser are ILLUSTRATIVE SONIFICATIONS, not detector-band audio. Event cards cite LIGO/Virgo/KAGRA and observatory sources.",
+  "illustrative_disclaimer": "ILLUSTRATIVE \u2014 DEFORMATION GREATLY EXAGGERATED. Polarization and interferometer diagrams are educational sketches. Strain amplitudes at Earth are typically ~10^-21; nothing around you visibly stretches.",
+  "classification_legend": {
+    "illustration": "Educational diagram or interactive sketch",
+    "real_detector_data": "Published detector strain or localization products",
+    "simulation": "Numerical-relativity or instrument simulation visualization",
+    "sonification": "Audible mapping or frequency-shifted representation of a signal",
+    "observation": "Electromagnetic telescope observation",
+    "reconstruction": "Derived sky map or reconstructed source property"
+  },
+  "science": {
+    "what_is": "Gravitational waves are propagating distortions of spacetime predicted by general relativity. Accelerating masses with changing quadrupole moments can radiate them. Compact binaries\u2014especially black holes and neutron stars\u2014are the standout sources for current detectors.",
+    "not_rubber_sheet": "Popular rubber-sheet pictures are metaphors. Spacetime is not a material sheet you can touch; the measurable effect is a tiny, oscillatory change in proper distances between freely falling test masses.",
+    "detection": "Laser interferometers such as LIGO and Virgo split light into perpendicular arms and compare the returning beams. A passing gravitational wave changes the relative optical path lengths by an extremely small fraction, producing a detectable interference shift when arms are kilometers long.",
+    "chirp": "As a compact binary inspirals, orbital frequency rises and the gravitational-wave frequency follows. Many signals show a chirp\u2014rising frequency and amplitude\u2014ending in merger and, for black holes, a ringdown.",
+    "network": "A single detector cannot pinpoint a source on the sky. Timing and antenna-pattern differences among sites (Hanford, Livingston, Virgo, KAGRA, \u2026) constrain a probability region that may span many square degrees\u2014not necessarily a single point.",
+    "multimessenger": "GW170817 showed a binary neutron-star merger seen in gravitational waves and followed up across the electromagnetic spectrum, tying spacetime ripples to light from the same cosmic event.",
+    "takeaway": "Gravitational-wave detectors give astronomy a new sense\u2014sensitive to accelerating mass, complementary to telescopes that collect light."
+  },
+  "narration": {
+    "spacetime": "Gravitational waves are ripples in spacetime itself. They are not sound in air, and they are not a rubber sheet you can grab\u2014they are tiny, traveling changes in distance.",
+    "interferometer": "LIGO-class detectors send laser light down kilometer-scale perpendicular arms and listen for impossible-seeming changes in the light travel comparison when a wave passes.",
+    "inspiral": "Two compact objects spiral together. Gravity radiates energy, the orbit tightens, and the wave frequency climbs.",
+    "chirp": "That rising tone is the chirp. What you may hear in outreach audio is often frequency-shifted or sonified so human ears can follow a signal that began far above\u2014or below\u2014everyday hearing.",
+    "gw150914": "GW150914 was the first direct detection: a binary black-hole merger heard by LIGO in September 2015, opening observational gravitational-wave astronomy.",
+    "gw170817": "GW170817 was a binary neutron-star merger. Gravitational waves arrived with a gamma-ray burst follow-up and a multi-wavelength transient near NGC 4993.",
+    "network": "Multiple detectors turn a whisper into a sky region. Arrival-time differences and antenna patterns constrain where the wave came from\u2014usually a patch, not a perfect pin.",
+    "multimessenger": "When waves and light both arrive, scientists learn masses, distances, and nuclear physics that neither messenger alone can give.",
+    "closing": "We now listen to spacetime as well as to light\u2014a new sense for the Universe."
+  },
+  "wave_lab": {
+    "kind": "illustrative",
+    "label": "ILLUSTRATIVE \u2014 DEFORMATION GREATLY EXAGGERATED",
+    "classification": "illustration",
+    "polarizations": [
+      "plus",
+      "cross"
+    ],
+    "ring_points": 24,
+    "default_amplitude": 0.35,
+    "max_amplitude": 0.55
+  },
+  "interferometer_lab": {
+    "kind": "illustrative",
+    "label": "ILLUSTRATIVE interferometer",
+    "classification": "illustration",
+    "arms": [
+      "x",
+      "y"
+    ],
+    "phases": [
+      {
+        "id": "idle",
+        "label": "Quiet",
+        "progress": 0.0,
+        "caption": "Equal arms; recombined light is stable."
+      },
+      {
+        "id": "plus_stretch",
+        "label": "Plus: stretch X",
+        "progress": 0.33,
+        "caption": "A plus-polarized wave effectively lengthens one arm relative to the other."
+      },
+      {
+        "id": "plus_squeeze",
+        "label": "Plus: stretch Y",
+        "progress": 0.66,
+        "caption": "A half-cycle later the stretch/squeeze pattern swaps."
+      },
+      {
+        "id": "detect",
+        "label": "Interference shift",
+        "progress": 1.0,
+        "caption": "The photodetector records a tiny fringe shift\u2014the measurable signature."
+      }
+    ]
+  },
+  "chirp_lab": {
+    "kind": "illustrative",
+    "label": "ILLUSTRATIVE chirp / sonification",
+    "classification": "sonification",
+    "audio_label": "Browser-generated educational tone. Frequency-shifted illustrative sonification \u2014 NOT original detector-band audio and NOT sound traveling through space.",
+    "stages": [
+      {
+        "id": "wide",
+        "label": "Wide binary",
+        "progress": 0.0,
+        "freq_hz": 120,
+        "amp": 0.15,
+        "caption": "Wide orbit; lower gravitational-wave frequency."
+      },
+      {
+        "id": "inspiral",
+        "label": "Inspiral",
+        "progress": 0.35,
+        "freq_hz": 220,
+        "amp": 0.28,
+        "caption": "Orbit tightens; frequency and amplitude climb."
+      },
+      {
+        "id": "late",
+        "label": "Late inspiral",
+        "progress": 0.65,
+        "freq_hz": 380,
+        "amp": 0.45,
+        "caption": "Rapid chirp toward merger."
+      },
+      {
+        "id": "merger",
+        "label": "Merger",
+        "progress": 0.85,
+        "freq_hz": 520,
+        "amp": 0.7,
+        "caption": "Strongest portion of many compact-binary signals."
+      },
+      {
+        "id": "ringdown",
+        "label": "Ringdown",
+        "progress": 1.0,
+        "freq_hz": 300,
+        "amp": 0.25,
+        "caption": "For black-hole remnants, a ringing spacetime settles to a quiet Kerr black hole."
+      }
+    ]
+  },
+  "detectors": [
+    {
+      "id": "ligo_hanford",
+      "name": "LIGO Hanford",
+      "site": "Washington, USA",
+      "network_role": "L-shaped interferometer"
+    },
+    {
+      "id": "ligo_livingston",
+      "name": "LIGO Livingston",
+      "site": "Louisiana, USA",
+      "network_role": "L-shaped interferometer"
+    },
+    {
+      "id": "virgo",
+      "name": "Virgo",
+      "site": "Cascina, Italy",
+      "network_role": "L-shaped interferometer"
+    },
+    {
+      "id": "kagra",
+      "name": "KAGRA",
+      "site": "Kamioka, Japan",
+      "network_role": "Underground cryogenic interferometer"
+    }
+  ],
+  "events": [
+    {
+      "id": "gw150914",
+      "name": "GW150914",
+      "short_name": "GW150914",
+      "source_type": "binary_black_hole",
+      "detection_date": "2015-09-14",
+      "detectors": [
+        "LIGO Hanford",
+        "LIGO Livingston"
+      ],
+      "significance": "First direct detection of gravitational waves; binary black-hole merger.",
+      "localization_note": "Sky localization was a broad probability region from the two-detector network\u2014not a unique host galaxy. Stellarium cannot honestly pin a single star.",
+      "stellarium_search": null,
+      "stellarium_match_mode": "unavailable",
+      "stellarium_note": "GW150914 has no unique electromagnetic host suitable as a Stellarium target. Use the localization explanation instead of inventing a precise sky object.",
+      "stellarium_fov_deg": null,
+      "summary": "On 14 September 2015, LIGO observed a chirping signal from two stellar-mass black holes merging about 1.3 billion light-years away.",
+      "teaching_points": [
+        "Proved compact binary mergers are detectable with km-scale interferometers.",
+        "Opened gravitational-wave astronomy as an observational field."
+      ],
+      "media": {
+        "id": "nasa_pia21262_bbh",
+        "title": "NASA Photojournal PIA21262 \u2014 binary black hole merger simulation still",
+        "organization": "NASA / JPL",
+        "credit": "NASA/JPL-Caltech",
+        "classification": "simulation",
+        "source_page_url": "https://photojournal.jpl.nasa.gov/catalog/PIA21262",
+        "image_url": "https://images-assets.nasa.gov/image/PIA21262/PIA21262~orig.jpg",
+        "license_note": "NASA public image; credit NASA/JPL-Caltech. Simulation visualization \u2014 not a telescope photograph of GW150914.",
+        "relation": "simulation_context",
+        "note": "Primary data references remain LIGO/GWOSC pages linked in sources."
+      },
+      "sources": [
+        {
+          "title": "LIGO Publication \u2014 GW150914",
+          "url": "https://www.ligo.org/science/Publication-GW150914/",
+          "organization": "LIGO",
+          "classification": "real_detector_data"
+        },
+        {
+          "title": "GWOSC Event API \u2014 GW150914",
+          "url": "https://gwosc.org/eventapi/html/GWTC-1-confident/GW150914/v3/",
+          "organization": "GWOSC",
+          "classification": "real_detector_data"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "gw170817",
+      "name": "GW170817",
+      "short_name": "GW170817",
+      "source_type": "binary_neutron_star",
+      "detection_date": "2017-08-17",
+      "detectors": [
+        "LIGO Hanford",
+        "LIGO Livingston",
+        "Virgo"
+      ],
+      "significance": "First binary neutron-star gravitational-wave detection and landmark multi-messenger event.",
+      "localization_note": "Three-detector network tightened the sky region; the optical counterpart was found in NGC 4993.",
+      "stellarium_search": "NGC 4993",
+      "stellarium_fov_deg": 1.5,
+      "stellarium_match_mode": "coordinate_host",
+      "stellarium_accept_names": [
+        "NGC 4993",
+        "Unnamed object"
+      ],
+      "stellarium_dec_hint": -23.4,
+      "stellarium_dec_tolerance_deg": 5.0,
+      "stellarium_note": "Focuses NGC 4993, the host galaxy of the GW170817 optical counterpart. Stellarium 26.3 may return an empty display name; Cartography verifies using southern Declination after focus.",
+      "summary": "GW170817 combined gravitational waves with a short gamma-ray burst and a kilonova across optical/IR/X-ray/radio bands near NGC 4993.",
+      "teaching_points": [
+        "Neutron-star mergers produce both waves and light.",
+        "Multi-messenger follow-up identifies the host and probes nuclear matter and cosmology."
+      ],
+      "media": {
+        "id": "eso1733a_ngc4993",
+        "title": "ESO \u2014 NGC 4993 and the GW170817 counterpart region",
+        "organization": "ESO",
+        "credit": "ESO / A.J. Levan / N.R. Tanvir",
+        "classification": "observation",
+        "source_page_url": "https://www.eso.org/public/images/eso1733a/",
+        "image_url": "https://cdn.eso.org/images/large/eso1733a.jpg",
+        "license_note": "ESO public image; credit required per ESO terms.",
+        "relation": "exact_host"
+      },
+      "sources": [
+        {
+          "title": "LIGO Publication \u2014 GW170817",
+          "url": "https://www.ligo.org/science/Publication-GW170817/",
+          "organization": "LIGO/Virgo",
+          "classification": "real_detector_data"
+        },
+        {
+          "title": "ESO \u2014 eso1733a",
+          "url": "https://www.eso.org/public/images/eso1733a/",
+          "organization": "ESO",
+          "classification": "observation"
+        },
+        {
+          "title": "ESA/Hubble \u2014 heic1717a",
+          "url": "https://esahubble.org/images/heic1717a/",
+          "organization": "ESA/Hubble",
+          "classification": "observation"
+        }
+      ],
+      "enabled": true
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "name": "Invented precise host for GW150914",
+      "reason": "Two-detector localization was a broad region; assigning a fake Stellarium host would be dishonest."
+    }
+  ],
+  "provenance_hosts_allowed": [
+    "cdn.esahubble.org",
+    "cdn.eso.org",
+    "esahubble.org",
+    "eso.org",
+    "gwosc.org",
+    "hubblesite.org",
+    "images-assets.nasa.gov",
+    "ligo.org",
+    "noirlab.edu",
+    "photojournal.jpl.nasa.gov",
+    "science.nasa.gov",
+    "www.eso.org",
+    "www.gw-openscience.org",
+    "www.jpl.nasa.gov",
+    "www.ligo.caltech.edu",
+    "www.ligo.org",
+    "www.nasa.gov",
+    "www.noirlab.edu"
+  ]
+}

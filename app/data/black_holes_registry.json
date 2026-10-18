@@ -1,0 +1,310 @@
+{
+  "id": "black_holes",
+  "title": "Black Holes",
+  "subtitle": "Horizons, shadows, and extreme gravity",
+  "description": "Interactive exhibit on black holes: event horizons, scale, approach regions, illustrative lensing, accretion appearance, tidal forces, EHT imaging, and how astronomers detect them.",
+  "estimated_minutes": 18,
+  "source_note": "Scientific outreach. Scale, approach, and lensing labs are ILLUSTRATIVE. Schwarzschild-radius numbers assume a non-rotating (Schwarzschild) model unless noted; real astrophysical black holes can rotate (Kerr). EHT images are interferometric reconstructions, not photographs of a solid black surface.",
+  "illustrative_disclaimer": "ILLUSTRATIVE — EDUCATIONAL SIMPLIFICATION. Diagrams are not exact Kerr ray-tracing unless separately labeled as simulation. The photon sphere is not a solid shell. Observers cannot hover freely at the event horizon.",
+  "audio_autoplay": false,
+  "classification_legend": {
+    "observation": "Telescope or interferometer data products",
+    "reconstruction": "Images or maps reconstructed from interferometric/survey data (e.g. EHT)",
+    "simulation": "Numerical-relativity or astrophysical simulation visualization",
+    "illustration": "Educational interactive diagram or sketch",
+    "theoretical_model": "Classical GR concept (e.g. Schwarzschild radius) with stated assumptions"
+  },
+  "science": {
+    "what_is": "A black hole is a region where spacetime curvature is so strong that no outward light paths escape beyond the event horizon. It is defined by geometry and causal structure—not by a solid surface you could stand on.",
+    "event_horizon": "The event horizon is a boundary in spacetime, not a material crust. Crossing it (in classical GR) is a one-way causal transition for future-directed paths; locally an infalling observer may notice nothing dramatic at that instant.",
+    "singularity_note": "A singularity is a prediction of classical general relativity where the theory breaks down. It is not something astronomers image directly. Quantum gravity may replace this description.",
+    "shadow_vs_horizon": "In Event Horizon Telescope images, the dark central feature—the black-hole shadow—is larger than the event horizon itself. It is shaped by light bending near the photon region and by the illuminated surroundings, reconstructed from radio interferometry.",
+    "accretion": "Accretion disks are matter orbiting outside the horizon. Not every black hole has a bright disk. The glow comes from hot plasma and magnetic processes outside the horizon.",
+    "jets": "Relativistic jets are launched from the magnetized accretion environment and spacetime near a spinning black hole—not from inside the event horizon.",
+    "photon_sphere": "Near a non-rotating black hole, unstable circular photon orbits exist near about 1.5 times the Schwarzschild radius (the photon sphere). It is not a solid shell you can rest on.",
+    "tidal_forces": "Tidal forces depend on mass and distance. At the horizon, stellar-mass black holes produce far stronger tidal gradients than supermassive ones; for large SMBHs, horizon crossing can occur before tides become locally destructive.",
+    "detection": "Astronomers infer black holes via stellar orbits, X-ray binaries, gravitational waves from mergers, Galactic-Center dynamics, and horizon-scale EHT imaging—often combining messengers.",
+    "not_rubber_sheet": "Rubber-sheet pictures are metaphors. Spacetime is not a fabric you can touch; measurable effects are light deflection, time dilation, and orbital dynamics."
+  },
+  "scale_lab": {
+    "kind": "illustrative",
+    "classification": "theoretical_model",
+    "label": "SCHWARZSCHILD MODEL — NON-ROTATING ASSUMPTION",
+    "disclaimer": "Rs = 2GM/c² for a non-rotating black hole. Real objects may spin; Kerr radii and shadows differ. Scales are approximate teaching aids.",
+    "examples": [
+      {
+        "id": "stellar_10",
+        "label": "Stellar-mass (~10 M☉)",
+        "mass_solar": 10,
+        "note": "Typical order-of-magnitude stellar-mass example (not a specific named object)."
+      },
+      {
+        "id": "cygnus_x1_mass",
+        "label": "Cygnus X-1 class (~21 M☉)",
+        "mass_solar": 21,
+        "note": "Approximate published stellar-mass scale for the Cyg X-1 black hole; treat as ~order-of-magnitude."
+      },
+      {
+        "id": "imbh_1e3",
+        "label": "Intermediate-mass example (~10³ M☉)",
+        "mass_solar": 1000,
+        "note": "Illustrative IMBH scale; the population is still being established observationally."
+      },
+      {
+        "id": "sgr_a_mass",
+        "label": "Sgr A* (~4.1×10⁶ M☉)",
+        "mass_solar": 4100000,
+        "note": "Approximate mass from Galactic-Center stellar orbits / EHT-era analyses."
+      },
+      {
+        "id": "m87_mass",
+        "label": "M87* (~6.5×10⁹ M☉)",
+        "mass_solar": 6500000000,
+        "note": "Approximate mass used in EHT M87* analyses."
+      }
+    ]
+  },
+  "approach_lab": {
+    "kind": "illustrative",
+    "classification": "illustration",
+    "label": "ILLUSTRATIVE REGIONS — NOT EXACT KERR GEOMETRY",
+    "disclaimer": "Ordered conceptual zones for teaching. Not a flight simulator. No free hover at the horizon. Photon sphere is not a solid shell.",
+    "regions": [
+      {
+        "id": "distant",
+        "label": "Distant space",
+        "progress": 0.0,
+        "caption": "Gravity is weak; light travels nearly straight; the black hole may be invisible without surrounding matter."
+      },
+      {
+        "id": "disk",
+        "label": "Accretion region",
+        "progress": 0.35,
+        "caption": "If gas is present, a hot disk/corona can shine outside the horizon. Many black holes lack bright disks."
+      },
+      {
+        "id": "photon",
+        "label": "Photon-orbit region",
+        "progress": 0.7,
+        "caption": "Light can skim unstable photon orbits. This region helps shape the black-hole shadow—not a solid shell."
+      },
+      {
+        "id": "horizon",
+        "label": "Event horizon",
+        "progress": 1.0,
+        "caption": "A causal boundary, not a surface. In classical GR, outward light cannot escape from inside."
+      }
+    ]
+  },
+  "lensing_lab": {
+    "kind": "illustrative",
+    "classification": "illustration",
+    "label": "ILLUSTRATIVE RELATIVISTIC LENSING",
+    "disclaimer": "Educational deflection sketch—not a precision GR ray-tracer. Einstein-ring-like and multiple-image cues are pedagogical."
+  },
+  "accretion_lab": {
+    "kind": "illustrative",
+    "classification": "illustration",
+    "label": "ILLUSTRATIVE ACCRETION APPEARANCE",
+    "points": [
+      "Orbital motion near the hole is fast; light travel times matter.",
+      "Gravitational redshift dims emission from deeper in the potential.",
+      "Relativistic Doppler boosting brightens the approaching side of a disk.",
+      "Light bending can make the far side of a disk appear above/below the shadow in ray-traced views.",
+      "Jets are launched outside the horizon from magnetized plasma."
+    ]
+  },
+  "tidal_lab": {
+    "kind": "illustrative",
+    "classification": "theoretical_model",
+    "label": "CONCEPTUAL TIDAL COMPARISON",
+    "disclaimer": "Uses a simple M/r³ scaling for tidal gradient teaching. Trajectory and spin matter in detail. Not a human-survival simulator.",
+    "examples": [
+      {
+        "id": "stellar",
+        "label": "Stellar-mass (~10 M☉)",
+        "mass_solar": 10,
+        "horizon_tide_index": 1.0,
+        "caption": "Near a stellar-mass horizon, tidal gradients are extreme—classic 'spaghettification' teaching case."
+      },
+      {
+        "id": "smbh",
+        "label": "Supermassive (~10⁶ M☉)",
+        "mass_solar": 1000000,
+        "horizon_tide_index": 0.00000001,
+        "caption": "At a large SMBH horizon, local tidal gradients can be milder; horizon crossing may precede destructive tides."
+      }
+    ]
+  },
+  "detection_methods": [
+    {
+      "id": "stellar_orbits",
+      "title": "Stellar orbital dynamics",
+      "summary": "Stars whipping around an unseen compact mass (e.g. Galactic Center) reveal a central black hole."
+    },
+    {
+      "id": "xray_binaries",
+      "title": "Accretion / X-ray binaries",
+      "summary": "A luminous accretion flow onto a compact object heavier than neutron-star limits points to a stellar-mass black hole."
+    },
+    {
+      "id": "gravitational_waves",
+      "title": "Gravitational waves",
+      "summary": "Compact-binary mergers radiate spacetime ripples detected by LIGO/Virgo/KAGRA—see the Gravitational Waves Special.",
+      "related_special": "gravitational_waves"
+    },
+    {
+      "id": "galactic_center",
+      "title": "Galactic-Center orbits",
+      "summary": "Decades of infrared astrometry of S-stars map the mass of Sgr A*."
+    },
+    {
+      "id": "eht_imaging",
+      "title": "Horizon-scale interferometry",
+      "summary": "EHT VLBI reconstructs ring-like emission around the black-hole shadow for M87* and Sgr A*."
+    }
+  ],
+  "objects": [
+    {
+      "id": "sgr_a",
+      "name": "Sagittarius A*",
+      "short_name": "Sgr A*",
+      "kind": "supermassive",
+      "mass_solar_approx": 4100000,
+      "mass_note": "~4.1 million solar masses (approximate; Galactic Center / EHT-era analyses).",
+      "distance_note": "~27,000 light-years (approximate Galactic Center distance).",
+      "significance": "The Milky Way's central supermassive black hole; EHT imaged its shadow in 2022.",
+      "observational_methods": ["stellar orbits", "EHT VLBI", "flare monitoring"],
+      "stellarium_search": "NGC 6522",
+      "stellarium_fov_deg": 2.5,
+      "stellarium_match_mode": "host_sky",
+      "stellarium_accept_names": ["NGC 6522", "Unnamed object"],
+      "stellarium_dec_hint": -30.03,
+      "stellarium_dec_tolerance_deg": 8.0,
+      "stellarium_note": "Sgr A* is not a reliable Stellarium deep catalog target. Cartography anchors near the Galactic Center using NGC 6522 (Baade's Window)—host-sky context only, not the black hole itself.",
+      "media": {
+        "id": "eso_sgr_a_eht",
+        "title": "ESO/EHT — first image of Sgr A*",
+        "organization": "EHT Collaboration / ESO",
+        "credit": "EHT Collaboration",
+        "classification": "reconstruction",
+        "source_page_url": "https://www.eso.org/public/news/eso2208-eht-mw/",
+        "image_url": "https://cdn.eso.org/images/screen/eso2208-eht-mwa.jpg",
+        "license_note": "ESO public image; credit EHT Collaboration. Interferometric reconstruction—not a photo of a solid surface.",
+        "relation": "eht_shadow"
+      },
+      "sources": [
+        {
+          "title": "ESO — Astronomers reveal first image of the black hole at the heart of our galaxy",
+          "url": "https://www.eso.org/public/news/eso2208-eht-mw/",
+          "organization": "ESO / EHT",
+          "classification": "reconstruction"
+        },
+        {
+          "title": "Event Horizon Telescope — Sgr A*",
+          "url": "https://eventhorizontelescope.org/",
+          "organization": "EHT Collaboration",
+          "classification": "reconstruction"
+        }
+      ]
+    },
+    {
+      "id": "m87",
+      "name": "M87*",
+      "short_name": "M87*",
+      "kind": "supermassive",
+      "mass_solar_approx": 6500000000,
+      "mass_note": "~6.5 billion solar masses (approximate; EHT M87* analyses).",
+      "distance_note": "~53 million light-years (Virgo Cluster / M87).",
+      "significance": "First black hole imaged at horizon scale (EHT 2019); resides in giant galaxy M87.",
+      "observational_methods": ["EHT VLBI", "jet radio/X-ray imaging", "stellar/gas dynamics"],
+      "stellarium_search": "M87",
+      "stellarium_fov_deg": 1.2,
+      "stellarium_match_mode": "exact",
+      "stellarium_accept_names": ["M87", "Virgo Galaxy", "Virgo A"],
+      "stellarium_note": "Focuses galaxy M87—the host of M87*. Stellarium shows the galaxy, not the EHT shadow.",
+      "media": {
+        "id": "eso_m87_eht",
+        "title": "ESO/EHT — first image of M87*",
+        "organization": "EHT Collaboration / ESO",
+        "credit": "EHT Collaboration",
+        "classification": "reconstruction",
+        "source_page_url": "https://www.eso.org/public/images/eso1907a/",
+        "image_url": "https://cdn.eso.org/images/screen/eso1907a.jpg",
+        "license_note": "ESO public image; credit EHT Collaboration. Reconstructed VLBI image.",
+        "relation": "eht_shadow"
+      },
+      "sources": [
+        {
+          "title": "ESO — First image of a black hole (M87*)",
+          "url": "https://www.eso.org/public/images/eso1907a/",
+          "organization": "ESO / EHT",
+          "classification": "reconstruction"
+        }
+      ]
+    },
+    {
+      "id": "cygnus_x1",
+      "name": "Cygnus X-1",
+      "short_name": "Cyg X-1",
+      "kind": "stellar_mass",
+      "mass_solar_approx": 21,
+      "mass_note": "~21 solar masses for the compact object (approximate published scale; still refined by observations).",
+      "distance_note": "~7,200 light-years (approximate).",
+      "significance": "Classic stellar-mass black-hole X-ray binary; dynamical evidence from the companion star HD 226868.",
+      "observational_methods": ["X-ray accretion", "optical companion orbits", "radio jets"],
+      "stellarium_search": "HD 226868",
+      "stellarium_fov_deg": 2.0,
+      "stellarium_match_mode": "exact",
+      "stellarium_accept_names": ["HD 226868", "HIP 98298", "V1357 Cyg"],
+      "stellarium_note": "Focuses the optical companion HD 226868 (HIP 98298 / V1357 Cyg)—sky context for the Cyg X-1 system, not a resolved black-hole image.",
+      "media": {
+        "id": "chandra_cygx1",
+        "title": "Chandra — Cygnus X-1",
+        "organization": "NASA / CXC",
+        "credit": "NASA/CXC",
+        "classification": "observation",
+        "source_page_url": "https://chandra.harvard.edu/photo/2011/cygx1/",
+        "image_url": "https://chandra.harvard.edu/photo/2011/cygx1/cygx1.jpg",
+        "license_note": "NASA/Chandra public image; credit NASA/CXC. X-ray / multiwavelength presentation of the system.",
+        "relation": "xray_binary"
+      },
+      "sources": [
+        {
+          "title": "Chandra — Cygnus X-1",
+          "url": "https://chandra.harvard.edu/photo/2011/cygx1/",
+          "organization": "NASA / CXC",
+          "classification": "observation"
+        }
+      ]
+    }
+  ],
+  "narration": {
+    "what_is": "A black hole is a region of spacetime where gravity curves paths so strongly that light cannot escape beyond the event horizon. It is not a solid surface in space.",
+    "horizon": "The event horizon is a one-way causal boundary in classical general relativity—not a crust you could stand on. Crossing it is a geometric transition, not hitting a wall.",
+    "scale": "Using a simple non-rotating model, the Schwarzschild radius grows with mass. Stellar-mass holes are city-scale; supermassive holes can be larger than our Solar System.",
+    "accretion": "Bright rings and jets come from matter and magnetic fields outside the horizon. Many black holes are quiet without a luminous accretion flow.",
+    "lensing": "Near a black hole, light paths bend. Educational diagrams exaggerate this lensing; Event Horizon Telescope images reconstruct real interferometric data.",
+    "tidal": "Tidal forces depend on mass and distance. Small black holes can shred matter near the horizon; for huge supermassive holes, tides at the horizon can be gentler.",
+    "sgr_a": "Sagittarius A-star is the Milky Way's central black hole. Stars orbit an unseen mass of millions of Suns, and the Event Horizon Telescope reconstructed its shadow.",
+    "m87": "M87-star gave us the first horizon-scale image in 2019. The dark center is a shadow shaped by light bending—not a photograph of a black surface.",
+    "detection": "We find black holes through orbits, X-rays, gravitational waves, and horizon-scale radio imaging—often without ever seeing the horizon itself emit light.",
+    "closing": "Black holes are laboratories of extreme gravity. From stellar remnants to galactic engines, they reshape light, matter, and spacetime around them."
+  },
+  "provenance_hosts_allowed": [
+    "cdn.eso.org",
+    "www.eso.org",
+    "eso.org",
+    "eventhorizontelescope.org",
+    "chandra.harvard.edu",
+    "chandra.si.edu",
+    "images-assets.nasa.gov",
+    "www.nasa.gov",
+    "nasa.gov",
+    "nssdc.gsfc.nasa.gov",
+    "www.nsf.gov",
+    "public.nrao.edu",
+    "www.nrao.edu",
+    "almascience.eso.org"
+  ]
+}

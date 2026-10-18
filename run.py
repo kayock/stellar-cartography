@@ -27,12 +27,21 @@ APP_ROOT = watchlist_store.resolve_app_root(os.path.dirname(os.path.abspath(__fi
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="FOXAI Stellar Cartography R0.4.0")
-    parser.add_argument("--port", type=int, default=None, help="Port to serve the UI on (default: auto)")
+    env_port = os.environ.get("STELLAR_CARTOGRAPHY_PORT") or os.environ.get("PORT")
+    default_port = int(env_port) if env_port and env_port.isdigit() else None
+    default_host = os.environ.get("STELLAR_CARTOGRAPHY_HOST") or "127.0.0.1"
+    default_stellarium = (
+        os.environ.get("STELLAR_CARTOGRAPHY_STELLARIUM_URL")
+        or os.environ.get("STELLARIUM_URL")
+        or "http://127.0.0.1:8090"
+    )
+    parser.add_argument("--port", type=int, default=default_port, help="Port to serve the UI on (default: auto, or STELLAR_CARTOGRAPHY_PORT)")
+    parser.add_argument("--host", type=str, default=default_host, help="Interface to bind (default: 127.0.0.1 or STELLAR_CARTOGRAPHY_HOST; use 0.0.0.0 for LAN)")
     parser.add_argument(
         "--stellarium-url",
         type=str,
-        default="http://127.0.0.1:8090",
-        help="Base URL of Stellarium's Remote Control plug-in (default: http://127.0.0.1:8090)",
+        default=default_stellarium,
+        help="Stellarium Remote Control base URL (default: http://127.0.0.1:8090 or STELLAR_CARTOGRAPHY_STELLARIUM_URL)",
     )
     parser.add_argument("--no-browser", action="store_true", help="Do not auto-open a browser tab")
     parser.add_argument("--verbose", action="store_true", help="Enable verbose (DEBUG) logging")
@@ -46,7 +55,7 @@ def main(argv=None) -> int:
 
     port = args.port or find_free_port()
     httpd = run_server(
-        host="127.0.0.1",
+        host=args.host,
         port=port,
         stellarium_base_url=args.stellarium_url,
         watchlist_root=APP_ROOT,

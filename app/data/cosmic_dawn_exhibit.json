@@ -1,0 +1,160 @@
+{
+  "id": "cosmic_dawn",
+  "title": "Cosmic Dawn",
+  "subtitle": "The Universe grows up",
+  "description": "Interactive walk from recombination and the CMB through the dark ages, first stars and galaxies, reionization, JWST's early-galaxy frontier, and the cautious 21-cm radio search.",
+  "theme": "scientific_cosmic_dawn",
+  "estimated_minutes": 18,
+  "culture_scope": ["NASA", "ESA", "Planck", "JWST", "STScI", "Hubble"],
+  "evidence_types": ["strong_evidence", "scholarly_interpretation", "historical_source"],
+  "story_ids": [],
+  "cover_media": {"kind": "native_svg", "id": "cosmic_dawn_cover"},
+  "narrator_default": "father_fox",
+  "source_note": "Timeline epochs are approximate. First-star and reionization details remain research frontiers. 21-cm claims stay conservative. Stellarium is present-day optical sky only.",
+  "enabled": true,
+  "test_fixture": false,
+  "steps": [
+    {
+      "step_id": "cd_intro",
+      "step_type": "intro",
+      "title": "Looking back in time",
+      "narration_kind": "exhibit_step",
+      "narration_text": "Deep sky observing is time travel. Cosmic Dawn is when the first stars ended the dark ages after the Big Bang's afterglow.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "cd_transparent",
+      "step_type": "cosmic_dawn",
+      "title": "The Universe becomes transparent",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Recombination joined electrons to nuclei. Photons stopped scattering endlessly, and light could travel freely.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "cd_cmb",
+      "step_type": "cosmic_dawn",
+      "title": "The oldest light",
+      "object_name": "CMB",
+      "cosmic_dawn_object_id": "planck_cmb",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Those freed photons are today's cosmic microwave background. Stellarium cannot show the microwave sky—use the Planck map card.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "cd_dark",
+      "step_type": "cosmic_dawn",
+      "title": "The cosmic dark ages",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "After the CMB and before stars, the Universe was dark to starlight but not empty—neutral gas and growing dark-matter structure.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "cd_gravity",
+      "step_type": "cosmic_dawn",
+      "title": "Gravity keeps working",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Tiny density differences grew under gravity. This early structure growth foreshadows the Cosmic Web Special.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "cd_stars",
+      "step_type": "cosmic_dawn",
+      "title": "The first stars ignite",
+      "object_name": "First stars",
+      "cosmic_dawn_object_id": "first_stars_sim",
+      "stellarium_focus": "Fornax Cluster",
+      "stellarium_fov": 5.0,
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "First stars formed from primordial gas. Their exact masses remain uncertain—simulation visuals are not photographs of Population III stars.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "cd_galaxies",
+      "step_type": "cosmic_dawn",
+      "title": "The first galaxies",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Gas collapsed in dark-matter halos into early galaxies. Mergers and accretion increased complexity—see also Galactic Encounters.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "cd_fog",
+      "step_type": "cosmic_dawn",
+      "title": "Lighting the fog",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Ionizing radiation carved bubbles in neutral hydrogen. Advance the reionization lab to watch the illustrative fog clear.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "cd_reion",
+      "step_type": "cosmic_dawn",
+      "title": "Reionization",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Bubbles grew and overlapped until most intergalactic hydrogen was ionized. Exact sources and timing remain active research.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "cd_jwst",
+      "step_type": "cosmic_dawn",
+      "title": "JWST opens the frontier",
+      "object_name": "JWST / Pandora",
+      "cosmic_dawn_object_id": "jwst_pandora",
+      "stellarium_focus": "Abell 2744",
+      "stellarium_fov": 1.5,
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "JWST finds highly redshifted galaxies. Photometric candidates need careful confirmation—avoid hard-coded earliest-ever claims.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "cd_21",
+      "step_type": "cosmic_dawn",
+      "title": "Listening for neutral hydrogen",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "The 21-centimeter line could probe the dark ages and reionization, but foregrounds make detection extraordinarily hard. Claims stay conservative.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "cd_web",
+      "step_type": "cosmic_dawn",
+      "title": "From dawn to the Cosmic Web",
+      "object_name": "HUDF region",
+      "cosmic_dawn_object_id": "hubble_udf",
+      "stellarium_focus": "Fornax Cluster",
+      "stellarium_fov": 4.0,
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Deep fields reveal distant galaxies along the path to today's Cosmic Web. Stellarium anchors the Fornax host-sky region, not the early Universe itself.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "cd_outro",
+      "step_type": "outro",
+      "title": "The Universe grows up",
+      "narration_kind": "exhibit_step",
+      "narration_text": "From microwave afterglow to first firelight, Cosmic Dawn completes this Specials series. Exit and Restore returns Stellarium when you are done.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    }
+  ]
+}

@@ -11,8 +11,9 @@ Design goals:
       shape description (top-level key names + value types) on parse
       failure -- never raw field values, since those could (in principle)
       contain user-entered object notes.
-    * Never write telescope-control commands. This client only performs
-      GET requests against read-only info endpoints.
+    * Selection and status remain GET-only.
+    * Time/location writes happen only through explicit Time Machine helpers
+      (POST /api/main/time, /api/location/setlocationfields, /api/stelaction/do).
 """
 
 from __future__ import annotations
@@ -21,6 +22,7 @@ import json
 import logging
 import math
 import urllib.error
+import urllib.parse
 import urllib.request
 from dataclasses import dataclass, field
 from typing import Any, Optional
@@ -286,6 +288,105 @@ class StellariumClient:
         else:
             shape = {"__root_type__": type(payload).__name__}
         logger.warning("Stellarium selection parse failed (%s). Sanitized shape: %s", reason, shape)
+
+    def get_main_status(self) -> Any:
+        """Return GET /api/main/status JSON, or None on transport failure."""
+        try:
+            return self._get_json("/api/main/status")
+        except (urllib.error.URLError, OSError, TimeoutError, json.JSONDecodeError, ResponseTooLargeError):
+            return None
+
+    def get_objects_info_raw(self) -> Any:
+        try:
+            return self._get_json("/api/objects/info?format=json")
+        except (urllib.error.URLError, OSError, TimeoutError, json.JSONDecodeError, ResponseTooLargeError):
+            return None
+
+    def _post_form(self, path: str, fields: dict) -> bool:
+        url = f"{self.base_url}{path}"
+        body = urllib.parse.urlencode(fields).encode("utf-8")
+        req = urllib.request.Request(
+            url,
+            data=body,
+            method="POST",
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=self.timeout) as resp:  # nosec B310 - local-only, fixed scheme
+                resp.read(256)
+            return True
+        except (urllib.error.URLError, OSError, TimeoutError, urllib.error.HTTPError):
+            return False
+
+    def apply_time(self, jday: float, timerate: float = 0.0) -> bool:
+        rate = "0" if float(timerate) == 0 else str(timerate)
+        return self._post_form("/api/main/time", {"time": f"{float(jday):.8f}", "timerate": rate})
+
+    def return_to_now(self) -> bool:
+        return self._post_form("/api/stelaction/do", {"id": "actionReturn_To_Current_Time"})
+
+    def apply_location(
+        self,
+        latitude: float,
+        longitude: float,
+        altitude: float = 0.0,
+        name: str = "",
+        planet: str = "Earth",
+    ) -> bool:
+        return self._post_form(
+            "/api/location/setlocationfields",
+            {
+                "latitude": f"{float(latitude):.8f}",
+                "longitude": f"{float(longitude):.8f}",
+                "altitude": str(int(round(float(altitude)))),
+                "name": name or "Cartography location",
+                "planet": planet or "Earth",
+            },
+        )
+
+    def focus_object(self, target: str) -> bool:
+        """Select and center an object in the existing Stellarium session."""
+        name = (target or "").strip()
+        if not name or len(name) > 160:
+            return False
+        return self._post_form("/api/main/focus", {"target": name})
+
+    def set_fov(self, fov_deg: float) -> bool:
+        if not isinstance(fov_deg, (int, float)) or isinstance(fov_deg, bool):
+            return False
+        value = float(fov_deg)
+        if not math.isfinite(value) or value <= 0 or value > 240:
+            return False
+        return self._post_form("/api/main/fov", {"fov": f"{value:.4f}"})
+
+    def get_stel_properties(self) -> dict:
+        try:
+            payload = self._get_json("/api/stelproperty/list")
+        except (urllib.error.URLError, OSError, TimeoutError, json.JSONDecodeError, ResponseTooLargeError):
+            return {}
+        return payload if isinstance(payload, dict) else {}
+
+    def get_sky_culture_id(self) -> Optional[str]:
+        entry = self.get_stel_properties().get("StelSkyCultureMgr.currentSkyCultureID")
+        if isinstance(entry, dict):
+            value = entry.get("value")
+            if isinstance(value, str) and value.strip():
+                return value.strip()
+        return None
+
+    def get_constellation_properties(self) -> dict:
+        return self.get_stel_properties()
+
+    def set_stel_property(self, prop_id: str, value: Any) -> bool:
+        name = (prop_id or "").strip()
+        if not name or len(name) > 160:
+            return False
+        if isinstance(value, bool):
+            encoded = "true" if value else "false"
+        else:
+            encoded = str(value)
+        return self._post_form("/api/stelproperty/set", {"id": name, "value": encoded})
+
 
 
 def _first_str(payload: dict, keys: tuple) -> Optional[str]:

@@ -1,0 +1,44 @@
+{
+  "collection": {
+    "items": [
+      {
+        "data": [
+          {
+            "center": "HQ",
+            "date_created": "2015-01-01T00:00:00Z",
+            "description": "A generic NASA education video about space exploration.",
+            "keywords": ["NASA", "Space", "Education"],
+            "media_type": "video",
+            "nasa_id": "NASA_SPACE_EDU_1",
+            "title": "Space and the Universe"
+          }
+        ],
+        "links": [
+          {
+            "href": "https://images-assets.nasa.gov/video/NASA_SPACE_EDU_1/NASA_SPACE_EDU_1~thumb.jpg",
+            "rel": "preview"
+          }
+        ]
+      },
+      {
+        "data": [
+          {
+            "center": "JSC",
+            "date_created": "2011-07-08T00:00:00Z",
+            "description": "Space Shuttle Atlantis launches.",
+            "keywords": ["Space Shuttle", "STS-135"],
+            "media_type": "image",
+            "nasa_id": "201107080012HQ",
+            "title": "Space Shuttle Launch"
+          }
+        ],
+        "links": [
+          {
+            "href": "https://images-assets.nasa.gov/image/201107080012HQ/201107080012HQ~thumb.jpg",
+            "rel": "preview"
+          }
+        ]
+      }
+    ]
+  }
+}

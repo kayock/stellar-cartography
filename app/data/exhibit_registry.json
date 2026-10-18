@@ -1,0 +1,1942 @@
+{
+  "version": 1,
+  "notes": "Curated exhibit / story-path mode. Steps reference existing stories, visuals, media, and Time Machine. No second Stellarium, narration, or media engine.",
+  "future_exhibit_ids": [
+    "lives_of_the_stars",
+    "same_sky_different_stories",
+    "solar_system_time_machine",
+    "cosmic_catastrophes",
+    "navigation_by_stars"
+  ],
+  "exhibits": [
+    {
+      "id": "southwestern_skies",
+      "title": "Southwestern Skies",
+      "subtitle": "Same sky, distinct traditions and archaeological readings",
+      "description": "A curated walk through public sky stories and archaeological interpretations from the Greater Southwest and the Basin of Mexico, set beside a Same Sky comparison of the Pleiades. Living community traditions that are not already READY and public in Cartography are not invented or filled in.",
+      "theme": "cultural_astronomy",
+      "estimated_minutes": 20,
+      "culture_scope": [
+        "Modern IAU",
+        "M\u0101ori",
+        "Arabian Peninsula tradition",
+        "Ancestral Puebloan (archaeological)",
+        "Mexica (historical)"
+      ],
+      "evidence_types": [
+        "cultural_source",
+        "historical_source",
+        "archaeological_inference",
+        "strong_evidence",
+        "scholarly_interpretation"
+      ],
+      "story_ids": [
+        "taurus",
+        "maori_matariki",
+        "arabic_peninsula_thurayya",
+        "ancestral_puebloan_chaco_cardinal",
+        "ancestral_puebloan_fajada_sun_dagger",
+        "ancestral_puebloan_holly_solstice_panel",
+        "mexica_templo_mayor_solar",
+        "mexica_tianquiztli"
+      ],
+      "cover_media": {
+        "kind": "native_svg",
+        "id": "southwestern_skies_cover"
+      },
+      "narrator_default": "father_fox",
+      "source_note": "Public archaeological and historical sources only. Living Din\u00e9, Apache, Hopi, Zuni, Acoma, and Taos stories are not included because they are not READY and public in this source pack. Cultural stories and archaeological interpretations remain separate.",
+      "enabled": true,
+      "test_fixture": false,
+      "steps": [
+        {
+          "step_id": "sw_intro",
+          "step_type": "intro",
+          "title": "Cultural astronomy",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Cultural astronomy is how communities have used the sky for timing, season, orientation, and identity. Living traditions are contemporary knowledge held by communities. Archaeological interpretation is a scholarly reading of sites and alignments. This exhibit keeps those categories separate and does not claim a common origin for the stories shown here.",
+          "transition_note": "We begin with the Pleiades as one physical sky seen through distinct traditions.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "sw_pleiades_same_sky",
+          "step_type": "same_sky_comparison",
+          "title": "Pleiades \u2014 same sky, different stories",
+          "story_ids": [
+            "taurus",
+            "maori_matariki",
+            "arabic_peninsula_thurayya",
+            "mexica_tianquiztli"
+          ],
+          "object_name": "Pleiades",
+          "constellation_id": "taurus",
+          "narration_kind": "exhibit_step",
+          "media_preference": "official_media",
+          "stellarium_focus": "Pleiades",
+          "stellarium_fov": 4,
+          "visual_controls": {
+            "lines": true,
+            "labels": true
+          },
+          "transition_note": "The cluster is one physical object. The traditions remain distinct.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "sw_chaco",
+          "step_type": "archaeoastronomy",
+          "title": "Ancestral Puebloan \u2014 Chaco cardinal architecture",
+          "story_id": "ancestral_puebloan_chaco_cardinal",
+          "archaeo_visual_id": "ancestral_puebloan_chaco_cardinal",
+          "object_name": "Sun",
+          "narration_kind": "exhibit_step",
+          "stellarium_focus": "Sun",
+          "stellarium_fov": 8,
+          "transition_note": "Next, a public interpretive schematic of Fajada Butte.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "sw_fajada",
+          "step_type": "archaeoastronomy",
+          "title": "Fajada Butte Sun Dagger",
+          "story_id": "ancestral_puebloan_fajada_sun_dagger",
+          "archaeo_visual_id": "ancestral_puebloan_fajada_sun_dagger",
+          "object_name": "Sun",
+          "narration_kind": "exhibit_step",
+          "stellarium_focus": "Sun",
+          "stellarium_fov": 8,
+          "transition_note": "Disputed lunar-standstill claims stay secondary. Next, Hovenweep Holly.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "sw_holly",
+          "step_type": "archaeoastronomy",
+          "title": "Hovenweep Holly solstice panel",
+          "story_id": "ancestral_puebloan_holly_solstice_panel",
+          "archaeo_visual_id": "ancestral_puebloan_holly_solstice_panel",
+          "object_name": "Sun",
+          "narration_kind": "exhibit_step",
+          "stellarium_focus": "Sun",
+          "stellarium_fov": 8,
+          "transition_note": "An optional historical sky reconstruction can follow, only if you apply it.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "sw_historical_sky",
+          "step_type": "historical_reconstruction",
+          "title": "Historical sky reconstruction",
+          "story_id": "ancestral_puebloan_chaco_cardinal",
+          "archaeo_visual_id": "ancestral_puebloan_chaco_cardinal",
+          "object_name": "Sun",
+          "narration_kind": "exhibit_step",
+          "time_machine_action": {
+            "visual_id": "ancestral_puebloan_chaco_cardinal",
+            "date_id": "chaco_ad1050_equinox",
+            "apply_requires_explicit_action": true,
+            "silent_apply": false
+          },
+          "stellarium_focus": "Sun",
+          "stellarium_fov": 8,
+          "user_action_required": true,
+          "transition_note": "This uses modern astronomical simulation. It is not direct archaeological evidence. Time restores when you exit the exhibit.",
+          "optional": true,
+          "restore_behavior": "defer_until_exit"
+        },
+        {
+          "step_id": "sw_templo_mayor",
+          "step_type": "archaeoastronomy",
+          "title": "Mexica solar timekeeping \u2014 Templo Mayor",
+          "story_id": "mexica_templo_mayor_solar",
+          "archaeo_visual_id": "mexica_templo_mayor_solar",
+          "object_name": "Sun",
+          "narration_kind": "exhibit_step",
+          "stellarium_focus": "Sun",
+          "stellarium_fov": 8,
+          "transition_note": "Historical Mexica sources stay distinct from modern Nahua or Maya practice.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "sw_tianquiztli",
+          "step_type": "cultural_story",
+          "title": "Mexica Pleiades / New Fire \u2014 Tianquiztli",
+          "story_id": "mexica_tianquiztli",
+          "cultural_story_id": "mexica_tianquiztli",
+          "object_name": "Pleiades",
+          "narration_kind": "exhibit_step",
+          "media_preference": "official_media",
+          "stellarium_focus": "Pleiades",
+          "stellarium_fov": 4,
+          "visual_controls": {
+            "lines": true,
+            "labels": true
+          },
+          "transition_note": "Closing comparison next \u2014 no common-origin claim.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "sw_closing",
+          "step_type": "same_sky_comparison",
+          "title": "Closing comparison",
+          "story_ids": [
+            "taurus",
+            "maori_matariki",
+            "arabic_peninsula_thurayya",
+            "ancestral_puebloan_chaco_cardinal",
+            "mexica_tianquiztli"
+          ],
+          "narration_kind": "exhibit_step",
+          "narration_text": "Across the cards in this exhibit, the sky is used for timing, season, orientation, and identity. These are independent traditions and archaeological readings of the same physical sky. This exhibit does not claim a shared origin.",
+          "stellarium_focus": "Pleiades",
+          "stellarium_fov": 6,
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "sw_outro",
+          "step_type": "outro",
+          "title": "Sources and further exploration",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Sources for each step are grouped in the exhibit source panel. You can continue in Stories of the Sky, Archaeoastronomy Visual Mode, or the Sky Time Machine. Official media and Cosmic Signals remain manual in their existing panels.",
+          "optional": false,
+          "restore_behavior": "restore_on_exit"
+        }
+      ]
+    },
+    {
+      "id": "hear_the_universe",
+      "title": "Hear the Universe",
+      "subtitle": "What astronomical sound actually means",
+      "description": "A curated walk through real mission signals, audification, Chandra data sonification, pulsar timing, and Cartography's generated Data Sonification. Ordinary acoustic sound needs matter; these clips translate measured electromagnetic, plasma, and image data into a form human ears can follow.",
+      "theme": "scientific_audio",
+      "estimated_minutes": 22,
+      "culture_scope": [
+        "NASA / JPL",
+        "Chandra X-ray Center",
+        "Juno Waves / University of Iowa",
+        "Voyager Plasma Wave Subsystem"
+      ],
+      "evidence_types": [
+        "measured_signal",
+        "measurement_derived_audio",
+        "audification",
+        "data_sonification",
+        "pulse_timing_data",
+        "generated_cartography_sonification"
+      ],
+      "story_ids": [],
+      "cover_media": {
+        "kind": "native_svg",
+        "id": "hear_the_universe_cover"
+      },
+      "narrator_default": "father_fox",
+      "source_note": "Audio items are Cosmic Signal Deck entries with NASA, Chandra, JPL, Juno Waves, and Voyager provenance. Cartography Data Sonification is a local altitude-to-pitch mapping, not an observatory recording. Nothing here is microphone audio from vacuum.",
+      "enabled": true,
+      "test_fixture": false,
+      "steps": [
+        {
+          "step_id": "htu_intro",
+          "step_type": "intro",
+          "title": "Can space make sound?",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Ordinary acoustic sound is a pressure wave. It needs matter to travel. Most of space is vacuum, so a microphone would not pick up a roar from Jupiter or a supernova. Spacecraft and telescopes instead measure changing electromagnetic fields, plasma waves, X-rays, and pulse timing. Scientists can map those data into frequencies humans can hear. This exhibit is about translated information, not sound waves crossing empty space.",
+          "sound_explainer": {
+            "title": "Can space make sound?",
+            "lead": "Ordinary acoustic sound requires matter, but space missions detect many kinds of changing physical signals that can be translated into audible form.",
+            "points": [
+              {
+                "label": "Pressure waves in matter",
+                "text": "Everyday hearing is air, water, or rock carrying compressions to an ear or microphone. Vacuum cannot carry that kind of sound."
+              },
+              {
+                "label": "Plasma waves",
+                "text": "Charged particles around planets and in the solar wind support electromagnetic plasma waves. Instruments record those fields; some frequencies already sit in the human hearing range and can be amplified."
+              },
+              {
+                "label": "Radio and electromagnetic measurements",
+                "text": "Radio, magnetic, and electric-field receivers on spacecraft capture changing signals. Published clips convert those measurements into speaker motion. That is not air vibrating at the planet."
+              },
+              {
+                "label": "Timing data",
+                "text": "Pulsars repeat on precise clocks. A light curve or pulse train can be played as a beat because the timing itself is the measurement."
+              },
+              {
+                "label": "Astronomical data sonification",
+                "text": "Images and spectra can be scanned into pitch, loudness, and time. NASA and Chandra publish some of those mappings. Cartography can also generate a local mapping from numeric sky data. Both are transformations, not original physical audio recordings."
+              }
+            ]
+          },
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "htu_jupiter",
+          "step_type": "cosmic_signal",
+          "title": "Jupiter \u2014 Juno Waves bow shock",
+          "object_name": "Jupiter",
+          "media_preference": "cosmic_signal",
+          "cosmic_signal_id": "jupiter_juno_waves_bow_shock",
+          "related_signal_ids": [
+            "jupiter_juno_waves_auroral_bkom"
+          ],
+          "narration_kind": "exhibit_step",
+          "narration_text": "Juno's Waves instrument measured radio and plasma-wave fields as the spacecraft crossed Jupiter's bow shock. The University of Iowa published this clip as an audible conversion of those measurements. You are not hearing atmospheric thunder. Press Play only if you want to listen. A related Juno auroral radio clip is available to open in the Cosmic Signal Deck. It is a separate measurement, not a second copy of this bow-shock signal.",
+          "stellarium_focus": "Jupiter",
+          "stellarium_fov": 18,
+          "optional": false,
+          "restore_behavior": "restore_on_exit"
+        },
+        {
+          "step_id": "htu_saturn",
+          "step_type": "cosmic_signal",
+          "title": "Saturn \u2014 Chandra and Cassini sonification",
+          "object_name": "Saturn",
+          "media_preference": "official_media",
+          "cosmic_signal_id": "saturn_chandra_cassini_sonification",
+          "narration_kind": "exhibit_step",
+          "narration_text": "This Saturn clip is a Chandra data sonification that also uses Cassini optical imagery of the planet and rings. NASA and the Chandra X-ray Center mapped image structure into synthetic tones. It is not a microphone at Saturn, and it is not Enceladus plume audio. Cartography has no separate Enceladus Cosmic Signal; do not treat this clip as the moon. Official Chandra media and the Saturn spectrum view stay manual in their existing panels.",
+          "stellarium_focus": "Saturn",
+          "stellarium_fov": 8,
+          "optional": false,
+          "restore_behavior": "restore_on_exit"
+        },
+        {
+          "step_id": "htu_crab",
+          "step_type": "cosmic_signal",
+          "title": "Crab Nebula \u2014 image sonification and pulsar timing",
+          "object_name": "Crab Nebula",
+          "media_preference": "official_media",
+          "cosmic_signal_id": "crab_nebula_chandra_sonification",
+          "related_signal_ids": [
+            "msh_15_52_chandra_ixpe_sonification"
+          ],
+          "narration_kind": "exhibit_step",
+          "narration_text": "The Crab Pulsar is a spinning neutron star. Its radio and X-ray pulses repeat like a clock, which is why timing data can sound like a beat. The clip on this step is not that pulse train. NASA and Chandra sonified a multiwavelength image of the nebula, scanning left to right and mapping brightness to loudness. A related Chandra sonification of MSH 15-52 includes the pulsar light curve as pulses about seven times per second. Open that related signal in the Cosmic Signal Deck if you want to hear timing mapped explicitly. It is a different object.",
+          "stellarium_focus": "Crab Nebula",
+          "stellarium_fov": 2,
+          "optional": false,
+          "restore_behavior": "restore_on_exit"
+        },
+        {
+          "step_id": "htu_casa",
+          "step_type": "cosmic_signal",
+          "title": "Cassiopeia A \u2014 canonical Chandra sonification",
+          "object_name": "Cassiopeia A",
+          "media_preference": "official_media",
+          "cosmic_signal_id": "cassiopeia_a_chandra_sonification",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Cassiopeia A is the canonical Chandra sonification in Cartography. NASA and the Chandra X-ray Center mapped element distributions and high-energy structure outward from the center. This exhibit uses that exact Cosmic Signal Deck entry and does not add a second player. Official Chandra media and the Spectrum Gallery remain available beside it. Nothing starts until you press Play.",
+          "stellarium_focus": "Cassiopeia A",
+          "stellarium_fov": 2,
+          "optional": false,
+          "restore_behavior": "restore_on_exit"
+        },
+        {
+          "step_id": "htu_gcenter",
+          "step_type": "cosmic_signal",
+          "title": "Galactic Center \u2014 Chandra data sonification",
+          "object_name": "Galactic Center",
+          "media_preference": "official_media",
+          "cosmic_signal_id": "galactic_center_chandra_sonification",
+          "narration_kind": "exhibit_step",
+          "narration_text": "NASA and Chandra provide this Galactic Center sonification of Chandra, Hubble, and Spitzer image data, including the region around Sagittarius A star. It is data sonification, not a microphone recording at the black hole. Stellarium in this session cannot select Sagittarius A star itself, so Cartography focuses the verified search name Sagittarius A East, a nearby remnant, while the Cosmic Signal and Spectrum stay on the Galactic Center material.",
+          "stellarium_focus": "Sagittarius A East",
+          "stellarium_fov": 4,
+          "stellarium_search_note": "Sagittarius A* is not selectable in Stellarium 26.3 Remote Control; verified search_name is Sagittarius A East.",
+          "optional": false,
+          "restore_behavior": "restore_on_exit"
+        },
+        {
+          "step_id": "htu_andromeda",
+          "step_type": "cosmic_signal",
+          "title": "Andromeda \u2014 multiwavelength sonification",
+          "object_name": "Andromeda Galaxy",
+          "media_preference": "official_media",
+          "cosmic_signal_id": "m31_multiwavelength_sonification",
+          "narration_kind": "exhibit_step",
+          "narration_text": "NASA and Chandra provide this Andromeda Galaxy sonification. Wavelength layers from X-ray through radio are stacked and scanned left to right. Brightness controls volume and vertical position controls pitch. This is telescope-data sonification of M31, not sound recorded in another galaxy. Open the official media and spectrum items if you want the matching visual context. They stay manual.",
+          "stellarium_focus": "Andromeda Galaxy",
+          "stellarium_fov": 6,
+          "optional": false,
+          "restore_behavior": "restore_on_exit"
+        },
+        {
+          "step_id": "htu_how_classes",
+          "step_type": "cosmic_signal",
+          "title": "How sonification works",
+          "object_name": null,
+          "media_preference": "cosmic_signal",
+          "cosmic_signal_id": "voyager1_interstellar_plasma_pia17045",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Voyager 1's Plasma Wave Subsystem measured electric-field oscillations in interstellar space. Those frequencies already fall in the human hearing range, so NASA amplified them. That is audification of a measured plasma-wave signal, not a musical remix and not a microphone in vacuum. Measured instrument signals, audification, data sonification, pulse timing, and Cartography's generated Data Sonification are different classes. The next step compares an official observatory sonification with Cartography's own mapping.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "htu_compare",
+          "step_type": "data_sonification",
+          "title": "Same data, different sense",
+          "object_name": "Andromeda Galaxy",
+          "media_preference": "spectrum",
+          "compare_signal_id": "m31_multiwavelength_sonification",
+          "cartography_sonify": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "NASA and Chandra provide the Andromeda sonification you can reopen here. Cartography is generating a different Data Sonification from the current object's computed altitude, mapping numbers onto a four-second oscillator sweep from 220 to 660 hertz. Both can be scientifically meaningful as translations. Their mappings differ. The generated tone is not an original physical audio recording and is not the Chandra clip. Play each one yourself. Official media and Spectrum stay manual.",
+          "stellarium_focus": "Andromeda Galaxy",
+          "stellarium_fov": 6,
+          "optional": false,
+          "restore_behavior": "restore_on_exit"
+        },
+        {
+          "step_id": "htu_free_listen",
+          "step_type": "cosmic_signal",
+          "title": "Free listen",
+          "media_preference": "cosmic_signal",
+          "cosmic_signal_ids": [
+            "earth_van_allen_chorus_svs11073",
+            "venus_parker_fields_ionosphere_svs13847",
+            "europa_juno_waves_flyby",
+            "vela_pulsar_chandra_sonification",
+            "m87_chandra_vla_sonification"
+          ],
+          "narration_kind": "exhibit_step",
+          "narration_text": "These remaining Cosmic Signal Deck entries stay under your control. Earth chorus waves are measured magnetospheric plasma signals already in the hearing range. Venus and Europa clips are Parker and Juno instrument conversions. Vela and M87 are Chandra data sonifications of other deep-sky targets. Choose one to open. Nothing plays until you press Play.",
+          "optional": true,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "htu_outro",
+          "step_type": "outro",
+          "title": "Hearing information, not vacuum",
+          "narration_kind": "exhibit_step",
+          "narration_text": "We are not hearing the vacuum itself; we are hearing information from the Universe translated into a form our ears can perceive. Mission teams choose some mappings. Cartography generates another from local numbers. Sources for each signal stay in the exhibit panel and in the Cosmic Signal Deck. Exit and Restore returns Stellarium to the selection and field of view captured when you started.",
+          "optional": false,
+          "restore_behavior": "restore_on_exit"
+        }
+      ]
+    },
+    {
+      "id": "ancient_skywatchers",
+      "title": "Ancient Skywatchers",
+      "subtitle": "How people measured time, seasons, direction, and meaning in the sky",
+      "description": "A curated walk through production-ready Cartography stories and archaeoastronomy visuals about naked-eye observation: horizon and shadow, calendars, architecture, seasonal star timing, named asterisms, and historical cataloging. Traditions and archaeological readings stay distinct. This exhibit does not claim a shared origin.",
+      "theme": "historical_astronomy",
+      "estimated_minutes": 28,
+      "culture_scope": [
+        "Ancestral Puebloan (archaeological)",
+        "Mexica (historical)",
+        "Arabic (Arabian Peninsula tradition)",
+        "M\u0101ori",
+        "Chinese Xingguan",
+        "Medieval Islamic astronomy (al-\u1e62\u016bf\u012b)"
+      ],
+      "evidence_types": [
+        "archaeological_inference",
+        "strong_evidence",
+        "scholarly_interpretation",
+        "historical_source",
+        "community_sourced",
+        "cultural_sky_knowledge",
+        "historical_astronomy"
+      ],
+      "story_ids": [
+        "ancestral_puebloan_chaco_cardinal",
+        "ancestral_puebloan_fajada_sun_dagger",
+        "ancestral_puebloan_holly_solstice_panel",
+        "mexica_templo_mayor_solar",
+        "mexica_tianquiztli",
+        "arabic_peninsula_thurayya",
+        "maori_matariki",
+        "chinese_beidou",
+        "arabic_sufi_lyra"
+      ],
+      "cover_media": {
+        "kind": "native_svg",
+        "id": "ancient_skywatchers_cover"
+      },
+      "narrator_default": "father_fox",
+      "source_note": "Public archaeological, historical, and Stellarium sky-culture sources already READY in Cartography. Living Din\u00e9, Apache, Hopi, Zuni, Acoma, and Taos stories are not included. Mesa Verde Sun Temple remains RESEARCH_MORE and is omitted. Cultural stories, historical astronomy, and archaeological interpretation remain separate.",
+      "enabled": true,
+      "test_fixture": false,
+      "tools_of_the_sky": [
+        {
+          "id": "horizon",
+          "label": "Horizon"
+        },
+        {
+          "id": "shadow_light",
+          "label": "Shadow / light"
+        },
+        {
+          "id": "cardinal_direction",
+          "label": "Cardinal direction"
+        },
+        {
+          "id": "star_rising_setting",
+          "label": "Star rising / setting"
+        },
+        {
+          "id": "pleiades_timing",
+          "label": "Pleiades timing"
+        },
+        {
+          "id": "seasonal_recurrence",
+          "label": "Seasonal recurrence"
+        },
+        {
+          "id": "architecture",
+          "label": "Architecture"
+        },
+        {
+          "id": "named_asterisms",
+          "label": "Named asterisms"
+        },
+        {
+          "id": "star_catalog",
+          "label": "Star catalog"
+        }
+      ],
+      "steps": [
+        {
+          "step_id": "asw_intro",
+          "step_type": "intro",
+          "title": "Before telescopes",
+          "narration_text": "Careful naked-eye observation can be precise. Horizon points, shadows, repeated star positions, lunar phases, and seasonal cycles were measuring tools. Different societies developed different systems for time, direction, ceremony, navigation, and knowledge. This exhibit keeps each tradition distinct rather than merging them into one ancient people.",
+          "narration_kind": "exhibit_step",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "asw_horizon",
+          "step_type": "object_focus",
+          "title": "Reading the horizon",
+          "object_name": "Sun",
+          "stellarium_focus": "Sun",
+          "stellarium_fov": 20,
+          "narration_text": "Sunrise and sunset do not stand still on the horizon. Over the year they move between recurring solstice extremes, with equinox positions in between. A marked hill, building axis, or shadow path can turn that motion into a calendar. The method is shared in function only where sources support it. The next cards are specific places and traditions, not a universal ancient technique.",
+          "how_they_knew": {
+            "title": "How Did They Know?",
+            "observation_method": "Horizon sunrise and sunset positions; repeating seasonal extremes.",
+            "repeated_pattern": "The Sun's rising and setting azimuths return each year to solstice and equinox stations.",
+            "astronomical_object": "Sun",
+            "environmental_calendar_role": "Seasonal timing without telescopes or spacecraft.",
+            "architectural_relationship": null,
+            "evidence_type": "General observational method. Site-specific claims wait for sourced cards.",
+            "uncertainty": "This step does not assign a particular culture's calendar to the current Stellarium Sun."
+          },
+          "place_context": {
+            "period": "Not a single period",
+            "region": "Wherever a level or marked horizon can be watched",
+            "tradition": "Method introduction only",
+            "observing_environment": "Naked-eye horizon"
+          },
+          "narration_kind": "exhibit_step",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "asw_chaco",
+          "step_type": "archaeoastronomy",
+          "title": "Chaco cardinal architecture",
+          "story_id": "ancestral_puebloan_chaco_cardinal",
+          "archaeo_visual_id": "ancestral_puebloan_chaco_cardinal",
+          "object_name": "Sun",
+          "stellarium_focus": "Sun",
+          "stellarium_fov": 8,
+          "suppress_cosmic_signal": true,
+          "narration_text": "Archaeological evidence suggests major Chaco buildings were aligned close to the cardinal directions. The visual here is limited to that strong, publicly sourced claim. Lunar-standstill and Casa Rinconada niche-light ideas stay omitted from the primary diagram. This is architectural astronomy, not an oral constellation story.",
+          "how_they_knew": {
+            "title": "How Did They Know?",
+            "observation_method": "Building axes laid out near true north\u2013south and east\u2013west.",
+            "repeated_pattern": "Cardinal axes can mark solar noon and equinox sunrises and sunsets on an idealized horizon.",
+            "astronomical_object": "Sun",
+            "environmental_calendar_role": "Orientation in the solar year.",
+            "architectural_relationship": "Pueblo Bonito and related Chaco constructions.",
+            "evidence_type": "STRONG EVIDENCE for cardinal orientation; archaeological inference.",
+            "uncertainty": "Unsupported lunar claims are not treated as settled fact."
+          },
+          "place_context": {
+            "period": "c. AD 850\u20131150",
+            "region": "Chaco Canyon, northwestern New Mexico",
+            "tradition": "Ancestral Puebloan (archaeological)",
+            "observing_environment": "Built architecture on the canyon floor"
+          },
+          "narration_kind": "exhibit_step",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "asw_fajada",
+          "step_type": "archaeoastronomy",
+          "title": "Fajada Butte Sun Dagger",
+          "story_id": "ancestral_puebloan_fajada_sun_dagger",
+          "archaeo_visual_id": "ancestral_puebloan_fajada_sun_dagger",
+          "object_name": "Sun",
+          "stellarium_focus": "Sun",
+          "stellarium_fov": 8,
+          "suppress_cosmic_signal": true,
+          "narration_text": "This archaeological interpretation of Ancestral Puebloan observations suggests midday light on spiral petroglyphs at Fajada Butte marked the solar year. The diagram is an interpretive schematic, labeled scholarly interpretation. Disputed lunar-standstill claims stay secondary. This is not a living oral tradition.",
+          "how_they_knew": {
+            "title": "How Did They Know?",
+            "observation_method": "Sunlight and shadow position on spiral petroglyphs.",
+            "repeated_pattern": "A dagger of light at midday near solstice and equinox, as publicly interpreted.",
+            "astronomical_object": "Sun",
+            "environmental_calendar_role": "Solar-year marker.",
+            "architectural_relationship": "Fajada Butte slabs and petroglyphs. The site is closed.",
+            "evidence_type": "SCHOLARLY INTERPRETATION.",
+            "uncertainty": "Lunar-standstill readings remain disputed and are not the primary claim."
+          },
+          "place_context": {
+            "period": "c. AD 900\u20131150 (public interpretive range)",
+            "region": "Chaco Canyon, northwestern New Mexico",
+            "tradition": "Ancestral Puebloan (archaeological)",
+            "observing_environment": "Sunlight through rock slabs on Fajada Butte"
+          },
+          "narration_kind": "exhibit_step",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "asw_holly",
+          "step_type": "archaeoastronomy",
+          "title": "Hovenweep Holly solstice panel",
+          "story_id": "ancestral_puebloan_holly_solstice_panel",
+          "archaeo_visual_id": "ancestral_puebloan_holly_solstice_panel",
+          "object_name": "Sun",
+          "stellarium_focus": "Sun",
+          "stellarium_fov": 8,
+          "suppress_cosmic_signal": true,
+          "narration_text": "Archaeological evidence suggests Ancestral Puebloan observers at Hovenweep marked the summer solstice with a light beam on the Holly petroglyph panel. The relationship is observational and seasonal. It is a scholarly reading of a public NPS interpretation, not a reconstructed ceremony or a living oral story.",
+          "how_they_knew": {
+            "title": "How Did They Know?",
+            "observation_method": "A light beam falling on a petroglyph panel near summer solstice sunrise.",
+            "repeated_pattern": "The summer-solstice sun returns to the same horizon point each year.",
+            "astronomical_object": "Sun",
+            "environmental_calendar_role": "Summer-solstice marker.",
+            "architectural_relationship": "Holly petroglyph panel at Hovenweep.",
+            "evidence_type": "SCHOLARLY INTERPRETATION / archaeological inference.",
+            "uncertainty": "The panel is interpreted as a seasonal marker; Cartography does not reconstruct unstated ritual speech."
+          },
+          "place_context": {
+            "period": "c. AD 1200\u20131300",
+            "region": "Cajon Mesa / southeastern Utah\u2013southwestern Colorado",
+            "tradition": "Ancestral Puebloan (archaeological)",
+            "observing_environment": "Petroglyph panel and horizon light"
+          },
+          "narration_kind": "exhibit_step",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "asw_templo",
+          "step_type": "archaeoastronomy",
+          "title": "Mexica solar observation \u2014 Templo Mayor",
+          "story_id": "mexica_templo_mayor_solar",
+          "archaeo_visual_id": "mexica_templo_mayor_solar",
+          "object_name": "Sun",
+          "stellarium_focus": "Sun",
+          "stellarium_fov": 8,
+          "suppress_cosmic_signal": true,
+          "narration_text": "This archaeological interpretation of Mexica observations suggests the Templo Mayor and eastern mountain foresights marked solar dates in the agricultural year. In the Mexica historical sources represented here, this is historical Mexica architecture, not a modern Nahua classroom story and not Maya astronomy.",
+          "how_they_knew": {
+            "title": "How Did They Know?",
+            "observation_method": "Sunrise along a built axis toward mountain foresights.",
+            "repeated_pattern": "Solar dates in the agricultural year return along the same horizon line.",
+            "astronomical_object": "Sun",
+            "environmental_calendar_role": "Agricultural calendar.",
+            "architectural_relationship": "Templo Mayor / Tenochtitlan and Mount Tlaloc alignments as published.",
+            "evidence_type": "SCHOLARLY INTERPRETATION / archaeological inference.",
+            "uncertainty": "This is not generic Mesoamerican mythology."
+          },
+          "place_context": {
+            "period": "c. AD 1325\u20131521",
+            "region": "Basin of Mexico",
+            "tradition": "historical Mexica",
+            "observing_environment": "Urban temple and eastern mountain horizon"
+          },
+          "narration_kind": "exhibit_step",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "asw_tianquiztli",
+          "step_type": "cultural_story",
+          "title": "Pleiades as a clock \u2014 Tianquiztli",
+          "story_id": "mexica_tianquiztli",
+          "cultural_story_id": "mexica_tianquiztli",
+          "object_name": "Pleiades",
+          "media_preference": "official_media",
+          "scientific_view": true,
+          "suppress_cosmic_signal": true,
+          "stellarium_focus": "Pleiades",
+          "stellarium_fov": 4,
+          "visual_controls": {
+            "lines": true,
+            "labels": true
+          },
+          "narration_text": "In the Mexica historical sources represented here, Tianquiztli is identified with the Pleiades and used in calendrical timing, including the New Fire watch. This is historical Mexica language from colonial Nahuatl sources, not a modern Nahua or Maya story. A scientific image of the cluster, if shown, is a NASA view of the same stars. It is not the cultural source.",
+          "how_they_knew": {
+            "title": "How Did They Know?",
+            "observation_method": "Pleiades position and timing, including the New Fire watch as sourced.",
+            "repeated_pattern": "The cluster's night-time place in the seasonal calendar.",
+            "astronomical_object": "Pleiades / Tianquiztli",
+            "environmental_calendar_role": "Calendrical timing, including New Fire.",
+            "architectural_relationship": null,
+            "evidence_type": "HISTORICAL SOURCE.",
+            "uncertainty": "Not living classroom instruction and not merged with Maya astronomy."
+          },
+          "place_context": {
+            "period": "historical Mexica / colonial Nahuatl sources",
+            "region": "Basin of Mexico",
+            "tradition": "historical Mexica calendrical astronomy",
+            "observing_environment": "Night sky; Pleiades as Tianquiztli"
+          },
+          "narration_kind": "exhibit_step",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "asw_thurayya",
+          "step_type": "cultural_story",
+          "title": "Arabian Peninsula star timing \u2014 al-Thurayy\u0101",
+          "story_id": "arabic_peninsula_thurayya",
+          "cultural_story_id": "arabic_peninsula_thurayya",
+          "object_name": "Pleiades",
+          "suppress_cosmic_signal": true,
+          "stellarium_focus": "Pleiades",
+          "stellarium_fov": 4,
+          "visual_controls": {
+            "lines": true,
+            "labels": true
+          },
+          "narration_text": "In Arabian Peninsula anw\u0101\u02be traditions represented here, al-Thurayy\u0101 is a seasonal timing asterism. The knowledge is environmental and calendrical: when a well-known group of stars returns, weather and work can be timed. This is Peninsula folk and anw\u0101\u02be star knowledge, distinct from al-\u1e62\u016bf\u012b's Book of Fixed Stars and from any collapsed folk category.",
+          "how_they_knew": {
+            "title": "How Did They Know?",
+            "observation_method": "Seasonal heliacal rising and setting traditions where the local source pack supports them; anw\u0101\u02be star timing.",
+            "repeated_pattern": "The Pleiades return in a seasonal cycle used for environmental knowledge.",
+            "astronomical_object": "al-Thurayy\u0101 / Pleiades",
+            "environmental_calendar_role": "Seasonal timing.",
+            "architectural_relationship": null,
+            "evidence_type": "CULTURAL SKY KNOWLEDGE.",
+            "uncertainty": "Not a Ptolemaic catalog and not a stand-in for all Arabic-speaking societies."
+          },
+          "place_context": {
+            "period": "Anw\u0101\u02be / Peninsula oral stellar tradition as documented in the sky-culture pack",
+            "region": "Arabian Peninsula tradition",
+            "tradition": "anw\u0101\u02be seasonal star timing",
+            "observing_environment": "Naked-eye seasonal stars"
+          },
+          "narration_kind": "exhibit_step",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "asw_matariki",
+          "step_type": "cultural_story",
+          "title": "M\u0101ori seasonal sky knowledge \u2014 Matariki",
+          "story_id": "maori_matariki",
+          "cultural_story_id": "maori_matariki",
+          "object_name": "Pleiades",
+          "media_preference": "official_media",
+          "scientific_view": true,
+          "suppress_cosmic_signal": true,
+          "stellarium_focus": "Pleiades",
+          "stellarium_fov": 4,
+          "visual_controls": {
+            "lines": true,
+            "labels": true
+          },
+          "narration_text": "Within the M\u0101ori tradition represented here, Matariki is the name for the Pleiades in T\u0101tai Arorangi, the M\u0101ori astronomical tradition documented in this source pack. Public Matariki marking in Aotearoa is contemporary. Variants among iwi are acknowledged and are not merged. This card does not generalize M\u0101ori knowledge to all Polynesian traditions.",
+          "how_they_knew": {
+            "title": "How Did They Know?",
+            "observation_method": "Seasonal appearance of Matariki as documented in the M\u0101ori sky-culture sources used here.",
+            "repeated_pattern": "The cluster's seasonal return.",
+            "astronomical_object": "Matariki / Pleiades",
+            "environmental_calendar_role": "Seasonal / new-year sky knowledge; navigation is cited in the source pack without being expanded here.",
+            "architectural_relationship": null,
+            "evidence_type": "CULTURAL SKY KNOWLEDGE / COMMUNITY-SOURCED.",
+            "uncertainty": "Iwi variation is real. This is not a pan-Polynesian summary."
+          },
+          "place_context": {
+            "period": "Living tradition; public Matariki marking is contemporary",
+            "region": "Aotearoa / M\u0101ori sky knowledge",
+            "tradition": "M\u0101ori / T\u0101tai Arorangi",
+            "observing_environment": "Naked-eye seasonal stars"
+          },
+          "narration_kind": "exhibit_step",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "asw_beidou",
+          "step_type": "cultural_story",
+          "title": "Chinese sky organization \u2014 B\u011bi D\u01d2u",
+          "story_id": "chinese_beidou",
+          "cultural_story_id": "chinese_beidou",
+          "object_name": "Dubhe",
+          "suppress_cosmic_signal": true,
+          "stellarium_focus": "Dubhe",
+          "stellarium_fov": 30,
+          "visual_controls": {
+            "lines": true,
+            "labels": true
+          },
+          "narration_text": "In this Chinese Xingguan tradition, B\u011bi D\u01d2u, the Northern Dipper, is a named seven-star grouping used to organize the northern sky. Xingguan are not IAU constellations, and this card does not treat B\u011bi D\u01d2u as a Chinese translation of Ursa Major. Cartography does not add unsourced court-astronomy or imperial-ritual detail beyond the sky-culture pack.",
+          "how_they_knew": {
+            "title": "How Did They Know?",
+            "observation_method": "Named asterism: a recognized seven-star grouping in the north.",
+            "repeated_pattern": "The same stars remain a stable figure for orientation and sky division.",
+            "astronomical_object": "B\u011bi D\u01d2u / Northern Dipper (primary star Dubhe in Stellarium)",
+            "environmental_calendar_role": "Sky organization and orientation. Court astronomy is not claimed here.",
+            "architectural_relationship": null,
+            "evidence_type": "CULTURAL SKY KNOWLEDGE.",
+            "uncertainty": "Xingguan are not IAU boundaries. No unsourced imperial office is added."
+          },
+          "place_context": {
+            "period": "Chinese Xingguan tradition as documented in the Yixiang Kaocheng / Stellarium Chinese pack",
+            "region": "Chinese sky-culture tradition",
+            "tradition": "Chinese Xingguan",
+            "observing_environment": "Naked-eye northern asterism"
+          },
+          "narration_kind": "exhibit_step",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "asw_sufi",
+          "step_type": "cultural_story",
+          "title": "Medieval Islamic star cataloging \u2014 al-Lawr\u0101",
+          "story_id": "arabic_sufi_lyra",
+          "cultural_story_id": "arabic_sufi_lyra",
+          "object_name": "Vega",
+          "suppress_cosmic_signal": true,
+          "stellarium_focus": "Vega",
+          "stellarium_fov": 20,
+          "visual_controls": {
+            "lines": true,
+            "labels": true
+          },
+          "narration_text": "In al-\u1e62\u016bf\u012b's historical astronomical work, al-Lawr\u0101 is the Lyre in the Book of Fixed Stars, around the year 964. That treatise observed, inherited, and revised Ptolemaic star descriptions. This is medieval Islamic mathematical astronomy, not folk mythology, and it is not merged with Arabian Peninsula anw\u0101\u02be tradition.",
+          "how_they_knew": {
+            "title": "How Did They Know?",
+            "observation_method": "Stellar observation and catalog comparison in a written astronomical treatise.",
+            "repeated_pattern": "Fixed stars described, compared, and revised across inherited catalogs.",
+            "astronomical_object": "al-Lawr\u0101 / Vega and the Lyre",
+            "environmental_calendar_role": "Cataloging and description rather than a seasonal work calendar.",
+            "architectural_relationship": null,
+            "evidence_type": "HISTORICAL ASTRONOMY.",
+            "uncertainty": "Not Peninsula oral anw\u0101\u02be knowledge."
+          },
+          "place_context": {
+            "period": "c. 964, Book of Fixed Stars",
+            "region": "Medieval Islamic astronomy",
+            "tradition": "al-\u1e62\u016bf\u012b / Kit\u0101b \u1e63uwar al-kaw\u0101kib al-th\u0101bita",
+            "observing_environment": "Treatise-based stellar observation"
+          },
+          "narration_kind": "exhibit_step",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "asw_same_tools",
+          "step_type": "same_sky_comparison",
+          "title": "Same sky \u2014 different tools",
+          "story_ids": [
+            "ancestral_puebloan_chaco_cardinal",
+            "mexica_tianquiztli",
+            "arabic_peninsula_thurayya",
+            "maori_matariki",
+            "chinese_beidou",
+            "arabic_sufi_lyra"
+          ],
+          "object_name": "Pleiades",
+          "stellarium_focus": "Pleiades",
+          "stellarium_fov": 6,
+          "suppress_cosmic_signal": true,
+          "comparison_title": "Same sky \u2014 different tools",
+          "comparison_note": "These are independent methods and traditions. Similar observational function is not a shared origin, shared religion, or identical calendar.",
+          "method_comparison": [
+            {
+              "tradition": "Ancestral Puebloan (archaeological)",
+              "watched": "Sun / horizon / building axis",
+              "measured": "Cardinal direction and seasonal light",
+              "purpose": "Orientation and solar-year marking",
+              "evidence": "Archaeological inference; strong evidence only where labeled"
+            },
+            {
+              "tradition": "historical Mexica",
+              "watched": "Sun on the horizon; Pleiades as Tianquiztli",
+              "measured": "Agricultural solar dates; New Fire timing",
+              "purpose": "Calendar and ceremony as sourced",
+              "evidence": "Archaeological inference and historical source"
+            },
+            {
+              "tradition": "Arabian Peninsula anw\u0101\u02be",
+              "watched": "al-Thurayy\u0101",
+              "measured": "Seasonal star timing",
+              "purpose": "Environmental knowledge",
+              "evidence": "Cultural sky knowledge"
+            },
+            {
+              "tradition": "M\u0101ori / T\u0101tai Arorangi",
+              "watched": "Matariki",
+              "measured": "Seasonal return of the cluster",
+              "purpose": "Seasonal sky knowledge",
+              "evidence": "Cultural sky knowledge; community-sourced"
+            },
+            {
+              "tradition": "Chinese Xingguan",
+              "watched": "B\u011bi D\u01d2u",
+              "measured": "A named northern asterism",
+              "purpose": "Sky organization",
+              "evidence": "Cultural sky knowledge"
+            },
+            {
+              "tradition": "al-\u1e62\u016bf\u012b",
+              "watched": "al-Lawr\u0101 / Vega",
+              "measured": "Star positions in a catalog",
+              "purpose": "Historical astronomy / cataloging",
+              "evidence": "Historical astronomy"
+            }
+          ],
+          "narration_text": "The same physical sky is used here in different ways: horizon alignment, seasonal star timing, asterism organization, architecture, cataloging, and calendar watch. Similar observational function does not mean these systems began together, shared a religion, or reached identical sophistication. These traditions remain distinct.",
+          "narration_kind": "exhibit_step",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "asw_historical",
+          "step_type": "historical_reconstruction",
+          "title": "Optional historical sky reconstruction",
+          "story_id": "ancestral_puebloan_chaco_cardinal",
+          "archaeo_visual_id": "ancestral_puebloan_chaco_cardinal",
+          "object_name": "Sun",
+          "stellarium_focus": "Sun",
+          "stellarium_fov": 8,
+          "user_action_required": true,
+          "optional": true,
+          "restore_behavior": "defer_until_exit",
+          "time_machine_action": {
+            "visual_id": "ancestral_puebloan_chaco_cardinal",
+            "date_id": "chaco_ad1050_equinox",
+            "apply_requires_explicit_action": true,
+            "silent_apply": false
+          },
+          "how_they_knew": {
+            "title": "How Did They Know?",
+            "observation_method": "Modern astronomical reconstruction of an already sourced date analog.",
+            "repeated_pattern": "Equinox solar geometry returns each year.",
+            "astronomical_object": "Sun",
+            "environmental_calendar_role": "Demonstration only.",
+            "architectural_relationship": "Chaco cardinal architecture visual already shown.",
+            "evidence_type": "ASTRONOMICAL RECONSTRUCTION \u2014 not proof of the archaeological reading.",
+            "uncertainty": "The date is the published AD 1050 equinox analog. No dramatic extra date is invented."
+          },
+          "place_context": {
+            "period": "AD 1050 equinox analog (UTC noon)",
+            "region": "Chaco Canyon, northwestern New Mexico",
+            "tradition": "Ancestral Puebloan (archaeological) with modern simulation",
+            "observing_environment": "Stellarium reconstruction of the sourced date"
+          },
+          "narration_text": "You may apply a modern reconstruction of approximately AD 1050, an equinox analog already attached to the Chaco visual. This uses modern astronomical models to reconstruct the sky. It does not independently prove the archaeological or historical interpretation. A Mexica xiuhmolpilli-year analog exists on the Templo Mayor visual if you open that visual later. Time restores when you exit.",
+          "narration_kind": "exhibit_step"
+        },
+        {
+          "step_id": "asw_outro",
+          "step_type": "outro",
+          "title": "Tools of the sky",
+          "restore_behavior": "restore_on_exit",
+          "show_tools_of_the_sky": true,
+          "narration_text": "Ancient skywatchers were not all doing the same thing. They used the same sky for different practical, cultural, ceremonial, navigational, and intellectual purposes. Horizon, shadow, cardinal architecture, Pleiades timing, seasonal stars, named asterisms, and written catalogs appear in this exhibit only where Cartography already has production sources. Sources stay grouped in the exhibit panel.",
+          "narration_kind": "exhibit_step",
+          "optional": false
+        }
+      ]
+    },
+    {
+      "id": "light_echoes",
+      "title": "Light Echoes",
+      "subtitle": "When yesterday's outburst still lights the dust",
+      "description": "Learn how light from a brief astronomical event can illuminate surrounding dust at different times. Interactive illustrative geometry, real documented examples, optional Stellarium focus, and user-controlled narration.",
+      "theme": "scientific_optics",
+      "estimated_minutes": 12,
+      "culture_scope": [
+        "NASA",
+        "ESA/Hubble",
+        "Chandra X-ray Center",
+        "STScI"
+      ],
+      "evidence_types": [
+        "historical_source",
+        "strong_evidence",
+        "scholarly_interpretation"
+      ],
+      "story_ids": [],
+      "cover_media": {
+        "kind": "native_svg",
+        "id": "light_echoes_cover"
+      },
+      "narrator_default": "father_fox",
+      "source_note": "Scientific outreach exhibit. Geometry controls are ILLUSTRATIVE educational simplifications, not measured 3D reconstructions. Imagery cites ESA/Hubble and Chandra public pages. Distinct from cultural Stories of the Sky.",
+      "enabled": true,
+      "test_fixture": false,
+      "steps": [
+        {
+          "step_id": "le_intro",
+          "step_type": "intro",
+          "title": "What is a light echo?",
+          "narration_kind": "exhibit_step",
+          "narration_text": "A light echo is delayed starlight. A brief flash races outward, strikes dust that was already there, and only then heads toward us. What you watch expanding on the sky is mostly the illumination front, not a cloud flying apart at that speed.",
+          "light_echo_narration_segment": "intro",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "le_geometry",
+          "step_type": "light_echo",
+          "title": "Source, dust, observer",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Picture three points: the transient source, a dust sheet, and the observer. The straight path is shortest. Any bounce adds travel time. Use the Light Echoes Lab time control to watch different dust patches light up as longer paths finally arrive. The diagram is labeled ILLUSTRATIVE\u2014not a measured reconstruction.",
+          "light_echo_geometry_step": "t2",
+          "light_echo_narration_segment": "geometry",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "le_expansion",
+          "step_type": "light_echo",
+          "title": "Apparent expansion",
+          "narration_kind": "exhibit_step",
+          "narration_text": "If the glow seems to grow faster than light, remember: nothing physical is sprinting that fast. Different sightlines simply deliver the reflected flash on different schedules. Advance the illustrative timeline to see nearer and farther dust light in sequence.",
+          "light_echo_geometry_step": "t4",
+          "light_echo_narration_segment": "apparent_expansion",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "le_v838",
+          "step_type": "light_echo",
+          "title": "V838 Monocerotis",
+          "object_name": "V838 Monocerotis",
+          "light_echo_object_id": "v838_mon",
+          "stellarium_focus": "Monoceros",
+          "stellarium_fov": 40,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "In 2002, V838 Monocerotis brightened dramatically. Hubble later imaged a spectacular light echo as the outburst illuminated surrounding dust. Focus the object in Stellarium when available, and open the curated ESA/Hubble image in the Light Echoes Lab.",
+          "light_echo_narration_segment": "examples",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "le_casa",
+          "step_type": "light_echo",
+          "title": "Cassiopeia A light echoes",
+          "object_name": "Cassiopeia A",
+          "light_echo_object_id": "cas_a_echoes",
+          "stellarium_focus": "Cassiopeia A",
+          "stellarium_fov": 3.0,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Cassiopeia A preserves both a spectacular remnant and documented light echoes that illuminate dust long after the explosion. Keep remnant structure distinct from light-echo dust while you inspect the scientific media and Stellarium focus.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "le_sn1987a",
+          "step_type": "light_echo",
+          "title": "SN 1987A",
+          "object_name": "SN 1987A",
+          "light_echo_object_id": "sn_1987a",
+          "stellarium_focus": "Large Magellanic Cloud",
+          "stellarium_fov": 8,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "SN 1987A produced famous circumstellar rings whose brightening is governed by light-travel time. Ring material was already there; the delayed glow teaches the same geometry as classic light echoes.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "le_outro",
+          "step_type": "outro",
+          "title": "Takeaway",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Light echoes teach patience and geometry: yesterday's outburst can still sculpt today's sky, revealing dust we would otherwise never see. Exit and Restore returns Stellarium to the selection and field of view captured when you started.",
+          "light_echo_narration_segment": "closing",
+          "optional": false,
+          "restore_behavior": "restore_on_exit"
+        }
+      ]
+    },
+    {
+      "id": "cosmic_web",
+      "title": "Cosmic Web",
+      "subtitle": "Galaxies, filaments, nodes, and voids",
+      "description": "How gravity grows the large-scale cosmic web from tiny early density differences. Interactive illustrative lab, survey and simulation media with explicit classification badges, and Stellarium sky anchors for nearby structures.",
+      "theme": "scientific_cosmology",
+      "estimated_minutes": 14,
+      "culture_scope": [
+        "NASA",
+        "ESA/Hubble",
+        "SDSS",
+        "DESI",
+        "NOIRLab"
+      ],
+      "evidence_types": [
+        "strong_evidence",
+        "scholarly_interpretation",
+        "historical_source"
+      ],
+      "story_ids": [],
+      "cover_media": {
+        "kind": "native_svg",
+        "id": "cosmic_web_cover"
+      },
+      "narrator_default": "father_fox",
+      "source_note": "Scientific outreach. Interactive lab is ILLUSTRATIVE. Media cards are labeled OBSERVATION, RECONSTRUCTION, SIMULATION, or ILLUSTRATION. Stellarium is a sky anchor only.",
+      "enabled": true,
+      "test_fixture": false,
+      "steps": [
+        {
+          "step_id": "cw_intro",
+          "step_type": "intro",
+          "title": "The Universe is not random",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Look past single galaxies. On the largest scales, matter forms a cosmic web: bright nodes, connecting filaments, and enormous quiet voids.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cw_fluctuations",
+          "step_type": "cosmic_web",
+          "title": "From small differences",
+          "narration_kind": "exhibit_step",
+          "narration_text": "In the early Universe the density field was nearly smooth, with tiny ripples. Those ripples were enough for gravity to work with. Advance the illustrative timeline from nearly uniform toward first clumps.",
+          "cosmic_web_structure_step": "t1",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cw_gravity",
+          "step_type": "cosmic_web",
+          "title": "Gravity builds structure",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Gravity amplified small overdensities. Dark matter provided most of the scaffolding mass; ordinary matter followed into the wells and lit up as galaxies. The lab remains an ILLUSTRATIVE diagram, not a measured map.",
+          "cosmic_web_structure_step": "t2",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cw_groups",
+          "step_type": "cosmic_web",
+          "title": "Galaxies form groups",
+          "object_name": "Andromeda Galaxy",
+          "cosmic_web_object_id": "andromeda_local",
+          "stellarium_focus": "Andromeda Galaxy",
+          "stellarium_fov": 3,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Groups are denser than the field but smaller than rich clusters. The Local Group\u2014home to the Milky Way and Andromeda\u2014is our nearest group-scale example. Stellarium can focus Andromeda as a sky anchor.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cw_filaments",
+          "step_type": "cosmic_web",
+          "title": "Filaments connect them",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Matter streams into elongated ridges\u2014filaments\u2014that stitch denser regions together. Toggle filaments in the Cosmic Web Lab to see this ILLUSTRATIVE stage.",
+          "cosmic_web_structure_step": "t2",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cw_nodes",
+          "step_type": "cosmic_web",
+          "title": "Nodes and clusters",
+          "object_name": "Virgo Cluster",
+          "cosmic_web_object_id": "virgo_cluster",
+          "stellarium_focus": "M87",
+          "stellarium_fov": 8,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Filament intersections grow into nodes that host groups and clusters. Virgo, anchored here via M87, is a nearby rich concentration\u2014seen on the sky, not as a full 3D web inside Stellarium.",
+          "cosmic_web_structure_step": "t3",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cw_coma",
+          "step_type": "cosmic_web",
+          "title": "A classic rich node \u2014 Coma",
+          "object_name": "Coma Cluster",
+          "cosmic_web_object_id": "coma_cluster",
+          "stellarium_focus": "Coma Cluster",
+          "stellarium_fov": 4,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "The Coma Cluster is a textbook rich node. Stellarium can focus it directly while survey media remind us that Coma is one patch inside a vastly larger reconstructed web.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cw_voids",
+          "step_type": "cosmic_web",
+          "title": "The great voids",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Between the filaments, underdense regions grew into great voids\u2014comparatively quiet and sparse. Toggle voids in the ILLUSTRATIVE lab to complete the mature web picture.",
+          "cosmic_web_structure_step": "t4",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cw_surveys",
+          "step_type": "cosmic_web",
+          "title": "Real surveys reconstruct the web",
+          "object_name": "SDSS large-scale structure",
+          "cosmic_web_object_id": "sdss_lss",
+          "stellarium_focus": "Coma Cluster",
+          "stellarium_fov": 5,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "We do not photograph the entire cosmic web as one object. Redshift surveys such as SDSS and DESI map millions of galaxies in 3D. Those maps are observational reconstructions\u2014clearly labeled apart from the lab illustration and from simulations.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cw_simulation",
+          "step_type": "cosmic_web",
+          "title": "Simulations grow webs in computers",
+          "object_name": "Structure-formation simulation",
+          "cosmic_web_object_id": "sim_structure",
+          "stellarium_focus": "Andromeda Galaxy",
+          "stellarium_fov": 3,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Cosmological simulations evolve matter under gravity from early fluctuations into filamentary webs. They are calculations labeled SIMULATION\u2014not photographs\u2014and help interpret what surveys find.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cw_outro",
+          "step_type": "outro",
+          "title": "Fragments of the web overhead",
+          "narration_kind": "exhibit_step",
+          "narration_text": "From a nearly smooth beginning, gravity built today's cosmic architecture. Surveys map it; simulations explain it; Stellarium shows nearby fragments of it overhead. Exit and Restore returns Stellarium to the capture from when you started.",
+          "optional": false,
+          "restore_behavior": "restore_on_exit"
+        }
+      ]
+    },
+    {
+      "id": "gravitational_waves",
+      "title": "Gravitational Waves",
+      "subtitle": "A new sense for the Universe",
+      "description": "Interactive walk through spacetime ripples, LIGO-class interferometers, chirps, GW150914, detector networks, GW170817, and multi-messenger astronomy. Labs are illustrative; event cards cite LIGO/Virgo and observatory sources.",
+      "theme": "scientific_gravitational_waves",
+      "estimated_minutes": 15,
+      "culture_scope": [
+        "LIGO",
+        "Virgo",
+        "KAGRA",
+        "NSF",
+        "ESO",
+        "ESA/Hubble"
+      ],
+      "evidence_types": [
+        "strong_evidence",
+        "scholarly_interpretation",
+        "historical_source"
+      ],
+      "story_ids": [],
+      "cover_media": {
+        "kind": "native_svg",
+        "id": "gravitational_waves_cover"
+      },
+      "narrator_default": "father_fox",
+      "source_note": "Wave/interferometer labs ILLUSTRATIVE with exaggerated strain. Chirp tones are ILLUSTRATIVE SONIFICATIONS. Event references: LIGO/Virgo publications and ESO/Hubble host imaging.",
+      "enabled": true,
+      "test_fixture": false,
+      "steps": [
+        {
+          "step_id": "gw_intro",
+          "step_type": "intro",
+          "title": "Ripples in spacetime",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Gravitational waves are ripples in spacetime itself. They are not sound in air, and they are not a rubber sheet you can grab\u2014they are tiny, traveling changes in distance.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "gw_sources",
+          "step_type": "gravitational_waves",
+          "title": "What makes a gravitational wave?",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Accelerating masses with changing quadrupole moments can radiate gravitational waves. Compact binaries\u2014black holes and neutron stars\u2014are the stars of the current detector band.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "gw_stretch",
+          "step_type": "gravitational_waves",
+          "title": "Stretch and squeeze",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Use the wave lab to compare plus and cross polarizations. Remember: deformations are ILLUSTRATIVE and greatly exaggerated\u2014real strains at Earth are about 10 to the minus 21.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "gw_ifo",
+          "step_type": "gravitational_waves",
+          "title": "How LIGO measures the almost impossible",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Laser light splits into perpendicular kilometer-scale arms and recombines. A passing wave changes the relative optical path lengths enough\u2014just barely\u2014for a sensitive photodetector to notice.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "gw_inspiral",
+          "step_type": "gravitational_waves",
+          "title": "Binary inspiral",
+          "narration_kind": "exhibit_step",
+          "narration_text": "As a compact binary loses energy to gravitational waves, the orbit tightens and the wave frequency climbs toward merger.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "gw_chirp",
+          "step_type": "gravitational_waves",
+          "title": "Hear the chirp",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Advance the chirp slider and optionally play the browser tone. That tone is an ILLUSTRATIVE SONIFICATION\u2014frequency-shifted for human ears\u2014not detector-band audio and not sound traveling through space.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "gw_150914",
+          "step_type": "gravitational_waves",
+          "title": "GW150914",
+          "object_name": "GW150914",
+          "gravitational_waves_event_id": "gw150914",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "GW150914 was the first direct detection: a binary black-hole merger observed by LIGO in September 2015. There is no honest single Stellarium host for its broad localization region.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "gw_network",
+          "step_type": "gravitational_waves",
+          "title": "Finding the source",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Hanford, Livingston, Virgo, and KAGRA form a network. Timing and antenna patterns constrain a sky probability region\u2014often many square degrees\u2014not always a pinpoint.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "gw_170817",
+          "step_type": "gravitational_waves",
+          "title": "GW170817",
+          "object_name": "GW170817",
+          "gravitational_waves_event_id": "gw170817",
+          "stellarium_focus": "NGC 4993",
+          "stellarium_fov": 1.5,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "GW170817 was a binary neutron-star merger with a three-detector gravitational-wave signal and an electromagnetic counterpart in NGC 4993. Stellarium can focus that host galaxy as sky context.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "gw_mm",
+          "step_type": "gravitational_waves",
+          "title": "Multi-messenger astronomy",
+          "gravitational_waves_event_id": "gw170817",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Waves plus gamma rays, optical/infrared kilonova light, X-rays, and radio together revealed physics neither messenger could give alone\u2014from nuclear matter to cosmic expansion.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "gw_outro",
+          "step_type": "outro",
+          "title": "A new sense for the Universe",
+          "narration_kind": "exhibit_step",
+          "narration_text": "We now listen to spacetime as well as to light. Exit and Restore returns Stellarium to the capture from when you started.",
+          "optional": false,
+          "restore_behavior": "restore_on_exit"
+        }
+      ]
+    },
+    {
+      "id": "black_holes",
+      "title": "Black Holes",
+      "subtitle": "A window on extreme gravity",
+      "description": "Interactive walk through event horizons, Schwarzschild scale, approach regions, illustrative lensing, accretion appearance, tidal forces, EHT imaging of M87* and Sgr A*, Cygnus X-1, and how astronomers detect black holes.",
+      "theme": "scientific_black_holes",
+      "estimated_minutes": 18,
+      "culture_scope": [
+        "EHT",
+        "ESO",
+        "NSF",
+        "NASA",
+        "Chandra",
+        "NRAO"
+      ],
+      "evidence_types": [
+        "strong_evidence",
+        "scholarly_interpretation",
+        "historical_source"
+      ],
+      "story_ids": [],
+      "cover_media": {
+        "kind": "native_svg",
+        "id": "black_holes_cover"
+      },
+      "narrator_default": "father_fox",
+      "source_note": "Scale, approach, and lensing labs are ILLUSTRATIVE. Schwarzschild numbers assume non-rotating models unless noted. EHT images are interferometric reconstructions. Stellarium is sky context only.",
+      "enabled": true,
+      "test_fixture": false,
+      "steps": [
+        {
+          "step_id": "bh_intro",
+          "step_type": "intro",
+          "title": "The darkest objects",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Black holes are regions where spacetime curvature prevents light from escaping beyond an event horizon. This walk separates observation, reconstruction, simulation, illustration, and theoretical models.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "bh_what",
+          "step_type": "black_holes",
+          "title": "Gravity without escape",
+          "narration_kind": "exhibit_step",
+          "narration_text": "A black hole is defined by causal structure\u2014not a solid crust. Rubber-sheet metaphors are only metaphors.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "bh_horizon",
+          "step_type": "black_holes",
+          "title": "The event horizon",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "The horizon is a boundary in spacetime. The singularity of classical general relativity is not directly imaged. The Event Horizon Telescope shadow is larger than the horizon itself.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "bh_scale",
+          "step_type": "black_holes",
+          "title": "How big is a black hole?",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Compare stellar-mass and supermassive Schwarzschild radii. Real astrophysical black holes may rotate\u2014labels state the non-rotating teaching assumption.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "bh_approach",
+          "step_type": "black_holes",
+          "title": "Falling toward the horizon",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Move through distant space, the accretion region, the photon-orbit region, and the event horizon. The photon sphere is not a solid shell, and you cannot hover freely at the horizon.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "bh_lens",
+          "step_type": "black_holes",
+          "title": "Light bends",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Near a black hole, light paths bend. This lab is illustrative relativistic lensing\u2014not a precision ray-tracer\u2014while EHT images reconstruct real interferometric data.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "bh_accretion",
+          "step_type": "black_holes",
+          "title": "Accretion and the glowing disk",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Bright disks and jets live outside the horizon. Doppler boosting, gravitational redshift, and light bending shape appearance in ray-traced visualizations.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "bh_tidal",
+          "step_type": "black_holes",
+          "title": "Tidal forces",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Spaghettification is not universal at every horizon. Stellar-mass tides near the horizon can be extreme; for large supermassive black holes, local tides at the horizon can be gentler.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "bh_sgr",
+          "step_type": "black_holes",
+          "title": "Sgr A* \u2014 our Galactic Center",
+          "object_name": "Sgr A*",
+          "black_holes_object_id": "sgr_a",
+          "stellarium_focus": "NGC 6522",
+          "stellarium_fov": 2.5,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Sagittarius A-star is the Milky Way\u2019s central supermassive black hole. Stellarium anchors near the Galactic Center using NGC 6522 as honest host-sky context\u2014not a fake Sgr A-star catalog object.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "bh_m87",
+          "step_type": "black_holes",
+          "title": "M87* \u2014 seeing the shadow",
+          "object_name": "M87*",
+          "black_holes_object_id": "m87",
+          "stellarium_focus": "M87",
+          "stellarium_fov": 1.2,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "M87-star gave us the first horizon-scale image in 2019. The dark center is a reconstructed shadow shaped by light bending\u2014not a photograph of a black surface.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "bh_cyg",
+          "step_type": "black_holes",
+          "title": "Stellar-mass black holes",
+          "object_name": "Cygnus X-1",
+          "black_holes_object_id": "cygnus_x1",
+          "stellarium_focus": "HD 226868",
+          "stellarium_fov": 2.0,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Cygnus X-1 is a classic stellar-mass black-hole X-ray binary. Stellarium focuses the optical companion HD 226868\u2014sky context for the system, not a resolved black-hole image.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "bh_detect",
+          "step_type": "black_holes",
+          "title": "How we know they\u2019re there",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "We find black holes through stellar orbits, X-ray binaries, gravitational waves, Galactic-Center dynamics, and Event Horizon Telescope imaging. Visit the Gravitational Waves Special for chirps and mergers.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "bh_outro",
+          "step_type": "outro",
+          "title": "A window on extreme gravity",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Black holes reshape light and matter around them. Distinguishing illustration from reconstruction keeps the science honest. Exit and Restore returns Stellarium when you are done.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        }
+      ]
+    },
+    {
+      "id": "galactic_encounters",
+      "title": "Galactic Encounters",
+      "subtitle": "Galaxies grow by meeting",
+      "description": "Interactive walk through tidal forces, tails and bridges, stars versus gas, Antennae, Whirlpool, Mice, major versus minor mergers, remnants, and the uncertain Milky Way\u2013Andromeda future.",
+      "theme": "scientific_galactic_encounters",
+      "estimated_minutes": 18,
+      "culture_scope": [
+        "ESA/Hubble",
+        "NASA",
+        "STScI",
+        "NOIRLab"
+      ],
+      "evidence_types": [
+        "strong_evidence",
+        "scholarly_interpretation",
+        "historical_source"
+      ],
+      "story_ids": [],
+      "cover_media": {
+        "kind": "native_svg",
+        "id": "galactic_encounters_cover"
+      },
+      "narrator_default": "father_fox",
+      "source_note": "Encounter labs ILLUSTRATIVE. Observed systems use ESA/Hubble media. MW\u2013M31 section is FUTURE PREDICTION / SIMULATION and model-dependent.",
+      "enabled": true,
+      "test_fixture": false,
+      "steps": [
+        {
+          "step_id": "ge_intro",
+          "step_type": "intro",
+          "title": "Galaxies are not islands",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Galaxies influence one another across millions of light-years. This walk separates observation, simulation, illustration, and future prediction.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "ge_gravity",
+          "step_type": "galactic_encounters",
+          "title": "Gravity across millions of light-years",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Gravity is the main handshake. Dark-matter halos dominate the mass and steer long orbits between galaxies.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "ge_first",
+          "step_type": "galactic_encounters",
+          "title": "First passage",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Advance the encounter lab from approach through first passage. A flyby does not finish a merger overnight\u2014timescales are hundreds of millions to billions of years.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "ge_tides",
+          "step_type": "galactic_encounters",
+          "title": "Tidal tails and bridges",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Differential gravity stretches disks: the near side feels a stronger pull than the far side. Tails and bridges are the long signatures of that stretch.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "ge_stars",
+          "step_type": "galactic_encounters",
+          "title": "Stars mostly miss",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "When galaxies overlap, stars almost never smash into each other. Stellar separations dwarf stellar sizes.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "ge_gas",
+          "step_type": "galactic_encounters",
+          "title": "Gas collides",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Gas clouds can compress and shock, helping light new stars. Not every encounter makes the same starburst.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "ge_antennae",
+          "step_type": "galactic_encounters",
+          "title": "The Antennae",
+          "object_name": "Antennae",
+          "galactic_encounters_object_id": "antennae",
+          "stellarium_focus": "NGC 4038",
+          "stellarium_fov": 1.0,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "NGC 4038 and 4039 are a classic merger with long tidal antennae and intense star formation. Hubble imaging is an observation; the lab remains illustrative.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "ge_whirlpool",
+          "step_type": "galactic_encounters",
+          "title": "The Whirlpool",
+          "object_name": "M51",
+          "galactic_encounters_object_id": "whirlpool",
+          "stellarium_focus": "M51",
+          "stellarium_fov": 1.2,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "M51 and its companion show how interactions can help organize spiral structure while the pair continues to dance.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "ge_mice",
+          "step_type": "galactic_encounters",
+          "title": "The Mice",
+          "object_name": "The Mice",
+          "galactic_encounters_object_id": "mice",
+          "stellarium_focus": "NGC 4676",
+          "stellarium_fov": 0.8,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "NGC 4676 flaunts twin tidal tails\u2014visual proof of strong tidal stripping during an encounter.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "ge_major_minor",
+          "step_type": "galactic_encounters",
+          "title": "Major vs minor mergers",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Major mergers scramble peers of similar mass. Minor mergers let large galaxies grow by absorbing smaller ones, often leaving streams or shells.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "ge_remnants",
+          "step_type": "galactic_encounters",
+          "title": "What remains",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Remnants are diverse: disturbed disks, elliptical-like shapes, rebuilt gas-rich disks, starbursts, or AGN if fuel reaches the central black hole. Visit Black Holes for horizon-scale physics.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "ge_mw_m31",
+          "step_type": "galactic_encounters",
+          "title": "Milky Way meets Andromeda?",
+          "object_name": "MW\u2013M31",
+          "galactic_encounters_object_id": "mw_andromeda",
+          "stellarium_focus": "Andromeda Galaxy",
+          "stellarium_fov": 3.0,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Andromeda approaches on billion-year timescales. Label this FUTURE PREDICTION slash SIMULATION: exact timing and geometry remain model-dependent.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "ge_outro",
+          "step_type": "outro",
+          "title": "Galaxies grow by encounter",
+          "narration_kind": "exhibit_step",
+          "narration_text": "From Antennae tails to our own Local Group future, encounters write galaxy history. Exit and Restore returns Stellarium when you are done.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        }
+      ]
+    },
+    {
+      "id": "cosmic_dawn",
+      "title": "Cosmic Dawn",
+      "subtitle": "The Universe grows up",
+      "description": "Interactive walk from recombination and the CMB through the dark ages, first stars and galaxies, reionization, JWST's early-galaxy frontier, and the cautious 21-cm radio search.",
+      "theme": "scientific_cosmic_dawn",
+      "estimated_minutes": 18,
+      "culture_scope": [
+        "NASA",
+        "ESA",
+        "Planck",
+        "JWST",
+        "STScI",
+        "Hubble"
+      ],
+      "evidence_types": [
+        "strong_evidence",
+        "scholarly_interpretation",
+        "historical_source"
+      ],
+      "story_ids": [],
+      "cover_media": {
+        "kind": "native_svg",
+        "id": "cosmic_dawn_cover"
+      },
+      "narrator_default": "father_fox",
+      "source_note": "Timeline epochs are approximate. First-star and reionization details remain research frontiers. 21-cm claims stay conservative. Stellarium is present-day optical sky only.",
+      "enabled": true,
+      "test_fixture": false,
+      "steps": [
+        {
+          "step_id": "cd_intro",
+          "step_type": "intro",
+          "title": "Looking back in time",
+          "narration_kind": "exhibit_step",
+          "narration_text": "Deep sky observing is time travel. Cosmic Dawn is when the first stars ended the dark ages after the Big Bang's afterglow.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cd_transparent",
+          "step_type": "cosmic_dawn",
+          "title": "The Universe becomes transparent",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Recombination joined electrons to nuclei. Photons stopped scattering endlessly, and light could travel freely.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cd_cmb",
+          "step_type": "cosmic_dawn",
+          "title": "The oldest light",
+          "object_name": "CMB",
+          "cosmic_dawn_object_id": "planck_cmb",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Those freed photons are today's cosmic microwave background. Stellarium cannot show the microwave sky\u2014use the Planck map card.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cd_dark",
+          "step_type": "cosmic_dawn",
+          "title": "The cosmic dark ages",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "After the CMB and before stars, the Universe was dark to starlight but not empty\u2014neutral gas and growing dark-matter structure.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cd_gravity",
+          "step_type": "cosmic_dawn",
+          "title": "Gravity keeps working",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Tiny density differences grew under gravity. This early structure growth foreshadows the Cosmic Web Special.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cd_stars",
+          "step_type": "cosmic_dawn",
+          "title": "The first stars ignite",
+          "object_name": "First stars",
+          "cosmic_dawn_object_id": "first_stars_sim",
+          "stellarium_focus": "Fornax Cluster",
+          "stellarium_fov": 5.0,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "First stars formed from primordial gas. Their exact masses remain uncertain\u2014simulation visuals are not photographs of Population III stars.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cd_galaxies",
+          "step_type": "cosmic_dawn",
+          "title": "The first galaxies",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Gas collapsed in dark-matter halos into early galaxies. Mergers and accretion increased complexity\u2014see also Galactic Encounters.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cd_fog",
+          "step_type": "cosmic_dawn",
+          "title": "Lighting the fog",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Ionizing radiation carved bubbles in neutral hydrogen. Advance the reionization lab to watch the illustrative fog clear.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cd_reion",
+          "step_type": "cosmic_dawn",
+          "title": "Reionization",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Bubbles grew and overlapped until most intergalactic hydrogen was ionized. Exact sources and timing remain active research.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cd_jwst",
+          "step_type": "cosmic_dawn",
+          "title": "JWST opens the frontier",
+          "object_name": "JWST / Pandora",
+          "cosmic_dawn_object_id": "jwst_pandora",
+          "stellarium_focus": "Abell 2744",
+          "stellarium_fov": 1.5,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "JWST finds highly redshifted galaxies. Photometric candidates need careful confirmation\u2014avoid hard-coded earliest-ever claims.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cd_21",
+          "step_type": "cosmic_dawn",
+          "title": "Listening for neutral hydrogen",
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "The 21-centimeter line could probe the dark ages and reionization, but foregrounds make detection extraordinarily hard. Claims stay conservative.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cd_web",
+          "step_type": "cosmic_dawn",
+          "title": "From dawn to the Cosmic Web",
+          "object_name": "HUDF region",
+          "cosmic_dawn_object_id": "hubble_udf",
+          "stellarium_focus": "Fornax Cluster",
+          "stellarium_fov": 4.0,
+          "scientific_view": true,
+          "narration_kind": "exhibit_step",
+          "narration_text": "Deep fields reveal distant galaxies along the path to today's Cosmic Web. Stellarium anchors the Fornax host-sky region, not the early Universe itself.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "cd_outro",
+          "step_type": "outro",
+          "title": "The Universe grows up",
+          "narration_kind": "exhibit_step",
+          "narration_text": "From microwave afterglow to first firelight, Cosmic Dawn completes this Specials series. Exit and Restore returns Stellarium when you are done.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        }
+      ]
+    },
+    {
+      "id": "exhibit_smoke_orion",
+      "title": "Smoke Test Exhibit",
+      "subtitle": "Fixture only",
+      "description": "Tiny two-step fixture used by automated tests. Not shown in the production exhibit list.",
+      "theme": "test",
+      "estimated_minutes": 1,
+      "culture_scope": [
+        "Modern IAU"
+      ],
+      "evidence_types": [],
+      "story_ids": [
+        "orion"
+      ],
+      "cover_media": {
+        "kind": "native_svg",
+        "id": "smoke_cover"
+      },
+      "narrator_default": "father_fox",
+      "source_note": "Test fixture. No cultural claims.",
+      "enabled": false,
+      "test_fixture": true,
+      "steps": [
+        {
+          "step_id": "smoke_intro",
+          "step_type": "intro",
+          "title": "Smoke intro",
+          "narration_kind": "exhibit_step",
+          "narration_text": "This is a Cartography test exhibit intro. It does not start audio by itself.",
+          "optional": false,
+          "restore_behavior": "preserve"
+        },
+        {
+          "step_id": "smoke_orion",
+          "step_type": "constellation_story",
+          "title": "Orion",
+          "story_id": "orion",
+          "constellation_id": "orion",
+          "object_name": "Betelgeuse",
+          "narration_kind": "exhibit_step",
+          "stellarium_focus": "Betelgeuse",
+          "stellarium_fov": 20,
+          "optional": false,
+          "restore_behavior": "restore_on_exit"
+        }
+      ]
+    }
+  ]
+}

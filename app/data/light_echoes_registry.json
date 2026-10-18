@@ -1,0 +1,269 @@
+{
+  "version": 1,
+  "id": "light_echoes",
+  "title": "Light Echoes",
+  "subtitle": "When yesterday's outburst still lights the dust",
+  "description": "An interactive exhibit about how light from a brief astronomical event can illuminate surrounding dust at different times, creating an apparent expanding glow that is not matter racing outward at that speed.",
+  "theme": "scientific_optics",
+  "estimated_minutes": 12,
+  "enabled": true,
+  "source_note": "Scientific outreach exhibit. Imagery and claims cite NASA, ESA/Hubble (STScI), and Chandra public pages. Geometry controls are labeled ILLUSTRATIVE unless marked MEASURED.",
+  "illustrative_disclaimer": "The source\u2013dust\u2013observer diagram and time slider are educational simplifications. They are not a precise reconstruction of any object's three-dimensional dust map.",
+  "science": {
+    "what_is": "A light echo is sunlight\u2014or starlight\u2014from a short-lived brightening that reaches Earth only after bouncing off nearby dust. The direct flash arrives first; reflected paths are longer, so the glow appears later and can seem to expand on the sky.",
+    "not_matter_expansion": "The glowing ring or shell is not a cloud of dust blasted outward at the apparent speed you see. Dust was already sitting there. What moves is the illumination front: different parcels light up when the flash reaches them and then their reflected light reaches us.",
+    "geometry": "Direct path: source \u2192 observer. Echo path: source \u2192 dust \u2192 observer. Because the echo path is longer, the echo arrives later. Dust at different distances and angles lights up at different times, so the sky pattern changes even if the dust barely moves.",
+    "apparent_superluminal": "Some light echoes look as if they expand faster than light. That is a geometric projection effect from the timing of reflected light, not matter or information traveling faster than light.",
+    "takeaway": "Light echoes turn a one-time flash into a delayed map of surrounding dust\u2014without requiring the dust itself to race across the sky."
+  },
+  "narration": {
+    "intro": "A light echo is delayed starlight. A brief flash races outward, strikes dust that was already there, and only then heads toward us. What you watch expanding on the sky is mostly the illumination front, not a cloud flying apart at that speed.",
+    "geometry": "Picture three points: the transient source, a dust sheet, and the observer. The straight path is shortest. Any bounce adds travel time. Advance the time control and watch different dust patches light up as longer paths finally arrive.",
+    "apparent_expansion": "If the glow seems to grow faster than light, remember: nothing physical is sprinting that fast. Different sightlines simply deliver the reflected flash on different schedules.",
+    "examples": "We will visit documented cases such as V838 Monocerotis, Cassiopeia A light echoes, and SN 1987A, using authoritative observatory imagery and focusing the real sky object when Stellarium is available.",
+    "closing": "Light echoes teach patience and geometry: yesterday's outburst can still sculpt today's sky, revealing dust we would otherwise never see."
+  },
+  "geometry_demo": {
+    "kind": "illustrative",
+    "label": "ILLUSTRATIVE geometry",
+    "time_steps": [
+      {
+        "id": "t0",
+        "label": "Flash",
+        "progress": 0.0,
+        "caption": "The transient brightens. Direct light begins its trip to the observer.",
+        "illuminated": []
+      },
+      {
+        "id": "t1",
+        "label": "Direct light arrives",
+        "progress": 0.25,
+        "caption": "The shortest path\u2014source to observer\u2014arrives first. Nearby dust is not yet glowing for us.",
+        "illuminated": [
+          "near"
+        ]
+      },
+      {
+        "id": "t2",
+        "label": "Near dust lights",
+        "progress": 0.55,
+        "caption": "Light that bounced off nearer dust reaches us. An echo begins to appear.",
+        "illuminated": [
+          "near"
+        ]
+      },
+      {
+        "id": "t3",
+        "label": "Far dust lights",
+        "progress": 0.85,
+        "caption": "Longer bounce paths arrive later, so farther or differently angled dust sheets light up next.",
+        "illuminated": [
+          "near",
+          "far"
+        ]
+      },
+      {
+        "id": "t4",
+        "label": "Changing structure",
+        "progress": 1.0,
+        "caption": "As time advances, the illuminated pattern changes. The dust barely moved; the light did.",
+        "illuminated": [
+          "far",
+          "sheet"
+        ]
+      }
+    ],
+    "nodes": {
+      "source": {
+        "x": 18,
+        "y": 52,
+        "label": "Source"
+      },
+      "observer": {
+        "x": 88,
+        "y": 52,
+        "label": "Observer"
+      },
+      "near": {
+        "x": 42,
+        "y": 28,
+        "label": "Near dust"
+      },
+      "far": {
+        "x": 58,
+        "y": 78,
+        "label": "Far dust"
+      },
+      "sheet": {
+        "x": 70,
+        "y": 34,
+        "label": "Dust sheet"
+      }
+    }
+  },
+  "objects": [
+    {
+      "id": "v838_mon",
+      "name": "V838 Monocerotis",
+      "short_name": "V838 Mon",
+      "object_type": "stellar_outburst_light_echo",
+      "stellarium_search": "Monoceros",
+      "stellarium_fov_deg": 40,
+      "constellation": "Mon",
+      "summary": "In 2002, V838 Monocerotis brightened dramatically. Hubble later imaged a spectacular light echo as the outburst illuminated surrounding dust.",
+      "why_suitable": "Textbook light-echo sequence with widely published multi-epoch Hubble imaging.",
+      "key_years": [
+        2002,
+        2004
+      ],
+      "teaching_points": [
+        "The echo expands on the sky while tracing pre-existing dust.",
+        "Later frames illuminate different dust structures as longer paths arrive."
+      ],
+      "media": {
+        "id": "v838_hubble_heic0405a",
+        "title": "Light echo around V838 Monocerotis",
+        "organization": "ESA/Hubble (STScI)",
+        "credit": "ESA/Hubble & NASA",
+        "source_page_url": "https://esahubble.org/images/heic0405a/",
+        "image_url": "https://cdn.esahubble.org/archives/images/large/heic0405a.jpg",
+        "license_note": "ESA/Hubble public outreach image; credit required. See ESA/Hubble copyright page for reuse terms.",
+        "relation": "exact"
+      },
+      "sources": [
+        {
+          "title": "ESA/Hubble \u2014 heic0405a Light echo around V838 Monocerotis",
+          "url": "https://esahubble.org/images/heic0405a/",
+          "organization": "ESA/Hubble"
+        },
+        {
+          "title": "HubbleSite media \u2014 Light Echo from Star V838 Monocerotis",
+          "url": "https://hubblesite.org/contents/media/images/2004/10/1494-Image.html",
+          "organization": "STScI / HubbleSite"
+        }
+      ],
+      "enabled": true,
+      "stellarium_match_mode": "host_sky",
+      "stellarium_note": "V838 Monocerotis is not present as a selectable object in Stellarium 26.3 Remote Control (objects/find returns empty). The exhibit focuses the host constellation Monoceros as sky context.",
+      "stellarium_accept_names": [
+        "Monoceros",
+        "Unicorn"
+      ]
+    },
+    {
+      "id": "cas_a_echoes",
+      "name": "Cassiopeia A light echoes",
+      "short_name": "Cas A echoes",
+      "object_type": "supernova_light_echo",
+      "stellarium_search": "Cassiopeia A",
+      "stellarium_fov_deg": 3.0,
+      "constellation": "Cas",
+      "summary": "Infrared and optical studies have detected light echoes from the Cassiopeia A supernova, illuminating dust centuries after the explosion light first reached Earth.",
+      "why_suitable": "Strong example of historical supernova light still revealing interstellar dust structure; pairs with existing Chandra Cas A scientific media in Cartography.",
+      "key_years": [
+        1680,
+        2005,
+        2010
+      ],
+      "teaching_points": [
+        "Echoes can arrive long after the explosion date as light detours through dust.",
+        "Cas A also has rich X-ray remnant imagery\u2014keep remnant structure distinct from light-echo dust."
+      ],
+      "media": {
+        "id": "casa_chandra_2005",
+        "title": "Cassiopeia A Great Observatories composite",
+        "organization": "Chandra X-ray Center / NASA",
+        "credit": "NASA/CXC/SAO",
+        "source_page_url": "https://www.chandra.si.edu/photo/2005/casa/",
+        "image_url": "https://www.chandra.si.edu/photo/2005/casa/casa.jpg",
+        "license_note": "NASA/Chandra public outreach image. Credit required. Distinct from cultural story media.",
+        "relation": "related_scientific_view",
+        "note": "Shows the Cas A remnant scientific view curated in Cartography; light-echo dust maps are discussed in the linked sources."
+      },
+      "sources": [
+        {
+          "title": "Chandra photo album \u2014 Cassiopeia A (2005)",
+          "url": "https://www.chandra.si.edu/photo/2005/casa/",
+          "organization": "CXC"
+        },
+        {
+          "title": "NASA Science \u2014 Hubble Messier / remnant context pages",
+          "url": "https://science.nasa.gov/mission/hubble/",
+          "organization": "NASA"
+        }
+      ],
+      "enabled": true,
+      "stellarium_match_mode": "exact",
+      "stellarium_accept_names": [
+        "Cassiopeia A",
+        "Cas A"
+      ],
+      "stellarium_note": "Cassiopeia A resolves directly in Stellarium 26.3."
+    },
+    {
+      "id": "sn_1987a",
+      "name": "SN 1987A",
+      "short_name": "SN 1987A",
+      "object_type": "supernova_rings_light_travel",
+      "stellarium_search": "Large Magellanic Cloud",
+      "stellarium_fov_deg": 8,
+      "constellation": "Dor",
+      "summary": "SN 1987A in the Large Magellanic Cloud produced famous circumstellar rings whose brightening is governed by light-travel time from the explosion to the ring material and then to Earth.",
+      "why_suitable": "Canonical light-travel-time geometry classroom case with extensive Hubble monitoring.",
+      "key_years": [
+        1987,
+        1994,
+        2017
+      ],
+      "teaching_points": [
+        "Ring brightening is delayed by path length, not by the ring material suddenly forming.",
+        "Useful bridge from pure light echoes to light-travel-time illumination of pre-existing structures."
+      ],
+      "media": {
+        "id": "sn1987a_hubble_heic0704a",
+        "title": "SN 1987A \u2014 Hubble view",
+        "organization": "ESA/Hubble (STScI)",
+        "credit": "ESA/Hubble & NASA",
+        "source_page_url": "https://esahubble.org/images/heic0704a/",
+        "image_url": "https://cdn.esahubble.org/archives/images/large/heic0704a.jpg",
+        "license_note": "ESA/Hubble public outreach image; credit required.",
+        "relation": "exact"
+      },
+      "sources": [
+        {
+          "title": "ESA/Hubble \u2014 heic0704a SN 1987A",
+          "url": "https://esahubble.org/images/heic0704a/",
+          "organization": "ESA/Hubble"
+        },
+        {
+          "title": "ESA/Hubble \u2014 potw1520a SN 1987A context",
+          "url": "https://esahubble.org/images/potw1520a/",
+          "organization": "ESA/Hubble"
+        }
+      ],
+      "enabled": true,
+      "stellarium_match_mode": "host_sky",
+      "stellarium_note": "SN 1987A is not a selectable Stellarium object in this build. The exhibit focuses the Large Magellanic Cloud, the host galaxy of SN 1987A.",
+      "stellarium_accept_names": [
+        "Large Magellanic Cloud",
+        "LMC"
+      ]
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "name": "SN 1993J",
+      "reason": "Light echoes are less visually documented for a short planetarium walk than V838 Mon, Cas A, or SN 1987A."
+    }
+  ],
+  "provenance_hosts_allowed": [
+    "esahubble.org",
+    "cdn.esahubble.org",
+    "hubblesite.org",
+    "www.chandra.si.edu",
+    "chandra.si.edu",
+    "science.nasa.gov",
+    "www.nasa.gov",
+    "images-assets.nasa.gov"
+  ]
+}

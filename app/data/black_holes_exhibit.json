@@ -1,0 +1,171 @@
+{
+  "id": "black_holes",
+  "title": "Black Holes",
+  "subtitle": "A window on extreme gravity",
+  "description": "Interactive walk through event horizons, Schwarzschild scale, approach regions, illustrative lensing, accretion appearance, tidal forces, EHT imaging of M87* and Sgr A*, Cygnus X-1, and how astronomers detect black holes.",
+  "theme": "scientific_black_holes",
+  "estimated_minutes": 18,
+  "culture_scope": [
+    "EHT",
+    "ESO",
+    "NSF",
+    "NASA",
+    "Chandra",
+    "NRAO"
+  ],
+  "evidence_types": [
+    "strong_evidence",
+    "scholarly_interpretation",
+    "historical_source"
+  ],
+  "story_ids": [],
+  "cover_media": {
+    "kind": "native_svg",
+    "id": "black_holes_cover"
+  },
+  "narrator_default": "father_fox",
+  "source_note": "Scale, approach, and lensing labs are ILLUSTRATIVE. Schwarzschild numbers assume non-rotating models unless noted. EHT images are interferometric reconstructions. Stellarium is sky context only.",
+  "enabled": true,
+  "test_fixture": false,
+  "steps": [
+    {
+      "step_id": "bh_intro",
+      "step_type": "intro",
+      "title": "The darkest objects",
+      "narration_kind": "exhibit_step",
+      "narration_text": "Black holes are regions where spacetime curvature prevents light from escaping beyond an event horizon. This walk separates observation, reconstruction, simulation, illustration, and theoretical models.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "bh_what",
+      "step_type": "black_holes",
+      "title": "Gravity without escape",
+      "narration_kind": "exhibit_step",
+      "narration_text": "A black hole is defined by causal structure—not a solid crust. Rubber-sheet metaphors are only metaphors.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "bh_horizon",
+      "step_type": "black_holes",
+      "title": "The event horizon",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "The horizon is a boundary in spacetime. The singularity of classical general relativity is not directly imaged. The Event Horizon Telescope shadow is larger than the horizon itself.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "bh_scale",
+      "step_type": "black_holes",
+      "title": "How big is a black hole?",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Compare stellar-mass and supermassive Schwarzschild radii. Real astrophysical black holes may rotate—labels state the non-rotating teaching assumption.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "bh_approach",
+      "step_type": "black_holes",
+      "title": "Falling toward the horizon",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Move through distant space, the accretion region, the photon-orbit region, and the event horizon. The photon sphere is not a solid shell, and you cannot hover freely at the horizon.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "bh_lens",
+      "step_type": "black_holes",
+      "title": "Light bends",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Near a black hole, light paths bend. This lab is illustrative relativistic lensing—not a precision ray-tracer—while EHT images reconstruct real interferometric data.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "bh_accretion",
+      "step_type": "black_holes",
+      "title": "Accretion and the glowing disk",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Bright disks and jets live outside the horizon. Doppler boosting, gravitational redshift, and light bending shape appearance in ray-traced visualizations.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "bh_tidal",
+      "step_type": "black_holes",
+      "title": "Tidal forces",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Spaghettification is not universal at every horizon. Stellar-mass tides near the horizon can be extreme; for large supermassive black holes, local tides at the horizon can be gentler.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "bh_sgr",
+      "step_type": "black_holes",
+      "title": "Sgr A* — our Galactic Center",
+      "object_name": "Sgr A*",
+      "black_holes_object_id": "sgr_a",
+      "stellarium_focus": "NGC 6522",
+      "stellarium_fov": 2.5,
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Sagittarius A-star is the Milky Way’s central supermassive black hole. Stellarium anchors near the Galactic Center using NGC 6522 as honest host-sky context—not a fake Sgr A-star catalog object.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "bh_m87",
+      "step_type": "black_holes",
+      "title": "M87* — seeing the shadow",
+      "object_name": "M87*",
+      "black_holes_object_id": "m87",
+      "stellarium_focus": "M87",
+      "stellarium_fov": 1.2,
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "M87-star gave us the first horizon-scale image in 2019. The dark center is a reconstructed shadow shaped by light bending—not a photograph of a black surface.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "bh_cyg",
+      "step_type": "black_holes",
+      "title": "Stellar-mass black holes",
+      "object_name": "Cygnus X-1",
+      "black_holes_object_id": "cygnus_x1",
+      "stellarium_focus": "HD 226868",
+      "stellarium_fov": 2.0,
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Cygnus X-1 is a classic stellar-mass black-hole X-ray binary. Stellarium focuses the optical companion HD 226868—sky context for the system, not a resolved black-hole image.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "bh_detect",
+      "step_type": "black_holes",
+      "title": "How we know they’re there",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "We find black holes through stellar orbits, X-ray binaries, gravitational waves, Galactic-Center dynamics, and Event Horizon Telescope imaging. Visit the Gravitational Waves Special for chirps and mergers.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "bh_outro",
+      "step_type": "outro",
+      "title": "A window on extreme gravity",
+      "narration_kind": "exhibit_step",
+      "narration_text": "Black holes reshape light and matter around them. Distinguishing illustration from reconstruction keeps the science honest. Exit and Restore returns Stellarium when you are done.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    }
+  ]
+}

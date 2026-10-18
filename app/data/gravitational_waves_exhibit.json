@@ -1,0 +1,127 @@
+{
+  "id": "gravitational_waves",
+  "title": "Gravitational Waves",
+  "subtitle": "A new sense for the Universe",
+  "description": "Interactive walk through spacetime ripples, LIGO-class interferometers, chirps, GW150914, detector networks, GW170817, and multi-messenger astronomy. Labs are illustrative; event cards cite LIGO/Virgo and observatory sources.",
+  "theme": "scientific_gravitational_waves",
+  "estimated_minutes": 15,
+  "culture_scope": ["LIGO", "Virgo", "KAGRA", "NSF", "ESO", "ESA/Hubble"],
+  "evidence_types": ["strong_evidence", "scholarly_interpretation", "historical_source"],
+  "story_ids": [],
+  "cover_media": { "kind": "native_svg", "id": "gravitational_waves_cover" },
+  "narrator_default": "father_fox",
+  "source_note": "Wave/interferometer labs ILLUSTRATIVE with exaggerated strain. Chirp tones are ILLUSTRATIVE SONIFICATIONS. Event references: LIGO/Virgo publications and ESO/Hubble host imaging.",
+  "enabled": true,
+  "test_fixture": false,
+  "steps": [
+    {
+      "step_id": "gw_intro",
+      "step_type": "intro",
+      "title": "Ripples in spacetime",
+      "narration_kind": "exhibit_step",
+      "narration_text": "Gravitational waves are ripples in spacetime itself. They are not sound in air, and they are not a rubber sheet you can grab—they are tiny, traveling changes in distance.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "gw_sources",
+      "step_type": "gravitational_waves",
+      "title": "What makes a gravitational wave?",
+      "narration_kind": "exhibit_step",
+      "narration_text": "Accelerating masses with changing quadrupole moments can radiate gravitational waves. Compact binaries—black holes and neutron stars—are the stars of the current detector band.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "gw_stretch",
+      "step_type": "gravitational_waves",
+      "title": "Stretch and squeeze",
+      "narration_kind": "exhibit_step",
+      "narration_text": "Use the wave lab to compare plus and cross polarizations. Remember: deformations are ILLUSTRATIVE and greatly exaggerated—real strains at Earth are about 10 to the minus 21.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "gw_ifo",
+      "step_type": "gravitational_waves",
+      "title": "How LIGO measures the almost impossible",
+      "narration_kind": "exhibit_step",
+      "narration_text": "Laser light splits into perpendicular kilometer-scale arms and recombines. A passing wave changes the relative optical path lengths enough—just barely—for a sensitive photodetector to notice.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "gw_inspiral",
+      "step_type": "gravitational_waves",
+      "title": "Binary inspiral",
+      "narration_kind": "exhibit_step",
+      "narration_text": "As a compact binary loses energy to gravitational waves, the orbit tightens and the wave frequency climbs toward merger.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "gw_chirp",
+      "step_type": "gravitational_waves",
+      "title": "Hear the chirp",
+      "narration_kind": "exhibit_step",
+      "narration_text": "Advance the chirp slider and optionally play the browser tone. That tone is an ILLUSTRATIVE SONIFICATION—frequency-shifted for human ears—not detector-band audio and not sound traveling through space.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "gw_150914",
+      "step_type": "gravitational_waves",
+      "title": "GW150914",
+      "object_name": "GW150914",
+      "gravitational_waves_event_id": "gw150914",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "GW150914 was the first direct detection: a binary black-hole merger observed by LIGO in September 2015. There is no honest single Stellarium host for its broad localization region.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "gw_network",
+      "step_type": "gravitational_waves",
+      "title": "Finding the source",
+      "narration_kind": "exhibit_step",
+      "narration_text": "Hanford, Livingston, Virgo, and KAGRA form a network. Timing and antenna patterns constrain a sky probability region—often many square degrees—not always a pinpoint.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "gw_170817",
+      "step_type": "gravitational_waves",
+      "title": "GW170817",
+      "object_name": "GW170817",
+      "gravitational_waves_event_id": "gw170817",
+      "stellarium_focus": "NGC 4993",
+      "stellarium_fov": 1.5,
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "GW170817 was a binary neutron-star merger with a three-detector gravitational-wave signal and an electromagnetic counterpart in NGC 4993. Stellarium can focus that host galaxy as sky context.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "gw_mm",
+      "step_type": "gravitational_waves",
+      "title": "Multi-messenger astronomy",
+      "gravitational_waves_event_id": "gw170817",
+      "scientific_view": true,
+      "narration_kind": "exhibit_step",
+      "narration_text": "Waves plus gamma rays, optical/infrared kilonova light, X-rays, and radio together revealed physics neither messenger could give alone—from nuclear matter to cosmic expansion.",
+      "optional": false,
+      "restore_behavior": "preserve"
+    },
+    {
+      "step_id": "gw_outro",
+      "step_type": "outro",
+      "title": "A new sense for the Universe",
+      "narration_kind": "exhibit_step",
+      "narration_text": "We now listen to spacetime as well as to light. Exit and Restore returns Stellarium to the capture from when you started.",
+      "optional": false,
+      "restore_behavior": "restore_on_exit"
+    }
+  ]
+}

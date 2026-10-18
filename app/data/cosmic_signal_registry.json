@@ -386,7 +386,21 @@
       "verified_date": "2026-08-04T04:30:46Z",
       "verified_by": "manual official-page check",
       "verification_notes": "Official Chandra Universe of Sound page. Direct media returns video/mp4 on www.chandra.si.edu.",
-      "final_resolved_media_host": "www.chandra.si.edu"
+      "final_resolved_media_host": "www.chandra.si.edu",
+      "constellation": "Cas",
+      "related_constellations": [
+        "Cas"
+      ],
+      "object_ids": [
+        "cassiopeia_a"
+      ],
+      "story_tags": [
+        "supernova",
+        "x-ray",
+        "cassiopeia"
+      ],
+      "narrative_role": "supernova_remnant",
+      "signal_category": "data_sonification"
     },
     {
       "id": "galactic_center_chandra_sonification",
@@ -448,7 +462,21 @@
       "verified_date": "2026-08-04T04:30:46Z",
       "verified_by": "manual official-page check",
       "verification_notes": "Official Chandra Universe of Sound Galactic Center page. Direct media returns video/mp4 on www.chandra.si.edu.",
-      "final_resolved_media_host": "www.chandra.si.edu"
+      "final_resolved_media_host": "www.chandra.si.edu",
+      "constellation": "Sgr",
+      "related_constellations": [
+        "Sgr"
+      ],
+      "object_ids": [
+        "sagittarius_a"
+      ],
+      "story_tags": [
+        "galactic-center",
+        "x-ray",
+        "sagittarius"
+      ],
+      "narrative_role": "galactic_center",
+      "signal_category": "data_sonification"
     },
     {
       "enabled": true,

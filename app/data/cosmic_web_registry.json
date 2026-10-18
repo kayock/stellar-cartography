@@ -1,0 +1,384 @@
+{
+  "version": 1,
+  "id": "cosmic_web",
+  "title": "Cosmic Web",
+  "subtitle": "Galaxies, filaments, nodes, and voids on the largest scales",
+  "description": "An interactive exhibit about how gravity turns tiny early density differences into today's cosmic web of galaxies, clusters, filaments, and voids. Distinguishes illustration, observational surveys, and simulations.",
+  "theme": "scientific_cosmology",
+  "estimated_minutes": 14,
+  "enabled": true,
+  "source_note": "Scientific outreach exhibit. The interactive lab is ILLUSTRATIVE. Survey and simulation media are labeled OBSERVATION, RECONSTRUCTION, or SIMULATION. Stellarium is used only as a sky anchor for nearby structures.",
+  "illustrative_disclaimer": "The structure-growth lab uses synthetic educational positions. It is not a measured map of the Universe and does not match SDSS, DESI, or simulation coordinates.",
+  "classification_legend": {
+    "illustration": "Educational graphic or interactive diagram",
+    "observation": "Telescope/survey data products",
+    "reconstruction": "Survey-based large-scale structure maps assembled from redshifts and models",
+    "simulation": "Cosmological N-body or hydro simulation visualization"
+  },
+  "science": {
+    "what_is": "The cosmic web is the large-scale arrangement of matter in the Universe: galaxies gather into groups and clusters, clusters sit near dense nodes, filaments link those nodes, and vast underdense voids fill the spaces between.",
+    "not_uniform": "After the early Universe, matter was almost—but not perfectly—uniform. Tiny density contrasts existed. Gravity slowly amplified those contrasts over billions of years.",
+    "gravity_dark_matter": "Most of the mass that shapes this scaffolding is dark matter, inferred from gravitational effects rather than from emitted light. Ordinary (baryonic) matter falls into the deepening wells and forms the luminous galaxies we observe. Dark matter is a working cosmological ingredient supported by multiple lines of evidence; this exhibit does not treat it as optional decoration.",
+    "filaments_nodes_voids": "Overdense ridges become filaments. Their intersections grow into nodes that host rich clusters. Underdense regions expand into voids as matter streams toward denser structures.",
+    "observation_vs_simulation": "We do not photograph the entire cosmic web as one literal object. Redshift surveys map sky position plus distance proxies for millions of galaxies; simulations show how gravity can grow such patterns from early fluctuations. Both are needed to interpret what we see.",
+    "takeaway": "The night sky's nearby clusters are local samples of a far larger web that surveys and simulations help us reconstruct."
+  },
+  "narration": {
+    "intro": "Look past single galaxies. On the largest scales, matter forms a cosmic web: bright nodes, connecting filaments, and enormous quiet voids.",
+    "fluctuations": "In the early Universe the density field was nearly smooth, with tiny ripples. Those ripples were enough for gravity to work with.",
+    "gravity": "Gravity amplified small overdensities. Dark matter provided most of the scaffolding mass; ordinary matter followed into the wells and lit up as galaxies.",
+    "filaments": "Matter drained into elongated filaments that stitch nodes together. Clusters often sit where filaments meet.",
+    "voids": "Between the filaments, underdense regions grew into great voids—not empty of everything, but comparatively quiet and sparse.",
+    "surveys": "Astronomers reconstruct the web with redshift surveys such as SDSS and DESI, plotting galaxies in three dimensions rather than photographing one giant structure.",
+    "night_sky": "Stellarium cannot render the full web, but it can point to nearby anchors—Virgo, Coma, Andromeda—that sit inside this larger story.",
+    "closing": "From a nearly smooth beginning, gravity built today's cosmic architecture. Surveys map it; simulations explain it; the sky shows fragments of it overhead."
+  },
+  "structure_demo": {
+    "kind": "illustrative",
+    "label": "ILLUSTRATIVE COSMIC WEB",
+    "layers": ["galaxies", "filaments", "nodes", "voids"],
+    "time_steps": [
+      {
+        "id": "t0",
+        "label": "Nearly uniform",
+        "progress": 0.0,
+        "caption": "Tiny density differences exist, but the field still looks almost smooth.",
+        "show": { "galaxies": true, "filaments": false, "nodes": false, "voids": false },
+        "clustering": 0.05
+      },
+      {
+        "id": "t1",
+        "label": "First clumps",
+        "progress": 0.25,
+        "caption": "Overdense patches grow. Galaxies begin to prefer denser neighborhoods.",
+        "show": { "galaxies": true, "filaments": false, "nodes": false, "voids": false },
+        "clustering": 0.3
+      },
+      {
+        "id": "t2",
+        "label": "Filaments emerge",
+        "progress": 0.5,
+        "caption": "Matter streams into elongated ridges—filaments—linking denser regions.",
+        "show": { "galaxies": true, "filaments": true, "nodes": false, "voids": false },
+        "clustering": 0.55
+      },
+      {
+        "id": "t3",
+        "label": "Nodes and clusters",
+        "progress": 0.75,
+        "caption": "Filament intersections brighten into nodes that host groups and clusters.",
+        "show": { "galaxies": true, "filaments": true, "nodes": true, "voids": false },
+        "clustering": 0.8
+      },
+      {
+        "id": "t4",
+        "label": "Mature web",
+        "progress": 1.0,
+        "caption": "A web of filaments and nodes surrounds growing voids. This diagram remains ILLUSTRATIVE.",
+        "show": { "galaxies": true, "filaments": true, "nodes": true, "voids": true },
+        "clustering": 1.0
+      }
+    ],
+    "seed_points": [
+      [12, 18], [22, 40], [18, 72], [35, 25], [40, 55], [38, 80],
+      [55, 20], [58, 48], [62, 75], [75, 30], [78, 58], [85, 78],
+      [48, 38], [50, 62], [28, 58], [70, 45]
+    ],
+    "filament_paths": [
+      [[18, 72], [40, 55], [58, 48], [78, 58]],
+      [[12, 18], [35, 25], [55, 20], [75, 30]],
+      [[22, 40], [40, 55], [50, 62], [62, 75]],
+      [[35, 25], [48, 38], [58, 48], [70, 45], [85, 78]]
+    ],
+    "node_points": [[40, 55], [58, 48], [50, 62], [75, 30]],
+    "void_regions": [
+      { "cx": 28, "cy": 32, "rx": 10, "ry": 8 },
+      { "cx": 68, "cy": 68, "rx": 11, "ry": 9 },
+      { "cx": 48, "cy": 18, "rx": 9, "ry": 6 }
+    ]
+  },
+  "objects": [
+    {
+      "id": "virgo_cluster",
+      "name": "Virgo Cluster",
+      "short_name": "Virgo",
+      "object_type": "galaxy_cluster",
+      "structure_role": "nearby_node",
+      "stellarium_search": "M87",
+      "stellarium_fov_deg": 8,
+      "stellarium_match_mode": "exact",
+      "stellarium_accept_names": ["M87", "Virgo Galaxy", "NGC 4486"],
+      "stellarium_note": "Stellarium focuses M87, the giant elliptical near the Virgo Cluster core—a sky anchor, not a 3D filament map.",
+      "constellation": "Vir",
+      "summary": "The Virgo Cluster is the nearest rich cluster of galaxies and a cornerstone of the Local Supercluster neighborhood.",
+      "why_suitable": "Well-observed nearby node; Stellarium can focus M87 as a representative core galaxy.",
+      "teaching_points": [
+        "Clusters often mark dense nodes of the cosmic web.",
+        "From Earth we see Virgo as a concentration of galaxies on the sky, not the entire web."
+      ],
+      "media": {
+        "id": "virgo_hubble_related",
+        "title": "Hubble view context for nearby massive galaxies / clusters",
+        "organization": "ESA/Hubble",
+        "credit": "ESA/Hubble & NASA",
+        "classification": "observation",
+        "source_page_url": "https://esahubble.org/images/heic1410a/",
+        "image_url": "https://cdn.esahubble.org/archives/images/large/heic1410a.jpg",
+        "license_note": "ESA/Hubble public outreach image; credit required.",
+        "relation": "related_scientific_view",
+        "note": "Represents deep galaxy-cluster imaging science; used here as observational context for dense nodes."
+      },
+      "sources": [
+        {
+          "title": "ESA/Hubble — heic1410a",
+          "url": "https://esahubble.org/images/heic1410a/",
+          "organization": "ESA/Hubble",
+          "classification": "observation"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "coma_cluster",
+      "name": "Coma Cluster",
+      "short_name": "Coma",
+      "object_type": "galaxy_cluster",
+      "structure_role": "classic_node",
+      "stellarium_search": "Coma Cluster",
+      "stellarium_fov_deg": 4,
+      "stellarium_match_mode": "exact",
+      "stellarium_accept_names": ["Coma Cluster"],
+      "stellarium_note": "Coma Cluster resolves directly in Stellarium 26.3 as a sky anchor for a classic rich node.",
+      "constellation": "Com",
+      "summary": "The Coma Cluster is a textbook rich cluster—an observational example of a dense node where many galaxies concentrate.",
+      "why_suitable": "Historically important cluster; selectable in Stellarium; clear node example.",
+      "teaching_points": [
+        "Rich clusters help astronomers study how galaxies behave in dense environments.",
+        "Coma is one sky patch inside a much larger web mapped by surveys."
+      ],
+      "media": {
+        "id": "coma_noirlab_context",
+        "title": "NOIRLab large-scale structure / survey context imagery",
+        "organization": "NOIRLab",
+        "credit": "NOIRLab / NSF / AURA",
+        "classification": "reconstruction",
+        "source_page_url": "https://noirlab.edu/public/images/noirlab2110a/",
+        "image_url": "https://noirlab.edu/public/media/archives/images/large/noirlab2110a.jpg",
+        "license_note": "NOIRLab public image; follow NOIRLab credit guidelines.",
+        "relation": "related_survey_context",
+        "note": "Survey visualization context for large-scale structure; not a Stellarium-rendered filament."
+      },
+      "sources": [
+        {
+          "title": "NOIRLab — noirlab2110a",
+          "url": "https://noirlab.edu/public/images/noirlab2110a/",
+          "organization": "NOIRLab",
+          "classification": "reconstruction"
+        },
+        {
+          "title": "SDSS Science — large-scale structure",
+          "url": "https://www.sdss.org/science/",
+          "organization": "SDSS",
+          "classification": "observation"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "andromeda_local",
+      "name": "Andromeda & the Local Group",
+      "short_name": "Andromeda",
+      "object_type": "galaxy_group",
+      "structure_role": "local_group",
+      "stellarium_search": "Andromeda Galaxy",
+      "stellarium_fov_deg": 3,
+      "stellarium_match_mode": "exact",
+      "stellarium_accept_names": ["Andromeda Galaxy", "M31", "Andromeda"],
+      "stellarium_note": "Focuses M31 / Andromeda Galaxy as the Local Group's brightest external member—our nearest group-scale context.",
+      "constellation": "And",
+      "summary": "The Local Group is a small galaxy group containing the Milky Way and Andromeda—an entry-level step from single galaxies toward the web.",
+      "why_suitable": "Directly visible external galaxy; excellent Stellarium target; teaches groups before clusters.",
+      "teaching_points": [
+        "Groups are smaller than rich clusters but still denser than the field.",
+        "Our Local Group sits within larger surrounding structure mapped by surveys."
+      ],
+      "media": {
+        "id": "andromeda_hubble",
+        "title": "Andromeda Galaxy imaging context",
+        "organization": "ESA/Hubble",
+        "credit": "ESA/Hubble & NASA",
+        "classification": "observation",
+        "source_page_url": "https://esahubble.org/images/heic0406a/",
+        "image_url": "https://cdn.esahubble.org/archives/images/large/heic0406a.jpg",
+        "license_note": "ESA/Hubble public outreach image; credit required.",
+        "relation": "exact"
+      },
+      "sources": [
+        {
+          "title": "ESA/Hubble — heic0406a",
+          "url": "https://esahubble.org/images/heic0406a/",
+          "organization": "ESA/Hubble",
+          "classification": "observation"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "sdss_lss",
+      "name": "SDSS large-scale structure",
+      "short_name": "SDSS map",
+      "object_type": "redshift_survey",
+      "structure_role": "survey_reconstruction",
+      "stellarium_search": "Coma Cluster",
+      "stellarium_fov_deg": 5,
+      "stellarium_match_mode": "host_sky",
+      "stellarium_accept_names": ["Coma Cluster"],
+      "stellarium_note": "Surveys are not Stellarium layers. As a sky gesture, Cartography focuses Coma Cluster—a classic node discussed in large-scale structure teaching—while the media card shows survey/reconstruction context.",
+      "constellation": "Com",
+      "summary": "The Sloan Digital Sky Survey mapped millions of galaxies in redshift space, revealing filaments, walls, and voids in reconstructed 3D maps.",
+      "why_suitable": "Canonical observational path to the cosmic web; strong institutional provenance.",
+      "teaching_points": [
+        "Redshift surveys convert sky position + redshift into a 3D galaxy map.",
+        "Those maps are reconstructions of structure, not a single photograph of the whole web."
+      ],
+      "media": {
+        "id": "sdss_science_hub",
+        "title": "SDSS Science — large-scale structure",
+        "organization": "Sloan Digital Sky Survey",
+        "credit": "SDSS Collaboration",
+        "classification": "observation",
+        "source_page_url": "https://www.sdss.org/science/",
+        "image_url": "https://noirlab.edu/public/media/archives/images/large/noirlab2110a.jpg",
+        "license_note": "Primary reference is the SDSS science page. Companion visualization uses NOIRLab public survey imagery with NOIRLab credit; classification shown in UI.",
+        "relation": "survey_context",
+        "note": "Image companion is NOIRLab survey visualization; SDSS page is the authoritative survey entry point."
+      },
+      "sources": [
+        {
+          "title": "SDSS Science",
+          "url": "https://www.sdss.org/science/",
+          "organization": "SDSS",
+          "classification": "observation"
+        },
+        {
+          "title": "NOIRLab — noirlab2110a survey visualization",
+          "url": "https://noirlab.edu/public/images/noirlab2110a/",
+          "organization": "NOIRLab",
+          "classification": "reconstruction"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "desi_map",
+      "name": "DESI galaxy distribution",
+      "short_name": "DESI",
+      "object_type": "redshift_survey",
+      "structure_role": "modern_survey",
+      "stellarium_search": "Fornax Cluster",
+      "stellarium_fov_deg": 5,
+      "stellarium_match_mode": "exact",
+      "stellarium_accept_names": ["Fornax Cluster"],
+      "stellarium_note": "DESI is a survey, not a Stellarium catalog object. Fornax Cluster is used as an optional southern rich-cluster sky anchor while discussing modern redshift mapping.",
+      "constellation": "For",
+      "summary": "DESI (Dark Energy Spectroscopic Instrument) is mapping tens of millions of galaxies to chart large-scale structure and cosmic expansion history.",
+      "why_suitable": "Current-generation authoritative survey with clear institutional hosting (LBNL/NOIRLab).",
+      "teaching_points": [
+        "Modern surveys extend the cosmic-web map to vast volumes.",
+        "Science goals include both structure geometry and cosmological parameters."
+      ],
+      "media": {
+        "id": "desi_home",
+        "title": "DESI — Dark Energy Spectroscopic Instrument",
+        "organization": "DESI / LBNL / NOIRLab",
+        "credit": "DESI Collaboration / LBNL / NOIRLab",
+        "classification": "reconstruction",
+        "source_page_url": "https://www.desi.lbl.gov/",
+        "image_url": "https://noirlab.edu/public/media/archives/images/large/noirlab2110a.jpg",
+        "license_note": "DESI project page is authoritative. Visualization uses NOIRLab public media; credit NOIRLab/DESI as applicable.",
+        "relation": "survey_context"
+      },
+      "sources": [
+        {
+          "title": "DESI home",
+          "url": "https://www.desi.lbl.gov/",
+          "organization": "DESI Collaboration",
+          "classification": "observation"
+        },
+        {
+          "title": "NOIRLab — noirlab2110a",
+          "url": "https://noirlab.edu/public/images/noirlab2110a/",
+          "organization": "NOIRLab",
+          "classification": "reconstruction"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "sim_structure",
+      "name": "Structure-formation simulation",
+      "short_name": "Simulation",
+      "object_type": "cosmological_simulation",
+      "structure_role": "simulation",
+      "stellarium_search": "Andromeda Galaxy",
+      "stellarium_fov_deg": 3,
+      "stellarium_match_mode": "exact",
+      "stellarium_accept_names": ["Andromeda Galaxy", "M31", "Andromeda"],
+      "stellarium_note": "Simulations are not Stellarium scenes. Optional sky anchor returns to Andromeda after discussing how models grow webs from early fluctuations.",
+      "constellation": "And",
+      "summary": "Cosmological simulations evolve matter under gravity (and often gas physics) from early fluctuations into filamentary webs, helping interpret survey maps.",
+      "why_suitable": "Makes the ILLUSTRATION vs SIMULATION distinction concrete with NASA public simulation imagery.",
+      "teaching_points": [
+        "Simulations are calculations, not photographs.",
+        "Agreement between surveys and simulations strengthens the gravity-driven web picture."
+      ],
+      "media": {
+        "id": "nasa_pia04921",
+        "title": "NASA Photojournal PIA04921 — simulated large-scale structure",
+        "organization": "NASA / JPL",
+        "credit": "NASA/JPL-Caltech",
+        "classification": "simulation",
+        "source_page_url": "https://photojournal.jpl.nasa.gov/catalog/PIA04921",
+        "image_url": "https://images-assets.nasa.gov/image/PIA04921/PIA04921~orig.jpg",
+        "license_note": "NASA public image; credit NASA/JPL-Caltech.",
+        "relation": "simulation_visualization"
+      },
+      "sources": [
+        {
+          "title": "NASA Photojournal PIA04921",
+          "url": "https://photojournal.jpl.nasa.gov/catalog/PIA04921",
+          "organization": "NASA/JPL",
+          "classification": "simulation"
+        }
+      ],
+      "enabled": true
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "name": "Hercules-Corona Borealis Great Wall",
+      "reason": "Claimed structure remains debated and is not appropriate as a casual planetarium anchor without heavy qualification."
+    },
+    {
+      "name": "Laniakea Supercluster as a Stellarium object",
+      "reason": "Laniakea is a reconstructed basin of attraction, not a single selectable sky object; mentioned only conceptually if at all."
+    }
+  ],
+  "provenance_hosts_allowed": [
+    "www.sdss.org",
+    "sdss.org",
+    "www.desi.lbl.gov",
+    "desi.lbl.gov",
+    "noirlab.edu",
+    "www.noirlab.edu",
+    "esahubble.org",
+    "cdn.esahubble.org",
+    "hubblesite.org",
+    "science.nasa.gov",
+    "www.nasa.gov",
+    "photojournal.jpl.nasa.gov",
+    "images-assets.nasa.gov",
+    "www.chandra.si.edu",
+    "chandra.si.edu"
+  ]
+}

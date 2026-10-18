@@ -1,0 +1,241 @@
+{
+  "id": "cosmic_dawn",
+  "title": "Cosmic Dawn",
+  "subtitle": "From the CMB to the first light",
+  "description": "Interactive exhibit on recombination, the cosmic microwave background, the dark ages, first stars and galaxies, reionization, JWST's early-galaxy frontier, and the cautious 21-cm radio search—linking conceptually to Cosmic Web without duplicating it.",
+  "estimated_minutes": 18,
+  "source_note": "Timeline epochs use approximate ages/redshifts with stated ranges. First-star properties and reionization details remain active research. 21-cm cosmology claims stay conservative. Stellarium shows present-day optical sky only—not the early Universe.",
+  "illustrative_disclaimer": "ILLUSTRATIVE TIMELINE & REIONIZATION SKETCHES — educational transitions, not precision cosmology simulations unless separately labeled.",
+  "audio_autoplay": false,
+  "classification_legend": {
+    "observation": "Telescope or spacecraft data products",
+    "reconstruction": "Processed maps/images reconstructed from observations (e.g. CMB all-sky maps)",
+    "simulation": "Numerical early-Universe or structure simulation",
+    "theoretical_model": "Standard-cosmology concept with stated assumptions",
+    "illustration": "Educational interactive diagram"
+  },
+  "science": {
+    "hot_plasma": "In the early Universe, matter was a hot ionized plasma tightly coupled to radiation. Photons scattered frequently off free electrons.",
+    "recombination": "As the Universe cooled (roughly a few hundred thousand years after the Big Bang; redshift z~1100), electrons combined with nuclei into neutral atoms—recombination—and photon scattering plummeted.",
+    "cmb": "Those freed photons form the cosmic microwave background: an all-sky microwave glow mapped by COBE, WMAP, and Planck. Maps are processed observations, not optical photographs.",
+    "dark_ages": "After the CMB, before stars lit up, the Universe entered the dark ages: mostly neutral hydrogen, no starlight yet, while gravity continued amplifying density fluctuations.",
+    "first_stars": "First stars (often called Population III) are expected from primordial H/He gas. Exact masses, multiplicity, and lifetimes remain uncertain research topics—not settled textbook numbers.",
+    "first_galaxies": "Gas collected in growing dark-matter halos, formed stars, and assembled early galaxies through accretion and mergers—foreshadowing Cosmic Web structure.",
+    "reionization": "Ionizing radiation from early luminous sources carved ionized bubbles that grew and overlapped until most intergalactic hydrogen became ionized. Timing and dominant sources remain active research (roughly first billion years; high redshift).",
+    "redshift": "Cosmological redshift tracks expansion of space: light from earlier epochs arrives stretched. Higher redshift generally means looking farther back—not merely ordinary Doppler motion through static space.",
+    "twenty_one_cm": "Neutral hydrogen's 21-cm line can in principle probe dark ages and reionization after cosmological redshift. Foregrounds make detection extremely hard; do not overstate current claims.",
+    "jwst": "JWST observes highly redshifted galaxies. Photometric candidates need careful confirmation; 'earliest ever' headlines evolve as spectroscopy and models improve."
+  },
+  "timeline_lab": {
+    "kind": "illustrative",
+    "classification": "illustration",
+    "label": "ILLUSTRATIVE COSMIC TIMELINE — APPROXIMATE EPOCHS",
+    "disclaimer": "Ages and redshifts are teaching ranges, not exact clocks. Model-dependent details remain.",
+    "epochs": [
+      {"id": "hot", "label": "Hot early plasma", "progress": 0.0, "z_approx": ">1100", "age_note": "≪1 Myr", "caption": "Ionized plasma tightly coupled to radiation."},
+      {"id": "recombination", "label": "Recombination", "progress": 0.12, "z_approx": "~1100", "age_note": "~0.37 Myr", "caption": "Electrons bind into neutral atoms; scattering drops."},
+      {"id": "cmb", "label": "CMB release", "progress": 0.18, "z_approx": "~1100", "age_note": "~0.37 Myr", "caption": "Photons begin free-streaming—today's microwave background."},
+      {"id": "dark_ages", "label": "Dark ages", "progress": 0.35, "z_approx": "~1100→~30", "age_note": "~0.4 Myr–100 Myr", "caption": "Neutral hydrogen, no stars yet; gravity grows structure."},
+      {"id": "first_stars", "label": "First stars", "progress": 0.5, "z_approx": "~20–30 (uncertain)", "age_note": "~100–200 Myr (uncertain)", "caption": "Primordial stars ignite—properties still researched."},
+      {"id": "first_galaxies", "label": "First galaxies", "progress": 0.62, "z_approx": "~10–15+", "age_note": "~300–500 Myr", "caption": "Early galaxies assemble in dark-matter halos."},
+      {"id": "reionization", "label": "Reionization", "progress": 0.78, "z_approx": "~6–10 (range)", "age_note": "~0.5–1 Gyr", "caption": "Ionized bubbles grow and overlap—timeline researched."},
+      {"id": "growth", "label": "Galaxy growth continues", "progress": 1.0, "z_approx": "<6 → 0", "age_note": "→ now", "caption": "Toward Cosmic Web clustering and mature galaxies."}
+    ]
+  },
+  "redshift_lab": {
+    "kind": "illustrative",
+    "classification": "theoretical_model",
+    "label": "LOOKBACK / REDSHIFT TEACHING AID",
+    "disclaimer": "Simplified teaching mapping—not a full cosmological calculator. Expansion stretches wavelengths.",
+    "points": [
+      "Higher redshift → light left earlier in cosmic history.",
+      "Cosmological redshift comes from expanding space, not just motion through fixed space.",
+      "Distance–redshift relations depend on cosmological parameters; treat numbers as approximate."
+    ]
+  },
+  "reionization_lab": {
+    "kind": "illustrative",
+    "classification": "illustration",
+    "label": "ILLUSTRATIVE REIONIZATION BUBBLES",
+    "disclaimer": "Pedagogical bubble growth—not a specific published simulation volume unless labeled.",
+    "stages": [
+      {"id": "neutral", "label": "Mostly neutral IGM", "progress": 0.0, "caption": "Intergalactic hydrogen largely neutral after recombination."},
+      {"id": "bubbles", "label": "Isolated ionized bubbles", "progress": 0.4, "caption": "Early sources carve H II regions."},
+      {"id": "overlap", "label": "Bubbles overlap", "progress": 0.75, "caption": "Ionized regions grow and merge."},
+      {"id": "ionized", "label": "Mostly ionized IGM", "progress": 1.0, "caption": "Reionization largely complete—exact end still constrained observationally."}
+    ]
+  },
+  "structure_lab": {
+    "kind": "illustrative",
+    "classification": "illustration",
+    "label": "EARLY STRUCTURE GROWTH (DAWN SCALE)",
+    "disclaimer": "Tiny educational density field—connects to Cosmic Web Special without duplicating its survey lab.",
+    "related_special": "cosmic_web"
+  },
+  "twenty_one_cm": {
+    "classification": "theoretical_model",
+    "label": "21-cm COSMOLOGY — FRONTIER",
+    "disclaimer": "Concept and experimental challenge. Do not claim a definitive cosmological 21-cm detection map here. Foregrounds dominate.",
+    "points": [
+      "Neutral hydrogen has a 21-cm hyperfine line.",
+      "Cosmological expansion shifts the line to lower observed frequencies.",
+      "In principle this probes dark ages and reionization.",
+      "Bright foregrounds make the measurement extraordinarily difficult.",
+      "Projects such as HERA, LOFAR, and SKA-pathfinders pursue this frontier."
+    ]
+  },
+  "objects": [
+    {
+      "id": "planck_cmb",
+      "name": "Cosmic Microwave Background",
+      "short_name": "CMB",
+      "kind": "cmb",
+      "significance": "Oldest light we can map across the whole sky—released near recombination.",
+      "epoch_note": "z~1100; age ~370,000 years (approximate).",
+      "stellarium_search": null,
+      "stellarium_fov_deg": null,
+      "stellarium_match_mode": "unavailable",
+      "stellarium_note": "The CMB is an all-sky microwave background. Stellarium's optical sky cannot display it—use the map card, not a fake catalog object.",
+      "media": {
+        "id": "nasa_pia16874_planck",
+        "title": "NASA Photojournal PIA16874 — Planck CMB map",
+        "organization": "ESA / NASA Planck",
+        "credit": "ESA and the Planck Collaboration",
+        "classification": "reconstruction",
+        "source_page_url": "https://photojournal.jpl.nasa.gov/catalog/PIA16874",
+        "image_url": "https://images-assets.nasa.gov/image/PIA16874/PIA16874~orig.jpg",
+        "license_note": "NASA public image; processed all-sky CMB map from Planck data.",
+        "relation": "cmb_map"
+      },
+      "sources": [
+        {
+          "title": "NASA Photojournal — Planck CMB",
+          "url": "https://photojournal.jpl.nasa.gov/catalog/PIA16874",
+          "organization": "NASA / ESA Planck",
+          "classification": "reconstruction"
+        }
+      ]
+    },
+    {
+      "id": "hubble_udf",
+      "name": "Hubble Ultra Deep Field region",
+      "short_name": "HUDF region",
+      "kind": "deep_field",
+      "significance": "Deep optical/NIR imaging that revealed numerous distant galaxies—a bridge toward Cosmic Dawn observations.",
+      "epoch_note": "Observed galaxies span a wide redshift range; not a single dawn snapshot.",
+      "stellarium_search": "Fornax Cluster",
+      "stellarium_fov_deg": 4.0,
+      "stellarium_match_mode": "host_sky",
+      "stellarium_accept_names": ["Fornax Cluster"],
+      "stellarium_note": "HUDF lies in the Fornax constellation direction. Stellarium focuses the Fornax Cluster as honest host-sky context—not the HUDF frame itself.",
+      "media": {
+        "id": "hubble_heic0714a",
+        "title": "ESA/Hubble — Hubble Ultra Deep Field",
+        "organization": "ESA/Hubble",
+        "credit": "NASA, ESA, and S. Beckwith (STScI) and the HUDF Team",
+        "classification": "observation",
+        "source_page_url": "https://esahubble.org/images/heic0714a/",
+        "image_url": "https://cdn.esahubble.org/archives/images/screen/heic0714a.jpg",
+        "license_note": "ESA/Hubble public image; follow ESA/Hubble credit guidelines.",
+        "relation": "deep_field"
+      },
+      "sources": [
+        {
+          "title": "ESA/Hubble — HUDF",
+          "url": "https://esahubble.org/images/heic0714a/",
+          "organization": "ESA/Hubble",
+          "classification": "observation"
+        }
+      ]
+    },
+    {
+      "id": "jwst_pandora",
+      "name": "JWST deep-field frontier (Abell 2744)",
+      "short_name": "JWST / Pandora",
+      "kind": "jwst",
+      "significance": "JWST images lensing clusters and blank fields to find highly redshifted galaxies. Photometric candidates require careful confirmation.",
+      "epoch_note": "High-redshift galaxy science is rapidly evolving; avoid hard-coded 'earliest ever' claims.",
+      "stellarium_search": "Abell 2744",
+      "stellarium_fov_deg": 1.5,
+      "stellarium_match_mode": "exact",
+      "stellarium_accept_names": ["Pandora's Cluster", "Pandora’s Cluster", "Abell 2744"],
+      "stellarium_note": "Focuses Abell 2744 (Pandora's Cluster)—a JWST lensing/deep-field host. Stellarium shows the present-day cluster sky, not Cosmic Dawn itself.",
+      "media": {
+        "id": "nasa_jwst_smacs_context",
+        "title": "NASA — JWST deep field (SMACS 0723 context image)",
+        "organization": "NASA / STScI / ESA / CSA",
+        "credit": "NASA, ESA, CSA, STScI",
+        "classification": "observation",
+        "source_page_url": "https://www.nasa.gov/image-article/nasas-webb-delivers-deepest-infrared-image-of-universe-yet/",
+        "image_url": "https://www.nasa.gov/wp-content/uploads/2023/03/main_image_deep_field_smacs0723-5mb.jpg",
+        "license_note": "NASA public image. Example JWST deep infrared field; claims about individual 'first' galaxies require spectroscopic follow-up.",
+        "relation": "jwst_deep_field"
+      },
+      "sources": [
+        {
+          "title": "NASA — Webb deepest infrared image",
+          "url": "https://www.nasa.gov/image-article/nasas-webb-delivers-deepest-infrared-image-of-universe-yet/",
+          "organization": "NASA",
+          "classification": "observation"
+        }
+      ]
+    },
+    {
+      "id": "first_stars_sim",
+      "name": "First-star era (simulation context)",
+      "short_name": "First stars",
+      "kind": "simulation",
+      "significance": "Visualizations of early star formation are theoretical/simulation products—not direct photographs of Population III stars.",
+      "epoch_note": "Masses and timing remain uncertain.",
+      "stellarium_search": "Fornax Cluster",
+      "stellarium_fov_deg": 5.0,
+      "stellarium_match_mode": "host_sky",
+      "stellarium_accept_names": ["Fornax Cluster"],
+      "stellarium_note": "No catalog 'first star.' Optional return to Fornax deep-sky context after viewing simulation media.",
+      "media": {
+        "id": "nasa_pia15417_early",
+        "title": "NASA Photojournal PIA15417 — early Universe / structure visualization",
+        "organization": "NASA / JPL",
+        "credit": "NASA/JPL-Caltech",
+        "classification": "simulation",
+        "source_page_url": "https://photojournal.jpl.nasa.gov/catalog/PIA15417",
+        "image_url": "https://images-assets.nasa.gov/image/PIA15417/PIA15417~orig.jpg",
+        "license_note": "NASA public image; simulation/visualization—not an observation of Population III stars.",
+        "relation": "early_universe_simulation"
+      },
+      "sources": [
+        {
+          "title": "NASA Photojournal PIA15417",
+          "url": "https://photojournal.jpl.nasa.gov/catalog/PIA15417",
+          "organization": "NASA / JPL",
+          "classification": "simulation"
+        }
+      ]
+    }
+  ],
+  "narration": {
+    "lookback": "Looking deep into the sky is looking back in time. Cosmic Dawn is the era when the Universe made its first starlight after the afterglow of the Big Bang.",
+    "recombination": "As space cooled, electrons joined nuclei. Photons stopped scattering endlessly—and the Universe became transparent to light.",
+    "cmb": "That freed light is the cosmic microwave background: the oldest map we can draw of the whole sky.",
+    "dark_ages": "Then came the dark ages—not empty, but without stars. Gravity kept sculpting invisible hills of dark matter and gas.",
+    "first_stars": "Somewhere in those hills, the first stars ignited. Their exact sizes remain an open research question.",
+    "first_galaxies": "Galaxies grew from collapsing gas in dark-matter halos—the early chapters of the Cosmic Web story.",
+    "reionization": "Starlight and early galaxies carved ionized bubbles that grew until the fog of neutral hydrogen cleared.",
+    "jwst": "JWST peers toward that dawn with infrared eyes. Candidates need careful redshift checks as the frontier moves.",
+    "twenty_one_cm": "Radio astronomers listen for neutral hydrogen's 21-centimeter whisper—an extremely difficult, still-developing probe.",
+    "closing": "From microwave afterglow to first firelight, Cosmic Dawn bridges the hot beginning to the galaxies we map today."
+  },
+  "provenance_hosts_allowed": [
+    "images-assets.nasa.gov",
+    "photojournal.jpl.nasa.gov",
+    "www.nasa.gov",
+    "nasa.gov",
+    "science.nasa.gov",
+    "cdn.esahubble.org",
+    "esahubble.org",
+    "webbtelescope.org",
+    "noirlab.edu",
+    "www.esa.int",
+    "www.cosmos.esa.int"
+  ]
+}

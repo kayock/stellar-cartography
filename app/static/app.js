@@ -428,6 +428,12 @@ function playCosmicSignal() {
   media.hidden = false;
   media.src = entry.media_url;
   el.cosmicSignalStatus.textContent = "Loading signal after your playback request…";
+  if (window.CartographyAudio) {
+    window.CartographyAudio.acquire("cosmic_signal", {
+      pause: stopCosmicSignal,
+      stop: stopCosmicSignal,
+    });
+  }
   const result = media.play();
   if (result && typeof result.catch === "function") {
     result.catch(() => {
@@ -662,6 +668,15 @@ function renderTargetCard() {
     resetArchiveAvailabilityLights();
     resetCosmicSignalDeck();
     resetSpectrumGallery();
+    if (window.ExperienceLayer && typeof window.ExperienceLayer.onTargetChange === "function") {
+      window.ExperienceLayer.onTargetChange(null);
+    }
+    if (window.ConstellationStory && typeof window.ConstellationStory.onTargetChange === "function") {
+      window.ConstellationStory.onTargetChange(null);
+    }
+    if (window.OfficialMedia && typeof window.OfficialMedia.onTargetChange === "function") {
+      window.OfficialMedia.onTargetChange(null);
+    }
     return;
   }
 
@@ -708,6 +723,15 @@ function renderTargetCard() {
   syncArchiveAvailabilityChecks(t);
   syncCosmicSignalDeck(t);
   syncSpectrumGallery(t);
+  if (window.ExperienceLayer && typeof window.ExperienceLayer.onTargetChange === "function") {
+    window.ExperienceLayer.onTargetChange(t || null);
+  }
+  if (window.ConstellationStory && typeof window.ConstellationStory.onTargetChange === "function") {
+    window.ConstellationStory.onTargetChange(t || null);
+  }
+  if (window.OfficialMedia && typeof window.OfficialMedia.onTargetChange === "function") {
+    window.OfficialMedia.onTargetChange(t || null);
+  }
 }
 
 function getViewerFovDeg(target) {
@@ -2633,6 +2657,42 @@ setInterval(pollStellariumStatus, 6000);
 // load handler, etc.) instead of a re-implementation of them. Has no
 // effect in the browser, where `module` is undefined and this block never
 // runs.
+function applyStellariumSelectionData(data) {
+  if (!data || !data.ok) return false;
+  state.currentTarget = TargetModel.buildTargetFromSelection(data);
+  renderTargetCard();
+  return true;
+}
+
+function openCosmicSignalFromStory(entry, available) {
+  if (!entry) return Promise.resolve();
+  return ensureCosmicSignalHosts().then(() => {
+    showCosmicSignalEntry(entry, {
+      featured: entry.story_relation === "general",
+      relevance: entry.relevance || "exact_target",
+      availableSignals: available || [entry],
+    });
+  }).catch(() => {});
+}
+
+function scrollToCosmicSignalDeck() {
+  if (el.cosmicSignalDeckCard && typeof el.cosmicSignalDeckCard.scrollIntoView === "function") {
+    el.cosmicSignalDeckCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+}
+
+window.CartographySelection = {
+  apply: applyStellariumSelectionData,
+};
+
+window.CartographyDeck = {
+  openSignal: openCosmicSignalFromStory,
+  play: playCosmicSignal,
+  stop: stopCosmicSignal,
+  openSpectrum: showSpectrumGalleryEntry,
+  scrollToDeck: scrollToCosmicSignalDeck,
+};
+
 if (typeof module === "object" && module.exports) {
   module.exports = {
     state,
@@ -2672,5 +2732,7 @@ if (typeof module === "object" && module.exports) {
     applyApophisEphemerisToTarget,
     watchlistWritesAllowed,
     markWatchlistLoadFailed,
+    applyStellariumSelectionData,
+    openCosmicSignalFromStory,
   };
 }

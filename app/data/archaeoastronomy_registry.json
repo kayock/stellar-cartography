@@ -1,0 +1,428 @@
+{
+  "version": 1,
+  "notes": "Visual-mode metadata only. Production visuals require production=true and a READY story. DISPUTED/SPECULATIVE claims stay in research_context.",
+  "eligible_story_types": [
+    "archaeoastronomy",
+    "solar_alignment",
+    "lunar_alignment",
+    "architectural_alignment",
+    "horizon_calendar",
+    "solar_lunar_alignment"
+  ],
+  "primary_confidence": [
+    "strong_evidence",
+    "scholarly_interpretation"
+  ],
+  "research_only_confidence": [
+    "disputed",
+    "speculative"
+  ],
+  "entries": [
+    {
+      "id": "ancestral_puebloan_fajada_sun_dagger",
+      "production": true,
+      "promotion_status": "READY",
+      "visual_mode": "fajada_schematic",
+      "story_type": "archaeoastronomy",
+      "confidence": "scholarly_interpretation",
+      "horizon_model": "idealized",
+      "horizon_note": "Idealized horizon. Local terrain elevation is not modeled.",
+      "schematic_label": "interpretive schematic",
+      "precision_note": "This drawing is an interpretive schematic, not a measured archaeological reconstruction of slab spacing or current light geometry.",
+      "site_context": {
+        "site": "Fajada Butte, Chaco Culture National Historical Park",
+        "culture_label": "Ancestral Puebloan",
+        "region": "Chaco Canyon, northwestern New Mexico",
+        "date_range": "c. AD 900–1150 (public interpretive range)",
+        "evidence_type": "archaeological_inference",
+        "source_institution": "U.S. National Park Service; Science / Solstice Project",
+        "interpretation_status": "scholarly_interpretation",
+        "coordinates_public": true,
+        "coordinates_sensitivity": "public_park",
+        "latitude": 36.06,
+        "longitude": -107.96,
+        "coordinates_note": "Widely published Chaco Culture NHP vicinity. Not a restricted feature GPS and not a pin on the closed slab site."
+      },
+      "historical_dates": [
+        {
+          "id": "fajada_ad1000_solstice",
+          "label": "AD 1000 summer solstice (UTC noon analog)",
+          "utc": "1000-06-21T19:00:00Z",
+          "kind": "astronomical_reconstruction",
+          "note": "Modern planetarium simulation of a historical calendar date. Stellarium does not prove the archaeological interpretation."
+        }
+      ],
+      "visual_claims": [
+        {
+          "id": "three_slabs",
+          "label": "Three sandstone slabs channel midday light",
+          "shown_in": "primary",
+          "confidence": "strong_evidence",
+          "source_ids": ["sofaer_1979", "nps_archeoastronomy_stone"]
+        },
+        {
+          "id": "spiral_petroglyphs",
+          "label": "Light falls on spiral petroglyphs",
+          "shown_in": "primary",
+          "confidence": "strong_evidence",
+          "source_ids": ["sofaer_1979", "nps_archeoastronomy_stone"]
+        },
+        {
+          "id": "solstice_equinox_calendar",
+          "label": "NPS / 1979 literature interpret solstice and equinox marking",
+          "shown_in": "primary",
+          "confidence": "scholarly_interpretation",
+          "source_ids": ["nps_archeoastronomy_stone", "sofaer_1979"]
+        },
+        {
+          "id": "current_geometry_changed",
+          "label": "Visitor erosion shifted the slabs; the original centered summer pattern no longer occurs",
+          "shown_in": "research",
+          "confidence": "strong_evidence",
+          "source_ids": ["nps_archeoastronomy_stone"]
+        },
+        {
+          "id": "lunar_standstill",
+          "label": "Lunar-standstill reading of the same construct",
+          "shown_in": "research",
+          "confidence": "disputed",
+          "source_ids": ["nps_archeoastronomy_stone"]
+        }
+      ],
+      "sources": [
+        {
+          "id": "nps_archeoastronomy_stone",
+          "title": "Archeoastronomy in Stone",
+          "institution": "U.S. National Park Service",
+          "date": "2024-01-23",
+          "url": "https://www.nps.gov/articles/000/archeoastronomy-in-stone.htm",
+          "evidence_type": "archaeological_inference",
+          "interpretation_status": "scholarly_interpretation"
+        },
+        {
+          "id": "sofaer_1979",
+          "title": "A Unique Solar Marking Construct",
+          "institution": "Science / Solstice Project",
+          "date": "1979",
+          "url": "https://solsticeproject.org/wp-content/uploads/2021/12/19-uniquesolar2028197929.pdf",
+          "evidence_type": "archaeological_inference",
+          "interpretation_status": "scholarly_interpretation"
+        }
+      ],
+      "schematic": {
+        "kind": "fajada_slabs",
+        "slabs": 3,
+        "spirals": ["large", "small"],
+        "light_events": ["summer_solstice", "equinox", "winter_solstice"]
+      }
+    },
+    {
+      "id": "ancestral_puebloan_chaco_cardinal",
+      "production": true,
+      "promotion_status": "READY",
+      "visual_mode": "cardinal_architecture",
+      "story_type": "solar_lunar_alignment",
+      "confidence": "strong_evidence",
+      "horizon_model": "idealized",
+      "horizon_note": "Idealized horizon. Local terrain elevation is not modeled.",
+      "schematic_label": "interpretive schematic",
+      "precision_note": "Simplified orientation diagram. Only surveyed near-cardinal axes are drawn. Unsupported lunar or niche-light alignments are omitted.",
+      "site_context": {
+        "site": "Pueblo Bonito and related Chaco constructions",
+        "culture_label": "Ancestral Puebloan",
+        "region": "Chaco Canyon, northwestern New Mexico",
+        "date_range": "c. AD 850–1150",
+        "evidence_type": "archaeological_inference",
+        "source_institution": "U.S. National Park Service, Chaco Culture National Historical Park",
+        "interpretation_status": "strong_evidence",
+        "coordinates_public": true,
+        "coordinates_sensitivity": "public_park",
+        "latitude": 36.06,
+        "longitude": -107.96,
+        "coordinates_note": "Widely published Chaco Culture NHP / Pueblo Bonito vicinity. Not a restricted feature GPS."
+      },
+      "historical_dates": [
+        {
+          "id": "chaco_ad1050_equinox",
+          "label": "AD 1050 equinox (UTC noon analog)",
+          "utc": "1050-03-21T19:00:00Z",
+          "kind": "astronomical_reconstruction",
+          "note": "Modern planetarium simulation of a historical calendar date. Stellarium does not prove the archaeological interpretation."
+        }
+      ],
+      "visual_claims": [
+        {
+          "id": "cardinal_ns",
+          "label": "Near true north–south building axis",
+          "shown_in": "primary",
+          "confidence": "strong_evidence",
+          "source_ids": ["nps_pueblo_bonito", "nps_archeoastronomy_stone"]
+        },
+        {
+          "id": "cardinal_ew",
+          "label": "Near true east–west building axis",
+          "shown_in": "primary",
+          "confidence": "strong_evidence",
+          "source_ids": ["nps_pueblo_bonito", "nps_archeoastronomy_stone"]
+        },
+        {
+          "id": "solar_noon_equinox",
+          "label": "Cardinal axes can mark solar noon and equinox sunrises/sunsets",
+          "shown_in": "primary",
+          "confidence": "scholarly_interpretation",
+          "source_ids": ["nps_archeoastronomy_stone"]
+        },
+        {
+          "id": "casa_rinconada_niche",
+          "label": "Casa Rinconada summer-solstice niche light",
+          "shown_in": "research",
+          "confidence": "disputed",
+          "source_ids": ["nps_archeoastronomy_stone"]
+        }
+      ],
+      "sources": [
+        {
+          "id": "nps_pueblo_bonito",
+          "title": "Pueblo Bonito",
+          "institution": "U.S. National Park Service, Chaco Culture National Historical Park",
+          "date": "2017-12-18",
+          "url": "https://www.nps.gov/chcu/planyourvisit/pueblo-bonito.htm",
+          "evidence_type": "archaeological_inference",
+          "interpretation_status": "strong_evidence"
+        },
+        {
+          "id": "nps_archeoastronomy_stone",
+          "title": "Archeoastronomy in Stone",
+          "institution": "U.S. National Park Service",
+          "date": "2024-01-23",
+          "url": "https://www.nps.gov/articles/000/archeoastronomy-in-stone.htm",
+          "evidence_type": "archaeological_inference",
+          "interpretation_status": "scholarly_interpretation"
+        }
+      ],
+      "schematic": {
+        "kind": "cardinal_plan",
+        "axes": ["north_south", "east_west"],
+        "solar_markers": ["solar_noon", "equinox"],
+        "omitted": ["lunar_standstill", "casa_rinconada_niche_light"]
+      }
+    },
+    {
+      "id": "ancestral_puebloan_holly_solstice_panel",
+      "production": true,
+      "promotion_status": "READY",
+      "visual_mode": "horizon_calendar",
+      "story_type": "horizon_calendar",
+      "confidence": "scholarly_interpretation",
+      "horizon_model": "idealized",
+      "horizon_note": "Idealized horizon. Local terrain elevation is not modeled.",
+      "schematic_label": "interpretive schematic",
+      "precision_note": "Interpretive schematic of a boulder gap and petroglyph face. Not a surveyed reconstruction of the Holly Unit.",
+      "site_context": {
+        "site": "Holly Petroglyph Panel, Hovenweep National Monument",
+        "culture_label": "Ancestral Puebloan",
+        "region": "Cajon Mesa / southeastern Utah–southwestern Colorado",
+        "date_range": "c. AD 1200–1300",
+        "evidence_type": "archaeological_inference",
+        "source_institution": "U.S. National Park Service, Hovenweep National Monument",
+        "interpretation_status": "scholarly_interpretation",
+        "coordinates_public": true,
+        "coordinates_sensitivity": "public_park",
+        "latitude": 37.38,
+        "longitude": -109.08,
+        "coordinates_note": "Widely published Hovenweep National Monument vicinity. Not a restricted feature GPS."
+      },
+      "historical_dates": [
+        {
+          "id": "holly_ad1250_solstice",
+          "label": "AD 1250 summer solstice (UTC sunrise analog)",
+          "utc": "1250-06-21T12:30:00Z",
+          "kind": "astronomical_reconstruction",
+          "note": "Modern planetarium simulation of a historical calendar date. Stellarium does not prove the archaeological interpretation."
+        }
+      ],
+      "visual_claims": [
+        {
+          "id": "boulder_gap_light",
+          "label": "A narrow gap between boulders admits a summer-solstice light beam",
+          "shown_in": "primary",
+          "confidence": "strong_evidence",
+          "source_ids": ["nps_holly_panel", "nps_holly_group"]
+        },
+        {
+          "id": "bisects_petroglyphs",
+          "label": "The beam bisects spiral and concentric-circle petroglyphs on and near the solstice",
+          "shown_in": "primary",
+          "confidence": "strong_evidence",
+          "source_ids": ["nps_holly_panel", "nps_holly_group"]
+        },
+        {
+          "id": "ancestral_intent",
+          "label": "NPS interprets the panel as a summer-solstice marker used by Ancestral Puebloan observers",
+          "shown_in": "primary",
+          "confidence": "scholarly_interpretation",
+          "source_ids": ["nps_holly_panel", "nps_holly_group"]
+        }
+      ],
+      "sources": [
+        {
+          "id": "nps_holly_panel",
+          "title": "Holly Petroglyph Panel",
+          "institution": "U.S. National Park Service, Hovenweep National Monument",
+          "date": "2025-04-29",
+          "url": "https://www.nps.gov/places/hollypetropanel.htm",
+          "evidence_type": "archaeological_inference",
+          "interpretation_status": "scholarly_interpretation"
+        },
+        {
+          "id": "nps_holly_group",
+          "title": "Holly Group",
+          "institution": "U.S. National Park Service, Hovenweep National Monument",
+          "url": "https://www.nps.gov/hove/planyourvisit/holly.htm",
+          "evidence_type": "archaeological_inference",
+          "interpretation_status": "scholarly_interpretation"
+        }
+      ],
+      "schematic": {
+        "kind": "holly_panel",
+        "features": ["boulder_gap", "spirals", "solstice_beam"]
+      }
+    },
+    {
+      "id": "mexica_templo_mayor_solar",
+      "production": true,
+      "promotion_status": "READY",
+      "visual_mode": "solar_horizon",
+      "story_type": "solar_lunar_alignment",
+      "confidence": "scholarly_interpretation",
+      "horizon_model": "idealized",
+      "horizon_note": "Idealized horizon. Eastern mountain profiles are labeled, not surveyed terrain.",
+      "schematic_label": "interpretive schematic",
+      "precision_note": "Interpretive horizon diagram. Exact measured azimuths from scholarship are not redrawn as a survey plot.",
+      "site_context": {
+        "site": "Templo Mayor / Tenochtitlan",
+        "culture_label": "historical Mexica",
+        "region": "Basin of Mexico",
+        "date_range": "c. AD 1325–1521",
+        "evidence_type": "archaeological_inference",
+        "source_institution": "PNAS; INAH / public archaeoastronomy literature",
+        "interpretation_status": "scholarly_interpretation",
+        "coordinates_public": true,
+        "coordinates_sensitivity": "public_park",
+        "latitude": 19.43,
+        "longitude": -99.13,
+        "coordinates_note": "Widely published Mexico City / Templo Mayor vicinity."
+      },
+      "historical_dates": [
+        {
+          "id": "templo_ad1507_new_fire_year",
+          "label": "AD 1507 (xiuhmolpilli year analog)",
+          "utc": "1507-11-14T13:00:00Z",
+          "kind": "astronomical_reconstruction",
+          "note": "Modern planetarium simulation of a historical calendar date associated in scholarship with a New Fire year. Stellarium does not prove the Templo Mayor alignment."
+        }
+      ],
+      "visual_claims": [
+        {
+          "id": "eastern_sunrise",
+          "label": "Eastern sunrise alignments toward mountain foresights",
+          "shown_in": "primary",
+          "confidence": "scholarly_interpretation",
+          "source_ids": ["pnas_2022"]
+        },
+        {
+          "id": "mount_tlaloc",
+          "label": "Mount Tlaloc as a cited agricultural-year foresight",
+          "shown_in": "primary",
+          "confidence": "scholarly_interpretation",
+          "source_ids": ["pnas_2022"]
+        }
+      ],
+      "sources": [
+        {
+          "id": "pnas_2022",
+          "title": "Ancient inhabitants of the Basin of Mexico kept an accurate agricultural calendar using sunrise observatories and mountain alignments",
+          "institution": "PNAS",
+          "date": "2022",
+          "url": "https://www.pnas.org/doi/10.1073/pnas.2215615119",
+          "evidence_type": "archaeological_inference",
+          "interpretation_status": "scholarly_interpretation"
+        }
+      ],
+      "schematic": {
+        "kind": "solar_horizon",
+        "markers": ["summer_solstice", "equinox", "winter_solstice"],
+        "foresights": ["Mount Tlaloc (labeled, idealized)"]
+      }
+    },
+    {
+      "id": "mesa_verde_sun_temple",
+      "production": false,
+      "promotion_status": "RESEARCH_MORE",
+      "visual_mode": "solar_horizon",
+      "story_type": "architectural_alignment",
+      "confidence": "scholarly_interpretation",
+      "foundation_only": true,
+      "foundation_note": "Mesa Verde visual architecture is reserved. Fewkes' south-wall solstice alignment is disproved. NPS treats Cliff Palace–Sun Temple winter-sunset use as possible, not confirmed.",
+      "horizon_model": "idealized",
+      "horizon_note": "Idealized horizon. Local terrain elevation is not modeled.",
+      "schematic_label": "interpretive schematic",
+      "precision_note": "Foundation schematic only. Not shown in production Stories of the Sky.",
+      "site_context": {
+        "site": "Sun Temple / Cliff Palace, Mesa Verde National Park",
+        "culture_label": "Ancestral Puebloan",
+        "region": "southwestern Colorado",
+        "date_range": "c. AD 1200s",
+        "evidence_type": "archaeological_inference",
+        "source_institution": "U.S. National Park Service, Mesa Verde National Park",
+        "interpretation_status": "scholarly_interpretation",
+        "coordinates_public": true,
+        "coordinates_sensitivity": "public_park",
+        "latitude": 37.17,
+        "longitude": -108.49,
+        "coordinates_note": "Widely published Mesa Verde National Park vicinity."
+      },
+      "historical_dates": [],
+      "visual_claims": [
+        {
+          "id": "fewkes_south_wall",
+          "label": "Fewkes' claim that the south wall aligns to solstice sunrise/sunset",
+          "shown_in": "research",
+          "confidence": "disputed",
+          "source_ids": ["reyman_1977", "nps_sun_temple"]
+        },
+        {
+          "id": "cliff_palace_sunset",
+          "label": "Possible winter-solstice sunset marker as seen from Cliff Palace",
+          "shown_in": "research",
+          "confidence": "scholarly_interpretation",
+          "source_ids": ["nps_sun_temple"]
+        }
+      ],
+      "sources": [
+        {
+          "id": "nps_sun_temple",
+          "title": "Sun Temple",
+          "institution": "U.S. National Park Service, Mesa Verde National Park",
+          "date": "2024-10-10",
+          "url": "https://www.nps.gov/places/sun-temple.htm",
+          "evidence_type": "archaeological_inference",
+          "interpretation_status": "scholarly_interpretation"
+        },
+        {
+          "id": "reyman_1977",
+          "title": "Solstice Misalignment at Sun Temple: Correcting Fewkes",
+          "institution": "Kiva",
+          "date": "1977",
+          "url": "https://www.tandfonline.com/doi/abs/10.1080/00231940.1977.11757867",
+          "evidence_type": "archaeological_inference",
+          "interpretation_status": "disputed"
+        }
+      ],
+      "schematic": {
+        "kind": "solar_horizon",
+        "markers": ["winter_solstice"]
+      }
+    }
+  ]
+}

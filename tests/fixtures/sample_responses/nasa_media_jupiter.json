@@ -1,0 +1,48 @@
+{
+  "collection": {
+    "items": [
+      {
+        "data": [
+          {
+            "center": "JPL",
+            "date_created": "2017-05-25T00:00:00Z",
+            "description": "JunoCam image of Jupiter's clouds.",
+            "keywords": ["Jupiter", "Juno"],
+            "media_type": "image",
+            "nasa_id": "PIA21641",
+            "title": "Jupiter from Juno"
+          }
+        ],
+        "links": [
+          {
+            "href": "https://images-assets.nasa.gov/image/PIA21641/PIA21641~thumb.jpg",
+            "rel": "preview"
+          }
+        ]
+      },
+      {
+        "data": [
+          {
+            "center": "JPL",
+            "date_created": "2016-07-04T00:00:00Z",
+            "description": "Narrated explainer about Jupiter's atmosphere from Juno.",
+            "keywords": ["Jupiter", "Juno"],
+            "media_type": "video",
+            "nasa_id": "Juno_Jupiter_Explainer",
+            "title": "Jupiter Explainer"
+          }
+        ],
+        "links": [
+          {
+            "href": "https://images-assets.nasa.gov/video/Juno_Jupiter_Explainer/Juno_Jupiter_Explainer~thumb.jpg",
+            "rel": "preview"
+          },
+          {
+            "href": "https://images-assets.nasa.gov/video/Juno_Jupiter_Explainer/Juno_Jupiter_Explainer~orig.mp4",
+            "rel": "canonical"
+          }
+        ]
+      }
+    ]
+  }
+}
