@@ -50,6 +50,10 @@ python3 -m unittest discover -s tests -v
 
 Optional Node frontend tests: `node --test tests/frontend/*.test.js` (Node ≥ 18).
 
+## Voice (optional)
+
+Narration hooks are built in; TTS is optional. See [docs/VOICE_AND_NARRATION.md](docs/VOICE_AND_NARRATION.md).
+
 ## More
 
 - Product overview: [README.md](README.md)

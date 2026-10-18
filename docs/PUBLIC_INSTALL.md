@@ -96,6 +96,22 @@ node --test tests/frontend/*.test.js
 Some tests that require a live Stellarium instance may skip or soft-fail when
 Remote Control is unreachable; core Specials and registry tests should run offline.
 
+
+## Optional voice / narration
+
+No voice service is required. Cartography already has narration hooks; spoken
+audio only appears when a compatible local TTS endpoint is available and the
+user presses play.
+
+To allow a non-loopback TTS host (still limited to the app’s HTTPS port/path
+rules):
+
+```bash
+export STELLAR_CARTOGRAPHY_TTS_HOSTS=tts.example.local
+```
+
+Full details: [`VOICE_AND_NARRATION.md`](VOICE_AND_NARRATION.md).
+
 ## Troubleshooting
 
 | Symptom | Check |

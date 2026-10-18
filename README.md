@@ -14,8 +14,14 @@ New here? Start with **[`START_HERE.md`](START_HERE.md)** or **[`docs/PUBLIC_INS
 - **Stories of the Sky** / constellation tours and exhibit flows
 - **Six Specials:** Light Echoes · Cosmic Web · Gravitational Waves · Black Holes · Galactic Encounters · Cosmic Dawn
 - **NASA / Chandra / ESA / survey media** via remote URLs and provenance fields (not bundled binaries)
-- **Optional local TTS** (Father Fox / Kayock Voice style HTTPS endpoints on loopback)
+- **Voice narration ready (optional)** — built-in narration hooks and TTS proxy; works without a speech backend; compatible local HTTPS TTS via allowlisted hosts ([`docs/VOICE_AND_NARRATION.md`](docs/VOICE_AND_NARRATION.md))
 - **Stdlib-only Python runtime** (Python ≥ 3.9) — no pip packages required to run
+
+## Voice narration
+
+Stellar Cartography already includes **user-triggered narration** (text scripts plus an optional local TTS path). Autoplay stays off. No voice service is required to run the app. Details: [`docs/VOICE_AND_NARRATION.md`](docs/VOICE_AND_NARRATION.md).
+
+Future exhibit ideas (planning only): [`docs/FUTURE_EXHIBITS.md`](docs/FUTURE_EXHIBITS.md).
 
 ### Screenshots
 
@@ -117,10 +123,13 @@ node --test tests/frontend/*.test.js
 ## Provenance & license
 
 - Media / agency attribution: [`docs/MEDIA_PROVENANCE.md`](docs/MEDIA_PROVENANCE.md)
+- Voice / narration: [`docs/VOICE_AND_NARRATION.md`](docs/VOICE_AND_NARRATION.md)
+- Future exhibits (planning): [`docs/FUTURE_EXHIBITS.md`](docs/FUTURE_EXHIBITS.md)
 - Project license: [`LICENSE`](LICENSE) (MIT)
 - Security notes: [`SECURITY.md`](SECURITY.md)
 - Contributing: [`CONTRIBUTING.md`](CONTRIBUTING.md)
 - Project status: [`PROJECT_STATE.md`](PROJECT_STATE.md)
+
 
 ## History
 
